@@ -6,7 +6,27 @@
 	<packaging>jar</packaging>
 	<version>0.0.1</version>
 	<name>libgwtsvg</name>
-	<url>http://maven.apache.org</url>
+	<description>A GWT library to access the SVG functionalities of web browsers</description>
+	<url>http://www.vectomatic.org/libgwtsvg</url>
+	<licenses>
+		<license>
+			<name>GPLv3</name>
+			<url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>laaglu</id>
+			<name>Lukas Laag</name>
+			<email>laaglu@gmail.com</email>
+			<url>http://www.vectomatic.org</url>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone>1</timezone>
+		</developer>
+	</developers>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
