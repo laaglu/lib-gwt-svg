@@ -69,11 +69,32 @@
 			</plugin>
 		</plugins>
 	</build>
-	<distributionManagement>
-		<repository>
-			<id>thirdparty</id>
-			<name>Local Nexus thirdparty repository</name>
-			<url>http://localhost:8081/nexus/content/repositories/thirdparty/</url>
-		</repository>
-	</distributionManagement>
+	<profiles>
+		<profile>
+			<id>development</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<distributionManagement>
+				<repository>
+					<id>local-mvn</id>
+					<name>Local maven repository</name>
+					<url>scp://localhost/var/www/mvn</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+		<profile>
+			<id>production</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<distributionManagement>
+				<repository>
+					<id>vectomatic-mvn</id>
+					<name>Vectomatic maven repository</name>
+					<url>scp://www.vectomatic.org/mvn</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+	</profiles>
 </project>
