@@ -39,11 +39,11 @@
 			<artifactId>gwt-user</artifactId>
 			<version>2.0.0-ms1</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.apache</groupId>
 			<artifactId>xml-commons-external</artifactId>
 			<version>1.3.04</version>
-		</dependency>
+		</dependency> -->
 	</dependencies>
 	<build>
 		<!-- Add java sources to the jar (necessary for GWT) -->
@@ -95,32 +95,52 @@
 			</plugin>
 		</plugins>
 	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<aggregate>true</aggregate>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<configuration>
+					<aggregate>true</aggregate>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+	<distributionManagement>
+		<repository>
+			<id>${deployment.id}</id>
+			<name>maven repository</name>
+			<url>${deployment.root}/mvn</url>
+		</repository>
+		<site>
+			<id>${deployment.id}</id>
+			<name>maven site</name>
+			<url>${deployment.root}/mvn-sites/${project.artifactId}</url>
+		</site>
+	</distributionManagement>
 	<profiles>
 		<profile>
 			<id>development</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
-			<distributionManagement>
-				<repository>
-					<id>local-mvn</id>
-					<name>Local maven repository</name>
-					<url>scp://localhost/var/www/mvn</url>
-				</repository>
-			</distributionManagement>
+			<properties>
+				<deployment.id>local-server</deployment.id>
+				<deployment.root>scp://localhost/var/www/vectomatic</deployment.root>
+			</properties>
 		</profile>
 		<profile>
 			<id>production</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
-			<distributionManagement>
-				<repository>
-					<id>vectomatic-mvn</id>
-					<name>Vectomatic maven repository</name>
-					<url>scp://www.vectomatic.org/mvn</url>
-				</repository>
-			</distributionManagement>
 		</profile>
 	</profiles>
 </project>

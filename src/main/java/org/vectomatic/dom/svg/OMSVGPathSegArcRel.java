@@ -16,7 +16,7 @@
  * along with libgwtsvg.  If not, see <http://www.gnu.org/licenses/>
  **********************************************/
 package org.vectomatic.dom.svg;
-public class OMSVGPathSegArcRel extends com.google.gwt.core.client.JavaScriptObject {
+public class OMSVGPathSegArcRel extends OMSVGPathSeg {
   protected OMSVGPathSegArcRel() {
   }
 
@@ -62,14 +62,6 @@ public class OMSVGPathSegArcRel extends com.google.gwt.core.client.JavaScriptObj
   }-*/;
   public final native void setSweepFlag(boolean value) /*-{
     this.sweepFlag = value;
-  }-*/;
-
-  // Implementation of the nsIDOMSVGPathSeg XPCOM interface
-  public final native short getPathSegType() /*-{
-    return this.pathSegType;
-  }-*/;
-  public final native java.lang.String getPathSegTypeAsLetter() /*-{
-    return this.pathSegTypeAsLetter;
   }-*/;
 
 }

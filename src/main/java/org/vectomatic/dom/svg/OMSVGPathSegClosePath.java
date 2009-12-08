@@ -16,18 +16,10 @@
  * along with libgwtsvg.  If not, see <http://www.gnu.org/licenses/>
  **********************************************/
 package org.vectomatic.dom.svg;
-public class OMSVGPathSegClosePath extends com.google.gwt.core.client.JavaScriptObject {
+public class OMSVGPathSegClosePath extends OMSVGPathSeg {
   protected OMSVGPathSegClosePath() {
   }
 
   // Implementation of the nsIDOMSVGPathSegClosePath XPCOM interface
-
-  // Implementation of the nsIDOMSVGPathSeg XPCOM interface
-  public final native short getPathSegType() /*-{
-    return this.pathSegType;
-  }-*/;
-  public final native java.lang.String getPathSegTypeAsLetter() /*-{
-    return this.pathSegTypeAsLetter;
-  }-*/;
 
 }

@@ -16,7 +16,7 @@
  * along with libgwtsvg.  If not, see <http://www.gnu.org/licenses/>
  **********************************************/
 package org.vectomatic.dom.svg;
-public class OMSVGPathSegCurvetoCubicSmoothAbs extends com.google.gwt.core.client.JavaScriptObject {
+public class OMSVGPathSegCurvetoCubicSmoothAbs extends OMSVGPathSeg {
   protected OMSVGPathSegCurvetoCubicSmoothAbs() {
   }
 
@@ -44,14 +44,6 @@ public class OMSVGPathSegCurvetoCubicSmoothAbs extends com.google.gwt.core.clien
   }-*/;
   public final native void setY2(float value) /*-{
     this.y2 = value;
-  }-*/;
-
-  // Implementation of the nsIDOMSVGPathSeg XPCOM interface
-  public final native short getPathSegType() /*-{
-    return this.pathSegType;
-  }-*/;
-  public final native java.lang.String getPathSegTypeAsLetter() /*-{
-    return this.pathSegTypeAsLetter;
   }-*/;
 
 }

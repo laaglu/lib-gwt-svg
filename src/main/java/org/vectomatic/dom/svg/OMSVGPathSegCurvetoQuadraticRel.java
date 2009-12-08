@@ -16,7 +16,7 @@
  * along with libgwtsvg.  If not, see <http://www.gnu.org/licenses/>
  **********************************************/
 package org.vectomatic.dom.svg;
-public class OMSVGPathSegCurvetoQuadraticRel extends com.google.gwt.core.client.JavaScriptObject {
+public class OMSVGPathSegCurvetoQuadraticRel extends OMSVGPathSeg {
   protected OMSVGPathSegCurvetoQuadraticRel() {
   }
 
@@ -44,14 +44,6 @@ public class OMSVGPathSegCurvetoQuadraticRel extends com.google.gwt.core.client.
   }-*/;
   public final native void setY1(float value) /*-{
     this.y1 = value;
-  }-*/;
-
-  // Implementation of the nsIDOMSVGPathSeg XPCOM interface
-  public final native short getPathSegType() /*-{
-    return this.pathSegType;
-  }-*/;
-  public final native java.lang.String getPathSegTypeAsLetter() /*-{
-    return this.pathSegTypeAsLetter;
   }-*/;
 
 }

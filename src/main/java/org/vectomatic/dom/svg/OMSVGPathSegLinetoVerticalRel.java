@@ -16,7 +16,7 @@
  * along with libgwtsvg.  If not, see <http://www.gnu.org/licenses/>
  **********************************************/
 package org.vectomatic.dom.svg;
-public class OMSVGPathSegLinetoVerticalRel extends com.google.gwt.core.client.JavaScriptObject {
+public class OMSVGPathSegLinetoVerticalRel extends OMSVGPathSeg {
   protected OMSVGPathSegLinetoVerticalRel() {
   }
 
@@ -26,14 +26,6 @@ public class OMSVGPathSegLinetoVerticalRel extends com.google.gwt.core.client.Ja
   }-*/;
   public final native void setY(float value) /*-{
     this.y = value;
-  }-*/;
-
-  // Implementation of the nsIDOMSVGPathSeg XPCOM interface
-  public final native short getPathSegType() /*-{
-    return this.pathSegType;
-  }-*/;
-  public final native java.lang.String getPathSegTypeAsLetter() /*-{
-    return this.pathSegTypeAsLetter;
   }-*/;
 
 }
