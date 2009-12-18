@@ -13,7 +13,7 @@
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with libgwtsvg.  If not, see <http://www.gnu.org/licenses/>
+ * along with libgwtsvg.  If not, see http://www.gnu.org/licenses/
  **********************************************/
 package org.vectomatic.dom.stylesheets;
 public class OMLinkStyle extends com.google.gwt.core.client.JavaScriptObject {
