@@ -7,7 +7,7 @@
 	<version>0.0.1</version>
 	<name>libgwtsvg</name>
 	<description>A GWT library to access the SVG functionalities of web browsers</description>
-	<url>http://www.vectomatic.org/libgwtsvg</url>
+	<url>http://www.vectomatic.org/mvn-sites/libgwtsvg</url>
 	<licenses>
 		<license>
 			<name>GPLv3</name>
