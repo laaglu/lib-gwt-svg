@@ -1,40 +1,44 @@
 /**********************************************
- * Copyright (C) 2009 Lukas Laag
+ * Copyright (C) 2010 Lukas Laag
  * This file is part of libgwtsvg.
  * 
  * libgwtsvg is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
  * libgwtsvg is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  * 
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Lesser General Public License
  * along with libgwtsvg.  If not, see http://www.gnu.org/licenses/
  **********************************************/
 package org.vectomatic.dom.svg;
-public class OMSVGRadialGradientElement extends org.vectomatic.dom.svg.OMSVGGradientElement {
-  protected OMSVGRadialGradientElement() {
+
+import org.vectomatic.dom.svg.impl.SVGRadialGradientElement;
+
+public class OMSVGRadialGradientElement extends OMSVGGradientElement {
+  protected OMSVGRadialGradientElement(SVGRadialGradientElement ot) {
+    super(ot);
   }
 
-  // Implementation of the nsIDOMSVGRadialGradientElement XPCOM interface
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedLength getCx() /*-{
-    return this.cx;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedLength getCy() /*-{
-    return this.cy;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedLength getR() /*-{
-    return this.r;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedLength getFx() /*-{
-    return this.fx;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedLength getFy() /*-{
-    return this.fy;
-  }-*/;
+  // Implementation of the svg::SVGRadialGradientElement W3C IDL interface
+  public final OMSVGAnimatedLength getCx() {
+    return ((SVGRadialGradientElement)ot).getCx();
+  }
+  public final OMSVGAnimatedLength getCy() {
+    return ((SVGRadialGradientElement)ot).getCy();
+  }
+  public final OMSVGAnimatedLength getR() {
+    return ((SVGRadialGradientElement)ot).getR();
+  }
+  public final OMSVGAnimatedLength getFx() {
+    return ((SVGRadialGradientElement)ot).getFx();
+  }
+  public final OMSVGAnimatedLength getFy() {
+    return ((SVGRadialGradientElement)ot).getFy();
+  }
 
 }

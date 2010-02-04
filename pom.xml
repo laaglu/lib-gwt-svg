@@ -4,7 +4,7 @@
 	<groupId>org.vectomatic</groupId>
 	<artifactId>libgwtsvg</artifactId>
 	<packaging>jar</packaging>
-	<version>0.0.1</version>
+	<version>0.2</version>
 	<name>libgwtsvg</name>
 	<description>A GWT library to access the SVG functionalities of web browsers</description>
 	<url>http://www.vectomatic.org/mvn-sites/libgwtsvg</url>
@@ -37,7 +37,7 @@
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
-			<version>2.0.0-ms1</version>
+			<version>2.0.0-trunk</version>
 		</dependency>
 		<!-- <dependency>
 			<groupId>org.apache</groupId>

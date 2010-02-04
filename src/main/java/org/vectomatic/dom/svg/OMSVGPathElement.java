@@ -1,155 +1,233 @@
 /**********************************************
- * Copyright (C) 2009 Lukas Laag
+ * Copyright (C) 2010 Lukas Laag
  * This file is part of libgwtsvg.
  * 
  * libgwtsvg is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
  * libgwtsvg is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  * 
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Lesser General Public License
  * along with libgwtsvg.  If not, see http://www.gnu.org/licenses/
  **********************************************/
 package org.vectomatic.dom.svg;
-public class OMSVGPathElement extends org.vectomatic.dom.svg.OMSVGElement {
-  protected OMSVGPathElement() {
+
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.LoadEvent;
+import com.google.gwt.event.dom.client.LoadHandler;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
+import org.vectomatic.dom.svg.events.HasGraphicalHandlers;
+import org.vectomatic.dom.svg.impl.SVGElement;
+import org.vectomatic.dom.svg.impl.SVGPathElement;
+import org.vectomatic.dom.svg.itf.ISVGAnimatedPathData;
+import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
+import org.vectomatic.dom.svg.itf.ISVGLangSpace;
+import org.vectomatic.dom.svg.itf.ISVGStylable;
+import org.vectomatic.dom.svg.itf.ISVGTests;
+import org.vectomatic.dom.svg.itf.ISVGTransformable;
+
+public class OMSVGPathElement extends OMSVGElement implements HasGraphicalHandlers, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGTransformable, ISVGAnimatedPathData {
+  protected OMSVGPathElement(SVGPathElement ot) {
+    super(ot);
   }
 
-  // Implementation of the nsIDOMSVGPathElement XPCOM interface
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedNumber getPathLength() /*-{
-    return this.pathLength;
-  }-*/;
-  public final native float getTotalLength() /*-{
-    return this.getTotalLength();
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPoint getPointAtLength(float distance) /*-{
-    return this.getPointAtLength(distance);
-  }-*/;
-  public final native int getPathSegAtLength(float distance) /*-{
-    return this.getPathSegAtLength(distance);
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegClosePath createSVGPathSegClosePath() /*-{
-    return this.createSVGPathSegClosePath();
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegMovetoAbs createSVGPathSegMovetoAbs(float x, float y) /*-{
-    return this.createSVGPathSegMovetoAbs(x, y);
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegMovetoRel createSVGPathSegMovetoRel(float x, float y) /*-{
-    return this.createSVGPathSegMovetoRel(x, y);
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegLinetoAbs createSVGPathSegLinetoAbs(float x, float y) /*-{
-    return this.createSVGPathSegLinetoAbs(x, y);
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegLinetoRel createSVGPathSegLinetoRel(float x, float y) /*-{
-    return this.createSVGPathSegLinetoRel(x, y);
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegCurvetoCubicAbs createSVGPathSegCurvetoCubicAbs(float x, float y, float x1, float y1, float x2, float y2) /*-{
-    return this.createSVGPathSegCurvetoCubicAbs(x, y, x1, y1, x2, y2);
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegCurvetoCubicRel createSVGPathSegCurvetoCubicRel(float x, float y, float x1, float y1, float x2, float y2) /*-{
-    return this.createSVGPathSegCurvetoCubicRel(x, y, x1, y1, x2, y2);
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegCurvetoQuadraticAbs createSVGPathSegCurvetoQuadraticAbs(float x, float y, float x1, float y1) /*-{
-    return this.createSVGPathSegCurvetoQuadraticAbs(x, y, x1, y1);
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegCurvetoQuadraticRel createSVGPathSegCurvetoQuadraticRel(float x, float y, float x1, float y1) /*-{
-    return this.createSVGPathSegCurvetoQuadraticRel(x, y, x1, y1);
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegArcAbs createSVGPathSegArcAbs(float x, float y, float r1, float r2, float angle, boolean largeArcFlag, boolean sweepFlag) /*-{
-    return this.createSVGPathSegArcAbs(x, y, r1, r2, angle, largeArcFlag, sweepFlag);
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegArcRel createSVGPathSegArcRel(float x, float y, float r1, float r2, float angle, boolean largeArcFlag, boolean sweepFlag) /*-{
-    return this.createSVGPathSegArcRel(x, y, r1, r2, angle, largeArcFlag, sweepFlag);
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegLinetoHorizontalAbs createSVGPathSegLinetoHorizontalAbs(float x) /*-{
-    return this.createSVGPathSegLinetoHorizontalAbs(x);
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegLinetoHorizontalRel createSVGPathSegLinetoHorizontalRel(float x) /*-{
-    return this.createSVGPathSegLinetoHorizontalRel(x);
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegLinetoVerticalAbs createSVGPathSegLinetoVerticalAbs(float y) /*-{
-    return this.createSVGPathSegLinetoVerticalAbs(y);
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegLinetoVerticalRel createSVGPathSegLinetoVerticalRel(float y) /*-{
-    return this.createSVGPathSegLinetoVerticalRel(y);
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegCurvetoCubicSmoothAbs createSVGPathSegCurvetoCubicSmoothAbs(float x, float y, float x2, float y2) /*-{
-    return this.createSVGPathSegCurvetoCubicSmoothAbs(x, y, x2, y2);
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegCurvetoCubicSmoothRel createSVGPathSegCurvetoCubicSmoothRel(float x, float y, float x2, float y2) /*-{
-    return this.createSVGPathSegCurvetoCubicSmoothRel(x, y, x2, y2);
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegCurvetoQuadraticSmoothAbs createSVGPathSegCurvetoQuadraticSmoothAbs(float x, float y) /*-{
-    return this.createSVGPathSegCurvetoQuadraticSmoothAbs(x, y);
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegCurvetoQuadraticSmoothRel createSVGPathSegCurvetoQuadraticSmoothRel(float x, float y) /*-{
-    return this.createSVGPathSegCurvetoQuadraticSmoothRel(x, y);
-  }-*/;
+  // Implementation of the svg::SVGPathElement W3C IDL interface
+  public final OMSVGAnimatedNumber getPathLength() {
+    return ((SVGPathElement)ot).getPathLength();
+  }
+  public final float getTotalLength() {
+    return ((SVGPathElement)ot).getTotalLength();
+  }
+  public final OMSVGPoint getPointAtLength(float distance) {
+    return ((SVGPathElement)ot).getPointAtLength(distance);
+  }
+  public final int getPathSegAtLength(float distance) {
+    return ((SVGPathElement)ot).getPathSegAtLength(distance);
+  }
+  public final OMSVGPathSegClosePath createSVGPathSegClosePath() {
+    return ((SVGPathElement)ot).createSVGPathSegClosePath();
+  }
+  public final OMSVGPathSegMovetoAbs createSVGPathSegMovetoAbs(float x, float y) {
+    return ((SVGPathElement)ot).createSVGPathSegMovetoAbs(x, y);
+  }
+  public final OMSVGPathSegMovetoRel createSVGPathSegMovetoRel(float x, float y) {
+    return ((SVGPathElement)ot).createSVGPathSegMovetoRel(x, y);
+  }
+  public final OMSVGPathSegLinetoAbs createSVGPathSegLinetoAbs(float x, float y) {
+    return ((SVGPathElement)ot).createSVGPathSegLinetoAbs(x, y);
+  }
+  public final OMSVGPathSegLinetoRel createSVGPathSegLinetoRel(float x, float y) {
+    return ((SVGPathElement)ot).createSVGPathSegLinetoRel(x, y);
+  }
+  public final OMSVGPathSegCurvetoCubicAbs createSVGPathSegCurvetoCubicAbs(float x, float y, float x1, float y1, float x2, float y2) {
+    return ((SVGPathElement)ot).createSVGPathSegCurvetoCubicAbs(x, y, x1, y1, x2, y2);
+  }
+  public final OMSVGPathSegCurvetoCubicRel createSVGPathSegCurvetoCubicRel(float x, float y, float x1, float y1, float x2, float y2) {
+    return ((SVGPathElement)ot).createSVGPathSegCurvetoCubicRel(x, y, x1, y1, x2, y2);
+  }
+  public final OMSVGPathSegCurvetoQuadraticAbs createSVGPathSegCurvetoQuadraticAbs(float x, float y, float x1, float y1) {
+    return ((SVGPathElement)ot).createSVGPathSegCurvetoQuadraticAbs(x, y, x1, y1);
+  }
+  public final OMSVGPathSegCurvetoQuadraticRel createSVGPathSegCurvetoQuadraticRel(float x, float y, float x1, float y1) {
+    return ((SVGPathElement)ot).createSVGPathSegCurvetoQuadraticRel(x, y, x1, y1);
+  }
+  public final OMSVGPathSegArcAbs createSVGPathSegArcAbs(float x, float y, float r1, float r2, float angle, boolean largeArcFlag, boolean sweepFlag) {
+    return ((SVGPathElement)ot).createSVGPathSegArcAbs(x, y, r1, r2, angle, largeArcFlag, sweepFlag);
+  }
+  public final OMSVGPathSegArcRel createSVGPathSegArcRel(float x, float y, float r1, float r2, float angle, boolean largeArcFlag, boolean sweepFlag) {
+    return ((SVGPathElement)ot).createSVGPathSegArcRel(x, y, r1, r2, angle, largeArcFlag, sweepFlag);
+  }
+  public final OMSVGPathSegLinetoHorizontalAbs createSVGPathSegLinetoHorizontalAbs(float x) {
+    return ((SVGPathElement)ot).createSVGPathSegLinetoHorizontalAbs(x);
+  }
+  public final OMSVGPathSegLinetoHorizontalRel createSVGPathSegLinetoHorizontalRel(float x) {
+    return ((SVGPathElement)ot).createSVGPathSegLinetoHorizontalRel(x);
+  }
+  public final OMSVGPathSegLinetoVerticalAbs createSVGPathSegLinetoVerticalAbs(float y) {
+    return ((SVGPathElement)ot).createSVGPathSegLinetoVerticalAbs(y);
+  }
+  public final OMSVGPathSegLinetoVerticalRel createSVGPathSegLinetoVerticalRel(float y) {
+    return ((SVGPathElement)ot).createSVGPathSegLinetoVerticalRel(y);
+  }
+  public final OMSVGPathSegCurvetoCubicSmoothAbs createSVGPathSegCurvetoCubicSmoothAbs(float x, float y, float x2, float y2) {
+    return ((SVGPathElement)ot).createSVGPathSegCurvetoCubicSmoothAbs(x, y, x2, y2);
+  }
+  public final OMSVGPathSegCurvetoCubicSmoothRel createSVGPathSegCurvetoCubicSmoothRel(float x, float y, float x2, float y2) {
+    return ((SVGPathElement)ot).createSVGPathSegCurvetoCubicSmoothRel(x, y, x2, y2);
+  }
+  public final OMSVGPathSegCurvetoQuadraticSmoothAbs createSVGPathSegCurvetoQuadraticSmoothAbs(float x, float y) {
+    return ((SVGPathElement)ot).createSVGPathSegCurvetoQuadraticSmoothAbs(x, y);
+  }
+  public final OMSVGPathSegCurvetoQuadraticSmoothRel createSVGPathSegCurvetoQuadraticSmoothRel(float x, float y) {
+    return ((SVGPathElement)ot).createSVGPathSegCurvetoQuadraticSmoothRel(x, y);
+  }
 
-  // Implementation of the nsIDOMSVGStylable XPCOM interface
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedString getClassName() /*-{
-    return this.className;
-  }-*/;
-  public final native org.vectomatic.dom.css.OMStyleDeclaration getStyle() /*-{
-    return this.style;
-  }-*/;
-  public final native org.vectomatic.dom.css.OMValue getPresentationAttribute(java.lang.String name) /*-{
-    return this.getPresentationAttribute(name);
-  }-*/;
+  // Implementation of the svg::SVGAnimatedPathData W3C IDL interface
+  public final OMSVGPathSegList getPathSegList() {
+    return ((SVGPathElement)ot).getPathSegList();
+  }
+  public final OMSVGPathSegList getNormalizedPathSegList() {
+    return ((SVGPathElement)ot).getNormalizedPathSegList();
+  }
+  public final OMSVGPathSegList getAnimatedPathSegList() {
+    return ((SVGPathElement)ot).getAnimatedPathSegList();
+  }
+  public final OMSVGPathSegList getAnimatedNormalizedPathSegList() {
+    return ((SVGPathElement)ot).getAnimatedNormalizedPathSegList();
+  }
 
-  // Implementation of the nsIDOMSVGTransformable XPCOM interface
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedTransformList getTransform() /*-{
-    return this.transform;
-  }-*/;
+  // Implementation of the svg::SVGTransformable W3C IDL interface
+  public final OMSVGAnimatedTransformList getTransform() {
+    return ((SVGPathElement)ot).getTransform();
+  }
 
-  // Implementation of the nsIDOMSVGLocatable XPCOM interface
-  public final native org.vectomatic.dom.svg.OMSVGElement getNearestViewportElement() /*-{
-    return this.nearestViewportElement;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGElement getFarthestViewportElement() /*-{
-    return this.farthestViewportElement;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGRect getBBox() /*-{
-    return this.getBBox();
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGMatrix getCTM() /*-{
-    return this.getCTM();
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGMatrix getScreenCTM() /*-{
-    return this.getScreenCTM();
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGMatrix getTransformToElement(org.vectomatic.dom.svg.OMSVGElement element) /*-{
-    return this.getTransformToElement(element);
-  }-*/;
+  // Implementation of the svg::SVGLocatable W3C IDL interface
+  public final OMSVGElement getNearestViewportElement() {
+    return (OMSVGElement)convert(((SVGPathElement)ot).getNearestViewportElement());
+  }
+  public final OMSVGElement getFarthestViewportElement() {
+    return (OMSVGElement)convert(((SVGPathElement)ot).getFarthestViewportElement());
+  }
+  public final OMSVGRect getBBox() {
+    return ((SVGPathElement)ot).getBBox();
+  }
+  public final OMSVGMatrix getCTM() {
+    return ((SVGPathElement)ot).getCTM();
+  }
+  public final OMSVGMatrix getScreenCTM() {
+    return ((SVGPathElement)ot).getScreenCTM();
+  }
+  public final OMSVGMatrix getTransformToElement(OMSVGElement element) {
+    return ((SVGPathElement)ot).getTransformToElement(((SVGElement)element.ot));
+  }
 
-  // Implementation of the nsIDOMEventTarget XPCOM interface
-  public final native void addEventListener(java.lang.String type, org.vectomatic.dom.events.OMEventListener listener, boolean useCapture) /*-{
-    this.addEventListener(type, listener, useCapture);
-  }-*/;
-  public final native void removeEventListener(java.lang.String type, org.vectomatic.dom.events.OMEventListener listener, boolean useCapture) /*-{
-    this.removeEventListener(type, listener, useCapture);
-  }-*/;
-  public final native boolean dispatchEvent(org.vectomatic.dom.events.OMEvent evt) /*-{
-    return this.dispatchEvent(evt);
-  }-*/;
+  // Implementation of the svg::SVGLangSpace W3C IDL interface
+  public final String getXmllang() {
+    return ((SVGPathElement)ot).getXmllang();
+  }
+  public final void setXmllang(java.lang.String value) {
+    ((SVGPathElement)ot).setXmllang(value);
+  }
+  public final String getXmlspace() {
+    return ((SVGPathElement)ot).getXmlspace();
+  }
+  public final void setXmlspace(java.lang.String value) {
+    ((SVGPathElement)ot).setXmlspace(value);
+  }
 
-  // Implementation of the nsIDOMSVGAnimatedPathData XPCOM interface
-  public final native org.vectomatic.dom.svg.OMSVGPathSegList getPathSegList() /*-{
-    return this.pathSegList;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegList getNormalizedPathSegList() /*-{
-    return this.normalizedPathSegList;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegList getAnimatedPathSegList() /*-{
-    return this.animatedPathSegList;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPathSegList getAnimatedNormalizedPathSegList() /*-{
-    return this.animatedNormalizedPathSegList;
-  }-*/;
+  // Implementation of the svg::SVGTests W3C IDL interface
+  public final OMSVGStringList getRequiredFeatures() {
+    return ((SVGPathElement)ot).getRequiredFeatures();
+  }
+  public final OMSVGStringList getRequiredExtensions() {
+    return ((SVGPathElement)ot).getRequiredExtensions();
+  }
+  public final OMSVGStringList getSystemLanguage() {
+    return ((SVGPathElement)ot).getSystemLanguage();
+  }
+  public final boolean hasExtension(String extension) {
+    return ((SVGPathElement)ot).hasExtension(extension);
+  }
 
+  // Implementation of the svg::SVGExternalResourcesRequired W3C IDL interface
+  public final OMSVGAnimatedBoolean getExternalResourcesRequired() {
+    return ((SVGPathElement)ot).getExternalResourcesRequired();
+  }
+
+  @Override
+  public final HandlerRegistration addLoadHandler(LoadHandler handler) {
+    return addDomHandler(handler, LoadEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
+    return addDomHandler(handler, MouseDownEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addBlurHandler(BlurHandler handler) {
+    return addDomHandler(handler, BlurEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
+    return addDomHandler(handler, MouseUpEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
+    return addDomHandler(handler, MouseOverEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
+    return addDomHandler(handler, MouseOutEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
+    return addDomHandler(handler, MouseMoveEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addFocusHandler(FocusHandler handler) {
+    return addDomHandler(handler, FocusEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addClickHandler(ClickHandler handler) {
+    return addDomHandler(handler, ClickEvent.getType());
+  }
 }

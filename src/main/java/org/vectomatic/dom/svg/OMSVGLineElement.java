@@ -1,84 +1,161 @@
 /**********************************************
- * Copyright (C) 2009 Lukas Laag
+ * Copyright (C) 2010 Lukas Laag
  * This file is part of libgwtsvg.
  * 
  * libgwtsvg is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
  * libgwtsvg is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  * 
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Lesser General Public License
  * along with libgwtsvg.  If not, see http://www.gnu.org/licenses/
  **********************************************/
 package org.vectomatic.dom.svg;
-public class OMSVGLineElement extends org.vectomatic.dom.svg.OMSVGElement {
-  protected OMSVGLineElement() {
+
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.LoadEvent;
+import com.google.gwt.event.dom.client.LoadHandler;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
+import org.vectomatic.dom.svg.events.HasGraphicalHandlers;
+import org.vectomatic.dom.svg.impl.SVGElement;
+import org.vectomatic.dom.svg.impl.SVGLineElement;
+import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
+import org.vectomatic.dom.svg.itf.ISVGLangSpace;
+import org.vectomatic.dom.svg.itf.ISVGStylable;
+import org.vectomatic.dom.svg.itf.ISVGTests;
+import org.vectomatic.dom.svg.itf.ISVGTransformable;
+
+public class OMSVGLineElement extends OMSVGElement implements HasGraphicalHandlers, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGTransformable {
+  protected OMSVGLineElement(SVGLineElement ot) {
+    super(ot);
   }
 
-  // Implementation of the nsIDOMSVGLineElement XPCOM interface
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedLength getX1() /*-{
-    return this.x1;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedLength getY1() /*-{
-    return this.y1;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedLength getX2() /*-{
-    return this.x2;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedLength getY2() /*-{
-    return this.y2;
-  }-*/;
+  // Implementation of the svg::SVGLineElement W3C IDL interface
+  public final OMSVGAnimatedLength getX1() {
+    return ((SVGLineElement)ot).getX1();
+  }
+  public final OMSVGAnimatedLength getY1() {
+    return ((SVGLineElement)ot).getY1();
+  }
+  public final OMSVGAnimatedLength getX2() {
+    return ((SVGLineElement)ot).getX2();
+  }
+  public final OMSVGAnimatedLength getY2() {
+    return ((SVGLineElement)ot).getY2();
+  }
 
-  // Implementation of the nsIDOMSVGStylable XPCOM interface
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedString getClassName() /*-{
-    return this.className;
-  }-*/;
-  public final native org.vectomatic.dom.css.OMStyleDeclaration getStyle() /*-{
-    return this.style;
-  }-*/;
-  public final native org.vectomatic.dom.css.OMValue getPresentationAttribute(java.lang.String name) /*-{
-    return this.getPresentationAttribute(name);
-  }-*/;
+  // Implementation of the svg::SVGTransformable W3C IDL interface
+  public final OMSVGAnimatedTransformList getTransform() {
+    return ((SVGLineElement)ot).getTransform();
+  }
 
-  // Implementation of the nsIDOMSVGTransformable XPCOM interface
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedTransformList getTransform() /*-{
-    return this.transform;
-  }-*/;
+  // Implementation of the svg::SVGLocatable W3C IDL interface
+  public final OMSVGElement getNearestViewportElement() {
+    return (OMSVGElement)convert(((SVGLineElement)ot).getNearestViewportElement());
+  }
+  public final OMSVGElement getFarthestViewportElement() {
+    return (OMSVGElement)convert(((SVGLineElement)ot).getFarthestViewportElement());
+  }
+  public final OMSVGRect getBBox() {
+    return ((SVGLineElement)ot).getBBox();
+  }
+  public final OMSVGMatrix getCTM() {
+    return ((SVGLineElement)ot).getCTM();
+  }
+  public final OMSVGMatrix getScreenCTM() {
+    return ((SVGLineElement)ot).getScreenCTM();
+  }
+  public final OMSVGMatrix getTransformToElement(OMSVGElement element) {
+    return ((SVGLineElement)ot).getTransformToElement(((SVGElement)element.ot));
+  }
 
-  // Implementation of the nsIDOMSVGLocatable XPCOM interface
-  public final native org.vectomatic.dom.svg.OMSVGElement getNearestViewportElement() /*-{
-    return this.nearestViewportElement;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGElement getFarthestViewportElement() /*-{
-    return this.farthestViewportElement;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGRect getBBox() /*-{
-    return this.getBBox();
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGMatrix getCTM() /*-{
-    return this.getCTM();
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGMatrix getScreenCTM() /*-{
-    return this.getScreenCTM();
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGMatrix getTransformToElement(org.vectomatic.dom.svg.OMSVGElement element) /*-{
-    return this.getTransformToElement(element);
-  }-*/;
+  // Implementation of the svg::SVGLangSpace W3C IDL interface
+  public final String getXmllang() {
+    return ((SVGLineElement)ot).getXmllang();
+  }
+  public final void setXmllang(java.lang.String value) {
+    ((SVGLineElement)ot).setXmllang(value);
+  }
+  public final String getXmlspace() {
+    return ((SVGLineElement)ot).getXmlspace();
+  }
+  public final void setXmlspace(java.lang.String value) {
+    ((SVGLineElement)ot).setXmlspace(value);
+  }
 
-  // Implementation of the nsIDOMEventTarget XPCOM interface
-  public final native void addEventListener(java.lang.String type, org.vectomatic.dom.events.OMEventListener listener, boolean useCapture) /*-{
-    this.addEventListener(type, listener, useCapture);
-  }-*/;
-  public final native void removeEventListener(java.lang.String type, org.vectomatic.dom.events.OMEventListener listener, boolean useCapture) /*-{
-    this.removeEventListener(type, listener, useCapture);
-  }-*/;
-  public final native boolean dispatchEvent(org.vectomatic.dom.events.OMEvent evt) /*-{
-    return this.dispatchEvent(evt);
-  }-*/;
+  // Implementation of the svg::SVGTests W3C IDL interface
+  public final OMSVGStringList getRequiredFeatures() {
+    return ((SVGLineElement)ot).getRequiredFeatures();
+  }
+  public final OMSVGStringList getRequiredExtensions() {
+    return ((SVGLineElement)ot).getRequiredExtensions();
+  }
+  public final OMSVGStringList getSystemLanguage() {
+    return ((SVGLineElement)ot).getSystemLanguage();
+  }
+  public final boolean hasExtension(String extension) {
+    return ((SVGLineElement)ot).hasExtension(extension);
+  }
 
+  // Implementation of the svg::SVGExternalResourcesRequired W3C IDL interface
+  public final OMSVGAnimatedBoolean getExternalResourcesRequired() {
+    return ((SVGLineElement)ot).getExternalResourcesRequired();
+  }
+
+  @Override
+  public final HandlerRegistration addLoadHandler(LoadHandler handler) {
+    return addDomHandler(handler, LoadEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
+    return addDomHandler(handler, MouseDownEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addBlurHandler(BlurHandler handler) {
+    return addDomHandler(handler, BlurEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
+    return addDomHandler(handler, MouseUpEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
+    return addDomHandler(handler, MouseOverEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
+    return addDomHandler(handler, MouseOutEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
+    return addDomHandler(handler, MouseMoveEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addFocusHandler(FocusHandler handler) {
+    return addDomHandler(handler, FocusEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addClickHandler(ClickHandler handler) {
+    return addDomHandler(handler, ClickEvent.getType());
+  }
 }

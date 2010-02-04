@@ -1,26 +1,29 @@
 /**********************************************
- * Copyright (C) 2009 Lukas Laag
+ * Copyright (C) 2010 Lukas Laag
  * This file is part of libgwtsvg.
  * 
  * libgwtsvg is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
  * libgwtsvg is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  * 
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Lesser General Public License
  * along with libgwtsvg.  If not, see http://www.gnu.org/licenses/
  **********************************************/
 package org.vectomatic.dom.svg;
-public class OMSVGMatrix extends com.google.gwt.core.client.JavaScriptObject {
+
+import com.google.gwt.core.client.JavaScriptObject;
+
+public class OMSVGMatrix extends JavaScriptObject {
   protected OMSVGMatrix() {
   }
 
-  // Implementation of the nsIDOMSVGMatrix XPCOM interface
+  // Implementation of the svg::SVGMatrix W3C IDL interface
   public final native float getA() /*-{
     return this.a;
   }-*/;
@@ -57,38 +60,54 @@ public class OMSVGMatrix extends com.google.gwt.core.client.JavaScriptObject {
   public final native void setF(float value) /*-{
     this.f = value;
   }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGMatrix multiply(org.vectomatic.dom.svg.OMSVGMatrix secondMatrix) /*-{
+  public final native OMSVGMatrix multiply(OMSVGMatrix secondMatrix) /*-{
     return this.multiply(secondMatrix);
   }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGMatrix inverse() /*-{
+  public final native OMSVGMatrix inverse() /*-{
     return this.inverse();
   }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGMatrix translate(float x, float y) /*-{
+  public final native OMSVGMatrix translate(float x, float y) /*-{
     return this.translate(x, y);
   }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGMatrix scale(float scaleFactor) /*-{
+  public final native OMSVGMatrix scale(float scaleFactor) /*-{
     return this.scale(scaleFactor);
   }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGMatrix scaleNonUniform(float scaleFactorX, float scaleFactorY) /*-{
+  public final native OMSVGMatrix scaleNonUniform(float scaleFactorX, float scaleFactorY) /*-{
     return this.scaleNonUniform(scaleFactorX, scaleFactorY);
   }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGMatrix rotate(float angle) /*-{
+  public final native OMSVGMatrix rotate(float angle) /*-{
     return this.rotate(angle);
   }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGMatrix rotateFromVector(float x, float y) /*-{
+  public final native OMSVGMatrix rotateFromVector(float x, float y) /*-{
     return this.rotateFromVector(x, y);
   }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGMatrix flipX() /*-{
+  public final native OMSVGMatrix flipX() /*-{
     return this.flipX();
   }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGMatrix flipY() /*-{
+  public final native OMSVGMatrix flipY() /*-{
     return this.flipY();
   }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGMatrix skewX(float angle) /*-{
+  public final native OMSVGMatrix skewX(float angle) /*-{
     return this.skewX(angle);
   }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGMatrix skewY(float angle) /*-{
+  public final native OMSVGMatrix skewY(float angle) /*-{
     return this.skewY(angle);
   }-*/;
+  public final String getDescription() {
+	  StringBuilder builder = new StringBuilder("[");
+	  builder.append(getA());
+	  builder.append(" ");
+	  builder.append(getB());
+	  builder.append(" ");
+	  builder.append(getC());
+	  builder.append(" ");
+	  builder.append(getD());
+	  builder.append(" ");
+	  builder.append(getE());
+	  builder.append(" ");
+	  builder.append(getF());
+	  builder.append("]");
+	  return builder.toString();
+  }
 
 }

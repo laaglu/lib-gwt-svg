@@ -1,49 +1,47 @@
 /**********************************************
- * Copyright (C) 2009 Lukas Laag
+ * Copyright (C) 2010 Lukas Laag
  * This file is part of libgwtsvg.
  * 
  * libgwtsvg is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
  * libgwtsvg is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  * 
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Lesser General Public License
  * along with libgwtsvg.  If not, see http://www.gnu.org/licenses/
  **********************************************/
 package org.vectomatic.dom.svg;
-public class OMSVGStyleElement extends org.vectomatic.dom.svg.OMSVGElement {
-  protected OMSVGStyleElement() {
+
+import org.vectomatic.dom.svg.impl.SVGStyleElement;
+
+public class OMSVGStyleElement extends OMSVGElement {
+  protected OMSVGStyleElement(SVGStyleElement ot) {
+    super(ot);
   }
 
-  // Implementation of the nsIDOMSVGStyleElement XPCOM interface
-  public final native java.lang.String getXmlspace() /*-{
-    return this.xmlspace;
-  }-*/;
-  public final native void setXmlspace(java.lang.String value) /*-{
-    this.xmlspace = value;
-  }-*/;
-  public final native java.lang.String getType() /*-{
-    return this.type;
-  }-*/;
-  public final native void setType(java.lang.String value) /*-{
-    this.type = value;
-  }-*/;
-  public final native java.lang.String getMedia() /*-{
-    return this.media;
-  }-*/;
-  public final native void setMedia(java.lang.String value) /*-{
-    this.media = value;
-  }-*/;
-  public final native java.lang.String getTitle() /*-{
-    return this.title;
-  }-*/;
-  public final native void setTitle(java.lang.String value) /*-{
-    this.title = value;
-  }-*/;
+  // Implementation of the svg::SVGStyleElement W3C IDL interface
+  public final String getXmlspace() {
+    return ((SVGStyleElement)ot).getXmlspace();
+  }
+  public final void setXmlspace(java.lang.String value) {
+    ((SVGStyleElement)ot).setXmlspace(value);
+  }
+  public final String getType() {
+    return ((SVGStyleElement)ot).getType();
+  }
+  public final void setType(java.lang.String value) {
+    ((SVGStyleElement)ot).setType(value);
+  }
+  public final String getMedia() {
+    return ((SVGStyleElement)ot).getMedia();
+  }
+  public final void setMedia(java.lang.String value) {
+    ((SVGStyleElement)ot).setMedia(value);
+  }
 
 }

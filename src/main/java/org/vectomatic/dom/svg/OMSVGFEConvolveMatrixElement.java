@@ -1,61 +1,84 @@
 /**********************************************
- * Copyright (C) 2009 Lukas Laag
+ * Copyright (C) 2010 Lukas Laag
  * This file is part of libgwtsvg.
  * 
  * libgwtsvg is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
  * libgwtsvg is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  * 
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Lesser General Public License
  * along with libgwtsvg.  If not, see http://www.gnu.org/licenses/
  **********************************************/
 package org.vectomatic.dom.svg;
-public class OMSVGFEConvolveMatrixElement extends org.vectomatic.dom.svg.OMSVGFilterPrimitiveStandardAttributes {
-  protected OMSVGFEConvolveMatrixElement() {
+
+import org.vectomatic.dom.svg.impl.SVGFEConvolveMatrixElement;
+import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
+
+public class OMSVGFEConvolveMatrixElement extends OMSVGElement implements ISVGFilterPrimitiveStandardAttributes {
+  public static final short SVG_EDGEMODE_UNKNOWN = 0;
+  public static final short SVG_EDGEMODE_DUPLICATE = 1;
+  public static final short SVG_EDGEMODE_WRAP = 2;
+  public static final short SVG_EDGEMODE_NONE = 3;
+  protected OMSVGFEConvolveMatrixElement(SVGFEConvolveMatrixElement ot) {
+    super(ot);
   }
 
-  // Implementation of the nsIDOMSVGFEConvolveMatrixElement XPCOM interface
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedString getIn1() /*-{
-    return this.in1;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedInteger getOrderX() /*-{
-    return this.orderX;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedInteger getOrderY() /*-{
-    return this.orderY;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedNumberList getKernelMatrix() /*-{
-    return this.kernelMatrix;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedNumber getDivisor() /*-{
-    return this.divisor;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedNumber getBias() /*-{
-    return this.bias;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedInteger getTargetX() /*-{
-    return this.targetX;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedInteger getTargetY() /*-{
-    return this.targetY;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedEnumeration getEdgeMode() /*-{
-    return this.edgeMode;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedNumber getKernelUnitLengthX() /*-{
-    return this.kernelUnitLengthX;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedNumber getKernelUnitLengthY() /*-{
-    return this.kernelUnitLengthY;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedBoolean getPreserveAlpha() /*-{
-    return this.preserveAlpha;
-  }-*/;
+  // Implementation of the svg::SVGFEConvolveMatrixElement W3C IDL interface
+  public final OMSVGAnimatedInteger getOrderX() {
+    return ((SVGFEConvolveMatrixElement)ot).getOrderX();
+  }
+  public final OMSVGAnimatedInteger getOrderY() {
+    return ((SVGFEConvolveMatrixElement)ot).getOrderY();
+  }
+  public final OMSVGAnimatedNumberList getKernelMatrix() {
+    return ((SVGFEConvolveMatrixElement)ot).getKernelMatrix();
+  }
+  public final OMSVGAnimatedNumber getDivisor() {
+    return ((SVGFEConvolveMatrixElement)ot).getDivisor();
+  }
+  public final OMSVGAnimatedNumber getBias() {
+    return ((SVGFEConvolveMatrixElement)ot).getBias();
+  }
+  public final OMSVGAnimatedInteger getTargetX() {
+    return ((SVGFEConvolveMatrixElement)ot).getTargetX();
+  }
+  public final OMSVGAnimatedInteger getTargetY() {
+    return ((SVGFEConvolveMatrixElement)ot).getTargetY();
+  }
+  public final OMSVGAnimatedEnumeration getEdgeMode() {
+    return ((SVGFEConvolveMatrixElement)ot).getEdgeMode();
+  }
+  public final OMSVGAnimatedLength getKernelUnitLengthX() {
+    return ((SVGFEConvolveMatrixElement)ot).getKernelUnitLengthX();
+  }
+  public final OMSVGAnimatedLength getKernelUnitLengthY() {
+    return ((SVGFEConvolveMatrixElement)ot).getKernelUnitLengthY();
+  }
+  public final OMSVGAnimatedBoolean getPreserveAlpha() {
+    return ((SVGFEConvolveMatrixElement)ot).getPreserveAlpha();
+  }
+
+  // Implementation of the svg::SVGFilterPrimitiveStandardAttributes W3C IDL interface
+  public final OMSVGAnimatedLength getX() {
+    return ((SVGFEConvolveMatrixElement)ot).getX();
+  }
+  public final OMSVGAnimatedLength getY() {
+    return ((SVGFEConvolveMatrixElement)ot).getY();
+  }
+  public final OMSVGAnimatedLength getWidth() {
+    return ((SVGFEConvolveMatrixElement)ot).getWidth();
+  }
+  public final OMSVGAnimatedLength getHeight() {
+    return ((SVGFEConvolveMatrixElement)ot).getHeight();
+  }
+  public final OMSVGAnimatedString getResult() {
+    return ((SVGFEConvolveMatrixElement)ot).getResult();
+  }
 
 }

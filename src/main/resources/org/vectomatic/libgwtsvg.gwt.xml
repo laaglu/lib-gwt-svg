@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 1.7.1//EN" "http://google-web-toolkit.googlecode.com/svn/tags/1.7.1/distro-source/core/src/gwt-module.dtd">
 <module>
-  <inherits name='com.google.gwt.user.User'/>
-  <inherits name='com.google.gwt.dom.DOM'/>
-  <inherits name='com.google.gwt.xml.XML'/>
-  <source path="dom"/>
+	<inherits name='com.google.gwt.user.User' />
+	<inherits name='com.google.gwt.dom.DOM' />
+	<inherits name='com.google.gwt.xml.XML' />
+	<source path="dom" />
+
+    <!-- Fall through to this rule is the browser isn't Mozilla -->
+	<replace-with class="org.vectomatic.dom.svg.impl.DOMHelperImpl">
+		<when-type-is class="org.vectomatic.dom.svg.impl.DOMHelperImpl" />
+	</replace-with>
 </module>

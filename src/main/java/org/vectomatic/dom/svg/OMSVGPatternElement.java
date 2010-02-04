@@ -1,72 +1,105 @@
 /**********************************************
- * Copyright (C) 2009 Lukas Laag
+ * Copyright (C) 2010 Lukas Laag
  * This file is part of libgwtsvg.
  * 
  * libgwtsvg is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
  * libgwtsvg is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  * 
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Lesser General Public License
  * along with libgwtsvg.  If not, see http://www.gnu.org/licenses/
  **********************************************/
 package org.vectomatic.dom.svg;
-public class OMSVGPatternElement extends org.vectomatic.dom.svg.OMSVGElement {
-  protected OMSVGPatternElement() {
+
+import org.vectomatic.dom.svg.impl.SVGPatternElement;
+import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
+import org.vectomatic.dom.svg.itf.ISVGFitToViewBox;
+import org.vectomatic.dom.svg.itf.ISVGLangSpace;
+import org.vectomatic.dom.svg.itf.ISVGStylable;
+import org.vectomatic.dom.svg.itf.ISVGTests;
+import org.vectomatic.dom.svg.itf.ISVGURIReference;
+import org.vectomatic.dom.svg.itf.ISVGUnitTypes;
+
+public class OMSVGPatternElement extends OMSVGElement implements ISVGURIReference, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGFitToViewBox, ISVGUnitTypes {
+  protected OMSVGPatternElement(SVGPatternElement ot) {
+    super(ot);
   }
 
-  // Implementation of the nsIDOMSVGPatternElement XPCOM interface
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedEnumeration getPatternUnits() /*-{
-    return this.patternUnits;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedEnumeration getPatternContentUnits() /*-{
-    return this.patternContentUnits;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedTransformList getPatternTransform() /*-{
-    return this.patternTransform;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedLength getX() /*-{
-    return this.x;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedLength getY() /*-{
-    return this.y;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedLength getWidth() /*-{
-    return this.width;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedLength getHeight() /*-{
-    return this.height;
-  }-*/;
+  // Implementation of the svg::SVGPatternElement W3C IDL interface
+  public final OMSVGAnimatedEnumeration getPatternUnits() {
+    return ((SVGPatternElement)ot).getPatternUnits();
+  }
+  public final OMSVGAnimatedEnumeration getPatternContentUnits() {
+    return ((SVGPatternElement)ot).getPatternContentUnits();
+  }
+  public final OMSVGAnimatedTransformList getPatternTransform() {
+    return ((SVGPatternElement)ot).getPatternTransform();
+  }
+  public final OMSVGAnimatedLength getX() {
+    return ((SVGPatternElement)ot).getX();
+  }
+  public final OMSVGAnimatedLength getY() {
+    return ((SVGPatternElement)ot).getY();
+  }
+  public final OMSVGAnimatedLength getWidth() {
+    return ((SVGPatternElement)ot).getWidth();
+  }
+  public final OMSVGAnimatedLength getHeight() {
+    return ((SVGPatternElement)ot).getHeight();
+  }
 
-  // Implementation of the nsIDOMSVGURIReference XPCOM interface
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedString getHref() /*-{
-    return this.href;
-  }-*/;
+  // Implementation of the svg::SVGURIReference W3C IDL interface
+  public final OMSVGAnimatedString getHref() {
+    return ((SVGPatternElement)ot).getHref();
+  }
 
-  // Implementation of the nsIDOMSVGStylable XPCOM interface
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedString getClassName() /*-{
-    return this.className;
-  }-*/;
-  public final native org.vectomatic.dom.css.OMStyleDeclaration getStyle() /*-{
-    return this.style;
-  }-*/;
-  public final native org.vectomatic.dom.css.OMValue getPresentationAttribute(java.lang.String name) /*-{
-    return this.getPresentationAttribute(name);
-  }-*/;
+  // Implementation of the svg::SVGFitToViewBox W3C IDL interface
+  public final OMSVGAnimatedRect getViewBox() {
+    return ((SVGPatternElement)ot).getViewBox();
+  }
+  public final OMSVGAnimatedPreserveAspectRatio getPreserveAspectRatio() {
+    return ((SVGPatternElement)ot).getPreserveAspectRatio();
+  }
 
-  // Implementation of the nsIDOMSVGFitToViewBox XPCOM interface
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedRect getViewBox() /*-{
-    return this.viewBox;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedPreserveAspectRatio getPreserveAspectRatio() /*-{
-    return this.preserveAspectRatio;
-  }-*/;
+  // Implementation of the svg::SVGLangSpace W3C IDL interface
+  public final String getXmllang() {
+    return ((SVGPatternElement)ot).getXmllang();
+  }
+  public final void setXmllang(java.lang.String value) {
+    ((SVGPatternElement)ot).setXmllang(value);
+  }
+  public final String getXmlspace() {
+    return ((SVGPatternElement)ot).getXmlspace();
+  }
+  public final void setXmlspace(java.lang.String value) {
+    ((SVGPatternElement)ot).setXmlspace(value);
+  }
 
-  // Implementation of the nsIDOMSVGUnitTypes XPCOM interface
+  // Implementation of the svg::SVGTests W3C IDL interface
+  public final OMSVGStringList getRequiredFeatures() {
+    return ((SVGPatternElement)ot).getRequiredFeatures();
+  }
+  public final OMSVGStringList getRequiredExtensions() {
+    return ((SVGPatternElement)ot).getRequiredExtensions();
+  }
+  public final OMSVGStringList getSystemLanguage() {
+    return ((SVGPatternElement)ot).getSystemLanguage();
+  }
+  public final boolean hasExtension(String extension) {
+    return ((SVGPatternElement)ot).hasExtension(extension);
+  }
+
+  // Implementation of the svg::SVGUnitTypes W3C IDL interface
+
+  // Implementation of the svg::SVGExternalResourcesRequired W3C IDL interface
+  public final OMSVGAnimatedBoolean getExternalResourcesRequired() {
+    return ((SVGPatternElement)ot).getExternalResourcesRequired();
+  }
 
 }

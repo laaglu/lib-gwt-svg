@@ -1,237 +1,351 @@
 /**********************************************
- * Copyright (C) 2009 Lukas Laag
+ * Copyright (C) 2010 Lukas Laag
  * This file is part of libgwtsvg.
  * 
  * libgwtsvg is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
  * libgwtsvg is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  * 
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Lesser General Public License
  * along with libgwtsvg.  If not, see http://www.gnu.org/licenses/
  **********************************************/
 package org.vectomatic.dom.svg;
-public class OMSVGSVGElement extends org.vectomatic.dom.svg.OMSVGElement {
-  protected OMSVGSVGElement() {
+
+import com.google.gwt.dom.client.Node;
+import com.google.gwt.dom.client.NodeList;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.LoadEvent;
+import com.google.gwt.event.dom.client.LoadHandler;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.dom.client.ScrollEvent;
+import com.google.gwt.event.dom.client.ScrollHandler;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
+import org.vectomatic.dom.svg.events.HasDocumentHandlers;
+import org.vectomatic.dom.svg.events.HasGraphicalHandlers;
+import org.vectomatic.dom.svg.events.SVGZoomEvent;
+import org.vectomatic.dom.svg.events.SVGZoomHandler;
+import org.vectomatic.dom.svg.impl.SVGElement;
+import org.vectomatic.dom.svg.impl.SVGSVGElement;
+import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
+import org.vectomatic.dom.svg.itf.ISVGFitToViewBox;
+import org.vectomatic.dom.svg.itf.ISVGLangSpace;
+import org.vectomatic.dom.svg.itf.ISVGLocatable;
+import org.vectomatic.dom.svg.itf.ISVGStylable;
+import org.vectomatic.dom.svg.itf.ISVGTests;
+import org.vectomatic.dom.svg.itf.ISVGZoomAndPan;
+
+public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandlers, HasDocumentHandlers, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGLocatable, ISVGFitToViewBox, ISVGZoomAndPan {
+  public OMSVGSVGElement(SVGSVGElement ot) {
+    super(ot);
   }
 
-  // Implementation of the nsIDOMSVGSVGElement XPCOM interface
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedLength getX() /*-{
-    return this.x;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedLength getY() /*-{
-    return this.y;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedLength getWidth() /*-{
-    return this.width;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedLength getHeight() /*-{
-    return this.height;
-  }-*/;
-  public final native java.lang.String getContentScriptType() /*-{
-    return this.contentScriptType;
-  }-*/;
-  public final native void setContentScriptType(java.lang.String value) /*-{
-    this.contentScriptType = value;
-  }-*/;
-  public final native java.lang.String getContentStyleType() /*-{
-    return this.contentStyleType;
-  }-*/;
-  public final native void setContentStyleType(java.lang.String value) /*-{
-    this.contentStyleType = value;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGRect getViewport() /*-{
-    return this.viewport;
-  }-*/;
-  public final native float getPixelUnitToMillimeterX() /*-{
-    return this.pixelUnitToMillimeterX;
-  }-*/;
-  public final native float getPixelUnitToMillimeterY() /*-{
-    return this.pixelUnitToMillimeterY;
-  }-*/;
-  public final native float getScreenPixelToMillimeterX() /*-{
-    return this.screenPixelToMillimeterX;
-  }-*/;
-  public final native float getScreenPixelToMillimeterY() /*-{
-    return this.screenPixelToMillimeterY;
-  }-*/;
-  public final native boolean getUseCurrentView() /*-{
-    return this.useCurrentView;
-  }-*/;
-  public final native void setUseCurrentView(boolean value) /*-{
-    this.useCurrentView = value;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGViewSpec getCurrentView() /*-{
-    return this.currentView;
-  }-*/;
-  public final native float getCurrentScale() /*-{
-    return this.currentScale;
-  }-*/;
-  public final native void setCurrentScale(float value) /*-{
-    this.currentScale = value;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPoint getCurrentTranslate() /*-{
-    return this.currentTranslate;
-  }-*/;
-  public final native int suspendRedraw(int max_wait_milliseconds) /*-{
-    return this.suspendRedraw(max_wait_milliseconds);
-  }-*/;
-  public final native void unsuspendRedraw(int suspend_handle_id) /*-{
-    this.unsuspendRedraw(suspend_handle_id);
-  }-*/;
-  public final native void unsuspendRedrawAll() /*-{
-    this.unsuspendRedrawAll();
-  }-*/;
-  public final native void forceRedraw() /*-{
-    this.forceRedraw();
-  }-*/;
-  public final native void pauseAnimations() /*-{
-    this.pauseAnimations();
-  }-*/;
-  public final native void unpauseAnimations() /*-{
-    this.unpauseAnimations();
-  }-*/;
-  public final native boolean animationsPaused() /*-{
-    return this.animationsPaused();
-  }-*/;
-  public final native float getCurrentTime() /*-{
-    return this.getCurrentTime();
-  }-*/;
-  public final native void setCurrentTime(float seconds) /*-{
-    this.setCurrentTime(seconds);
-  }-*/;
-  public final native org.vectomatic.dom.OMNodeList getIntersectionList(org.vectomatic.dom.svg.OMSVGRect rect, org.vectomatic.dom.svg.OMSVGElement referenceElement) /*-{
-    return this.getIntersectionList(rect, referenceElement);
-  }-*/;
-  public final native org.vectomatic.dom.OMNodeList getEnclosureList(org.vectomatic.dom.svg.OMSVGRect rect, org.vectomatic.dom.svg.OMSVGElement referenceElement) /*-{
-    return this.getEnclosureList(rect, referenceElement);
-  }-*/;
-  public final native boolean checkIntersection(org.vectomatic.dom.svg.OMSVGElement element, org.vectomatic.dom.svg.OMSVGRect rect) /*-{
-    return this.checkIntersection(element, rect);
-  }-*/;
-  public final native boolean checkEnclosure(org.vectomatic.dom.svg.OMSVGElement element, org.vectomatic.dom.svg.OMSVGRect rect) /*-{
-    return this.checkEnclosure(element, rect);
-  }-*/;
-  public final native void deSelectAll() /*-{
-    this.deSelectAll();
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGNumber createSVGNumber() /*-{
-    return this.createSVGNumber();
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGLength createSVGLength() /*-{
-    return this.createSVGLength();
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAngle createSVGAngle() /*-{
-    return this.createSVGAngle();
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGPoint createSVGPoint() /*-{
-    return this.createSVGPoint();
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGMatrix createSVGMatrix() /*-{
-    return this.createSVGMatrix();
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGRect createSVGRect() /*-{
-    return this.createSVGRect();
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGTransform createSVGTransform() /*-{
-    return this.createSVGTransform();
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGTransform createSVGTransformFromMatrix(org.vectomatic.dom.svg.OMSVGMatrix matrix) /*-{
-    return this.createSVGTransformFromMatrix(matrix);
-  }-*/;
-  public final native java.lang.String createSVGString() /*-{
-    return this.createSVGString();
-  }-*/;
-  public final native org.vectomatic.dom.OMElement getElementById(java.lang.String elementId) /*-{
-    return this.getElementById(elementId);
-  }-*/;
+  // Implementation of the svg::SVGSVGElement W3C IDL interface
+  public final OMSVGAnimatedLength getX() {
+    return ((SVGSVGElement)ot).getX();
+  }
+  public final OMSVGAnimatedLength getY() {
+    return ((SVGSVGElement)ot).getY();
+  }
+  public final OMSVGAnimatedLength getWidth() {
+    return ((SVGSVGElement)ot).getWidth();
+  }
+  public final OMSVGAnimatedLength getHeight() {
+    return ((SVGSVGElement)ot).getHeight();
+  }
+  public final String getContentScriptType() {
+    return ((SVGSVGElement)ot).getContentScriptType();
+  }
+  public final void setContentScriptType(java.lang.String value) {
+    ((SVGSVGElement)ot).setContentScriptType(value);
+  }
+  public final String getContentStyleType() {
+    return ((SVGSVGElement)ot).getContentStyleType();
+  }
+  public final void setContentStyleType(java.lang.String value) {
+    ((SVGSVGElement)ot).setContentStyleType(value);
+  }
+  public final OMSVGRect getViewport() {
+    return ((SVGSVGElement)ot).getViewport();
+  }
+  public final float getPixelUnitToMillimeterX() {
+    return ((SVGSVGElement)ot).getPixelUnitToMillimeterX();
+  }
+  public final float getPixelUnitToMillimeterY() {
+    return ((SVGSVGElement)ot).getPixelUnitToMillimeterY();
+  }
+  public final float getScreenPixelToMillimeterX() {
+    return ((SVGSVGElement)ot).getScreenPixelToMillimeterX();
+  }
+  public final float getScreenPixelToMillimeterY() {
+    return ((SVGSVGElement)ot).getScreenPixelToMillimeterY();
+  }
+  public final boolean getUseCurrentView() {
+    return ((SVGSVGElement)ot).getUseCurrentView();
+  }
+  public final void setUseCurrentView(boolean value) {
+    ((SVGSVGElement)ot).setUseCurrentView(value);
+  }
+  public final OMSVGViewSpec getCurrentView() {
+    return ((SVGSVGElement)ot).getCurrentView();
+  }
+  public final float getCurrentScale() {
+    return ((SVGSVGElement)ot).getCurrentScale();
+  }
+  public final void setCurrentScale(float value) {
+    ((SVGSVGElement)ot).setCurrentScale(value);
+  }
+  public final OMSVGPoint getCurrentTranslate() {
+    return ((SVGSVGElement)ot).getCurrentTranslate();
+  }
+  public final int suspendRedraw(int max_wait_milliseconds) {
+    return ((SVGSVGElement)ot).suspendRedraw(max_wait_milliseconds);
+  }
+  public final void unsuspendRedraw(int suspend_handle_id) {
+    ((SVGSVGElement)ot).unsuspendRedraw(suspend_handle_id);
+  }
+  public final void unsuspendRedrawAll() {
+    ((SVGSVGElement)ot).unsuspendRedrawAll();
+  }
+  public final void forceRedraw() {
+    ((SVGSVGElement)ot).forceRedraw();
+  }
+  public final void pauseAnimations() {
+    ((SVGSVGElement)ot).pauseAnimations();
+  }
+  public final void unpauseAnimations() {
+    ((SVGSVGElement)ot).unpauseAnimations();
+  }
+  public final boolean animationsPaused() {
+    return ((SVGSVGElement)ot).animationsPaused();
+  }
+  public final float getCurrentTime() {
+    return ((SVGSVGElement)ot).getCurrentTime();
+  }
+  public final void setCurrentTime(float seconds) {
+    ((SVGSVGElement)ot).setCurrentTime(seconds);
+  }
+  public final NodeList<? extends Node> getIntersectionList(OMSVGRect rect, OMSVGElement referenceElement) {
+    return ((SVGSVGElement)ot).getIntersectionList(rect, ((SVGElement)referenceElement.ot));
+  }
+  public final NodeList<? extends Node> getEnclosureList(OMSVGRect rect, OMSVGElement referenceElement) {
+    return ((SVGSVGElement)ot).getEnclosureList(rect, ((SVGElement)referenceElement.ot));
+  }
+  public final boolean checkIntersection(OMSVGElement element, OMSVGRect rect) {
+    return ((SVGSVGElement)ot).checkIntersection(((SVGElement)element.ot), rect);
+  }
+  public final boolean checkEnclosure(OMSVGElement element, OMSVGRect rect) {
+    return ((SVGSVGElement)ot).checkEnclosure(((SVGElement)element.ot), rect);
+  }
+  public final void deselectAll() {
+    ((SVGSVGElement)ot).deselectAll();
+  }
+  public final OMSVGNumber createSVGNumber() {
+    return ((SVGSVGElement)ot).createSVGNumber();
+  }
+  public final OMSVGLength createSVGLength() {
+    return ((SVGSVGElement)ot).createSVGLength();
+  }
+  public final OMSVGAngle createSVGAngle() {
+    return ((SVGSVGElement)ot).createSVGAngle();
+  }
+  public final OMSVGPoint createSVGPoint() {
+    return ((SVGSVGElement)ot).createSVGPoint();
+  }
+  public final OMSVGMatrix createSVGMatrix() {
+    return ((SVGSVGElement)ot).createSVGMatrix();
+  }
+  public final OMSVGRect createSVGRect() {
+    return ((SVGSVGElement)ot).createSVGRect();
+  }
+  public final OMSVGTransform createSVGTransform() {
+    return ((SVGSVGElement)ot).createSVGTransform();
+  }
+  public final OMSVGTransform createSVGTransformFromMatrix(OMSVGMatrix matrix) {
+    return ((SVGSVGElement)ot).createSVGTransformFromMatrix(matrix);
+  }
+  public final OMElement getElementById(String elementId) {
+    return (OMElement) convert(((SVGSVGElement)ot).getElementById(elementId));
+  }
 
-  // Implementation of the nsIDOMSVGStylable XPCOM interface
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedString getClassName() /*-{
-    return this.className;
-  }-*/;
-  public final native org.vectomatic.dom.css.OMStyleDeclaration getStyle() /*-{
-    return this.style;
-  }-*/;
-  public final native org.vectomatic.dom.css.OMValue getPresentationAttribute(java.lang.String name) /*-{
-    return this.getPresentationAttribute(name);
-  }-*/;
+  // Implementation of the svg::SVGFitToViewBox W3C IDL interface
+  public final OMSVGAnimatedRect getViewBox() {
+    return ((SVGSVGElement)ot).getViewBox();
+  }
+  public final OMSVGAnimatedPreserveAspectRatio getPreserveAspectRatio() {
+    return ((SVGSVGElement)ot).getPreserveAspectRatio();
+  }
 
-  // Implementation of the nsIDOMSVGLocatable XPCOM interface
-  public final native org.vectomatic.dom.svg.OMSVGElement getNearestViewportElement() /*-{
-    return this.nearestViewportElement;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGElement getFarthestViewportElement() /*-{
-    return this.farthestViewportElement;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGRect getBBox() /*-{
-    return this.getBBox();
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGMatrix getCTM() /*-{
-    return this.getCTM();
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGMatrix getScreenCTM() /*-{
-    return this.getScreenCTM();
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGMatrix getTransformToElement(org.vectomatic.dom.svg.OMSVGElement element) /*-{
-    return this.getTransformToElement(element);
-  }-*/;
+  // Implementation of the svg::SVGZoomAndPan W3C IDL interface
+  public final short getZoomAndPan() {
+    return ((SVGSVGElement)ot).getZoomAndPan();
+  }
+  public final void setZoomAndPan(short value) {
+    ((SVGSVGElement)ot).setZoomAndPan(value);
+  }
 
-  // Implementation of the nsIDOMSVGFitToViewBox XPCOM interface
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedRect getViewBox() /*-{
-    return this.viewBox;
-  }-*/;
-  public final native org.vectomatic.dom.svg.OMSVGAnimatedPreserveAspectRatio getPreserveAspectRatio() /*-{
-    return this.preserveAspectRatio;
-  }-*/;
+  // Implementation of the svg::SVGLocatable W3C IDL interface
+  public final OMSVGElement getNearestViewportElement() {
+    return (OMSVGElement)convert(((SVGSVGElement)ot).getNearestViewportElement());
+  }
+  public final OMSVGElement getFarthestViewportElement() {
+    return (OMSVGElement)convert(((SVGSVGElement)ot).getFarthestViewportElement());
+  }
+  public final OMSVGRect getBBox() {
+    return ((SVGSVGElement)ot).getBBox();
+  }
+  public final OMSVGMatrix getCTM() {
+    return ((SVGSVGElement)ot).getCTM();
+  }
+  public final OMSVGMatrix getScreenCTM() {
+    return ((SVGSVGElement)ot).getScreenCTM();
+  }
+  public final OMSVGMatrix getTransformToElement(OMSVGElement element) {
+    return ((SVGSVGElement)ot).getTransformToElement(((SVGElement)element.ot));
+  }
 
-  // Implementation of the nsIDOMSVGZoomAndPan XPCOM interface
-  public final native short getZoomAndPan() /*-{
-    return this.zoomAndPan;
-  }-*/;
-  public final native void setZoomAndPan(short value) /*-{
-    this.zoomAndPan = value;
-  }-*/;
+  // Implementation of the svg::SVGLangSpace W3C IDL interface
+  public final String getXmllang() {
+    return ((SVGSVGElement)ot).getXmllang();
+  }
+  public final void setXmllang(java.lang.String value) {
+    ((SVGSVGElement)ot).setXmllang(value);
+  }
+  public final String getXmlspace() {
+    return ((SVGSVGElement)ot).getXmlspace();
+  }
+  public final void setXmlspace(java.lang.String value) {
+    ((SVGSVGElement)ot).setXmlspace(value);
+  }
 
-  // Implementation of the nsIDOMEventTarget XPCOM interface
-  public final native void addEventListener(java.lang.String type, org.vectomatic.dom.events.OMEventListener listener, boolean useCapture) /*-{
-    this.addEventListener(type, listener, useCapture);
-  }-*/;
-  public final native void removeEventListener(java.lang.String type, org.vectomatic.dom.events.OMEventListener listener, boolean useCapture) /*-{
-    this.removeEventListener(type, listener, useCapture);
-  }-*/;
-  public final native boolean dispatchEvent(org.vectomatic.dom.events.OMEvent evt) /*-{
-    return this.dispatchEvent(evt);
-  }-*/;
+  // Implementation of the svg::SVGTests W3C IDL interface
+  public final OMSVGStringList getRequiredFeatures() {
+    return ((SVGSVGElement)ot).getRequiredFeatures();
+  }
+  public final OMSVGStringList getRequiredExtensions() {
+    return ((SVGSVGElement)ot).getRequiredExtensions();
+  }
+  public final OMSVGStringList getSystemLanguage() {
+    return ((SVGSVGElement)ot).getSystemLanguage();
+  }
+  public final boolean hasExtension(String extension) {
+    return ((SVGSVGElement)ot).hasExtension(extension);
+  }
 
-  // Implementation of the nsIDOMDocumentEvent XPCOM interface
-  public final native org.vectomatic.dom.events.OMEvent createEvent(java.lang.String eventType) /*-{
-    return this.createEvent(eventType);
-  }-*/;
+  // Implementation of the svg::SVGExternalResourcesRequired W3C IDL interface
+  public final OMSVGAnimatedBoolean getExternalResourcesRequired() {
+    return ((SVGSVGElement)ot).getExternalResourcesRequired();
+  }
 
-  // Implementation of the nsIDOMViewCSS XPCOM interface
-  public final native org.vectomatic.dom.css.OMStyleDeclaration getComputedStyle(org.vectomatic.dom.OMElement elt, java.lang.String pseudoElt) /*-{
-    return this.getComputedStyle(elt, pseudoElt);
-  }-*/;
-
-  // Implementation of the nsIDOMAbstractView XPCOM interface
-  public final native org.vectomatic.dom.views.OMDocumentView getDocument() /*-{
-    return this.document;
-  }-*/;
-
-  // Implementation of the nsIDOMDocumentCSS XPCOM interface
-  public final native org.vectomatic.dom.css.OMStyleDeclaration getOverrideStyle(org.vectomatic.dom.OMElement elt, java.lang.String pseudoElt) /*-{
-    return this.getOverrideStyle(elt, pseudoElt);
-  }-*/;
-
-  // Implementation of the nsIDOMDocumentStyle XPCOM interface
-  public final native org.vectomatic.dom.stylesheets.OMStyleSheetList getStyleSheets() /*-{
-    return this.styleSheets;
-  }-*/;
+  @Override
+  public final HandlerRegistration addResizeHandler(ResizeHandler handler) {
+    return addHandler(handler, ResizeEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addLoadHandler(LoadHandler handler) {
+    return addDomHandler(handler, LoadEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
+    return addDomHandler(handler, MouseDownEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addBlurHandler(BlurHandler handler) {
+    return addDomHandler(handler, BlurEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
+    return addDomHandler(handler, MouseUpEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
+    return addDomHandler(handler, MouseOverEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
+    return addDomHandler(handler, MouseOutEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
+    return addDomHandler(handler, MouseMoveEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addFocusHandler(FocusHandler handler) {
+    return addDomHandler(handler, FocusEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addScrollHandler(ScrollHandler handler) {
+    return addDomHandler(handler, ScrollEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addSVGZoomHandler(SVGZoomHandler handler) {
+    return addDomHandler(handler, SVGZoomEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addClickHandler(ClickHandler handler) {
+    return addDomHandler(handler, ClickEvent.getType());
+  }
+  
+  // Helper methods
+  public final OMSVGNumber createSVGNumber(float value) {
+	OMSVGNumber number = createSVGNumber();
+	number.setValue(value);
+    return number;
+  }
+  public final OMSVGLength createSVGLength(short unitType, float valueInSpecifiedUnits) {
+	OMSVGLength length = ((SVGSVGElement)ot).createSVGLength();
+	length.newValueSpecifiedUnits(unitType, valueInSpecifiedUnits);
+	return length;
+  }
+  public final OMSVGAngle createSVGAngle(short unitType, float valueInSpecifiedUnits) {
+	OMSVGAngle angle = ((SVGSVGElement)ot).createSVGAngle();
+	angle.newValueSpecifiedUnits(unitType, valueInSpecifiedUnits);
+	return angle;
+  }
+  public final OMSVGPoint createSVGPoint(float x, float y) {
+	OMSVGPoint point = ((SVGSVGElement)ot).createSVGPoint();
+	point.setX(x);
+	point.setY(y);
+	return point;
+  }
+  public final OMSVGMatrix createSVGMatrix(float a, float b, float c, float d, float e, float f) {
+	OMSVGMatrix matrix = ((SVGSVGElement)ot).createSVGMatrix();
+	matrix.setA(a);
+	matrix.setB(b);
+	matrix.setC(c);
+	matrix.setD(d);
+	matrix.setE(e);
+	matrix.setF(f);
+	return matrix;
+  }
+  public final OMSVGRect createSVGRect(float x, float y, float width, float height) {
+	OMSVGRect rect = ((SVGSVGElement)ot).createSVGRect();
+	rect.setX(x);
+	rect.setY(y);
+	rect.setWidth(width);
+	rect.setHeight(height);
+	return rect;
+  }
 
 }
