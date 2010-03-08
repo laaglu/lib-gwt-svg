@@ -133,5 +133,7 @@ public abstract class OMSVGElement extends OMElement {
   public final void setClassNameBaseVal(String className) {
     getClassName().setBaseVal(className);
   }
-
+  public final String getMarkup() {
+	return ((SVGElement) ot).getMarkup();
+  }
 }

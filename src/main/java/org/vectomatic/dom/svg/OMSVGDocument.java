@@ -17,12 +17,6 @@
  **********************************************/
 package org.vectomatic.dom.svg;
 
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.event.dom.client.ScrollEvent;
-import com.google.gwt.event.dom.client.ScrollHandler;
-import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
 import org.vectomatic.dom.svg.events.HasDocumentHandlers;
 import org.vectomatic.dom.svg.events.SVGZoomEvent;
 import org.vectomatic.dom.svg.events.SVGZoomHandler;
@@ -110,6 +104,13 @@ import org.vectomatic.dom.svg.impl.SVGVKernElement;
 import org.vectomatic.dom.svg.impl.SVGViewElement;
 import org.vectomatic.dom.svg.utils.DOMHelper;
 import org.vectomatic.dom.svg.utils.SVGConstants;
+
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.event.dom.client.ScrollEvent;
+import com.google.gwt.event.dom.client.ScrollHandler;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 
 public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
   public OMSVGDocument(SVGDocument ot) {
@@ -375,5 +376,50 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
   }
   public final OMSVGForeignObjectElement createSVGForeignObjectElement() {
     return (OMSVGForeignObjectElement)convert((SVGForeignObjectElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FOREIGN_OBJECT_TAG).cast());
+  }
+  
+  // Helper methods
+  public final OMSVGCircleElement createSVGCircleElement(float cx, float cy, float r) {
+	OMSVGCircleElement circle = createSVGCircleElement();
+	circle.getCx().getBaseVal().setValue(cx);
+	circle.getCy().getBaseVal().setValue(cy);
+	circle.getR().getBaseVal().setValue(r);
+	return circle;
+  }
+  public final OMSVGEllipseElement createSVGEllipseElement(float cx, float cy, float rx, float ry) {
+	OMSVGEllipseElement ellipse = createSVGEllipseElement();
+	ellipse.getCx().getBaseVal().setValue(cx);
+	ellipse.getCy().getBaseVal().setValue(cy);
+	ellipse.getRx().getBaseVal().setValue(rx);
+	ellipse.getRy().getBaseVal().setValue(ry);
+	return ellipse;
+  }
+  public final OMSVGLineElement createSVGLineElement(float x1, float y1, float x2, float y2) {
+	OMSVGLineElement line = createSVGLineElement();
+	line.getX1().getBaseVal().setValue(x1);
+	line.getY1().getBaseVal().setValue(y1);
+	line.getX2().getBaseVal().setValue(x2);
+	line.getY2().getBaseVal().setValue(y2);
+	return line;
+  }
+  public final OMSVGRectElement createSVGRectElement(float x, float y, float width, float height, float rx, float ry) {
+	OMSVGRectElement rect = createSVGRectElement();
+	rect.getX().getBaseVal().setValue(x);
+	rect.getY().getBaseVal().setValue(y);
+	rect.getWidth().getBaseVal().setValue(width);
+	rect.getHeight().getBaseVal().setValue(height);
+	rect.getRx().getBaseVal().setValue(rx);
+	rect.getRy().getBaseVal().setValue(ry);
+	return rect;
+ }
+  public final OMSVGTextElement createSVGTextElement(float x, float y, short unitType, String data) {
+    OMSVGTextElement text = createSVGTextElement();
+    OMSVGSVGElement svg = createSVGSVGElement();
+	OMSVGLength xCoord = svg.createSVGLength(unitType, x);
+	text.getX().getBaseVal().appendItem(xCoord);
+	OMSVGLength yCoord = svg.createSVGLength(unitType, y);
+	text.getY().getBaseVal().appendItem(yCoord);
+	text.appendChild(createTextNode(data));
+	return text;
   }
 }

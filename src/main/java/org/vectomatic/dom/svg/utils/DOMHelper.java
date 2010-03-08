@@ -18,6 +18,7 @@
 package org.vectomatic.dom.svg.utils;
 
 import org.vectomatic.dom.svg.OMNode;
+import org.vectomatic.dom.svg.OMSVGElement;
 import org.vectomatic.dom.svg.impl.DOMHelperImpl;
 
 import com.google.gwt.core.client.GWT;
@@ -27,6 +28,8 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.dom.client.Text;
+import com.google.gwt.event.dom.client.LoseCaptureHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 
 public class DOMHelper {
 	private static final DOMHelperImpl impl = GWT.create(DOMHelperImpl.class);
@@ -83,9 +86,22 @@ public class DOMHelper {
 		impl.bindEventListener(source, elem, eventName);
 	}
 	
-	// Function getType is borrowed from: 
-	// JavaScript: The Definitive Guide, 5th Edition
-	// By David Flanagan
+	public static OMSVGElement getCaptureElement() {
+		return impl.getCaptureElement();
+	}
+	public static HandlerRegistration setCaptureElement(OMSVGElement element, LoseCaptureHandler loseCaptureHandler) {
+		return impl.setCaptureElement(element, loseCaptureHandler);
+	}
+	public static void releaseCaptureElement() {
+		impl.releaseCaptureElement();
+	}
+	
+	/**
+	 * Returns the JavaScript type of an object. 
+	 * The function getType is borrowed from: 
+	 * JavaScript: The Definitive Guide, 5th Edition
+	 * By David Flanagan
+	 */
 	public static final native String getType(JavaScriptObject x) /*-{
 	    // If x is null, return "null"
 	    if (x == null) {
@@ -120,5 +136,9 @@ public class DOMHelper {
 	    // If we really can't figure it out, say so.
 	    return "<unknown type>";
 	}-*/;
+	
+	public static final String toUrl(String s) {
+		return "url(#" + s + ")";
+	}
 
 }

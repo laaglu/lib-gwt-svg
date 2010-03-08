@@ -347,5 +347,20 @@ public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandler
 	rect.setHeight(height);
 	return rect;
   }
-
+  public final void setHeight(short unitType, float height) {
+	getHeight().getBaseVal().newValueSpecifiedUnits(unitType, height);
+  }
+  public final void setViewBox(OMSVGRect rect) {
+	setViewBox(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+  }
+  public final void setViewBox(float x, float y, float width, float height) {
+	OMSVGRect viewBox = getViewBox().getBaseVal();
+	viewBox.setX(x);
+	viewBox.setY(y);
+	viewBox.setWidth(width);
+	viewBox.setHeight(height);
+  }
+  public final void setWidth(short unitType, float width) {
+	getWidth().getBaseVal().newValueSpecifiedUnits(unitType, width);
+  }
 }

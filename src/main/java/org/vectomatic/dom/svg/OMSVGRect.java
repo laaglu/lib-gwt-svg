@@ -49,4 +49,11 @@ public class OMSVGRect extends JavaScriptObject {
     this.height = value;
   }-*/;
 
+  // Helper methods
+  public final float getCenterX() {
+	return getX() + 0.5f * getWidth();
+  }
+  public final float getCenterY() {
+	return getY() + 0.5f * getHeight();
+  }
 }

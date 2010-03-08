@@ -44,4 +44,11 @@ public class SVGElement extends Element {
   public final native OMSVGAnimatedString getClassName_() /*-{
     return this.className;
   }-*/;
+  
+  public final native String getMarkup() /*-{
+      var div = $doc.createElement("div");
+      div.appendChild(this.cloneNode(true));
+      return div.innerHTML;
+  }-*/;
+
 }

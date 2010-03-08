@@ -48,5 +48,15 @@ public class OMElement extends OMNode {
 	public final String getTagName() {
 		return ((Element) ot).getTagName();
 	}
+	
+	public final String getAttribute(String name) {
+		return ((Element) ot).getAttribute(name);
+	}
+	public final void setAttribute(String name, String value) {
+		((Element) ot).setAttribute(name, value);
+	}
+	public final void removeAttribute(String name) {
+		((Element) ot).removeAttribute(name);
+	}
 
 }

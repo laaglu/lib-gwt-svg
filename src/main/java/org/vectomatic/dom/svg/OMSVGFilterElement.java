@@ -23,8 +23,16 @@ import org.vectomatic.dom.svg.itf.ISVGLangSpace;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
 import org.vectomatic.dom.svg.itf.ISVGUnitTypes;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 public class OMSVGFilterElement extends OMSVGElement implements ISVGURIReference, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGUnitTypes {
+  public static final String IN_SOURCE_GRAPHIC = SVGConstants.SVG_SOURCE_GRAPHIC_VALUE;
+  public static final String IN_SOURCE_ALPHA = SVGConstants.SVG_SOURCE_ALPHA_VALUE;
+  public static final String IN_BACKGROUND_IMAGE = SVGConstants.SVG_BACKGROUND_IMAGE_VALUE;
+  public static final String IN_BACKGROUND_ALPHA = SVGConstants.SVG_BACKGROUND_ALPHA_VALUE;
+  public static final String IN_FILL_PAINT = SVGConstants.SVG_FILL_PAINT_VALUE;
+  public static final String IN_STROKE_PAINT = SVGConstants.SVG_STROKE_PAINT_VALUE;
+	
   protected OMSVGFilterElement(SVGFilterElement ot) {
     super(ot);
   }

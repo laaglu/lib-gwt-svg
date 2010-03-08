@@ -18,12 +18,16 @@
 package org.vectomatic.dom.svg.impl;
 
 import org.vectomatic.dom.svg.OMNode;
+import org.vectomatic.dom.svg.OMSVGElement;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Node;
 import com.google.gwt.event.dom.client.DomEvent;
+import com.google.gwt.event.dom.client.LoseCaptureEvent;
+import com.google.gwt.event.dom.client.LoseCaptureHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 
 public class DOMHelperImpl {
 	  protected static boolean eventsInitialized;
@@ -46,16 +50,34 @@ public class DOMHelperImpl {
 	  private static final int EVT_RESIZE = 0x10000;
 	  private static final int EVT_SCROLL = 0x20000;
 	  private static final int EVT_ZOOM = 0x40000;
+	  private static final int EVT_LOOSECAPTURE = 0x80000;
 	  
 	  @SuppressWarnings("unused")
 	  private static JavaScriptObject svgHandler;
+	  
+	  @SuppressWarnings("unused")
+	  private static JavaScriptObject svgCaptureHandler;
 
+	  private OMSVGElement captureElt;
+	  
 	  protected native void initEventSystem() /*-{
 	    $wnd.__helperImpl = this;
   
 	    @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler = function(evt) {
 	        $wnd.__helperImpl.@org.vectomatic.dom.svg.impl.DOMHelperImpl::dispatch(Lcom/google/gwt/dom/client/NativeEvent;Lorg/vectomatic/dom/svg/OMNode;Lcom/google/gwt/dom/client/Element;)(evt, evt.currentTarget.__wrapper, evt.currentTarget);
 	    };
+
+	    @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler = function(evt) {
+	        $wnd.__helperImpl.@org.vectomatic.dom.svg.impl.DOMHelperImpl::dispatchCapturedEvent(Lcom/google/gwt/dom/client/NativeEvent;Lcom/google/gwt/dom/client/Element;)(evt, evt.currentTarget);
+	    };
+
+	    $wnd.addEventListener('mousedown', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
+	    $wnd.addEventListener('mouseup', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
+	    $wnd.addEventListener('mousemove', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
+	    $wnd.addEventListener('mouseover', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
+	    $wnd.addEventListener('mouseout', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
+	    $wnd.addEventListener('mousewheel', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
+	    $wnd.addEventListener('click', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
 
 	  }-*/;
 	  
@@ -80,18 +102,41 @@ public class DOMHelperImpl {
 		    case "resize": return 0x10000;
 		    case "scroll": return 0x20000;
 		    case "zoom": return 0x40000;
+		    case "losecapture": return 0x80000;
 		    default: return 0;
 	    }
 	  }-*/;
-	  
-	public void bindEventListener(OMNode source, Element elem, String eventName) {
+	
+	private void init() {
 		if (!eventsInitialized) {
 			eventsInitialized = true;
 			initEventSystem();
 		}
+	}
+	public void bindEventListener(OMNode source, Element elem, String eventName) {
+		init();
 		sinkEvents(source, elem, eventGetTypeInt(eventName) | getEventsSunk(elem));
 	}
+	public OMSVGElement getCaptureElement() {
+		init();
+		return captureElt;
+	}
 
+	public HandlerRegistration setCaptureElement(OMSVGElement captureElt, LoseCaptureHandler loseCaptureHandler) {
+		init();
+		this.captureElt = captureElt;
+		HandlerRegistration registration = null;
+		if (loseCaptureHandler != null) {
+			registration = captureElt.addHandler(loseCaptureHandler, LoseCaptureEvent.getType());
+		}
+		return registration;
+	}
+
+	public void releaseCaptureElement() {
+		init();
+		captureElt = null;
+	}
+	
 	public native int getEventsSunk(Element elem) /*-{
 	    return elem.__eventMask || 0;
 	}-*/;
@@ -158,6 +203,16 @@ public class DOMHelperImpl {
 		}
 	    DomEvent.fireNativeEvent(event, node, elem);
 	}
+
+	public void dispatchCapturedEvent(NativeEvent event, Element elem) {
+		if (captureElt != null) {
+			if (eventGetTypeInt(event.getType()) == EVT_LOOSECAPTURE) {
+				captureElt = null;
+			}
+			dispatch(event, captureElt, elem);
+		    event.stopPropagation();
+		}
+	}
 	
 	/**
 	 * Tests if a node is part of a DOM subtree.  
@@ -177,4 +232,5 @@ public class DOMHelperImpl {
 		}
 		return false;
 	}-*/;
+
 }

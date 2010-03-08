@@ -47,7 +47,7 @@ public class OMNode implements HasHandlers {
 	    DomEvent.fireNativeEvent(event, this, (Element)event.getCurrentEventTarget().cast());
 	}
 
-	protected final <H extends EventHandler> HandlerRegistration addDomHandler(
+	public final <H extends EventHandler> HandlerRegistration addDomHandler(
 			final H handler, DomEvent.Type<H> type) {
 		assert handler != null : "handler must not be null";
 		assert type != null : "type must not be null";
@@ -55,7 +55,7 @@ public class OMNode implements HasHandlers {
 		return ensureHandlers().addHandler(type, handler);
 	}
 
-	protected final <H extends EventHandler> HandlerRegistration addHandler(
+	public final <H extends EventHandler> HandlerRegistration addHandler(
 			final H handler, GwtEvent.Type<H> type) {
 		return ensureHandlers().addHandler(type, handler);
 	}
@@ -209,7 +209,7 @@ public class OMNode implements HasHandlers {
 	}
 
 	public final OMNode getLastChild() {
-		Node lastChild = ot.getFirstChild();
+		Node lastChild = ot.getLastChild();
 		return (lastChild != null) ? new Conversion(lastChild).result : null;
 	}
 

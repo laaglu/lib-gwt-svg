@@ -48,4 +48,34 @@ public class OMSVGPoint extends JavaScriptObject {
 	  return builder.toString();
   }
 
+  // Helper methods
+  public final OMSVGPoint add(OMSVGPoint p) {
+	return add(p, this);
+  }
+  public final native OMSVGPoint add(OMSVGPoint p, OMSVGPoint destination) /*-{
+    destination.x = this.x + p.x;
+    destination.y = this.y + p.y;
+	return destination;
+  }-*/;
+  public final OMSVGPoint substract(OMSVGPoint p) {
+	return substract(p, this);
+  }
+  public final native OMSVGPoint substract(OMSVGPoint p, OMSVGPoint destination) /*-{
+    destination.x = this.x - p.x;
+    destination.y = this.y - p.y;
+	return destination;
+  }-*/;
+  public final OMSVGPoint scale(float f) {
+	return scale(f, this);
+  }
+  public final native OMSVGPoint scale(float f, OMSVGPoint destination) /*-{
+    destination.x = this.x * f;
+    destination.y = this.y * f;
+	return destination;
+  }-*/;
+  public final native OMSVGPoint assignTo(OMSVGPoint destination) /*-{
+    destination.x = this.x;
+    destination.y = this.y;
+	return destination;
+  }-*/;
 }

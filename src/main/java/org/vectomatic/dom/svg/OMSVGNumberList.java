@@ -48,5 +48,22 @@ public class OMSVGNumberList extends JavaScriptObject {
   public final native OMSVGNumber appendItem(OMSVGNumber newItem) /*-{
     return this.appendItem(newItem);
   }-*/;
-
+  
+  // Helper methods
+  public final OMSVGNumber insertItemBefore(OMSVGSVGElement svg, float value, int index) {
+	 return insertItemBefore(svg.createSVGNumber(value), index);
+  }
+  public final OMSVGNumber appendItem(OMSVGSVGElement svg, float value) {
+	 return appendItem(svg.createSVGNumber(value));
+  }
+  public final OMSVGNumber[] appendItems(OMSVGSVGElement svg, float[] values) {
+	 OMSVGNumber[] newItems = new OMSVGNumber[values.length];
+	 for (int i = 0; i < values.length; i++) {
+		newItems[i] = appendItem(svg, values[i]);
+	 }
+	 return newItems;
+  }
+  public final OMSVGNumber replaceItem(OMSVGSVGElement svg, float value, int index) {
+	 return replaceItem(svg.createSVGNumber(value), index);
+  }
 }

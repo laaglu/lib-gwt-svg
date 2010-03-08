@@ -22,6 +22,9 @@ import com.google.gwt.dom.client.Style;
 public class OMSVGStyle extends Style {
 	protected OMSVGStyle() {
 	}
+	public final native void clearSVGProperty(String name) /*-{
+		setPropertyImpl(name, "");
+	}-*/;
 
 	public final String getSVGProperty(String name) {
 		return getPropertyImpl(name);
