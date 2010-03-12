@@ -140,5 +140,15 @@ public class DOMHelper {
 	public static final String toUrl(String s) {
 		return "url(#" + s + ")";
 	}
-
+	
+	/**
+	 * Tests if the underlying DOM implementation supports the specified feature
+	 * @param featureName
+	 * The name of the feature to test
+	 * @return
+	 * true if the feature is supported, false otherwise 
+	 */
+	public static native boolean hasFeature(String featureName) /*-{
+		return $doc.implementation.hasFeature(featureName, 1.1);
+	}-*/;
 }

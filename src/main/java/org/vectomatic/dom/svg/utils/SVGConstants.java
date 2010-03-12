@@ -1027,4 +1027,56 @@ public interface SVGConstants {
     String SVG_EVENT_MOUSEOUT  = "mouseout";
     String SVG_EVENT_MOUSEOVER = "mouseover";
     String SVG_EVENT_MOUSEUP   = "mouseup";
+
+    ///////////////////////////////////////////////////////////////////
+    // SVG feature strings
+    ///////////////////////////////////////////////////////////////////
+
+    public static final String SVG_FEATURE_ANIMATION = "http://www.w3.org/TR/SVG11/feature#Animation";                                                                
+    public static final String SVG_FEATURE_ANIMATION_EVENTS_ATTRIBUTE = "http://www.w3.org/TR/SVG11/feature#AnimationEventsAttribute";                                  
+    public static final String SVG_FEATURE_BASIC_CLIP = "http://www.w3.org/TR/SVG11/feature#BasicClip";                                                                
+    public static final String SVG_FEATURE_BASIC_FILTER = "http://www.w3.org/TR/SVG11/feature#BasicFilter";                                                            
+    public static final String SVG_FEATURE_BASIC_FONT = "http://www.w3.org/TR/SVG11/feature#BasicFont";                                                                
+    public static final String SVG_FEATURE_BASIC_GRAPHICS_ATTRIBUTE = "http://www.w3.org/TR/SVG11/feature#BasicGraphicsAttribute";                                      
+    public static final String SVG_FEATURE_BASIC_PAINT_ATTRIBUTE = "http://www.w3.org/TR/SVG11/feature#BasicPaintAttribute";                                            
+    public static final String SVG_FEATURE_BASIC_STRUCTURE = "http://www.w3.org/TR/SVG11/feature#BasicStructure";                                                      
+    public static final String SVG_FEATURE_BASIC_TEXT = "http://www.w3.org/TR/SVG11/feature#BasicText";                                                                
+    public static final String SVG_FEATURE_CLIP = "http://www.w3.org/TR/SVG11/feature#Clip";                                                                          
+    public static final String SVG_FEATURE_COLOR_PROFILE = "http://www.w3.org/TR/SVG11/feature#ColorProfile";                                                          
+    public static final String SVG_FEATURE_CONDITIONAL_PROCESSING = "http://www.w3.org/TR/SVG11/feature#ConditionalProcessing";                                        
+    public static final String SVG_FEATURE_CONTAINER_ATTRIBUTE = "http://www.w3.org/TR/SVG11/feature#ContainerAttribute";                                              
+    public static final String SVG_FEATURE_CORE_ATTRIBUTE = "http://www.w3.org/TR/SVG11/feature#CoreAttribute";                                                        
+    public static final String SVG_FEATURE_CURSOR = "http://www.w3.org/TR/SVG11/feature#Cursor";                                                                      
+    public static final String SVG_FEATURE_DOCUMENT_EVENTS_ATTRIBUTE = "http://www.w3.org/TR/SVG11/feature#DocumentEventsAttribute";                                    
+    public static final String SVG_FEATURE_EXTENSIBILITY = "http://www.w3.org/TR/SVG11/feature#Extensibility";                                                        
+    public static final String SVG_FEATURE_EXTERNAL_RESOURCES_REQUIRED = "http://www.w3.org/TR/SVG11/feature#ExternalResourcesRequired";                                
+    public static final String SVG_FEATURE_FILTER = "http://www.w3.org/TR/SVG11/feature#Filter";                                                                      
+    public static final String SVG_FEATURE_FONT = "http://www.w3.org/TR/SVG11/feature#Font";                                                                          
+    public static final String SVG_FEATURE_GRADIENT = "http://www.w3.org/TR/SVG11/feature#Gradient";                                                                  
+    public static final String SVG_FEATURE_GRAPHICAL_EVENTS_ATTRIBUTE = "http://www.w3.org/TR/SVG11/feature#GraphicalEventsAttribute";                                  
+    public static final String SVG_FEATURE_GRAPHICS_ATTRIBUTE = "http://www.w3.org/TR/SVG11/feature#GraphicsAttribute";                                                
+    public static final String SVG_FEATURE_HYPERLINKING = "http://www.w3.org/TR/SVG11/feature#Hyperlinking";                                                          
+    public static final String SVG_FEATURE_IMAGE = "http://www.w3.org/TR/SVG11/feature#Image";                                                                        
+    public static final String SVG_FEATURE_MARKER = "http://www.w3.org/TR/SVG11/feature#Marker";                                                                      
+    public static final String SVG_FEATURE_MASK = "http://www.w3.org/TR/SVG11/feature#Mask";                                                                          
+    public static final String SVG_FEATURE_OPACITY_ATTRIBUTE = "http://www.w3.org/TR/SVG11/feature#OpacityAttribute";                                                  
+    public static final String SVG_FEATURE_PAINT_ATTRIBUTE = "http://www.w3.org/TR/SVG11/feature#PaintAttribute";
+    public static final String SVG_FEATURE_PATTERN = "http://www.w3.org/TR/SVG11/feature#Pattern";
+    public static final String SVG_FEATURE_SCRIPT = "http://www.w3.org/TR/SVG11/feature#Script";
+    public static final String SVG_FEATURE_SCRIPTING = "http://www.w3.org/TR/SVG11/feature#Scripting";
+    public static final String SVG_FEATURE_SHAPE = "http://www.w3.org/TR/SVG11/feature#Shape";
+    public static final String SVG_FEATURE_STRUCTURE = "http://www.w3.org/TR/SVG11/feature#Structure";
+    public static final String SVG_FEATURE_STYLE = "http://www.w3.org/TR/SVG11/feature#Style";
+    public static final String SVG_FEATURE_SVG = "http://www.w3.org/TR/SVG11/feature#SVG";
+    public static final String SVG_FEATURE_SVG_ANIMATION = "http://www.w3.org/TR/SVG11/feature#SVG-animation";
+    public static final String SVG_FEATURE_SVGDOM = "http://www.w3.org/TR/SVG11/feature#SVGDOM";
+    public static final String SVG_FEATURE_SVGDOM_ANIMATION = "http://www.w3.org/TR/SVG11/feature#SVGDOM-animation";
+    public static final String SVG_FEATURE_SVGDOM_DYNAMIC = "http://www.w3.org/TR/SVG11/feature#SVGDOM-dynamic";
+    public static final String SVG_FEATURE_SVGDOM_STATIC = "http://www.w3.org/TR/SVG11/feature#SVGDOM-static";
+    public static final String SVG_FEATURE_SVG_DYNAMIC = "http://www.w3.org/TR/SVG11/feature#SVG-dynamic";
+    public static final String SVG_FEATURE_SVG_STATIC = "http://www.w3.org/TR/SVG11/feature#SVG-static";
+    public static final String SVG_FEATURE_TEXT = "http://www.w3.org/TR/SVG11/feature#Text";
+    public static final String SVG_FEATURE_VIEW = "http://www.w3.org/TR/SVG11/feature#View";
+    public static final String SVG_FEATURE_VIEWPORT_ATTRIBUTE = "http://www.w3.org/TR/SVG11/feature#ViewportAttribute";
+    public static final String SVG_FEATURE_XLINK_ATTRIBUTE = "http://www.w3.org/TR/SVG11/feature#XlinkAttribute";
 }
