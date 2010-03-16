@@ -2,12 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.vectomatic</groupId>
-	<artifactId>libgwtsvg</artifactId>
+	<artifactId>lib-gwt-svg</artifactId>
 	<packaging>jar</packaging>
-	<version>0.3</version>
-	<name>libgwtsvg</name>
+	<version>0.3.1</version>
+	<name>lib-gwt-svg</name>
 	<description>A GWT library to access the SVG functionalities of web browsers</description>
-	<url>http://www.vectomatic.org/mvn-sites/libgwtsvg</url>
+	<url>http://www.vectomatic.org/mvn-sites/lib-gwt-svg</url>
 	<licenses>
 		<license>
 			<name>GPLv3</name>
@@ -37,6 +37,11 @@
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
+			<version>2.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-dev</artifactId>
 			<version>2.0.3</version>
 		</dependency>
 	</dependencies>
