@@ -20,6 +20,9 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGTextPathElement;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("textPath")
 public class OMSVGTextPathElement extends OMSVGTextContentElement implements ISVGURIReference {
   public static final short TEXTPATH_METHODTYPE_UNKNOWN = 0;
   public static final short TEXTPATH_METHODTYPE_ALIGN = 1;

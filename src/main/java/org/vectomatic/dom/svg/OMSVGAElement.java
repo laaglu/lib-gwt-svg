@@ -17,6 +17,7 @@
  **********************************************/
 package org.vectomatic.dom.svg;
 
+import com.google.gwt.dom.client.TagName;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -46,6 +47,7 @@ import org.vectomatic.dom.svg.itf.ISVGTests;
 import org.vectomatic.dom.svg.itf.ISVGTransformable;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
 
+@TagName("a")
 public class OMSVGAElement extends OMSVGElement implements HasGraphicalHandlers, ISVGURIReference, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGTransformable {
   protected OMSVGAElement(SVGAElement ot) {
     super(ot);

@@ -18,7 +18,9 @@
 package org.vectomatic.dom.svg;
 
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.dom.client.TagName;
 
+@TagName("style")
 public class OMSVGStyle extends Style {
 	protected OMSVGStyle() {
 	}

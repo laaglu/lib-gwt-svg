@@ -20,6 +20,9 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGFEBlendElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("feBlend")
 public class OMSVGFEBlendElement extends OMSVGElement implements ISVGFilterPrimitiveStandardAttributes {
   public static final short SVG_FEBLEND_MODE_UNKNOWN = 0;
   public static final short SVG_FEBLEND_MODE_NORMAL = 1;

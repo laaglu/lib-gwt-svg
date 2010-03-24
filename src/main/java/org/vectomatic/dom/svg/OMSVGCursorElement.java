@@ -22,6 +22,9 @@ import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
 import org.vectomatic.dom.svg.itf.ISVGTests;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("cursor")
 public class OMSVGCursorElement extends OMSVGElement implements ISVGURIReference, ISVGTests, ISVGExternalResourcesRequired {
   protected OMSVGCursorElement(SVGCursorElement ot) {
     super(ot);

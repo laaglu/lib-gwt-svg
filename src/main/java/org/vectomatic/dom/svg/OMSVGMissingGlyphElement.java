@@ -20,6 +20,9 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGMissingGlyphElement;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("missing-glyph")
 public class OMSVGMissingGlyphElement extends OMSVGElement implements ISVGStylable {
   protected OMSVGMissingGlyphElement(SVGMissingGlyphElement ot) {
     super(ot);

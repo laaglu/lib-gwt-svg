@@ -19,6 +19,9 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFEDistantLightElement;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("feDistantLight")
 public class OMSVGFEDistantLightElement extends OMSVGElement {
   protected OMSVGFEDistantLightElement(SVGFEDistantLightElement ot) {
     super(ot);

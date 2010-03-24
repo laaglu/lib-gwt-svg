@@ -17,6 +17,7 @@
  **********************************************/
 package org.vectomatic.dom.svg;
 
+import com.google.gwt.dom.client.TagName;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -43,6 +44,7 @@ import org.vectomatic.dom.svg.itf.ISVGFitToViewBox;
 import org.vectomatic.dom.svg.itf.ISVGLangSpace;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
 
+@TagName("symbol")
 public class OMSVGSymbolElement extends OMSVGElement implements HasGraphicalHandlers, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGFitToViewBox {
   protected OMSVGSymbolElement(SVGSymbolElement ot) {
     super(ot);

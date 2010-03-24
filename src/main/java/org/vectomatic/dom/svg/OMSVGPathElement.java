@@ -17,6 +17,17 @@
  **********************************************/
 package org.vectomatic.dom.svg;
 
+import org.vectomatic.dom.svg.events.HasGraphicalHandlers;
+import org.vectomatic.dom.svg.impl.SVGElement;
+import org.vectomatic.dom.svg.impl.SVGPathElement;
+import org.vectomatic.dom.svg.itf.ISVGAnimatedPathData;
+import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
+import org.vectomatic.dom.svg.itf.ISVGLangSpace;
+import org.vectomatic.dom.svg.itf.ISVGStylable;
+import org.vectomatic.dom.svg.itf.ISVGTests;
+import org.vectomatic.dom.svg.itf.ISVGTransformable;
+
+import com.google.gwt.dom.client.TagName;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -36,16 +47,8 @@ import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import org.vectomatic.dom.svg.events.HasGraphicalHandlers;
-import org.vectomatic.dom.svg.impl.SVGElement;
-import org.vectomatic.dom.svg.impl.SVGPathElement;
-import org.vectomatic.dom.svg.itf.ISVGAnimatedPathData;
-import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
-import org.vectomatic.dom.svg.itf.ISVGLangSpace;
-import org.vectomatic.dom.svg.itf.ISVGStylable;
-import org.vectomatic.dom.svg.itf.ISVGTests;
-import org.vectomatic.dom.svg.itf.ISVGTransformable;
 
+@TagName("path")
 public class OMSVGPathElement extends OMSVGElement implements HasGraphicalHandlers, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGTransformable, ISVGAnimatedPathData {
   protected OMSVGPathElement(SVGPathElement ot) {
     super(ot);

@@ -21,6 +21,9 @@ import org.vectomatic.dom.svg.impl.SVGMPathElement;
 import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("mpath")
 public class OMSVGMPathElement extends OMSVGElement implements ISVGURIReference, ISVGExternalResourcesRequired {
   protected OMSVGMPathElement(SVGMPathElement ot) {
     super(ot);

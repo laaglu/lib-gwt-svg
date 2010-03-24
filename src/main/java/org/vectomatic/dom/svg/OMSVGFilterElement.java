@@ -25,6 +25,9 @@ import org.vectomatic.dom.svg.itf.ISVGURIReference;
 import org.vectomatic.dom.svg.itf.ISVGUnitTypes;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("filter")
 public class OMSVGFilterElement extends OMSVGElement implements ISVGURIReference, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGUnitTypes {
   public static final String IN_SOURCE_GRAPHIC = SVGConstants.SVG_SOURCE_GRAPHIC_VALUE;
   public static final String IN_SOURCE_ALPHA = SVGConstants.SVG_SOURCE_ALPHA_VALUE;

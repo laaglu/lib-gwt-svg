@@ -21,6 +21,9 @@ import org.vectomatic.dom.svg.impl.SVGGlyphRefElement;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("glyphRef")
 public class OMSVGGlyphRefElement extends OMSVGElement implements ISVGURIReference, ISVGStylable {
   protected OMSVGGlyphRefElement(SVGGlyphRefElement ot) {
     super(ot);

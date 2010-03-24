@@ -26,6 +26,9 @@ import org.vectomatic.dom.svg.itf.ISVGTests;
 import org.vectomatic.dom.svg.itf.ISVGTransformable;
 import org.vectomatic.dom.svg.itf.ISVGUnitTypes;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("clipPath")
 public class OMSVGClipPathElement extends OMSVGElement implements ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGTransformable, ISVGUnitTypes {
   protected OMSVGClipPathElement(SVGClipPathElement ot) {
     super(ot);

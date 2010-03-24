@@ -35,6 +35,7 @@ import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.ScrollHandler;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.uibinder.client.ElementParserToUse;
 
 /**
  * A widget which contains a single <pre><svg></pre> element.
@@ -43,6 +44,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * The class integrates with GWT Widget hierarchy.
  * @author laaglu
  */
+@ElementParserToUse(className = "org.vectomatic.dev.svg.impl.gen.SVGImageParser")
 public class SVGImage extends SVGWidget implements HasGraphicalHandlers, HasDocumentHandlers {
 	protected OMSVGSVGElement svgElement;
 	public SVGImage() {

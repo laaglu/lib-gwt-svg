@@ -20,6 +20,9 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGFESpecularLightingElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("feSpecularLighting")
 public class OMSVGFESpecularLightingElement extends OMSVGElement implements ISVGFilterPrimitiveStandardAttributes {
   protected OMSVGFESpecularLightingElement(SVGFESpecularLightingElement ot) {
     super(ot);

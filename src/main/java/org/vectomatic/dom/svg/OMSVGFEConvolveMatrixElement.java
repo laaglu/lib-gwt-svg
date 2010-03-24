@@ -20,6 +20,9 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGFEConvolveMatrixElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("feConvolveMatrix")
 public class OMSVGFEConvolveMatrixElement extends OMSVGElement implements ISVGFilterPrimitiveStandardAttributes {
   public static final short SVG_EDGEMODE_UNKNOWN = 0;
   public static final short SVG_EDGEMODE_DUPLICATE = 1;

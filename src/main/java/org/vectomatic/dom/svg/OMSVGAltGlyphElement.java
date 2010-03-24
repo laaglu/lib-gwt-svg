@@ -20,6 +20,9 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGAltGlyphElement;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("altGlyph")
 public class OMSVGAltGlyphElement extends OMSVGTextPositioningElement implements ISVGURIReference {
   protected OMSVGAltGlyphElement(SVGAltGlyphElement ot) {
     super(ot);

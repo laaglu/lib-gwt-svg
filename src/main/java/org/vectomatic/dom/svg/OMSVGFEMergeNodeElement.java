@@ -19,6 +19,9 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFEMergeNodeElement;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("feMergeNode")
 public class OMSVGFEMergeNodeElement extends OMSVGElement {
   protected OMSVGFEMergeNodeElement(SVGFEMergeNodeElement ot) {
     super(ot);

@@ -23,6 +23,9 @@ import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
 import org.vectomatic.dom.svg.itf.ISVGLangSpace;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("feImage")
 public class OMSVGFEImageElement extends OMSVGElement implements ISVGURIReference, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGFilterPrimitiveStandardAttributes {
   protected OMSVGFEImageElement(SVGFEImageElement ot) {
     super(ot);

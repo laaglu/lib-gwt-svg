@@ -20,6 +20,9 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGFEComponentTransferElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("feComponentTransfer")
 public class OMSVGFEComponentTransferElement extends OMSVGElement implements ISVGFilterPrimitiveStandardAttributes {
   protected OMSVGFEComponentTransferElement(SVGFEComponentTransferElement ot) {
     super(ot);

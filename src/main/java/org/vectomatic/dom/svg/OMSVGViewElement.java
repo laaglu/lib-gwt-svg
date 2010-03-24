@@ -22,6 +22,9 @@ import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
 import org.vectomatic.dom.svg.itf.ISVGFitToViewBox;
 import org.vectomatic.dom.svg.itf.ISVGZoomAndPan;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("view")
 public class OMSVGViewElement extends OMSVGElement implements ISVGExternalResourcesRequired, ISVGFitToViewBox, ISVGZoomAndPan {
   protected OMSVGViewElement(SVGViewElement ot) {
     super(ot);

@@ -20,6 +20,9 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGFEFloodElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("feFlood")
 public class OMSVGFEFloodElement extends OMSVGElement implements ISVGFilterPrimitiveStandardAttributes {
   protected OMSVGFEFloodElement(SVGFEFloodElement ot) {
     super(ot);

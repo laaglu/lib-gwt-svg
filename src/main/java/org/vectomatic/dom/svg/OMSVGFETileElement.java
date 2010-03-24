@@ -20,6 +20,9 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGFETileElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("feTile")
 public class OMSVGFETileElement extends OMSVGElement implements ISVGFilterPrimitiveStandardAttributes {
   protected OMSVGFETileElement(SVGFETileElement ot) {
     super(ot);

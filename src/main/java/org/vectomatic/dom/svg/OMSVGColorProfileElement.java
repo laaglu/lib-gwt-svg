@@ -21,6 +21,9 @@ import org.vectomatic.dom.svg.impl.SVGColorProfileElement;
 import org.vectomatic.dom.svg.itf.ISVGRenderingIntent;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("color-profile")
 public class OMSVGColorProfileElement extends OMSVGElement implements ISVGURIReference, ISVGRenderingIntent {
   protected OMSVGColorProfileElement(SVGColorProfileElement ot) {
     super(ot);

@@ -20,6 +20,9 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGFEMergeElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("feMerge")
 public class OMSVGFEMergeElement extends OMSVGElement implements ISVGFilterPrimitiveStandardAttributes {
   protected OMSVGFEMergeElement(SVGFEMergeElement ot) {
     super(ot);

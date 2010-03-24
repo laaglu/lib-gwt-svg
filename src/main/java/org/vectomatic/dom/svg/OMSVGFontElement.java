@@ -21,6 +21,9 @@ import org.vectomatic.dom.svg.impl.SVGFontElement;
 import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("font")
 public class OMSVGFontElement extends OMSVGElement implements ISVGExternalResourcesRequired, ISVGStylable {
   protected OMSVGFontElement(SVGFontElement ot) {
     super(ot);

@@ -19,6 +19,9 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGAnimateTransformElement;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("animateTransform")
 public class OMSVGAnimateTransformElement extends OMSVGAnimationElement {
   protected OMSVGAnimateTransformElement(SVGAnimateTransformElement ot) {
     super(ot);

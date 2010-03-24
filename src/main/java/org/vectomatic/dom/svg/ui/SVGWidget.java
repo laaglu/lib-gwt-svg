@@ -18,6 +18,9 @@
 
 package org.vectomatic.dom.svg.ui;
 
+import org.vectomatic.dom.svg.OMNode;
+
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -28,5 +31,23 @@ public abstract class SVGWidget extends Widget {
 
 	public SVGWidget() {
 	}
+
+	/**
+	 * Method invoked by the UiBinder to retrieve a UiBinder field inside an SVG document
+	 * @param root
+	 * The root element of the SVG document
+	 * @param expr
+	 * An XPath to reach the field
+	 * @return
+	 */
+	public static OMNode getUiBinderField(Element svgElement, String expr) {
+		Element elt = getUiBinderField_(svgElement, expr);
+		return OMNode.convert(elt);
+	}
+	
+	private static native Element getUiBinderField_(Element svgElement, String expr) /*-{
+		var result = $doc.evaluate(expr, svgElement, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE , null);
+		return result.iterateNext();
+	}-*/;
 
 }

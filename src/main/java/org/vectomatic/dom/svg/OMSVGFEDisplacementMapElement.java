@@ -20,6 +20,9 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGFEDisplacementMapElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("feDisplacementMap")
 public class OMSVGFEDisplacementMapElement extends OMSVGElement implements ISVGFilterPrimitiveStandardAttributes {
   public static final short SVG_CHANNEL_UNKNOWN = 0;
   public static final short SVG_CHANNEL_R = 1;

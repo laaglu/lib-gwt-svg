@@ -17,6 +17,7 @@
  **********************************************/
 package org.vectomatic.dom.svg;
 
+import com.google.gwt.dom.client.TagName;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -45,6 +46,7 @@ import org.vectomatic.dom.svg.itf.ISVGStylable;
 import org.vectomatic.dom.svg.itf.ISVGTests;
 import org.vectomatic.dom.svg.itf.ISVGTransformable;
 
+@TagName("polyline")
 public class OMSVGPolylineElement extends OMSVGElement implements HasGraphicalHandlers, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGTransformable {
   protected OMSVGPolylineElement(SVGPolylineElement ot) {
     super(ot);

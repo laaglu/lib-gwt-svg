@@ -19,6 +19,9 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGRadialGradientElement;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("radialGradient")
 public class OMSVGRadialGradientElement extends OMSVGGradientElement {
   protected OMSVGRadialGradientElement(SVGRadialGradientElement ot) {
     super(ot);

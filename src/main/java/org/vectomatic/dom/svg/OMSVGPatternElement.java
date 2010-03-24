@@ -26,6 +26,9 @@ import org.vectomatic.dom.svg.itf.ISVGTests;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
 import org.vectomatic.dom.svg.itf.ISVGUnitTypes;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("pattern")
 public class OMSVGPatternElement extends OMSVGElement implements ISVGURIReference, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGFitToViewBox, ISVGUnitTypes {
   protected OMSVGPatternElement(SVGPatternElement ot) {
     super(ot);

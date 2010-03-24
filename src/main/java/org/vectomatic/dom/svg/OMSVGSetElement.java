@@ -19,6 +19,9 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGSetElement;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("set")
 public class OMSVGSetElement extends OMSVGAnimationElement {
   protected OMSVGSetElement(SVGSetElement ot) {
     super(ot);

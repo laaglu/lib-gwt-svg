@@ -19,6 +19,9 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGTSpanElement;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("tspan")
 public class OMSVGTSpanElement extends OMSVGTextPositioningElement {
   protected OMSVGTSpanElement(SVGTSpanElement ot) {
     super(ot);

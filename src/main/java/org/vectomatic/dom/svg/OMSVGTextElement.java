@@ -21,6 +21,9 @@ import org.vectomatic.dom.svg.impl.SVGElement;
 import org.vectomatic.dom.svg.impl.SVGTextElement;
 import org.vectomatic.dom.svg.itf.ISVGTransformable;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("text")
 public class OMSVGTextElement extends OMSVGTextPositioningElement implements ISVGTransformable {
   protected OMSVGTextElement(SVGTextElement ot) {
     super(ot);

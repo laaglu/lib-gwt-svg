@@ -23,6 +23,9 @@ import org.vectomatic.dom.svg.itf.ISVGFitToViewBox;
 import org.vectomatic.dom.svg.itf.ISVGLangSpace;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("marker")
 public class OMSVGMarkerElement extends OMSVGElement implements ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGFitToViewBox {
   public static final short SVG_MARKERUNITS_UNKNOWN = 0;
   public static final short SVG_MARKERUNITS_USERSPACEONUSE = 1;

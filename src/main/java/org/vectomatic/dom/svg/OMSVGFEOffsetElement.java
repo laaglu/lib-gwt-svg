@@ -20,6 +20,9 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGFEOffsetElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("feOffset")
 public class OMSVGFEOffsetElement extends OMSVGElement implements ISVGFilterPrimitiveStandardAttributes {
   protected OMSVGFEOffsetElement(SVGFEOffsetElement ot) {
     super(ot);

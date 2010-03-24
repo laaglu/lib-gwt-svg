@@ -21,6 +21,9 @@ import org.vectomatic.dom.svg.impl.SVGDescElement;
 import org.vectomatic.dom.svg.itf.ISVGLangSpace;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("desc")
 public class OMSVGDescElement extends OMSVGElement implements ISVGLangSpace, ISVGStylable {
   protected OMSVGDescElement(SVGDescElement ot) {
     super(ot);

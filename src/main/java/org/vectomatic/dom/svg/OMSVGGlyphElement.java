@@ -20,6 +20,9 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGGlyphElement;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("glyph")
 public class OMSVGGlyphElement extends OMSVGElement implements ISVGStylable {
   protected OMSVGGlyphElement(SVGGlyphElement ot) {
     super(ot);

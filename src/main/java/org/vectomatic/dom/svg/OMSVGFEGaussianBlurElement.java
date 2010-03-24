@@ -20,6 +20,9 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGFEGaussianBlurElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("feGaussianBlur")
 public class OMSVGFEGaussianBlurElement extends OMSVGElement implements ISVGFilterPrimitiveStandardAttributes {
   protected OMSVGFEGaussianBlurElement(SVGFEGaussianBlurElement ot) {
     super(ot);

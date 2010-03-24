@@ -21,6 +21,9 @@ import org.vectomatic.dom.svg.impl.SVGTitleElement;
 import org.vectomatic.dom.svg.itf.ISVGLangSpace;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("title")
 public class OMSVGTitleElement extends OMSVGElement implements ISVGLangSpace, ISVGStylable {
   protected OMSVGTitleElement(SVGTitleElement ot) {
     super(ot);

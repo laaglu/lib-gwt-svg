@@ -19,6 +19,9 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGLinearGradientElement;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("linearGradient")
 public class OMSVGLinearGradientElement extends OMSVGGradientElement {
   protected OMSVGLinearGradientElement(SVGLinearGradientElement ot) {
     super(ot);

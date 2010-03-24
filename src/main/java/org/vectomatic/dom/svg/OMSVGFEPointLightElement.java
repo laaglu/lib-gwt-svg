@@ -19,6 +19,9 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFEPointLightElement;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("fePointLight")
 public class OMSVGFEPointLightElement extends OMSVGElement {
   protected OMSVGFEPointLightElement(SVGFEPointLightElement ot) {
     super(ot);

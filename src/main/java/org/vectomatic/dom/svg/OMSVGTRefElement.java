@@ -20,6 +20,9 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGTRefElement;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("tref")
 public class OMSVGTRefElement extends OMSVGTextPositioningElement implements ISVGURIReference {
   protected OMSVGTRefElement(SVGTRefElement ot) {
     super(ot);

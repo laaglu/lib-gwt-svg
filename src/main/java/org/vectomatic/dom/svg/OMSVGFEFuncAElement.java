@@ -19,6 +19,9 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFEFuncAElement;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("feFuncA")
 public class OMSVGFEFuncAElement extends OMSVGComponentTransferFunctionElement {
   protected OMSVGFEFuncAElement(SVGFEFuncAElement ot) {
     super(ot);

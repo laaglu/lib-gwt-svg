@@ -19,6 +19,9 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGMetadataElement;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("metadata")
 public class OMSVGMetadataElement extends OMSVGElement {
   protected OMSVGMetadataElement(SVGMetadataElement ot) {
     super(ot);

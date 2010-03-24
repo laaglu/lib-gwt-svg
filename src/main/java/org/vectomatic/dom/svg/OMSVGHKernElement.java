@@ -19,6 +19,9 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGHKernElement;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("hkern")
 public class OMSVGHKernElement extends OMSVGElement {
   protected OMSVGHKernElement(SVGHKernElement ot) {
     super(ot);

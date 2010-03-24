@@ -19,6 +19,9 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGAltGlyphDefElement;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("altGlyphDef")
 public class OMSVGAltGlyphDefElement extends OMSVGElement {
   protected OMSVGAltGlyphDefElement(SVGAltGlyphDefElement ot) {
     super(ot);

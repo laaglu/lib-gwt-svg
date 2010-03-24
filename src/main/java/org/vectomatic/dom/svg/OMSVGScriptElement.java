@@ -21,6 +21,9 @@ import org.vectomatic.dom.svg.impl.SVGScriptElement;
 import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("script")
 public class OMSVGScriptElement extends OMSVGElement implements ISVGURIReference, ISVGExternalResourcesRequired {
   protected OMSVGScriptElement(SVGScriptElement ot) {
     super(ot);

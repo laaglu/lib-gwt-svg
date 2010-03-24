@@ -19,6 +19,9 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGAnimateColorElement;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("animateColor")
 public class OMSVGAnimateColorElement extends OMSVGAnimationElement {
   protected OMSVGAnimateColorElement(SVGAnimateColorElement ot) {
     super(ot);

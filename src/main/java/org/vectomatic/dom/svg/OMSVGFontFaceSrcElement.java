@@ -19,6 +19,9 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFontFaceSrcElement;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("font-face-src")
 public class OMSVGFontFaceSrcElement extends OMSVGElement {
   protected OMSVGFontFaceSrcElement(SVGFontFaceSrcElement ot) {
     super(ot);

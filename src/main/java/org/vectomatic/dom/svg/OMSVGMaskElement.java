@@ -24,6 +24,9 @@ import org.vectomatic.dom.svg.itf.ISVGStylable;
 import org.vectomatic.dom.svg.itf.ISVGTests;
 import org.vectomatic.dom.svg.itf.ISVGUnitTypes;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("mask")
 public class OMSVGMaskElement extends OMSVGElement implements ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGUnitTypes {
   protected OMSVGMaskElement(SVGMaskElement ot) {
     super(ot);

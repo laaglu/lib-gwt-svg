@@ -20,6 +20,9 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGFEMorphologyElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("feMorphology")
 public class OMSVGFEMorphologyElement extends OMSVGElement implements ISVGFilterPrimitiveStandardAttributes {
   public static final short SVG_MORPHOLOGY_OPERATOR_UNKNOWN = 0;
   public static final short SVG_MORPHOLOGY_OPERATOR_ERODE = 1;

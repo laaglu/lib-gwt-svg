@@ -20,6 +20,9 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGStopElement;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("stop")
 public class OMSVGStopElement extends OMSVGElement implements ISVGStylable {
   protected OMSVGStopElement(SVGStopElement ot) {
     super(ot);

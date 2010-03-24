@@ -19,6 +19,9 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGDefinitionSrcElement;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("definition-src")
 public class OMSVGDefinitionSrcElement extends OMSVGElement {
   protected OMSVGDefinitionSrcElement(SVGDefinitionSrcElement ot) {
     super(ot);

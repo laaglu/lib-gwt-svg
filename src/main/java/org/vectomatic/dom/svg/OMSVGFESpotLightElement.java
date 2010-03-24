@@ -19,6 +19,9 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFESpotLightElement;
 
+import com.google.gwt.dom.client.TagName;
+
+@TagName("feSpotLight")
 public class OMSVGFESpotLightElement extends OMSVGElement {
   protected OMSVGFESpotLightElement(SVGFESpotLightElement ot) {
     super(ot);
