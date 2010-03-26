@@ -78,6 +78,9 @@ public class DOMHelperImpl {
 	    $wnd.addEventListener('mouseout', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
 	    $wnd.addEventListener('mousewheel', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
 	    $wnd.addEventListener('click', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
+	    $wnd.addEventListener('focusin', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
+	    $wnd.addEventListener('focusout', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
+	    $wnd.addEventListener('activate', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
 
 	  }-*/;
 	  

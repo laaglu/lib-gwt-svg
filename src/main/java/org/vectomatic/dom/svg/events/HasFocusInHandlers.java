@@ -17,16 +17,9 @@
  **********************************************/
 package org.vectomatic.dom.svg.events;
 
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.dom.client.HasLoadHandlers;
-import com.google.gwt.event.dom.client.HasMouseDownHandlers;
-import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
-import com.google.gwt.event.dom.client.HasMouseOutHandlers;
-import com.google.gwt.event.dom.client.HasMouseOverHandlers;
-import com.google.gwt.event.dom.client.HasMouseUpHandlers;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.event.shared.HasHandlers;
 
-public interface HasGraphicalHandlers extends HasMouseDownHandlers,
-HasMouseUpHandlers, HasMouseOutHandlers, HasMouseOverHandlers,
-HasMouseMoveHandlers, HasClickHandlers, HasLoadHandlers, HasFocusInHandlers, HasFocusOutHandlers, HasActivateHandlers {
-
+public interface HasFocusInHandlers extends HasHandlers {
+	HandlerRegistration addFocusInHandler(FocusInHandler handler);
 }

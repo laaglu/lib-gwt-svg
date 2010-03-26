@@ -19,13 +19,14 @@ package org.vectomatic.dom.svg.ui;
 
 import org.vectomatic.dom.svg.OMSVGLength;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
+import org.vectomatic.dom.svg.events.ActivateHandler;
+import org.vectomatic.dom.svg.events.FocusInHandler;
+import org.vectomatic.dom.svg.events.FocusOutHandler;
 import org.vectomatic.dom.svg.events.HasDocumentHandlers;
 import org.vectomatic.dom.svg.events.HasGraphicalHandlers;
 import org.vectomatic.dom.svg.events.SVGZoomHandler;
 
-import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseMoveHandler;
@@ -195,14 +196,6 @@ public class SVGImage extends SVGWidget implements HasGraphicalHandlers, HasDocu
 		return svgElement.addLoadHandler(handler);
 	}
 	@Override
-	public HandlerRegistration addFocusHandler(FocusHandler handler) {
-		return svgElement.addFocusHandler(handler);
-	}
-	@Override
-	public HandlerRegistration addBlurHandler(BlurHandler handler) {
-		return svgElement.addBlurHandler(handler);
-	}
-	@Override
 	public HandlerRegistration addResizeHandler(ResizeHandler handler) {
 		return svgElement.addResizeHandler(handler);
 	}
@@ -213,5 +206,17 @@ public class SVGImage extends SVGWidget implements HasGraphicalHandlers, HasDocu
 	@Override
 	public HandlerRegistration addSVGZoomHandler(SVGZoomHandler handler) {
 		return svgElement.addSVGZoomHandler(handler);
+	}
+	@Override
+	public HandlerRegistration addFocusInHandler(FocusInHandler handler) {
+		return svgElement.addFocusInHandler(handler);
+	}
+	@Override
+	public HandlerRegistration addFocusOutHandler(FocusOutHandler handler) {
+		return svgElement.addFocusOutHandler(handler);
+	}
+	@Override
+	public HandlerRegistration addActivateHandler(ActivateHandler handler) {
+		return svgElement.addActivateHandler(handler);
 	}
 }

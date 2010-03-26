@@ -17,15 +17,31 @@
  **********************************************/
 package org.vectomatic.dom.svg;
 
+import org.vectomatic.dom.svg.events.ActivateEvent;
+import org.vectomatic.dom.svg.events.ActivateHandler;
+import org.vectomatic.dom.svg.events.FocusInEvent;
+import org.vectomatic.dom.svg.events.FocusInHandler;
+import org.vectomatic.dom.svg.events.FocusOutEvent;
+import org.vectomatic.dom.svg.events.FocusOutHandler;
+import org.vectomatic.dom.svg.events.HasDocumentHandlers;
+import org.vectomatic.dom.svg.events.HasGraphicalHandlers;
+import org.vectomatic.dom.svg.events.SVGZoomEvent;
+import org.vectomatic.dom.svg.events.SVGZoomHandler;
+import org.vectomatic.dom.svg.impl.SVGElement;
+import org.vectomatic.dom.svg.impl.SVGSVGElement;
+import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
+import org.vectomatic.dom.svg.itf.ISVGFitToViewBox;
+import org.vectomatic.dom.svg.itf.ISVGLangSpace;
+import org.vectomatic.dom.svg.itf.ISVGLocatable;
+import org.vectomatic.dom.svg.itf.ISVGStylable;
+import org.vectomatic.dom.svg.itf.ISVGTests;
+import org.vectomatic.dom.svg.itf.ISVGZoomAndPan;
+
 import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.dom.client.TagName;
-import com.google.gwt.event.dom.client.BlurEvent;
-import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.FocusEvent;
-import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.event.dom.client.MouseDownEvent;
@@ -43,19 +59,6 @@ import com.google.gwt.event.dom.client.ScrollHandler;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import org.vectomatic.dom.svg.events.HasDocumentHandlers;
-import org.vectomatic.dom.svg.events.HasGraphicalHandlers;
-import org.vectomatic.dom.svg.events.SVGZoomEvent;
-import org.vectomatic.dom.svg.events.SVGZoomHandler;
-import org.vectomatic.dom.svg.impl.SVGElement;
-import org.vectomatic.dom.svg.impl.SVGSVGElement;
-import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
-import org.vectomatic.dom.svg.itf.ISVGFitToViewBox;
-import org.vectomatic.dom.svg.itf.ISVGLangSpace;
-import org.vectomatic.dom.svg.itf.ISVGLocatable;
-import org.vectomatic.dom.svg.itf.ISVGStylable;
-import org.vectomatic.dom.svg.itf.ISVGTests;
-import org.vectomatic.dom.svg.itf.ISVGZoomAndPan;
 
 @TagName("svg")
 public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandlers, HasDocumentHandlers, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGLocatable, ISVGFitToViewBox, ISVGZoomAndPan {
@@ -273,10 +276,6 @@ public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandler
     return addDomHandler(handler, MouseDownEvent.getType());
   }
   @Override
-  public final HandlerRegistration addBlurHandler(BlurHandler handler) {
-    return addDomHandler(handler, BlurEvent.getType());
-  }
-  @Override
   public final HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
     return addDomHandler(handler, MouseUpEvent.getType());
   }
@@ -293,10 +292,6 @@ public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandler
     return addDomHandler(handler, MouseMoveEvent.getType());
   }
   @Override
-  public final HandlerRegistration addFocusHandler(FocusHandler handler) {
-    return addDomHandler(handler, FocusEvent.getType());
-  }
-  @Override
   public final HandlerRegistration addScrollHandler(ScrollHandler handler) {
     return addDomHandler(handler, ScrollEvent.getType());
   }
@@ -307,6 +302,18 @@ public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandler
   @Override
   public final HandlerRegistration addClickHandler(ClickHandler handler) {
     return addDomHandler(handler, ClickEvent.getType());
+  }
+  @Override
+  public HandlerRegistration addFocusInHandler(FocusInHandler handler) {
+    return addDomHandler(handler, FocusInEvent.getType());
+  }
+  @Override
+  public HandlerRegistration addFocusOutHandler(FocusOutHandler handler) {
+    return addDomHandler(handler, FocusOutEvent.getType());
+  }
+  @Override
+  public HandlerRegistration addActivateHandler(ActivateHandler handler) {
+    return addDomHandler(handler, ActivateEvent.getType());
   }
   
   // Helper methods

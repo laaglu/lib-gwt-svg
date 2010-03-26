@@ -17,16 +17,39 @@
  **********************************************/
 package org.vectomatic.dom.svg.events;
 
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.dom.client.HasLoadHandlers;
-import com.google.gwt.event.dom.client.HasMouseDownHandlers;
-import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
-import com.google.gwt.event.dom.client.HasMouseOutHandlers;
-import com.google.gwt.event.dom.client.HasMouseOverHandlers;
-import com.google.gwt.event.dom.client.HasMouseUpHandlers;
+import com.google.gwt.event.dom.client.DomEvent;
 
-public interface HasGraphicalHandlers extends HasMouseDownHandlers,
-HasMouseUpHandlers, HasMouseOutHandlers, HasMouseOverHandlers,
-HasMouseMoveHandlers, HasClickHandlers, HasLoadHandlers, HasFocusInHandlers, HasFocusOutHandlers, HasActivateHandlers {
+/**
+ * The DOMFocusOut event occurs when an EventTarget loses focus.
+ */
+public class FocusOutEvent extends DomEvent<FocusOutHandler> {
+	private static final Type<FocusOutHandler> TYPE = new Type<FocusOutHandler>(
+			"focusout", new FocusOutEvent());
 
+	/**
+	 * Protected constructor, use
+	 * {@link DomEvent#fireNativeEvent(com.google.gwt.dom.client.NativeEvent, com.google.gwt.event.shared.HasHandlers)}
+	 * to fire mouse out events.
+	 */
+	protected FocusOutEvent() {
+	}
+
+	/**
+	 * @return the handler type
+	 */
+	public Type<FocusOutHandler> getAssociatedType() {
+		return TYPE;
+	}
+
+	/**
+	 * @return the handler type
+	 */
+	public static Type<FocusOutHandler> getType() {
+		return TYPE;
+	}
+
+	@Override
+	protected void dispatch(FocusOutHandler handler) {
+		handler.onFocusOut(this);
+	}
 }

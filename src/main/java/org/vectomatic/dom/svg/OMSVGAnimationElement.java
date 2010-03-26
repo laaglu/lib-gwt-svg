@@ -17,10 +17,16 @@
  **********************************************/
 package org.vectomatic.dom.svg;
 
+import org.vectomatic.dom.svg.events.ActivateEvent;
+import org.vectomatic.dom.svg.events.ActivateHandler;
 import org.vectomatic.dom.svg.events.BeginEvent;
 import org.vectomatic.dom.svg.events.BeginHandler;
 import org.vectomatic.dom.svg.events.EndEvent;
 import org.vectomatic.dom.svg.events.EndHandler;
+import org.vectomatic.dom.svg.events.FocusInEvent;
+import org.vectomatic.dom.svg.events.FocusInHandler;
+import org.vectomatic.dom.svg.events.FocusOutEvent;
+import org.vectomatic.dom.svg.events.FocusOutHandler;
 import org.vectomatic.dom.svg.events.HasAnimationHandlers;
 import org.vectomatic.dom.svg.events.HasGraphicalHandlers;
 import org.vectomatic.dom.svg.events.RepeatEvent;
@@ -29,12 +35,8 @@ import org.vectomatic.dom.svg.impl.SVGAnimationElement;
 import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
 import org.vectomatic.dom.svg.itf.ISVGTests;
 
-import com.google.gwt.event.dom.client.BlurEvent;
-import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.FocusEvent;
-import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.event.dom.client.MouseDownEvent;
@@ -110,10 +112,6 @@ public abstract class OMSVGAnimationElement extends OMSVGElement implements HasG
     return addDomHandler(handler, MouseDownEvent.getType());
   }
   @Override
-  public final HandlerRegistration addBlurHandler(BlurHandler handler) {
-    return addDomHandler(handler, BlurEvent.getType());
-  }
-  @Override
   public final HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
     return addDomHandler(handler, MouseUpEvent.getType());
   }
@@ -130,10 +128,6 @@ public abstract class OMSVGAnimationElement extends OMSVGElement implements HasG
     return addDomHandler(handler, MouseMoveEvent.getType());
   }
   @Override
-  public final HandlerRegistration addFocusHandler(FocusHandler handler) {
-    return addDomHandler(handler, FocusEvent.getType());
-  }
-  @Override
   public final HandlerRegistration addRepeatHandler(RepeatHandler handler) {
     return addDomHandler(handler, RepeatEvent.getType());
   }
@@ -148,5 +142,17 @@ public abstract class OMSVGAnimationElement extends OMSVGElement implements HasG
   @Override
   public final HandlerRegistration addBeginHandler(BeginHandler handler) {
     return addDomHandler(handler, BeginEvent.getType());
+  }
+  @Override
+  public HandlerRegistration addFocusInHandler(FocusInHandler handler) {
+    return addDomHandler(handler, FocusInEvent.getType());
+  }
+  @Override
+  public HandlerRegistration addFocusOutHandler(FocusOutHandler handler) {
+    return addDomHandler(handler, FocusOutEvent.getType());
+  }
+  @Override
+  public HandlerRegistration addActivateHandler(ActivateHandler handler) {
+    return addDomHandler(handler, ActivateEvent.getType());
   }
 }
