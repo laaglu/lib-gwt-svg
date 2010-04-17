@@ -48,7 +48,7 @@ public class SVGImageParser implements ElementParser {
 		if (elem.hasAttribute(ATTR_RESOURCE)) {
 		    JClassType svgResourceType = writer.getOracle().findType(SVGResource.class.getCanonicalName());
 			String resource = elem.consumeAttribute(ATTR_RESOURCE, svgResourceType); 
-			writer.addStatement("%s.setResource(/*Coucou*/%s);", fieldName, resource);		
+			writer.addStatement("%s.setResource(%s);", fieldName, resource);		
 		} else {
 			Element container = elem.getElement();
 			NodeList childNodes = container.getChildNodes();
@@ -58,7 +58,7 @@ public class SVGImageParser implements ElementParser {
 				if (node.getNodeType() == Node.ELEMENT_NODE) {
 					if (root == null 
 					&& SVGConstants.SVG_NAMESPACE_URI.equals(node.getNamespaceURI()) 
-					&& "svg".equals(node.getLocalName())) {
+					&& SVGConstants.SVG_SVG_TAG.equals(node.getLocalName())) {
 						root = (Element)node;
 					} else {
 						writer.die("In %s, attribute \"%s\" or inline svg must be present", elem, ATTR_RESOURCE);
@@ -72,7 +72,7 @@ public class SVGImageParser implements ElementParser {
 	        SvgInterpreter interpreter = SvgInterpreter.newInterpreterForUiObject(writer, fieldName, root);
 	        String rawSvg = elem.consumeInnerHtml(interpreter);
 	        String omSvgParser = OMSVGParser.class.getName();
-			writer.addStatement("%s.setSvgElement(/*Coucou*/%s.parse(\"%s\"));", fieldName, omSvgParser, rawSvg);		
+			writer.addStatement("%s.setSvgElement(%s.parse(\"%s\"));", fieldName, omSvgParser, rawSvg);		
 			writer.endAttachedSection();
 		}
 	}

@@ -52,6 +52,9 @@ public class OMElement extends OMNode {
 	public final String getAttribute(String name) {
 		return ((Element) ot).getAttribute(name);
 	}
+	public final String getAttributeNS(String namespaceURI, String localName) {
+		return DOMHelper.getAttributeNS((Element) ot, namespaceURI, localName);
+	}
 	public final void setAttribute(String name, String value) {
 		((Element) ot).setAttribute(name, value);
 	}

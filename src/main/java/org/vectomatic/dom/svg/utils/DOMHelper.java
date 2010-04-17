@@ -70,6 +70,10 @@ public class DOMHelper {
 	  text.appendData(offset, arg);
 	}-*/;
 	
+	public static final native String getAttributeNS(Element elem, String namespaceURI, String localName) /*-{
+	  return elem.getAttributeNS(namespaceURI, localName);
+	}-*/;
+	
 	public static final native NodeList<? extends Node> getElementsByTagNameNS(Element elem, String namespaceURI, String localName) /*-{
 	  return elem.getElementsByTagNameNS(namespaceURI, localName);
 	}-*/;

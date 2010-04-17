@@ -56,4 +56,55 @@ public class OMSVGRect extends JavaScriptObject {
   public final float getCenterY() {
 	return getY() + 0.5f * getHeight();
   }
+  public final float getMaxX() {
+	return getX() + getWidth();
+  }
+  public final float getMaxY() {
+	return getY() + getHeight();
+  }
+  public final OMSVGRect intersection(OMSVGRect r) {
+	  return intersection(r, this);
+  }
+  public final OMSVGRect intersection(OMSVGRect r, OMSVGRect destination) {
+	if (r.getX() <= getX() && r.getX() <= getMaxX()) {
+		if (r.getY() <= getY() && r.getY() <= getMaxY()) {
+			destination.setWidth(getMaxX() - r.getX());
+			destination.setX(r.getX());
+			destination.setHeight(getMaxY() - r.getY());
+			destination.setY(r.getY());
+			return destination;
+		} else if (getY() <= r.getY() && getY() <= r.getMaxY()) {
+			destination.setWidth(getMaxX() - r.getX());
+			destination.setX(r.getX());
+			destination.setHeight(r.getMaxY() - getY());
+			destination.setY(getY());
+			return destination;
+		}
+	} else if (getX() <= r.getX() && getX() <= r.getMaxX()) {
+		if (r.getY() <= getY() && r.getY() <= getMaxY()) {
+			destination.setWidth(r.getMaxX() - getX());
+			destination.setX(getX());
+			destination.setHeight(getMaxY() - r.getY());
+			destination.setY(r.getY());
+			return destination;
+		} else if (getY() <= r.getY() && getY() <= r.getMaxY()) {
+			destination.setWidth(r.getMaxX() - getX());
+			destination.setX(getX());
+			destination.setHeight(r.getMaxY() - getY());
+			destination.setY(getY());
+			return destination;
+		}
+	}
+	return null;
+  }
+  public final OMSVGRect union(OMSVGRect r) {
+	  return union(r, this);
+  }
+  public final OMSVGRect union(OMSVGRect r, OMSVGRect destination) {
+	  destination.setX(Math.min(getX(), r.getX()));
+	  destination.setY(Math.min(getY(), r.getY()));
+	  destination.setWidth(Math.max(getMaxX(), r.getMaxX()) - destination.getX());
+	  destination.setHeight(Math.max(getMaxY(), r.getMaxY()) - destination.getY());
+	  return destination;
+  }
 }

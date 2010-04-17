@@ -408,8 +408,12 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
 	rect.getY().getBaseVal().setValue(y);
 	rect.getWidth().getBaseVal().setValue(width);
 	rect.getHeight().getBaseVal().setValue(height);
-	rect.getRx().getBaseVal().setValue(rx);
-	rect.getRy().getBaseVal().setValue(ry);
+	if (rx != 0f) {
+		rect.getRx().getBaseVal().setValue(rx);
+	}
+	if (ry != 0f) {
+		rect.getRy().getBaseVal().setValue(ry);
+	}
 	return rect;
  }
   public final OMSVGTextElement createSVGTextElement(float x, float y, short unitType, String data) {

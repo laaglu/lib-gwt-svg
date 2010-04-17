@@ -39,10 +39,34 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.ElementParserToUse;
 
 /**
- * A widget which contains a single <pre><svg></pre> element.
+ * A widget which contains a single {@link org.vectomatic.dom.svg.OMSVGSVGElement OMSVGSVGElement}.
  * The class bridges event subscription methods and forwards
- * them to the underlying OMSVGSVGElement.
+ * them to the underlying {@link org.vectomatic.dom.svg.OMSVGSVGElement OMSVGSVGElement}.
  * The class integrates with GWT Widget hierarchy.
+ * <p>You can define an SVG toggle button using UiBinder templates. 
+ * Depending on your needs, you can either define the SVG inline.
+ * This can be convenient if you want to 
+ * localize the button label, or use styles defined in the template. 
+ * Or you can use an {@link org.vectomatic.dom.svg.ui.SVGResource SVGResource} with the <em>resource</em> attribute,
+ * if your SVG is large or if you want to keep your template more readable.</p>
+ * <p>The following section shows a sample UiBinder template. Notice
+ * that you can bind tags inside the template to java variables. One
+ * of the <em>&lt;g&gt;</em> tag is bound to a java variable
+ * <em>eyes</em> of type {@link org.vectomatic.dom.svg.OMSVGGElement OMSVGGElement}
+ * and one of the <em>&lt;path&gt;</em> tag is bound to a java variable
+ * <em>mouth</em> of type {@link org.vectomatic.dom.svg.OMSVGPathElement OMSVGPathElement}.</p>
+ * <pre>
+ * &lt;svgui:SVGImage&gt;
+ *  &lt;svg width="100" height="100" viewBox="80 190 140 130" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"&gt;
+ *   &lt;path d="m 208,146.86218 a 63,63.5 0 1 1 -126,0 63,63.5 0 1 1 126,0 z" style="fill:#ffff00;stroke:#000000;" transform="translate(3.9895924,108.83705)" /&gt;
+ *   &lt;g ui:field="eyes" transform="translate(10.960155,103.59114)"&gt;
+ *    &lt;path d="m 124,133.36218 c 0,4.97057 -4.02944,9 -9,9 -4.97056,0 -9,-4.02943 -9,-9 0,-4.97056 4.02944,-9 9,-9 4.97056,0 9,4.02944 9,9 z" class="{style.eye}" /&gt;
+ *    &lt;path d="m 124,133.36218 c 0,4.97057 -4.02944,9 -9,9 -4.97056,0 -9,-4.02943 -9,-9 0,-4.97056 4.02944,-9 9,-9 4.97056,0 9,4.02944 9,9 z" class="{style.eye}" transform="translate(44,0)" /&gt;
+ *   &lt;/g&gt;
+ *   &lt;path ui:field="mouth" d="m 118.88908,286.15612 5,10 10,5 30,0 10,-5 5,-10 -5,5 -10,5 -30,0 -10,-5 -5,-5 z" class="{style.mouth}" /&gt;
+ *  &lt;/svg&gt;
+ * &lt;/svgui:SVGImage&gt;
+ * </pre>
  * @author laaglu
  */
 @ElementParserToUse(className = "org.vectomatic.dev.svg.impl.gen.SVGImageParser")
