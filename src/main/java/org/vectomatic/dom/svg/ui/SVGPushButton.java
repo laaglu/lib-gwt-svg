@@ -20,6 +20,7 @@ package org.vectomatic.dom.svg.ui;
 import java.util.Map;
 
 import org.vectomatic.dom.svg.OMSVGSVGElement;
+import org.vectomatic.dom.svg.utils.DOMHelper;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.MouseDownEvent;
@@ -27,6 +28,7 @@ import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.uibinder.client.ElementParserToUse;
+import com.google.gwt.user.client.Timer;
 
 /**
  * SVG push button class.
@@ -65,6 +67,17 @@ import com.google.gwt.uibinder.client.ElementParserToUse;
  */
 @ElementParserToUse(className = "org.vectomatic.dev.svg.impl.gen.SVGButtonBaseParser")
 public class SVGPushButton extends SVGButtonBase {
+	private int repeatDelayMillis;
+	private MouseDownEvent mouseDownEvent;
+	private CustomerTimer timer;
+	private class CustomerTimer extends Timer {
+		@Override
+		public void run() {
+			if (mouseDownEvent != null) {
+				svgElement.fireEvent(mouseDownEvent);
+			}
+		}
+	}
 	public SVGPushButton() {
 		showFace(SVGFaceName.UP);
 	}
@@ -79,22 +92,32 @@ public class SVGPushButton extends SVGButtonBase {
 	public void onMouseDown(MouseDownEvent event) {
 		GWT.log("onMouseDown");
 		if (isEnabled()) {
-			switch(currentFaceName) {
-				case UP_HOVERING:
-					showFace(SVGFaceName.DOWN_HOVERING);
-					break;
+			if (timer == null && repeatDelayMillis > 0) {
+				mouseDownEvent = event;
+				timer = new CustomerTimer();
+				timer.scheduleRepeating(repeatDelayMillis);
 			}
+			showFace(SVGFaceName.DOWN_HOVERING);
 		}
 	}
 	public void onMouseUp(MouseUpEvent event) {
 		GWT.log("onMouseUp");
 		if (isEnabled()) {
-			showFace(SVGFaceName.UP);
+			if (timer != null) {
+				mouseDownEvent = null;
+				timer.cancel();
+				timer = null;
+			}
+			showFace(SVGFaceName.UP_HOVERING);
 		}
 	}
 	public void onMouseOver(MouseOverEvent event) {
 		GWT.log("onMouseOver");
 		if (isEnabled()) {
+			if (timer == null && repeatDelayMillis > 0 && mouseDownEvent != null) {
+				timer = new CustomerTimer();
+				timer.scheduleRepeating(repeatDelayMillis);
+			}
 			switch(currentFaceName) {
 				case UP:
 					showFace(SVGFaceName.UP_HOVERING);
@@ -108,6 +131,10 @@ public class SVGPushButton extends SVGButtonBase {
 	public void onMouseOut(MouseOutEvent event) {
 		GWT.log("onMouseOut");
 		if (isEnabled()) {
+			if (timer != null) {
+				timer.cancel();
+				timer = null;
+			}
 			switch(currentFaceName) {
 				case UP_HOVERING:
 					showFace(SVGFaceName.UP);
@@ -116,6 +143,7 @@ public class SVGPushButton extends SVGButtonBase {
 					showFace(SVGFaceName.DOWN);
 					break;
 			}
+			DOMHelper.releaseCaptureElement();
 		}
 	}
 	
@@ -135,6 +163,12 @@ public class SVGPushButton extends SVGButtonBase {
 			}
 		}
 		return super.getFace(faceName);
+	}
+	public void setRepeatDelay(int repeatDelayMillis) {
+		this.repeatDelayMillis = repeatDelayMillis;
+	}
+	public int getRepeatDelay() {
+		return repeatDelayMillis;
 	}
 
 
