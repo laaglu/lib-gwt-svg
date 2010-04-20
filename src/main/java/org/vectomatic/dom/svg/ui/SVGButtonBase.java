@@ -22,7 +22,6 @@ import java.util.Map;
 
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
@@ -304,7 +303,7 @@ public abstract class SVGButtonBase extends SVGWidget implements HasClickHandler
 	 * The name of the face to display
 	 */
 	public void showFace(SVGFaceName faceName) {
-		GWT.log((currentFaceName != null ? currentFaceName.name() : "null") + " -> " + faceName.name());
+//		GWT.log((currentFaceName != null ? currentFaceName.name() : "null") + " -> " + faceName.name());
 		if (faceName != currentFaceName || currentFace == null) {
 			if (currentFace != null) {
 				for (SVGFaceChange change : currentFace.getChanges()) {

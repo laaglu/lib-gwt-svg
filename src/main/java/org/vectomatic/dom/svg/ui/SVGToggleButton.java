@@ -21,7 +21,6 @@ import java.util.Map;
 
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOverEvent;
@@ -91,7 +90,7 @@ public class SVGToggleButton extends SVGButtonBase {
 	}
 	@Override
 	public void onMouseDown(MouseDownEvent event) {
-		GWT.log("onMouseDown");
+//		GWT.log("onMouseDown");
 		if (isEnabled()) {
 			switch(currentFaceName) {
 				case UP_HOVERING:
@@ -107,7 +106,7 @@ public class SVGToggleButton extends SVGButtonBase {
 	}
 	@Override
 	public void onMouseUp(MouseUpEvent event) {
-		GWT.log("onMouseUp");
+//		GWT.log("onMouseUp");
 		if (isEnabled()) {
 			if (currentFaceName == SVGFaceName.DOWN_HOVERING) {
 				showFace(SVGFaceName.DOWN);
@@ -118,7 +117,7 @@ public class SVGToggleButton extends SVGButtonBase {
 	}
 	@Override
 	public void onMouseOver(MouseOverEvent event) {
-		GWT.log("onMouseOver");
+//		GWT.log("onMouseOver");
 		if (isEnabled()) {
 			switch(currentFaceName) {
 				case UP:
@@ -132,7 +131,7 @@ public class SVGToggleButton extends SVGButtonBase {
 	}
 	@Override
 	public void onMouseOut(MouseOutEvent event) {
-		GWT.log("onMouseOut");
+//		GWT.log("onMouseOut");
 		if (isEnabled()) {
 			switch(currentFaceName) {
 				case UP_HOVERING:
