@@ -22,7 +22,6 @@ import java.util.Map;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.utils.DOMHelper;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOverEvent;
@@ -89,8 +88,23 @@ public class SVGPushButton extends SVGButtonBase {
 		this(resource.getSvg(), faces);
 	}
 	
+	@Override
+	public void setEnabled(boolean enabled) {
+		if (enabled != isEnabled()) {
+			if (enabled) {
+				showFace(SVGFaceName.UP);
+			} else {
+				if (timer != null) {
+					mouseDownEvent = null;
+					timer.cancel();
+					timer = null;
+				}
+				showFace(SVGFaceName.UP_DISABLED);
+			}
+		}
+	}
 	public void onMouseDown(MouseDownEvent event) {
-		GWT.log("onMouseDown");
+//		GWT.log("onMouseDown");
 		if (isEnabled()) {
 			if (timer == null && repeatDelayMillis > 0) {
 				mouseDownEvent = event;
@@ -101,7 +115,7 @@ public class SVGPushButton extends SVGButtonBase {
 		}
 	}
 	public void onMouseUp(MouseUpEvent event) {
-		GWT.log("onMouseUp");
+//		GWT.log("onMouseUp");
 		if (isEnabled()) {
 			if (timer != null) {
 				mouseDownEvent = null;
@@ -112,7 +126,7 @@ public class SVGPushButton extends SVGButtonBase {
 		}
 	}
 	public void onMouseOver(MouseOverEvent event) {
-		GWT.log("onMouseOver");
+//		GWT.log("onMouseOver");
 		if (isEnabled()) {
 			if (timer == null && repeatDelayMillis > 0 && mouseDownEvent != null) {
 				timer = new CustomerTimer();
@@ -129,7 +143,7 @@ public class SVGPushButton extends SVGButtonBase {
 		}
 	}
 	public void onMouseOut(MouseOutEvent event) {
-		GWT.log("onMouseOut");
+//		GWT.log("onMouseOut");
 		if (isEnabled()) {
 			if (timer != null) {
 				timer.cancel();
