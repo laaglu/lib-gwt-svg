@@ -25,10 +25,10 @@ public class OMSVGAnimatedLengthList extends JavaScriptObject {
 
   // Implementation of the svg::SVGAnimatedLengthList W3C IDL interface
   public final native OMSVGLengthList getBaseVal() /*-{
-    return this.baseVal;
+    return this.baseVal ? @org.vectomatic.dom.svg.OMSVGLengthList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.baseVal) : null;
   }-*/;
   public final native OMSVGLengthList getAnimVal() /*-{
-    return this.animVal;
+    return this.animVal ? @org.vectomatic.dom.svg.OMSVGLengthList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.animVal) : null;
   }-*/;
 
 }

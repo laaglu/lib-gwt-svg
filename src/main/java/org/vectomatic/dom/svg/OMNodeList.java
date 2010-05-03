@@ -17,19 +17,42 @@
  **********************************************/
 package org.vectomatic.dom.svg;
 
+import java.util.Iterator;
+
 import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.NodeList;
 
-public class OMNodeList {
+public class OMNodeList<T extends OMNode> implements Iterable<T> {
 	private NodeList<? extends Node> ot;
 	protected OMNodeList(NodeList<? extends Node> ot) {
 		this.ot = ot;
 	}
-	public final OMNode getItem(int index) {
+	public final T getItem(int index) {
 		Node node = ot.getItem(index);
-		return (node != null) ? new OMNode.Conversion(node).result : null;
+		return (node != null) ? OMNode.<T>convert(node) : null;
 	}
 	public final int getLength() {
 		return ot.getLength();
+	}
+	@Override
+	public Iterator<T> iterator() {
+		return new Iterator<T>() {
+			private int index;
+
+			@Override
+			public boolean hasNext() {
+				return index < getLength();
+			}
+
+			@Override
+			public T next() {
+				return getItem(index++);
+			}
+
+			@Override
+			public void remove() {
+				throw new UnsupportedOperationException();
+			}			
+		};
 	}
 }

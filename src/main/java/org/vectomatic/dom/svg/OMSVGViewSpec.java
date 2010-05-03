@@ -26,7 +26,7 @@ public class OMSVGViewSpec extends JavaScriptObject {
 
   // Implementation of the svg::SVGViewSpec W3C IDL interface
   public final native OMSVGTransformList getTransform() /*-{
-    return this.transform;
+    return this.transform ? @org.vectomatic.dom.svg.OMSVGTransformList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.transform) : null;
   }-*/;
   public final native SVGElement getViewTarget() /*-{
     return this.viewTarget;

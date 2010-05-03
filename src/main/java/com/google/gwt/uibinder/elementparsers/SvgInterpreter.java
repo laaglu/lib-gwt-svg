@@ -27,7 +27,7 @@ import com.google.gwt.uibinder.rebind.XMLElement.Interpreter;
 public class SvgInterpreter implements XMLElement.Interpreter<String> {
 	public static SvgInterpreter newInterpreterForUiObject(
 			UiBinderWriter writer, String uiExpression, Element root) {
-		String ancestorExpression = uiExpression + ".getElement()";
+		String ancestorExpression = uiExpression + ".getSvgElement().getElement()";
 		return new SvgInterpreter(writer, ancestorExpression, root,
 				new HtmlMessageInterpreter(writer, ancestorExpression));
 	}

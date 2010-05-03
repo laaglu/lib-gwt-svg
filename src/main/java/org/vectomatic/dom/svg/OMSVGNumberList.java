@@ -17,36 +17,41 @@
  **********************************************/
 package org.vectomatic.dom.svg;
 
+import java.util.Iterator;
+
 import com.google.gwt.core.client.JavaScriptObject;
 
-public class OMSVGNumberList extends JavaScriptObject {
-  protected OMSVGNumberList() {
+public class OMSVGNumberList implements Iterable<OMSVGNumber> {
+  @SuppressWarnings("unused")
+  private JavaScriptObject ot;
+  protected OMSVGNumberList(JavaScriptObject ot) {
+    this.ot = ot;
   }
 
   // Implementation of the svg::SVGNumberList W3C IDL interface
   public final native int getNumberOfItems() /*-{
-    return this.numberOfItems;
+    return this.@org.vectomatic.dom.svg.OMSVGNumberList::ot.numberOfItems;
   }-*/;
   public final native void clear() /*-{
-    this.clear();
+    this.@org.vectomatic.dom.svg.OMSVGNumberList::ot.clear();
   }-*/;
   public final native OMSVGNumber initialize(OMSVGNumber newItem) /*-{
-    return this.initialize(newItem);
+    return this.@org.vectomatic.dom.svg.OMSVGNumberList::ot.initialize(newItem);
   }-*/;
   public final native OMSVGNumber getItem(int index) /*-{
-    return this.getItem(index);
+    return this.@org.vectomatic.dom.svg.OMSVGNumberList::ot.getItem(index);
   }-*/;
   public final native OMSVGNumber insertItemBefore(OMSVGNumber newItem, int index) /*-{
-    return this.insertItemBefore(newItem, index);
+    return this.@org.vectomatic.dom.svg.OMSVGNumberList::ot.insertItemBefore(newItem, index);
   }-*/;
   public final native OMSVGNumber replaceItem(OMSVGNumber newItem, int index) /*-{
-    return this.replaceItem(newItem, index);
+    return this.@org.vectomatic.dom.svg.OMSVGNumberList::ot.replaceItem(newItem, index);
   }-*/;
   public final native OMSVGNumber removeItem(int index) /*-{
-    return this.removeItem(index);
+    return this.@org.vectomatic.dom.svg.OMSVGNumberList::ot.removeItem(index);
   }-*/;
   public final native OMSVGNumber appendItem(OMSVGNumber newItem) /*-{
-    return this.appendItem(newItem);
+    return this.@org.vectomatic.dom.svg.OMSVGNumberList::ot.appendItem(newItem);
   }-*/;
   
   // Helper methods
@@ -65,5 +70,25 @@ public class OMSVGNumberList extends JavaScriptObject {
   }
   public final OMSVGNumber replaceItem(OMSVGSVGElement svg, float value, int index) {
 	 return replaceItem(svg.createSVGNumber(value), index);
+  }
+  @Override
+  public final Iterator<OMSVGNumber> iterator() {
+	return new Iterator<OMSVGNumber>() {
+		private int index;
+		@Override
+		public boolean hasNext() {
+			return index < getNumberOfItems();
+		}
+
+		@Override
+		public OMSVGNumber next() {
+			return getItem(index++);
+		}
+
+		@Override
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
+	};
   }
 }

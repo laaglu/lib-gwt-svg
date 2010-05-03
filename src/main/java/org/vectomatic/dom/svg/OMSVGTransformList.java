@@ -17,42 +17,67 @@
  **********************************************/
 package org.vectomatic.dom.svg;
 
+import java.util.Iterator;
+
 import com.google.gwt.core.client.JavaScriptObject;
 
-public class OMSVGTransformList extends JavaScriptObject {
-  protected OMSVGTransformList() {
+public class OMSVGTransformList implements Iterable<OMSVGTransform> {
+  @SuppressWarnings("unused")
+  private JavaScriptObject ot;
+  protected OMSVGTransformList(JavaScriptObject ot) {
+    this.ot = ot;
   }
 
   // Implementation of the svg::SVGTransformList W3C IDL interface
   public final native int getNumberOfItems() /*-{
-    return this.numberOfItems;
+    return this.@org.vectomatic.dom.svg.OMSVGTransformList::ot.numberOfItems;
   }-*/;
   public final native void clear() /*-{
-    this.clear();
+    this.@org.vectomatic.dom.svg.OMSVGTransformList::ot.clear();
   }-*/;
   public final native OMSVGTransform initialize(OMSVGTransform newItem) /*-{
-    return this.initialize(newItem);
+    return this.@org.vectomatic.dom.svg.OMSVGTransformList::ot.initialize(newItem);
   }-*/;
   public final native OMSVGTransform getItem(int index) /*-{
-    return this.getItem(index);
+    return this.@org.vectomatic.dom.svg.OMSVGTransformList::ot.getItem(index);
   }-*/;
   public final native OMSVGTransform insertItemBefore(OMSVGTransform newItem, int index) /*-{
-    return this.insertItemBefore(newItem, index);
+    return this.@org.vectomatic.dom.svg.OMSVGTransformList::ot.insertItemBefore(newItem, index);
   }-*/;
   public final native OMSVGTransform replaceItem(OMSVGTransform newItem, int index) /*-{
-    return this.replaceItem(newItem, index);
+    return this.@org.vectomatic.dom.svg.OMSVGTransformList::ot.replaceItem(newItem, index);
   }-*/;
   public final native OMSVGTransform removeItem(int index) /*-{
-    return this.removeItem(index);
+    return this.@org.vectomatic.dom.svg.OMSVGTransformList::ot.removeItem(index);
   }-*/;
   public final native OMSVGTransform appendItem(OMSVGTransform newItem) /*-{
-    return this.appendItem(newItem);
+    return this.@org.vectomatic.dom.svg.OMSVGTransformList::ot.appendItem(newItem);
   }-*/;
   public final native OMSVGTransform createSVGTransformFromMatrix(OMSVGMatrix matrix) /*-{
-    return this.createSVGTransformFromMatrix(matrix);
+    return this.@org.vectomatic.dom.svg.OMSVGTransformList::ot.createSVGTransformFromMatrix(matrix);
   }-*/;
   public final native OMSVGTransform consolidate() /*-{
-    return this.consolidate();
+    return this.@org.vectomatic.dom.svg.OMSVGTransformList::ot.consolidate();
   }-*/;
+  @Override
+  public final Iterator<OMSVGTransform> iterator() {
+	return new Iterator<OMSVGTransform>() {
+		private int index;
+		@Override
+		public boolean hasNext() {
+			return index < getNumberOfItems();
+		}
+
+		@Override
+		public OMSVGTransform next() {
+			return getItem(index++);
+		}
+
+		@Override
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
+	};
+  }
 
 }

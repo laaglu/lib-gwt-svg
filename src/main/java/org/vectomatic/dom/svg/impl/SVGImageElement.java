@@ -93,13 +93,13 @@ public class SVGImageElement extends SVGElement {
 
   // Implementation of the svg::SVGTests W3C IDL interface
   public final native OMSVGStringList getRequiredFeatures() /*-{
-    return this.requiredFeatures;
+    return this.requiredFeatures ? @org.vectomatic.dom.svg.OMSVGStringList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.requiredFeatures) : null;
   }-*/;
   public final native OMSVGStringList getRequiredExtensions() /*-{
-    return this.requiredExtensions;
+    return this.requiredExtensions ? @org.vectomatic.dom.svg.OMSVGStringList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.requiredExtensions) : null;
   }-*/;
   public final native OMSVGStringList getSystemLanguage() /*-{
-    return this.systemLanguage;
+    return this.systemLanguage ? @org.vectomatic.dom.svg.OMSVGStringList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.systemLanguage) : null;
   }-*/;
   public final native boolean hasExtension(String extension) /*-{
     return this.hasExtension(extension);

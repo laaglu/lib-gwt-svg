@@ -28,7 +28,7 @@ public class SVGViewElement extends SVGElement {
 
   // Implementation of the svg::SVGViewElement W3C IDL interface
   public final native OMSVGStringList getViewTarget() /*-{
-    return this.viewTarget;
+    return this.viewTarget ? @org.vectomatic.dom.svg.OMSVGStringList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.viewTarget) : null;
   }-*/;
 
   // Implementation of the svg::SVGFitToViewBox W3C IDL interface

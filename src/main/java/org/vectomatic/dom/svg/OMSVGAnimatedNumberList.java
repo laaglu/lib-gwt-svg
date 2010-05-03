@@ -25,10 +25,10 @@ public class OMSVGAnimatedNumberList extends JavaScriptObject {
 
   // Implementation of the svg::SVGAnimatedNumberList W3C IDL interface
   public final native OMSVGNumberList getBaseVal() /*-{
-    return this.baseVal;
+    return this.baseVal ? @org.vectomatic.dom.svg.OMSVGNumberList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.baseVal) : null;
   }-*/;
   public final native OMSVGNumberList getAnimVal() /*-{
-    return this.animVal;
+    return this.animVal ? @org.vectomatic.dom.svg.OMSVGNumberList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.animVal) : null;
   }-*/;
 
 }

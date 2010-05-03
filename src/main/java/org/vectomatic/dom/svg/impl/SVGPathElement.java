@@ -122,16 +122,16 @@ public class SVGPathElement extends SVGElement {
 
   // Implementation of the svg::SVGAnimatedPathData W3C IDL interface
   public final native OMSVGPathSegList getPathSegList() /*-{
-    return this.pathSegList;
+    return this.pathSegList ? @org.vectomatic.dom.svg.OMSVGPathSegList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.pathSegList) : null;
   }-*/;
   public final native OMSVGPathSegList getNormalizedPathSegList() /*-{
-    return this.normalizedPathSegList;
+    return this.normalizedPathSegList ? @org.vectomatic.dom.svg.OMSVGPathSegList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.normalizedPathSegList) : null;
   }-*/;
   public final native OMSVGPathSegList getAnimatedPathSegList() /*-{
-    return this.animatedPathSegList;
+    return this.animatedPathSegList ? @org.vectomatic.dom.svg.OMSVGPathSegList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.animatedPathSegList) : null;
   }-*/;
   public final native OMSVGPathSegList getAnimatedNormalizedPathSegList() /*-{
-    return this.animatedNormalizedPathSegList;
+    return this.animatedNormalizedPathSegList ? @org.vectomatic.dom.svg.OMSVGPathSegList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.animatedNormalizedPathSegList) : null;
   }-*/;
 
   // Implementation of the svg::SVGTransformable W3C IDL interface
@@ -175,13 +175,13 @@ public class SVGPathElement extends SVGElement {
 
   // Implementation of the svg::SVGTests W3C IDL interface
   public final native OMSVGStringList getRequiredFeatures() /*-{
-    return this.requiredFeatures;
+    return this.requiredFeatures ? @org.vectomatic.dom.svg.OMSVGStringList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.requiredFeatures) : null;
   }-*/;
   public final native OMSVGStringList getRequiredExtensions() /*-{
-    return this.requiredExtensions;
+    return this.requiredExtensions ? @org.vectomatic.dom.svg.OMSVGStringList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.requiredExtensions) : null;
   }-*/;
   public final native OMSVGStringList getSystemLanguage() /*-{
-    return this.systemLanguage;
+    return this.systemLanguage ? @org.vectomatic.dom.svg.OMSVGStringList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.systemLanguage) : null;
   }-*/;
   public final native boolean hasExtension(String extension) /*-{
     return this.hasExtension(extension);

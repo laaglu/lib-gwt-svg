@@ -64,7 +64,7 @@ public class OMNode implements HasHandlers {
 		return handlerManager == null ? handlerManager = new HandlerManager(this) : handlerManager;
 	}
 	
-	static class Conversion {
+	static class Conversion<T extends OMNode> {
 		static {
 			initialize();
 		}
@@ -156,7 +156,7 @@ public class OMNode implements HasHandlers {
 			$wnd.otToWrapper["SVGVKernElement"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGVKernElement::new(Lorg/vectomatic/dom/svg/impl/SVGVKernElement;)(elem); };
 		    $wnd.otToWrapper["Text"] = function(elem) { return @org.vectomatic.dom.svg.OMText::new(Lcom/google/gwt/dom/client/Text;)(elem); };
 		}-*/;
-		OMNode result;
+		T result;
 		Conversion(Node node) {
 			convert(node);
 		}
@@ -173,8 +173,8 @@ public class OMNode implements HasHandlers {
 	    }-*/;
 	}
 	
-	public static OMNode convert(Node obj) {
-		return new Conversion(obj).result;
+	public static <T extends OMNode> T convert(Node obj) {
+		return new Conversion<T>(obj).result;
 	}
 		
 	// Implementation of the dom::Node W3C IDL interface
@@ -196,36 +196,36 @@ public class OMNode implements HasHandlers {
 
 	public final OMNode getParentNode() {
 		Node parentNode = ot.getParentNode();
-		return (parentNode != null) ? new Conversion(parentNode).result : null;
+		return (parentNode != null) ? convert(parentNode) : null;
 	}
 	
-	public final OMNodeList getChildNodes() {
-		return new OMNodeList(ot.getChildNodes());
+	public final <T extends OMNode> OMNodeList<T> getChildNodes() {
+		return new OMNodeList<T>(ot.getChildNodes());
 	}
 
 	public final OMNode getFirstChild() {
 		Node firstChild = ot.getFirstChild();
-		return (firstChild != null) ? new Conversion(firstChild).result : null;
+		return (firstChild != null) ? convert(firstChild) : null;
 	}
 
 	public final OMNode getLastChild() {
 		Node lastChild = ot.getLastChild();
-		return (lastChild != null) ? new Conversion(lastChild).result : null;
+		return (lastChild != null) ? convert(lastChild) : null;
 	}
 
 	public final OMNode getPreviousSibling() {
 		Node previousSibling = ot.getPreviousSibling();
-		return (previousSibling != null) ? new Conversion(previousSibling).result : null;
+		return (previousSibling != null) ? convert(previousSibling) : null;
 	}
 
 	public final OMNode getNextSibling() {
 		Node nextSibling = ot.getNextSibling();
-		return (nextSibling != null) ? new Conversion(nextSibling).result : null;
+		return (nextSibling != null) ? convert(nextSibling) : null;
 	}
 
 	public final OMSVGDocument getOwnerDocument() {
 		Document document = ot.getOwnerDocument();
-		return (document != null) ? (OMSVGDocument)new Conversion(document).result : null;
+		return (document != null) ? (OMSVGDocument)convert(document) : null;
 	}
 
 	public final OMNode insertBefore(OMNode newChild, OMNode refChild) {
@@ -253,7 +253,7 @@ public class OMNode implements HasHandlers {
 	}
 
 	public final OMNode cloneNode(boolean deep) {
-		return new Conversion(ot.cloneNode(deep)).result;
+		return convert(ot.cloneNode(deep));
 	}
 
 	public final void normalize() {

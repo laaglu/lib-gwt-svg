@@ -17,36 +17,61 @@
  **********************************************/
 package org.vectomatic.dom.svg;
 
+import java.util.Iterator;
+
 import com.google.gwt.core.client.JavaScriptObject;
 
-public class OMSVGPathSegList extends JavaScriptObject {
-  protected OMSVGPathSegList() {
+public class OMSVGPathSegList implements Iterable<OMSVGPathSeg> {
+  @SuppressWarnings("unused")
+  private JavaScriptObject ot;
+  protected OMSVGPathSegList(JavaScriptObject ot) {
+    this.ot = ot;
   }
 
   // Implementation of the svg::SVGPathSegList W3C IDL interface
   public final native int getNumberOfItems() /*-{
-    return this.numberOfItems;
+    return this.@org.vectomatic.dom.svg.OMSVGPathSegList::ot.numberOfItems;
   }-*/;
   public final native void clear() /*-{
-    this.clear();
+    this.@org.vectomatic.dom.svg.OMSVGPathSegList::ot.clear();
   }-*/;
   public final native OMSVGPathSeg initialize(OMSVGPathSeg newItem) /*-{
-    return this.initialize(newItem);
+    return this.@org.vectomatic.dom.svg.OMSVGPathSegList::ot.initialize(newItem);
   }-*/;
   public final native OMSVGPathSeg getItem(int index) /*-{
-    return this.getItem(index);
+    return this.@org.vectomatic.dom.svg.OMSVGPathSegList::ot.getItem(index);
   }-*/;
   public final native OMSVGPathSeg insertItemBefore(OMSVGPathSeg newItem, int index) /*-{
-    return this.insertItemBefore(newItem, index);
+    return this.@org.vectomatic.dom.svg.OMSVGPathSegList::ot.insertItemBefore(newItem, index);
   }-*/;
   public final native OMSVGPathSeg replaceItem(OMSVGPathSeg newItem, int index) /*-{
-    return this.replaceItem(newItem, index);
+    return this.@org.vectomatic.dom.svg.OMSVGPathSegList::ot.replaceItem(newItem, index);
   }-*/;
   public final native OMSVGPathSeg removeItem(int index) /*-{
-    return this.removeItem(index);
+    return this.@org.vectomatic.dom.svg.OMSVGPathSegList::ot.removeItem(index);
   }-*/;
   public final native OMSVGPathSeg appendItem(OMSVGPathSeg newItem) /*-{
-    return this.appendItem(newItem);
+    return this.@org.vectomatic.dom.svg.OMSVGPathSegList::ot.appendItem(newItem);
   }-*/;
 
+  @Override
+  public final Iterator<OMSVGPathSeg> iterator() {
+	return new Iterator<OMSVGPathSeg>() {
+		private int index;
+		@Override
+		public boolean hasNext() {
+			return index < getNumberOfItems();
+		}
+
+		@Override
+		public OMSVGPathSeg next() {
+			return getItem(index++);
+		}
+
+		@Override
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
+	};
+  }
 }

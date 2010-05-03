@@ -31,7 +31,7 @@ public class OMSVGICCColor extends JavaScriptObject {
     this.colorProfile = value;
   }-*/;
   public final native OMSVGNumberList getColors() /*-{
-    return this.colors;
+    return this.colors ? @org.vectomatic.dom.svg.OMSVGNumberList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.colors) : null;
   }-*/;
 
 }

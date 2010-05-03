@@ -71,13 +71,13 @@ public class SVGPolygonElement extends SVGElement {
 
   // Implementation of the svg::SVGTests W3C IDL interface
   public final native OMSVGStringList getRequiredFeatures() /*-{
-    return this.requiredFeatures;
+    return this.requiredFeatures ? @org.vectomatic.dom.svg.OMSVGStringList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.requiredFeatures) : null;
   }-*/;
   public final native OMSVGStringList getRequiredExtensions() /*-{
-    return this.requiredExtensions;
+    return this.requiredExtensions ? @org.vectomatic.dom.svg.OMSVGStringList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.requiredExtensions) : null;
   }-*/;
   public final native OMSVGStringList getSystemLanguage() /*-{
-    return this.systemLanguage;
+    return this.systemLanguage ? @org.vectomatic.dom.svg.OMSVGStringList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.systemLanguage) : null;
   }-*/;
   public final native boolean hasExtension(String extension) /*-{
     return this.hasExtension(extension);
@@ -85,10 +85,10 @@ public class SVGPolygonElement extends SVGElement {
 
   // Implementation of the svg::SVGAnimatedPoints W3C IDL interface
   public final native OMSVGPointList getPoints() /*-{
-    return this.points;
+    return this.points ? @org.vectomatic.dom.svg.OMSVGPointList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.points) : null;
   }-*/;
   public final native OMSVGPointList getAnimatedPoints() /*-{
-    return this.animatedPoints;
+    return this.animatedPoints ? @org.vectomatic.dom.svg.OMSVGPointList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.animatedPoints) : null;
   }-*/;
 
   // Implementation of the svg::SVGExternalResourcesRequired W3C IDL interface

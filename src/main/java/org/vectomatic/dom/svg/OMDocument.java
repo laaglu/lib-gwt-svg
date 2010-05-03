@@ -32,17 +32,17 @@ public class OMDocument extends OMNode {
 	public final OMText createTextNode(String data) {
 	  return new OMText(((SVGDocument)ot).createTextNode(data));
 	}
-	public final OMNodeList getElementsByTagName(String name) {
-	    return new OMNodeList(((SVGDocument)ot).getElementsByTagName(name));
+	public final <T extends OMElement> OMNodeList<T> getElementsByTagName(String name) {
+	    return new OMNodeList<T>(((SVGDocument)ot).getElementsByTagName(name));
 	}
-	public final OMNodeList getElementsByTagNameNS(String namespaceURI, String localName) {
-	    return new OMNodeList(DOMHelper.getElementsByTagNameNS(((SVGDocument)ot), namespaceURI, localName));
+	public final <T extends OMElement> OMNodeList<T> getElementsByTagNameNS(String namespaceURI, String localName) {
+	    return new OMNodeList<T>(DOMHelper.getElementsByTagNameNS(((SVGDocument)ot), namespaceURI, localName));
 	}
-	public final OMElement getElementById(java.lang.String elementId) {
-		return (OMElement)new Conversion(((SVGDocument)ot).getElementById(elementId)).result;
+	public final <T extends OMElement> T getElementById(String elementId) {
+		return OMNode.<T>convert(((SVGDocument)ot).getElementById(elementId));
 	}
 	public final OMElement getDocumentElement() {
-		return (OMElement)new Conversion(((SVGDocument)ot).getDocumentElement()).result;
+		return OMNode.convert(((SVGDocument)ot).getDocumentElement());
 	}
 
 }

@@ -17,36 +17,61 @@
  **********************************************/
 package org.vectomatic.dom.svg;
 
+import java.util.Iterator;
+
 import com.google.gwt.core.client.JavaScriptObject;
 
-public class OMSVGPointList extends JavaScriptObject {
-  protected OMSVGPointList() {
+public class OMSVGPointList implements Iterable<OMSVGPoint> {
+  @SuppressWarnings("unused")
+  private JavaScriptObject ot;
+  protected OMSVGPointList(JavaScriptObject ot) {
+    this.ot = ot;
   }
 
   // Implementation of the svg::SVGPointList W3C IDL interface
   public final native int getNumberOfItems() /*-{
-    return this.numberOfItems;
+    return this.@org.vectomatic.dom.svg.OMSVGPointList::ot.numberOfItems;
   }-*/;
   public final native void clear() /*-{
-    this.clear();
+    this.@org.vectomatic.dom.svg.OMSVGPointList::ot.clear();
   }-*/;
   public final native OMSVGPoint initialize(OMSVGPoint newItem) /*-{
-    return this.initialize(newItem);
+    return this.@org.vectomatic.dom.svg.OMSVGPointList::ot.initialize(newItem);
   }-*/;
   public final native OMSVGPoint getItem(int index) /*-{
-    return this.getItem(index);
+    return this.@org.vectomatic.dom.svg.OMSVGPointList::ot.getItem(index);
   }-*/;
   public final native OMSVGPoint insertItemBefore(OMSVGPoint newItem, int index) /*-{
-    return this.insertItemBefore(newItem, index);
+    return this.@org.vectomatic.dom.svg.OMSVGPointList::ot.insertItemBefore(newItem, index);
   }-*/;
   public final native OMSVGPoint replaceItem(OMSVGPoint newItem, int index) /*-{
-    return this.replaceItem(newItem, index);
+    return this.@org.vectomatic.dom.svg.OMSVGPointList::ot.replaceItem(newItem, index);
   }-*/;
   public final native OMSVGPoint removeItem(int index) /*-{
-    return this.removeItem(index);
+    return this.@org.vectomatic.dom.svg.OMSVGPointList::ot.removeItem(index);
   }-*/;
   public final native OMSVGPoint appendItem(OMSVGPoint newItem) /*-{
-    return this.appendItem(newItem);
+    return this.@org.vectomatic.dom.svg.OMSVGPointList::ot.appendItem(newItem);
   }-*/;
+  @Override
+  public final Iterator<OMSVGPoint> iterator() {
+	return new Iterator<OMSVGPoint>() {
+		private int index;
+		@Override
+		public boolean hasNext() {
+			return index < getNumberOfItems();
+		}
+
+		@Override
+		public OMSVGPoint next() {
+			return getItem(index++);
+		}
+
+		@Override
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
+	};
+  }
 
 }

@@ -25,10 +25,10 @@ public class OMSVGAnimatedTransformList extends JavaScriptObject {
 
   // Implementation of the svg::SVGAnimatedTransformList W3C IDL interface
   public final native OMSVGTransformList getBaseVal() /*-{
-    return this.baseVal;
+    return this.baseVal ? @org.vectomatic.dom.svg.OMSVGTransformList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.baseVal) : null;
   }-*/;
   public final native OMSVGTransformList getAnimVal() /*-{
-    return this.animVal;
+    return this.animVal ? @org.vectomatic.dom.svg.OMSVGTransformList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.animVal) : null;
   }-*/;
 
 }

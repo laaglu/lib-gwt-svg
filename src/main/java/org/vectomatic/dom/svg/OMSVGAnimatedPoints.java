@@ -25,10 +25,10 @@ public class OMSVGAnimatedPoints extends JavaScriptObject {
 
   // Implementation of the svg::SVGAnimatedPoints W3C IDL interface
   public final native OMSVGPointList getPoints() /*-{
-    return this.points;
+    return this.points ? @org.vectomatic.dom.svg.OMSVGPointList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.points) : null;
   }-*/;
   public final native OMSVGPointList getAnimatedPoints() /*-{
-    return this.animatedPoints;
+    return this.animatedPoints ? @org.vectomatic.dom.svg.OMSVGPointList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.animatedPoints) : null;
   }-*/;
 
 }

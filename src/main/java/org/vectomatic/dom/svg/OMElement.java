@@ -33,12 +33,12 @@ public class OMElement extends OMNode {
 	}
 
 	// Implementation of the dom::Element W3C IDL interface
-	public final OMNodeList getElementsByTagName(String name) {
-		return new OMNodeList(((Element) ot).getElementsByTagName(name));
+	public final <T extends OMElement> OMNodeList<T> getElementsByTagName(String name) {
+		return new OMNodeList<T>(((Element) ot).getElementsByTagName(name));
 	}
 
-	public final OMNodeList getElementsByTagNameNS(String namespaceURI, String localName) {
-		return new OMNodeList(DOMHelper.getElementsByTagNameNS(((Element) ot), namespaceURI, localName));
+	public final <T extends OMElement> OMNodeList<T> getElementsByTagNameNS(String namespaceURI, String localName) {
+		return new OMNodeList<T>(DOMHelper.getElementsByTagNameNS(((Element) ot), namespaceURI, localName));
 	}
 
 	public final String getId() {

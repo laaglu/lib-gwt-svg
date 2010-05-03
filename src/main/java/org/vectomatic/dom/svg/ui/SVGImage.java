@@ -26,13 +26,26 @@ import org.vectomatic.dom.svg.events.HasDocumentHandlers;
 import org.vectomatic.dom.svg.events.HasGraphicalHandlers;
 import org.vectomatic.dom.svg.events.SVGZoomHandler;
 
+import com.google.gwt.dom.client.DivElement;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Node;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasAllMouseHandlers;
 import com.google.gwt.event.dom.client.LoadHandler;
+import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.dom.client.MouseWheelEvent;
+import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.event.dom.client.ScrollHandler;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -70,14 +83,19 @@ import com.google.gwt.uibinder.client.ElementParserToUse;
  * @author laaglu
  */
 @ElementParserToUse(className = "org.vectomatic.dev.svg.impl.gen.SVGImageParser")
-public class SVGImage extends SVGWidget implements HasGraphicalHandlers, HasDocumentHandlers {
+public class SVGImage extends SVGWidget implements HasGraphicalHandlers, HasAllMouseHandlers, HasDocumentHandlers {
+	protected DivElement div;
 	protected OMSVGSVGElement svgElement;
 	public SVGImage() {
+		div = Document.get().createDivElement();
+		setElement(div);
 	}
 	public SVGImage(SVGResource resource) {
-		this(resource.getSvg());
+		this();
+		setResource(resource);
 	}
 	public SVGImage(OMSVGSVGElement svgElement) {
+		this();
 		setSvgElement(svgElement);
 	}
 	
@@ -95,27 +113,13 @@ public class SVGImage extends SVGWidget implements HasGraphicalHandlers, HasDocu
 		// SimplePanel.setWidget() and ComplexPanel.insertWidget()
 		// get the SVGSVGElement when this widget is inserted
 		// in a SimplePanel or a ComplexPanel
-		setElement(svgElement.getElement());
-	}
-	
-	/**
-	 * Reimplement the onAttach method which cannot be based on
-	 * com.google.gwt.user.client.DOM but needs to use
-	 * org.vectomatic.dom.svg.DOMHelper instead. This method
-	 * is invoked by Panel.adopt()
-	 */
-	@Override
-	protected void onAttach() {
-	}
-	
-	/**
-	 * Reimplement the onAttach method which cannot be based on
-	 * com.google.gwt.user.client.DOM but needs to use
-	 * org.vectomatic.dom.svg.DOMHelper instead. This method
-	 * is invoked by Panel.adopt()
-	 */
-	@Override
-	protected void onDetach() {
+		Node firstChild = div.getFirstChild();
+		Element svg = svgElement.getElement();
+		if (firstChild == null) {
+			div.appendChild(svg);
+		} else if (firstChild != svg) {
+			div.replaceChild(svg, firstChild);
+		}
 	}
 	
 	/**
@@ -193,27 +197,27 @@ public class SVGImage extends SVGWidget implements HasGraphicalHandlers, HasDocu
  
 	@Override
 	public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
-		return svgElement.addMouseDownHandler(handler);
+		return addDomHandler(handler, MouseDownEvent.getType());
 	}
 	@Override
 	public HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
-		return svgElement.addMouseUpHandler(handler);
+		return addDomHandler(handler, MouseUpEvent.getType());
 	}
 	@Override
 	public HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
-		return svgElement.addMouseOutHandler(handler);
+		return addDomHandler(handler, MouseOutEvent.getType());
 	}
 	@Override
 	public HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
-		return svgElement.addMouseOverHandler(handler);
+		return addDomHandler(handler, MouseOverEvent.getType());
 	}
 	@Override
 	public HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
-		return svgElement.addMouseMoveHandler(handler);
+		return addDomHandler(handler, MouseMoveEvent.getType());
 	}
 	@Override
 	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		return svgElement.addClickHandler(handler);
+		return addDomHandler(handler, ClickEvent.getType());
 	}
 	@Override
 	public HandlerRegistration addLoadHandler(LoadHandler handler) {
@@ -242,5 +246,9 @@ public class SVGImage extends SVGWidget implements HasGraphicalHandlers, HasDocu
 	@Override
 	public HandlerRegistration addActivateHandler(ActivateHandler handler) {
 		return svgElement.addActivateHandler(handler);
+	}
+	@Override
+	public HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
+		return addDomHandler(handler, MouseWheelEvent.getType());
 	}
 }

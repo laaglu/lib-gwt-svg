@@ -426,4 +426,13 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
 	text.appendChild(createTextNode(data));
 	return text;
   }
+  public final OMSVGImageElement createSVGImageElement(float x, float y, float width, float height, String href) {
+	OMSVGImageElement image = createSVGImageElement();
+	image.getX().getBaseVal().setValue(x);
+	image.getY().getBaseVal().setValue(y);
+	image.getWidth().getBaseVal().setValue(width);
+	image.getHeight().getBaseVal().setValue(height);
+	image.getHref().setBaseVal(href);
+	return image;
+  }
 }
