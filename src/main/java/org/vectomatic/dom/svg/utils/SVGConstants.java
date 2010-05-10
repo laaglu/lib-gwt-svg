@@ -1079,4 +1079,10 @@ public interface SVGConstants {
     public static final String SVG_FEATURE_VIEW = "http://www.w3.org/TR/SVG11/feature#View";
     public static final String SVG_FEATURE_VIEWPORT_ATTRIBUTE = "http://www.w3.org/TR/SVG11/feature#ViewportAttribute";
     public static final String SVG_FEATURE_XLINK_ATTRIBUTE = "http://www.w3.org/TR/SVG11/feature#XlinkAttribute";
+
+    ///////////////////////////////////////////////////////////////////
+    // CSS type
+    ///////////////////////////////////////////////////////////////////
+    
+    public static final String CSS_TYPE = "text/css";
 }

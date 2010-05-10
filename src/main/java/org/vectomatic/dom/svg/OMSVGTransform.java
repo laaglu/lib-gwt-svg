@@ -58,5 +58,67 @@ public class OMSVGTransform extends JavaScriptObject {
   public final native void setSkewY(float angle) /*-{
     this.setSkewY(angle);
   }-*/;
-
+  public final String getDescription() {
+	StringBuilder builder = new StringBuilder("{");
+	switch(getType()) {
+		case SVG_TRANSFORM_MATRIX:
+			builder.append(getMatrix().getDescription());
+			break;
+		case SVG_TRANSFORM_TRANSLATE:
+			builder.append("T(");
+			builder.append(getMatrix().getE());
+			builder.append(",");
+			builder.append(getMatrix().getF());
+			builder.append(")");
+			break;
+		case SVG_TRANSFORM_SCALE:
+			builder.append("S(");
+			builder.append(getMatrix().getA());
+			builder.append(",");
+			builder.append(getMatrix().getD());
+			builder.append(")");
+			break;
+		case SVG_TRANSFORM_ROTATE:
+			builder.append("R(");
+			builder.append(getAngle());
+			if (getMatrix().getE() != 0f || getMatrix().getF() != 0f) {
+				if (getAngle() == 0f) {
+					builder.append(",");
+					builder.append(getMatrix().getE());
+					builder.append(",");
+					builder.append(getMatrix().getF());
+				} else {
+					float a = (float)(1 - Math.cos(getAngle() * 2  * Math.PI / 360));
+					float b = (float)Math.sin(getAngle() * 2  * Math.PI / 360);
+					float c = -b;
+					float d = a;
+					float det = a * d - b * c;
+					float x = (getMatrix().getE() * d - b * getMatrix().getF()) / det;
+					float y = (a * getMatrix().getF() - getMatrix().getE() * c) / det;
+					builder.append(",");
+					builder.append(x);
+					builder.append(",");
+					builder.append(y);
+				}
+			}
+			builder.append(")");
+			break;
+		case SVG_TRANSFORM_SKEWX:
+			builder.append("Kx(");
+			builder.append(getAngle());
+			builder.append(")");
+			break;
+		case SVG_TRANSFORM_SKEWY:
+			builder.append("Ky(");
+			builder.append(getAngle());
+			builder.append(")");
+			break;
+		case SVG_TRANSFORM_UNKNOWN:
+		default:
+			builder.append(toString());
+			break;
+	}
+	builder.append("}");
+	return builder.toString();
+  }
 }

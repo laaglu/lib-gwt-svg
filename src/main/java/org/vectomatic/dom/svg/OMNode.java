@@ -31,13 +31,13 @@ import com.google.gwt.event.shared.HasHandlers;
 import com.google.gwt.user.client.Element;
 
 public class OMNode implements HasHandlers {
-	private HandlerManager handlerManager;
 	protected Node ot;
 
 	protected OMNode(Node ot) {
 		this.ot = ot;
 	}
 	public void fireEvent(GwtEvent<?> event) {
+		HandlerManager handlerManager = getHandlerManager(ot);
 		if (handlerManager != null) {
 			handlerManager.fireEvent(event);
 		}
@@ -61,8 +61,21 @@ public class OMNode implements HasHandlers {
 	}
 
 	HandlerManager ensureHandlers() {
-		return handlerManager == null ? handlerManager = new HandlerManager(this) : handlerManager;
+		HandlerManager handlerManager = getHandlerManager(ot);
+		if (handlerManager == null) {
+			handlerManager = new HandlerManager(this);
+			setHandlerManager(ot, handlerManager);
+		}
+		return handlerManager;
 	}
+	
+	private static native HandlerManager getHandlerManager(Node ot) /*-{
+		return ot.__hm;
+	}-*/;
+	
+	private static native void setHandlerManager(Node ot, HandlerManager manager) /*-{
+		ot.__hm = manager;
+	}-*/;
 	
 	static class Conversion<T extends OMNode> {
 		static {
@@ -165,8 +178,10 @@ public class OMNode implements HasHandlers {
 		    var type = @org.vectomatic.dom.svg.utils.DOMHelper::getType(Lcom/google/gwt/core/client/JavaScriptObject;)(node);
 		    if (type) {
 		    	var ctor = $wnd.otToWrapper[type];
-		    	if (ctor) {
-		    		wrapper = ctor(node);
+		    	if (ctor != null) {
+	    			wrapper = ctor(node);
+		    	} else {
+		    		wrapper = @org.vectomatic.dom.svg.OMNode::new(Lcom/google/gwt/dom/client/Node;)(node);
 		    	}
 		    }
 	        this.@org.vectomatic.dom.svg.OMNode.Conversion::result = wrapper;

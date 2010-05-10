@@ -107,4 +107,26 @@ public class OMSVGRect extends JavaScriptObject {
 	  destination.setHeight(Math.max(getMaxY(), r.getMaxY()) - destination.getY());
 	  return destination;
   }
+  public final boolean contains(OMSVGPoint p) {
+	  return p.getX() >= getX() && p.getY() >= getY() && p.getX() <= getMaxX() && p.getY() <= getMaxY();
+  }
+  public final native OMSVGRect assignTo(OMSVGRect destination) /*-{
+	  destination.x = this.x;
+	  destination.y = this.y;
+	  destination.width = this.width;
+	  destination.height = this.height;
+	  return destination;
+  }-*/;
+  public final String getDescription() {
+	  StringBuilder builder = new StringBuilder("{");
+	  builder.append(getX());
+	  builder.append(" ");
+	  builder.append(getY());
+	  builder.append(" ");
+	  builder.append(getWidth());
+	  builder.append(" ");
+	  builder.append(getHeight());
+	  builder.append("}");
+	  return builder.toString();
+  }
 }

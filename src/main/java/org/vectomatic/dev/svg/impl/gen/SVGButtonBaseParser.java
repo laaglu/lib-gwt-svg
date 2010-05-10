@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.vectomatic.dom.svg.ui.SVGPushButton;
 import org.vectomatic.dom.svg.ui.SVGResource;
 import org.vectomatic.dom.svg.ui.SVGButtonBase.SVGFace;
 import org.vectomatic.dom.svg.ui.SVGButtonBase.SVGFaceName;

@@ -78,4 +78,34 @@ public class OMSVGPoint extends JavaScriptObject {
     destination.y = this.y;
 	return destination;
   }-*/;
+  public final OMSVGPoint product(OMSVGPoint p) {
+	return product(p, this);
+  }
+  public final native OMSVGPoint product(OMSVGPoint p, OMSVGPoint destination) /*-{
+    destination.x = this.x * p.x;
+    destination.y = this.y * p.y;
+	return destination;
+  }-*/;
+  public final native float dotProduct(OMSVGPoint p) /*-{
+    return this.x * p.x + this.y * p.y;
+  }-*/;
+  public final native float crossProduct(OMSVGPoint p) /*-{
+    return this.x * p.y - this.y * p.x;
+  }-*/;
+  public final OMSVGPoint round() {
+	return round(this);
+  }
+  public final OMSVGPoint round(OMSVGPoint destination) {
+    destination.setX(Math.round(getX()));
+    destination.setY(Math.round(getY()));
+	return destination;
+  }
+  public final OMSVGPoint floor() {
+	return floor(this);
+  }
+  public final OMSVGPoint floor(OMSVGPoint destination) {
+    destination.setX((float) Math.floor(getX()));
+    destination.setY((float) Math.floor(getY()));
+	return destination;
+  }
 }

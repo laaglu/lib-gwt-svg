@@ -116,9 +116,9 @@ public class SVGImage extends SVGWidget implements HasGraphicalHandlers, HasAllM
 		Node firstChild = div.getFirstChild();
 		Element svg = svgElement.getElement();
 		if (firstChild == null) {
-			div.appendChild(svg);
+			div.appendChild(svg.cloneNode(true));
 		} else if (firstChild != svg) {
-			div.replaceChild(svg, firstChild);
+			div.replaceChild(svg.cloneNode(true), firstChild);
 		}
 	}
 	
