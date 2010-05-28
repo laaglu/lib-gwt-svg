@@ -17,7 +17,6 @@
  **********************************************/
 package org.vectomatic.dom.svg.ui;
 
-import org.vectomatic.dom.svg.OMSVGLength;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.events.ActivateHandler;
 import org.vectomatic.dom.svg.events.FocusInHandler;
@@ -56,7 +55,7 @@ import com.google.gwt.uibinder.client.ElementParserToUse;
  * The class bridges event subscription methods and forwards
  * them to the underlying {@link org.vectomatic.dom.svg.OMSVGSVGElement OMSVGSVGElement}.
  * The class integrates with GWT Widget hierarchy.
- * <p>You can define an SVG toggle button using UiBinder templates. 
+ * <p>You can define an SVGImage using UiBinder templates. 
  * Depending on your needs, you can either define the SVG inline.
  * This can be convenient if you want to 
  * localize the button label, or use styles defined in the template. 
@@ -108,95 +107,24 @@ public class SVGImage extends SVGWidget implements HasGraphicalHandlers, HasAllM
 	}
 	
 	public void setSvgElement(OMSVGSVGElement svgElement) {
-		this.svgElement = svgElement;
+		this.svgElement = (OMSVGSVGElement)svgElement.cloneNode(true);
 		// Sets the element in UIObject. This guarantees that
 		// SimplePanel.setWidget() and ComplexPanel.insertWidget()
 		// get the SVGSVGElement when this widget is inserted
 		// in a SimplePanel or a ComplexPanel
 		Node firstChild = div.getFirstChild();
-		Element svg = svgElement.getElement();
+		Element svg = this.svgElement.getElement();
 		if (firstChild == null) {
-			div.appendChild(svg.cloneNode(true));
+			div.appendChild(svg);
 		} else if (firstChild != svg) {
-			div.replaceChild(svg.cloneNode(true), firstChild);
+			div.replaceChild(svg, firstChild);
 		}
-	}
-	
-	/**
-	 * Reimplement the getStyleName method because SVGElement.className
-	 * is a SVGAnimatedString, not a string
-	 */
-	@Override
-	public String getStyleName() {
-		return svgElement.getClassName().getBaseVal();
-	}
-	
-	/**
-	 * Reimplement the getStylePrimaryName method because SVGElement.className
-	 * is a SVGAnimatedString, not a string
-	 */
-	@Override
-	public String getStylePrimaryName() {
-		return getStyleName();
-	}
-	
-	/**
-	 * Reimplement the removeStyleName method because SVGElement.className
-	 * is a SVGAnimatedString, not a string
-	 */
-	@Override
-	public void removeStyleName(String style) {
-		svgElement.removeClassNameBaseVal(style);
-	}
-	
-	/**
-	 * Reimplement the setStyleName method because SVGElement.className
-	 * is a SVGAnimatedString, not a string
-	 */
-	@Override
-	public void setStyleName(String style) {
-		svgElement.setClassNameBaseVal(style);
-	}
-	
-	/**
-	 * Reimplement the setStylePrimaryName method because SVGElement.className
-	 * is a SVGAnimatedString, not a string
-	 */
-	@Override
-	public void setStylePrimaryName(String style) {
-		setStyleName(style);
-	}
-
-	/**
-	 * Reimplement the setWidth method becaue of Bug 374216
-	 */
-	@Override
-	public void setWidth(String width) {
-		OMSVGLength length = svgElement.createSVGLength();
-		length.setValueAsString(width);
-		svgElement.setWidth(length.getUnitType(), length.getValue());
-	}
-
-	/**
-	 * Reimplement the setHeight method becaue of Bug 374216
-	 */
-	@Override
-	public void setHeight(String height) {
-		OMSVGLength length = svgElement.createSVGLength();
-		length.setValueAsString(height);
-		svgElement.setHeight(length.getUnitType(), length.getValue());
-	}
-
-	/**
-	 * Reimplement the addStyleName method because SVGElement.className
-	 * is a SVGAnimatedString, not a string
-	 */
-	public void addStyleName(String style) {
-		svgElement.addClassNameBaseVal(style);
 	}
  
 	@Override
 	public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
+		// NB: standard mouse events will be caught by the container <div> element
+		// not the the embedded <svg> element
 		return addDomHandler(handler, MouseDownEvent.getType());
 	}
 	@Override
