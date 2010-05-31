@@ -107,7 +107,9 @@ public class SVGImage extends SVGWidget implements HasGraphicalHandlers, HasAllM
 	}
 	
 	public void setSvgElement(OMSVGSVGElement svgElement) {
-		this.svgElement = (OMSVGSVGElement)svgElement.cloneNode(true);
+		//this.svgElement = (OMSVGSVGElement)svgElement.cloneNode(true);
+		this.svgElement = svgElement;
+		
 		// Sets the element in UIObject. This guarantees that
 		// SimplePanel.setWidget() and ComplexPanel.insertWidget()
 		// get the SVGSVGElement when this widget is inserted

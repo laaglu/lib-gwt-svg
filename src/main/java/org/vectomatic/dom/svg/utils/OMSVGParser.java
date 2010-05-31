@@ -41,6 +41,7 @@ import org.vectomatic.dom.svg.impl.SVGParserImpl;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
 
 /**
  * libgwtsvg entry points
@@ -74,8 +75,34 @@ public class OMSVGParser {
 	public static final OMSVGSVGElement parse(String rawSvg) {
 		SVGDocument doc = impl.parseFromString(rawSvg, "text/xml").cast();
 		SVGSVGElement svg = DOMHelper.importNode(DOMHelper.getCurrentDocument(), doc.getDocumentElement(), true).cast();
+		operaFix(svg);
     	return new OMSVGSVGElement(svg);
 	}
-	
+
+	/**
+	 * Fix for opera.
+	 * SVG Objects created by the parser and imported do not seem to recognize their
+	 * CSS attributes. Reapplying them seems to solve the issue
+	 * @param root
+	 */
+	protected static native void operaFix(Element root) /*-{
+	  var stack = [];
+	  stack.push(root);
+	  while(stack.length > 0) {
+	  	 var elt = stack.pop();
+	  	 if (elt.nodeType == 1 && elt.className && elt.className.baseVal) {
+	  	 	elt.className.baseVal = elt.className.baseVal;
+	  	 }
+	  	 if (elt.nodeType == 1 && elt.hasAttribute("style")) {
+	  	 	elt.setAttribute("style", elt.getAttribute("style"));
+	  	 }
+	  	 var children = elt.childNodes;
+	  	 for(var i = 0; i < children.length; i++) {
+	  	   //alert(elt.tagName + "[" + i + "] --> " + children.item(i));
+	  	   stack.push(children.item(i));
+	  	 }
+	  }
+	}-*/;
+
 
 }
