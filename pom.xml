@@ -4,7 +4,7 @@
 	<groupId>org.vectomatic</groupId>
 	<artifactId>lib-gwt-svg</artifactId>
 	<packaging>jar</packaging>
-	<version>0.4.5</version>
+	<version>0.4.6</version>
 	<name>lib-gwt-svg</name>
 	<description>A GWT library to access the SVG functionalities of web browsers</description>
 	<url>http://www.vectomatic.org/mvn-sites/lib-gwt-svg</url>

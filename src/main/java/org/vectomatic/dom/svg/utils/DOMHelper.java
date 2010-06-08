@@ -17,6 +17,9 @@
  **********************************************/
 package org.vectomatic.dom.svg.utils;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import org.vectomatic.dom.svg.OMNode;
 import org.vectomatic.dom.svg.OMSVGElement;
 import org.vectomatic.dom.svg.impl.DOMHelperImpl;
@@ -155,4 +158,58 @@ public class DOMHelper {
 	public static native boolean hasFeature(String featureName) /*-{
 		return $doc.implementation.hasFeature(featureName, 1.1);
 	}-*/;
+
+	/**
+	 * Evaluates the specified XPath expression
+	 * @param root
+	 * The SVG element the expression is rooted at
+	 * @param expr
+	 * The XPath expression
+	 * @param resolver
+	 * A prefix resolver if the expression has prefix
+	 * @return
+	 * A node iterator for the selected nodes.
+	 */
+	public static <T extends OMNode> Iterator<T> evaluateXPath(OMSVGElement root, String expr, XPathPrefixResolver resolver) {
+		final JavaScriptObject result = evaluateXPath_(root.getElement(), expr, resolver);
+		return new Iterator<T>() {
+			boolean fetched;
+			Node next;
+			
+			@Override
+			public boolean hasNext() {
+				if (!fetched) {
+					next = iterateNext(result);
+					fetched = true;
+				}
+				return next != null;
+			}
+
+			@Override
+			public T next() {
+				if (!hasNext()) {
+					throw new NoSuchElementException();
+				}
+				fetched = false;
+				return OMNode.<T>convert(next);
+			}
+
+			@Override
+			public void remove() {
+				throw new UnsupportedOperationException();
+			}
+			
+			private native Node iterateNext(JavaScriptObject result) /*-{
+				return result.iterateNext();
+			}-*/;			
+		};
+
+	}
+
+	private static native JavaScriptObject evaluateXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
+		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.ORDERED_NODE_ITERATOR_TYPE , null);
+		return result;
+	}-*/;
+
+
 }
