@@ -132,8 +132,7 @@ public class UiBinderWriter {
    * @param type the base type
    * @return a breadth-first collection of its type hierarchy
    */
-  static Iterable<JClassType> getClassHierarchyBreadthFirst(
-      JClassType type) {
+  static Iterable<JClassType> getClassHierarchyBreadthFirst(JClassType type) {
     LinkedList<JClassType> list = new LinkedList<JClassType>();
     LinkedList<JClassType> q = new LinkedList<JClassType>();
 
@@ -327,13 +326,10 @@ public class UiBinderWriter {
    * call and assign the Element instance to its field.
    * 
    * @param fieldName The name of the field being declared
-   * @param parentElementExpression an expression to be evaluated at runtime,
-   *          which will return an Element that is an ancestor of this one
-   *          (needed by the getElementById call mentioned above).
    */
-  public String declareDomField(String fieldName, String parentElementExpression)
+  public String declareDomField(String fieldName)
       throws UnableToCompleteException {
-    ensureAttached(parentElementExpression);
+    ensureAttached();
     String name = declareDomIdHolder();
     setFieldInitializer(fieldName, "null");
     addInitStatement(
@@ -366,7 +362,7 @@ public class UiBinderWriter {
       throws UnableToCompleteException {
     JClassType type = oracle.findType(typeName);
     if (type == null) {
-      die("In %s, unknown type %s", elem, typeName);
+      die(elem, "Unknown type %s", typeName);
     }
 
     String fieldName = getFieldName(elem);
@@ -427,6 +423,15 @@ public class UiBinderWriter {
   }
 
   /**
+   * Post an error message about a specific XMLElement and halt processing. This
+   * method always throws an {@link UnableToCompleteException}
+   */
+  public void die(XMLElement context, String message, Object... params)
+      throws UnableToCompleteException {
+    logger.die(context, message, params);
+  }
+
+  /**
    * End the current attachable section. This will detach the element if it was
    * ever attached and execute any detach statements.
    * 
@@ -447,10 +452,9 @@ public class UiBinderWriter {
   /**
    * Ensure that the specified element is attached to the DOM.
    * 
-   * @param element variable name of element to be attached
    * @see #beginAttachedSection(String)
    */
-  public void ensureAttached(String element) {
+  public void ensureAttached() {
     String attachSectionElement = attachSectionElements.getFirst();
     if (!attachedVars.containsKey(attachSectionElement)) {
       String attachedVar = "attachRecord" + nextAttachVar;
@@ -467,11 +471,10 @@ public class UiBinderWriter {
    * an object that responds to Element getElement(). Convenience wrapper for
    * {@link ensureAttached}<code>(field + ".getElement()")</code>.
    * 
-   * @param field variable name of the field to be attached
    * @see #beginAttachedSection(String)
    */
-  public void ensureFieldAttached(String field) {
-    ensureAttached(field + ".getElement()");
+  public void ensureCurrentFieldAttached() {
+    ensureAttached();
   }
 
   /**
@@ -505,7 +508,7 @@ public class UiBinderWriter {
     JClassType rtn = null;
     rtn = pkg.findType(tagName);
     if (rtn == null) {
-      die("No class matching \"%s\" in %s", tagName, ns);
+      die(elem, "No class matching \"%s\" in %s", tagName, ns);
     }
 
     return rtn;
@@ -695,6 +698,13 @@ public class UiBinderWriter {
   }
 
   /**
+   * Post a warning message.
+   */
+  public void warn(XMLElement context, String message, Object... params) {
+    logger.warn(context, message, params);
+  }
+
+  /**
    * Entry point for the code generation logic. It generates the
    * implementation's superstructure, and parses the root widget (leading to all
    * of its children being parsed as well).
@@ -752,7 +762,7 @@ public class UiBinderWriter {
    * 
    * @throws UnableToCompleteException
    */
-  private void ensureAttachmentCleanedUp() throws UnableToCompleteException {
+  private void ensureAttachmentCleanedUp() {
     if (!attachSectionElements.isEmpty()) {
       throw new IllegalStateException("Attachments not cleaned up: "
           + attachSectionElements);
@@ -806,13 +816,13 @@ public class UiBinderWriter {
       hasOldSchoolId = true;
       // If an id is specified on the element, use that.
       fieldName = elem.consumeRawAttribute("id");
-      warn("Deprecated use of id=\"%1$s\" for field name. "
+      warn(elem, "Deprecated use of id=\"%1$s\" for field name. "
           + "Please switch to gwt:field=\"%1$s\" instead. "
           + "This will soon be a compile error!", fieldName);
     }
     if (elem.hasAttribute(getUiFieldAttributeName())) {
       if (hasOldSchoolId) {
-        die("Cannot declare both id and field on the same element: " + elem);
+        die(elem, "Cannot declare both id and field on the same element");
       }
       fieldName = elem.consumeRawAttribute(getUiFieldAttributeName());
     }
@@ -898,15 +908,34 @@ public class UiBinderWriter {
       throws UnableToCompleteException {
     JClassType fieldType = ownerField.getType().getRawType();
 
-    if (!templateClass.isAssignableTo(fieldType)) {
-      die("Template field and owner field types don't match: %s != %s",
-          templateClass.getQualifiedSourceName(),
-          fieldType.getQualifiedSourceName());
-    }
-
     if (!ownerField.isProvided()) {
+      /*
+       * Normally check that the type the template created can be slammed into
+       * the @UiField annotated field in the owning class
+       */
+      if (!templateClass.isAssignableTo(fieldType)) {
+        die(
+            "In @UiField %s, template field and owner field types don't match: %s is not assignable to %s",
+            ownerField.getName(), templateClass.getQualifiedSourceName(),
+            fieldType.getQualifiedSourceName());
+      }
+      /*
+       * And initialize the field
+       */
       niceWriter.write("owner.%1$s = %2$s;", ownerField.getName(),
           templateField);
+    } else {
+      /*
+       * But with @UiField(provided=true) the user builds it, so reverse the
+       * direction of the assignability check and do no init.
+       */
+      if (!fieldType.isAssignableTo(templateClass)) {
+        die(
+            "In UiField(provided = true) %s, template field and field types don't match: "
+                + "@UiField(provided=true)%s is not assignable to %s",
+            ownerField.getName(), fieldType.getQualifiedSourceName(),
+            templateClass.getQualifiedSourceName());
+      }
     }
   }
 
@@ -991,6 +1020,7 @@ public class UiBinderWriter {
     addWidgetParser("StackLayoutPanel");
     addWidgetParser("TabLayoutPanel");
     addWidgetParser("Image");
+    addWidgetParser("ListBox");
   }
 
   /**
@@ -1020,7 +1050,8 @@ public class UiBinderWriter {
 
     // createAndBindUi method
     w.write("public %s createAndBindUi(final %s owner) {",
-        uiRootType.getParameterizedQualifiedSourceName(), uiOwnerType.getParameterizedQualifiedSourceName());
+        uiRootType.getParameterizedQualifiedSourceName(),
+        uiOwnerType.getParameterizedQualifiedSourceName());
     w.indent();
     w.newline();
 
@@ -1051,7 +1082,9 @@ public class UiBinderWriter {
 
   private void writeClassOpen(IndentedWriter w) {
     w.write("public class %s implements UiBinder<%s, %s>, %s {", implClassName,
-        uiRootType.getParameterizedQualifiedSourceName(), uiOwnerType.getParameterizedQualifiedSourceName(), baseClass.getParameterizedQualifiedSourceName());
+        uiRootType.getParameterizedQualifiedSourceName(),
+        uiOwnerType.getParameterizedQualifiedSourceName(),
+        baseClass.getParameterizedQualifiedSourceName());
     w.indent();
   }
 
@@ -1080,11 +1113,9 @@ public class UiBinderWriter {
         String fieldName = ownerField.getName();
         FieldWriter fieldWriter = fieldManager.lookup(fieldName);
 
-        // TODO(hermes) This can be null due to http://b/1836504. If that
-        // is fixed properly, a null fieldWriter will be an error
-        // (would that be a user error or a runtime error? Not sure)
+        // TODO why can this be null?
         if (fieldWriter != null) {
-          fieldManager.lookup(fieldName).setInitializerMaybe(
+          fieldManager.lookup(fieldName).setInitializer(
               formatCode("owner.%1$s", fieldName));
         }
       }

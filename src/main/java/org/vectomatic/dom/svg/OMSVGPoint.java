@@ -108,4 +108,16 @@ public class OMSVGPoint extends JavaScriptObject {
     destination.setY((float) Math.floor(getY()));
 	return destination;
   }
+  public final native float length() /*-{
+    return Math.sqrt(this.x * this.x + this.y * this.y);
+  }-*/;
+  public final native float length2() /*-{
+    return this.x * this.x + this.y * this.y;
+  }-*/;
+  public final native float distance(OMSVGPoint p) /*-{
+    return Math.sqrt((this.x - p.x) * (this.x - p.x) + (this.y - p.y) * (this.y - p.y));
+  }-*/;
+  public final native float distance2(OMSVGPoint p) /*-{
+    return (this.x - p.x) * (this.x - p.x) + (this.y - p.y) * (this.y - p.y);
+  }-*/;
 }
