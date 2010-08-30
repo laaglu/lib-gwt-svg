@@ -78,14 +78,18 @@ public class SVGPushButton extends SVGButtonBase {
 		}
 	}
 	public SVGPushButton() {
-		showFace(SVGFaceName.UP);
 	}
 	public SVGPushButton(OMSVGSVGElement svgElement, Map<SVGFaceName, SVGFace> faces) {
 		super(svgElement, faces);
-		showFace(SVGFaceName.UP);
 	}
 	public SVGPushButton(SVGResource resource, Map<SVGFaceName, SVGFace> faces) {
 		this(resource.getSvg(), faces);
+	}
+	
+	@Override
+	public void setSvgElement(OMSVGSVGElement svgElement) {
+		super.setSvgElement(svgElement);
+		showFace(SVGFaceName.UP);
 	}
 	
 	@Override

@@ -20,6 +20,7 @@ package org.vectomatic.dom.svg.ui;
 import java.util.Map;
 
 import org.vectomatic.dom.svg.OMSVGSVGElement;
+import org.vectomatic.dom.svg.ui.SVGButtonBase.SVGFaceName;
 
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseOutEvent;
@@ -59,15 +60,20 @@ import com.google.gwt.uibinder.client.ElementParserToUse;
 @ElementParserToUse(className = "org.vectomatic.dev.svg.impl.gen.SVGButtonBaseParser")
 public class SVGToggleButton extends SVGButtonBase {
 	public SVGToggleButton() {
-		showFace(SVGFaceName.DOWN);
 	}
 	public SVGToggleButton(OMSVGSVGElement svgElement, Map<SVGFaceName, SVGFace> faces) {
 		super(svgElement, faces);
-		showFace(SVGFaceName.DOWN);
 	}
 	public SVGToggleButton(SVGResource resource, Map<SVGFaceName, SVGFace> faces) {
 		this(resource.getSvg(), faces);
 	}
+	
+	@Override
+	public void setSvgElement(OMSVGSVGElement svgElement) {
+		super.setSvgElement(svgElement);
+		showFace(SVGFaceName.DOWN);
+	}
+
 	/**
 	 * Returns whether this button is down
 	 * @return

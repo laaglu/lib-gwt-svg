@@ -25,10 +25,6 @@ import org.vectomatic.dom.svg.events.HasDocumentHandlers;
 import org.vectomatic.dom.svg.events.HasGraphicalHandlers;
 import org.vectomatic.dom.svg.events.SVGZoomHandler;
 
-import com.google.gwt.dom.client.DivElement;
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.Node;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasAllMouseHandlers;
@@ -49,6 +45,8 @@ import com.google.gwt.event.dom.client.ScrollHandler;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.ElementParserToUse;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * A widget which contains a single {@link org.vectomatic.dom.svg.OMSVGSVGElement OMSVGSVGElement}.
@@ -83,18 +81,18 @@ import com.google.gwt.uibinder.client.ElementParserToUse;
  */
 @ElementParserToUse(className = "org.vectomatic.dev.svg.impl.gen.SVGImageParser")
 public class SVGImage extends SVGWidget implements HasGraphicalHandlers, HasAllMouseHandlers, HasDocumentHandlers {
-	protected DivElement div;
 	protected OMSVGSVGElement svgElement;
+	/**
+	 * No-arg constructor.
+	 * You must call {@link SVGImage#setResource(SVGResource)} or {@link SVGImage#setSvgElement(OMSVGSVGElement)}
+	 * before using the widget.
+	 */
 	public SVGImage() {
-		div = Document.get().createDivElement();
-		setElement(div);
 	}
 	public SVGImage(SVGResource resource) {
-		this();
 		setResource(resource);
 	}
 	public SVGImage(OMSVGSVGElement svgElement) {
-		this();
 		setSvgElement(svgElement);
 	}
 	
@@ -108,18 +106,7 @@ public class SVGImage extends SVGWidget implements HasGraphicalHandlers, HasAllM
 	
 	public void setSvgElement(OMSVGSVGElement svgElement) {
 		this.svgElement = (OMSVGSVGElement)svgElement.cloneNode(true);
-		
-		// Sets the element in UIObject. This guarantees that
-		// SimplePanel.setWidget() and ComplexPanel.insertWidget()
-		// get the SVGSVGElement when this widget is inserted
-		// in a SimplePanel or a ComplexPanel
-		Node firstChild = div.getFirstChild();
-		Element svg = this.svgElement.getElement();
-		if (firstChild == null) {
-			div.appendChild(svg);
-		} else if (firstChild != svg) {
-			div.replaceChild(svg, firstChild);
-		}
+		setElement(this.svgElement.getElement());
 	}
  
 	@Override

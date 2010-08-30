@@ -22,10 +22,6 @@ import java.util.Map;
 
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 
-import com.google.gwt.dom.client.DivElement;
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.Node;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasAllMouseHandlers;
@@ -139,7 +135,6 @@ public abstract class SVGButtonBase extends SVGWidget implements HasClickHandler
 			for (String className : classNames) {
 				button.svgElement.addClassNameBaseVal(className);
 			}
-			button.install(button.svgElement);
 		}
 		public String[] getClassNames() {
 			return classNames;
@@ -149,18 +144,17 @@ public abstract class SVGButtonBase extends SVGWidget implements HasClickHandler
 		}
 	}
 	
-	protected DivElement div;
 	protected OMSVGSVGElement svgElement;
 	protected SVGFaceName currentFaceName;
 	protected SVGFace currentFace;
 	protected Map<SVGFaceName, SVGFace> faces;
 	
 	/**
-	 * Constructor
+	 * No-arg constructor.
+	 * You must call {@link SVGButtonBase#setResource(SVGResource)} or {@link SVGButtonBase#setSvgElement(OMSVGSVGElement)}
+	 * before using the widget.
 	 */
 	protected SVGButtonBase() {
-		div = Document.get().createDivElement();
-		setElement(div);
 		faces = new HashMap<SVGFaceName, SVGFace>();
 	}
 	/**
@@ -172,10 +166,10 @@ public abstract class SVGButtonBase extends SVGWidget implements HasClickHandler
 	 */
 	protected SVGButtonBase(OMSVGSVGElement svgElement, Map<SVGFaceName, SVGFace> faces) {
 		this();
-		setSvgElement(svgElement);
 		if (faces != null) {
 			this.faces.putAll(faces);
 		}
+		setSvgElement(svgElement);
 	}
 	/**
 	 * Constructor
@@ -234,12 +228,13 @@ public abstract class SVGButtonBase extends SVGWidget implements HasClickHandler
 	 * the SVG element defining the button
 	 */
 	public void setSvgElement(OMSVGSVGElement svgElement) {
-		this.svgElement = svgElement;
-		if (svgElement != null) {
-			svgElement.addDomHandler(this, MouseOutEvent.getType());
-			svgElement.addDomHandler(this, MouseOverEvent.getType());
-			svgElement.addDomHandler(this, MouseUpEvent.getType());
-			svgElement.addDomHandler(this, MouseDownEvent.getType());
+		this.svgElement = (OMSVGSVGElement)svgElement.cloneNode(true);
+		setElement(this.svgElement.getElement());
+		if (this.svgElement != null) {
+			this.svgElement.addDomHandler(this, MouseOutEvent.getType());
+			this.svgElement.addDomHandler(this, MouseOverEvent.getType());
+			this.svgElement.addDomHandler(this, MouseUpEvent.getType());
+			this.svgElement.addDomHandler(this, MouseDownEvent.getType());
 		}
 	}
 	/**
@@ -288,15 +283,7 @@ public abstract class SVGButtonBase extends SVGWidget implements HasClickHandler
 			}
 		}
 	}
-	protected void install(OMSVGSVGElement svgElement) {
-		Node firstChild = div.getFirstChild();
-		Element svg = svgElement.getElement();
-		if (firstChild == null) {
-			div.appendChild(svg);
-		} else if (firstChild != svg) {
-			div.replaceChild(svg, firstChild);
-		}
-	}
+
 	/**
 	 * Forces the button to display the specified face
 	 * @param faceName
