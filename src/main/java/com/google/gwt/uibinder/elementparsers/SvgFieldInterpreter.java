@@ -40,7 +40,6 @@ public class SvgFieldInterpreter implements XMLElement.Interpreter<String> {
 
 	public String interpretElement(XMLElement elem) throws UnableToCompleteException {
 		String fieldName = writer.declareFieldIfNeeded(elem);
-		String svgTypeName;
 		if (fieldName != null) {
 			JClassType type = writer.findFieldType(elem);
 		    writer.setFieldInitializer(fieldName, "null");

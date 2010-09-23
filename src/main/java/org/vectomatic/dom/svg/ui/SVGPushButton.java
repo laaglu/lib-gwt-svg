@@ -20,7 +20,6 @@ package org.vectomatic.dom.svg.ui;
 import java.util.Map;
 
 import org.vectomatic.dom.svg.OMSVGSVGElement;
-import org.vectomatic.dom.svg.utils.DOMHelper;
 
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseOutEvent;
