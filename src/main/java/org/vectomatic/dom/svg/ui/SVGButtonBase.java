@@ -20,7 +20,10 @@ package org.vectomatic.dom.svg.ui;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.vectomatic.dom.svg.OMSVGAnimatedString;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
+import org.vectomatic.dom.svg.OMSVGStyle;
+import org.vectomatic.dom.svg.itf.ISVGStylable;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -59,7 +62,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * the button.</p>
  * @author laaglu
  */
-public abstract class SVGButtonBase extends SVGWidget implements HasClickHandlers, HasAllMouseHandlers, MouseDownHandler, MouseUpHandler, MouseOverHandler, MouseOutHandler {
+public abstract class SVGButtonBase extends SVGWidget implements HasClickHandlers, HasAllMouseHandlers, MouseDownHandler, MouseUpHandler, MouseOverHandler, MouseOutHandler, ISVGStylable {
 	/**
 	 * Enum to represent the possible states of an SVG button
 	 * @author laaglu
@@ -124,16 +127,18 @@ public abstract class SVGButtonBase extends SVGWidget implements HasClickHandler
 		}
 		@Override
 		void uninstall(SVGButtonBase button) {
-			button.svgElement.getStyle();
-			for (String className : classNames) {
-				button.svgElement.removeClassNameBaseVal(className);
+			if (button.svgElement != null) {
+				for (String className : classNames) {
+					button.svgElement.removeClassNameBaseVal(className);
+				}
 			}
 		}
 		@Override
 		void install(SVGButtonBase button) {
-			button.svgElement.getStyle();
-			for (String className : classNames) {
-				button.svgElement.addClassNameBaseVal(className);
+			if (button.svgElement != null) {
+				for (String className : classNames) {
+					button.svgElement.addClassNameBaseVal(className);
+				}
 			}
 		}
 		public String[] getClassNames() {
@@ -228,7 +233,7 @@ public abstract class SVGButtonBase extends SVGWidget implements HasClickHandler
 	 * the SVG element defining the button
 	 */
 	public void setSvgElement(OMSVGSVGElement svgElement) {
-		this.svgElement = (OMSVGSVGElement)svgElement.cloneNode(true);
+		this.svgElement = svgElement;
 		setElement(this.svgElement.getElement());
 		if (this.svgElement != null) {
 			this.svgElement.addDomHandler(this, MouseOutEvent.getType());
@@ -336,4 +341,29 @@ public abstract class SVGButtonBase extends SVGWidget implements HasClickHandler
 		return svgElement.addDomHandler(handler, MouseWheelEvent.getType());
 	}
 
+	
+	// Implementation of the svg::Stylable W3C IDL interface
+	public OMSVGStyle getStyle() {
+		return svgElement.getStyle();
+	}
+
+	public final OMSVGAnimatedString getClassName() {
+		return svgElement.getClassName();
+	}
+
+	public final void addClassNameBaseVal(String className) {
+		svgElement.addClassNameBaseVal(className);
+	}
+
+	public final void removeClassNameBaseVal(String className) {
+		svgElement.removeClassNameBaseVal(className);
+	}
+
+	public final void replaceClassNameBaseVal(String oldClassName, String newClassName) {
+		svgElement.replaceClassNameBaseVal(oldClassName, newClassName);
+	}
+
+	public final void setClassNameBaseVal(String className) {
+		svgElement.setClassNameBaseVal(className);
+	}
 }

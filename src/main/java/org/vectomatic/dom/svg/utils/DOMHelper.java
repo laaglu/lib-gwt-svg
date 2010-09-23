@@ -20,6 +20,7 @@ package org.vectomatic.dom.svg.utils;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import org.vectomatic.dom.svg.OMElement;
 import org.vectomatic.dom.svg.OMNode;
 import org.vectomatic.dom.svg.OMSVGElement;
 import org.vectomatic.dom.svg.impl.DOMHelperImpl;
@@ -162,7 +163,7 @@ public class DOMHelper {
 	/**
 	 * Evaluates the specified XPath expression
 	 * @param root
-	 * The SVG element the expression is rooted at
+	 * The element the expression is rooted at
 	 * @param expr
 	 * The XPath expression
 	 * @param resolver
@@ -170,7 +171,7 @@ public class DOMHelper {
 	 * @return
 	 * A node iterator for the selected nodes.
 	 */
-	public static <T extends OMNode> Iterator<T> evaluateXPath(OMSVGElement root, String expr, XPathPrefixResolver resolver) {
+	public static <T extends OMNode> Iterator<T> evaluateXPath(OMElement root, String expr, XPathPrefixResolver resolver) {
 		final JavaScriptObject result = evaluateXPath_(root.getElement(), expr, resolver);
 		return new Iterator<T>() {
 			boolean fetched;

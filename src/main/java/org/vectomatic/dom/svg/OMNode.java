@@ -167,7 +167,6 @@ public class OMNode implements HasHandlers {
 			$wnd.otToWrapper["SVGUseElement"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGUseElement::new(Lorg/vectomatic/dom/svg/impl/SVGUseElement;)(elem); };
 			$wnd.otToWrapper["SVGViewElement"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGViewElement::new(Lorg/vectomatic/dom/svg/impl/SVGViewElement;)(elem); };
 			$wnd.otToWrapper["SVGVKernElement"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGVKernElement::new(Lorg/vectomatic/dom/svg/impl/SVGVKernElement;)(elem); };
-		    $wnd.otToWrapper["Text"] = function(elem) { return @org.vectomatic.dom.svg.OMText::new(Lcom/google/gwt/dom/client/Text;)(elem); };
 		}-*/;
 		T result;
 		Conversion(Node node) {
@@ -181,7 +180,17 @@ public class OMNode implements HasHandlers {
 		    	if (ctor != null) {
 	    			wrapper = ctor(node);
 		    	} else {
-		    		wrapper = @org.vectomatic.dom.svg.OMNode::new(Lcom/google/gwt/dom/client/Node;)(node);
+		    		if (node.nodeType == 1) {
+		    			wrapper = @org.vectomatic.dom.svg.OMElement::new(Lcom/google/gwt/dom/client/Element;)(node);
+		    		} else if (node.nodeType == 2) {
+		    			wrapper = @org.vectomatic.dom.svg.OMAttr::new(Lorg/vectomatic/dom/svg/impl/Attr;)(node);
+		    		} else if (node.nodeType == 3) {
+		    			wrapper = @org.vectomatic.dom.svg.OMText::new(Lcom/google/gwt/dom/client/Text;)(node);
+		    		} else if (node.nodeType == 9) {
+		    			wrapper = @org.vectomatic.dom.svg.OMDocument::new(Lcom/google/gwt/dom/client/Document;)(node);
+		    		} else {
+		    			wrapper = @org.vectomatic.dom.svg.OMNode::new(Lcom/google/gwt/dom/client/Node;)(node);
+		    		}
 		    	}
 		    }
 	        this.@org.vectomatic.dom.svg.OMNode.Conversion::result = wrapper;
@@ -190,6 +199,10 @@ public class OMNode implements HasHandlers {
 	
 	public static <T extends OMNode> T convert(Node obj) {
 		return new Conversion<T>(obj).result;
+	}
+	
+	public Node getNode() {
+		return ot;
 	}
 		
 	// Implementation of the dom::Node W3C IDL interface

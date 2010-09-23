@@ -20,11 +20,11 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGDocument;
 import org.vectomatic.dom.svg.utils.DOMHelper;
 
-import com.google.gwt.dom.client.Node;
+import com.google.gwt.dom.client.Document;
 
 public class OMDocument extends OMNode {
 
-	protected OMDocument(Node ot) {
+	protected OMDocument(Document ot) {
 		super(ot);
 	}
 

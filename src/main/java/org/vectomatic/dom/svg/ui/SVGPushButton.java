@@ -161,7 +161,6 @@ public class SVGPushButton extends SVGButtonBase {
 					showFace(SVGFaceName.DOWN);
 					break;
 			}
-			DOMHelper.releaseCaptureElement();
 		}
 	}
 	

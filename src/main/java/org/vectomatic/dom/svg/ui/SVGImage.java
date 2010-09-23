@@ -17,13 +17,16 @@
  **********************************************/
 package org.vectomatic.dom.svg.ui;
 
+import org.vectomatic.dom.svg.OMSVGAnimatedString;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
+import org.vectomatic.dom.svg.OMSVGStyle;
 import org.vectomatic.dom.svg.events.ActivateHandler;
 import org.vectomatic.dom.svg.events.FocusInHandler;
 import org.vectomatic.dom.svg.events.FocusOutHandler;
 import org.vectomatic.dom.svg.events.HasDocumentHandlers;
 import org.vectomatic.dom.svg.events.HasGraphicalHandlers;
 import org.vectomatic.dom.svg.events.SVGZoomHandler;
+import org.vectomatic.dom.svg.itf.ISVGStylable;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -45,8 +48,6 @@ import com.google.gwt.event.dom.client.ScrollHandler;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.ElementParserToUse;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * A widget which contains a single {@link org.vectomatic.dom.svg.OMSVGSVGElement OMSVGSVGElement}.
@@ -80,7 +81,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @author laaglu
  */
 @ElementParserToUse(className = "org.vectomatic.dev.svg.impl.gen.SVGImageParser")
-public class SVGImage extends SVGWidget implements HasGraphicalHandlers, HasAllMouseHandlers, HasDocumentHandlers {
+public class SVGImage extends SVGWidget implements HasGraphicalHandlers, HasAllMouseHandlers, HasDocumentHandlers, ISVGStylable {
 	protected OMSVGSVGElement svgElement;
 	/**
 	 * No-arg constructor.
@@ -105,7 +106,7 @@ public class SVGImage extends SVGWidget implements HasGraphicalHandlers, HasAllM
 	}
 	
 	public void setSvgElement(OMSVGSVGElement svgElement) {
-		this.svgElement = (OMSVGSVGElement)svgElement.cloneNode(true);
+		this.svgElement = svgElement;
 		setElement(this.svgElement.getElement());
 	}
  
@@ -166,5 +167,30 @@ public class SVGImage extends SVGWidget implements HasGraphicalHandlers, HasAllM
 	@Override
 	public HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
 		return addDomHandler(handler, MouseWheelEvent.getType());
+	}
+	
+	// Implementation of the svg::Stylable W3C IDL interface
+	public OMSVGStyle getStyle() {
+		return svgElement.getStyle();
+	}
+
+	public final OMSVGAnimatedString getClassName() {
+		return svgElement.getClassName();
+	}
+
+	public final void addClassNameBaseVal(String className) {
+		svgElement.addClassNameBaseVal(className);
+	}
+
+	public final void removeClassNameBaseVal(String className) {
+		svgElement.removeClassNameBaseVal(className);
+	}
+
+	public final void replaceClassNameBaseVal(String oldClassName, String newClassName) {
+		svgElement.replaceClassNameBaseVal(oldClassName, newClassName);
+	}
+
+	public final void setClassNameBaseVal(String className) {
+		svgElement.setClassNameBaseVal(className);
 	}
 }

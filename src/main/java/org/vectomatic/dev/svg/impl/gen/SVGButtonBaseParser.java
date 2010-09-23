@@ -24,6 +24,7 @@ import com.google.gwt.uibinder.rebind.XMLElement;
 
 public class SVGButtonBaseParser implements ElementParser {
 	protected static final String ATTR_RESOURCE = "resource";
+	protected static final String ATTR_CLASS_NAME_BASE_VAL = "classNameBaseVal";
 	protected static final String ATTR_CLASS_NAMES = "classNames";
 	protected static final String TAG_ELEMENT = "element";
 	protected static final String TAG_UP = "upFace";
@@ -188,6 +189,11 @@ public class SVGButtonBaseParser implements ElementParser {
 		    JClassType svgResourceType = writer.getOracle().findType(SVGResource.class.getCanonicalName());
 			String resource = elem.consumeAttribute(ATTR_RESOURCE, svgResourceType); 
 			writer.addStatement("%s.setResource(%s);", fieldName, resource);		
+		}
+		if (elem.hasAttribute(ATTR_CLASS_NAME_BASE_VAL)) {
+		    JClassType stringResourceType = writer.getOracle().findType(String.class.getCanonicalName());
+			String resource = elem.consumeAttribute(ATTR_CLASS_NAME_BASE_VAL, stringResourceType); 
+			writer.addStatement("%s.setClassNameBaseVal(%s);", fieldName, resource);		
 		}
 	    for (XMLElement child : elem.consumeChildElements()) {
 			if (URI_VECTOMATIC.equals(child.getNamespaceUri()) && TAG_ELEMENT.equals(child.getLocalName())) {
