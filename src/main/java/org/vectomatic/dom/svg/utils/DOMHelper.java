@@ -23,7 +23,9 @@ import java.util.NoSuchElementException;
 import org.vectomatic.dom.svg.OMElement;
 import org.vectomatic.dom.svg.OMNode;
 import org.vectomatic.dom.svg.OMSVGElement;
+import org.vectomatic.dom.svg.impl.Attr;
 import org.vectomatic.dom.svg.impl.DOMHelperImpl;
+import org.vectomatic.dom.svg.impl.NamedNodeMap;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
@@ -89,6 +91,17 @@ public class DOMHelper {
 	public static final native Document getCurrentDocument() /*-{
 	  return $doc;
 	}-*/;
+	
+	public static final native NamedNodeMap<Attr> getAttributes(Element elem) /*-{
+	  return elem.attributes;
+	}-*/;
+	public static final native boolean hasAttributeNS(Element elem, String namespaceURI, String localName) /*-{
+	  return elem.hasAttributeNS(namespaceURI, localName);
+	}-*/;
+	public static final native void setAttributeNS(Element elem, String namespaceURI, String localName, String value) /*-{
+	  elem.setAttributeNS(namespaceURI, localName, value);
+	}-*/;
+
 
 	public static void bindEventListener(OMNode source, Element elem, String eventName) {
 		impl.bindEventListener(source, elem, eventName);
