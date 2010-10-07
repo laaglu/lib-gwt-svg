@@ -18,19 +18,14 @@
 package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGStyleElement;
+import org.vectomatic.dom.svg.itf.ISVGLangSpace;
 
-public class OMSVGStyleElement extends OMSVGElement {
+public class OMSVGStyleElement extends OMSVGElement implements ISVGLangSpace {
   protected OMSVGStyleElement(SVGStyleElement ot) {
     super(ot);
   }
 
   // Implementation of the svg::SVGStyleElement W3C IDL interface
-  public final String getXmlspace() {
-    return ((SVGStyleElement)ot).getXmlspace();
-  }
-  public final void setXmlspace(java.lang.String value) {
-    ((SVGStyleElement)ot).setXmlspace(value);
-  }
   public final String getType() {
     return ((SVGStyleElement)ot).getType();
   }
@@ -42,6 +37,20 @@ public class OMSVGStyleElement extends OMSVGElement {
   }
   public final void setMedia(java.lang.String value) {
     ((SVGStyleElement)ot).setMedia(value);
+  }
+  
+  // Implementation of the svg::SVGLangSpace W3C IDL interface
+  public final String getXmllang() {
+    return ((SVGStyleElement)ot).getXmllang();
+  }
+  public final void setXmllang(java.lang.String value) {
+    ((SVGStyleElement)ot).setXmllang(value);
+  }
+  public final String getXmlspace() {
+    return ((SVGStyleElement)ot).getXmlspace();
+  }
+  public final void setXmlspace(java.lang.String value) {
+    ((SVGStyleElement)ot).setXmlspace(value);
   }
 
 }

@@ -23,12 +23,6 @@ public class SVGStyleElement extends SVGElement {
   }
 
   // Implementation of the svg::SVGStyleElement W3C IDL interface
-  public final native String getXmlspace() /*-{
-    return this.xmlspace;
-  }-*/;
-  public final native void setXmlspace(String value) /*-{
-    this.xmlspace = value;
-  }-*/;
   public final native String getType() /*-{
     return this.type;
   }-*/;
@@ -42,4 +36,17 @@ public class SVGStyleElement extends SVGElement {
     this.media = value;
   }-*/;
 
+  // Implementation of the svg::SVGLangSpace W3C IDL interface
+  public final native String getXmllang() /*-{
+    return this.xmllang;
+  }-*/;
+  public final native void setXmllang(String value) /*-{
+    this.xmllang = value;
+  }-*/;
+  public final native String getXmlspace() /*-{
+    return this.xmlspace;
+  }-*/;
+  public final native void setXmlspace(String value) /*-{
+    this.xmlspace = value;
+  }-*/;
 }
