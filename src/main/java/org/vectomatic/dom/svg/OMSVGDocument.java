@@ -32,7 +32,6 @@ import org.vectomatic.dom.svg.impl.SVGCircleElement;
 import org.vectomatic.dom.svg.impl.SVGClipPathElement;
 import org.vectomatic.dom.svg.impl.SVGColorProfileElement;
 import org.vectomatic.dom.svg.impl.SVGCursorElement;
-import org.vectomatic.dom.svg.impl.SVGDefinitionSrcElement;
 import org.vectomatic.dom.svg.impl.SVGDefsElement;
 import org.vectomatic.dom.svg.impl.SVGDescElement;
 import org.vectomatic.dom.svg.impl.SVGDocument;
@@ -367,9 +366,6 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
   }
   public final OMSVGFontFaceNameElement createSVGFontFaceNameElement() {
     return (OMSVGFontFaceNameElement)convert((SVGFontFaceNameElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FONT_FACE_NAME_TAG).cast());
-  }
-  public final OMSVGDefinitionSrcElement createSVGDefinitionSrcElement() {
-    return (OMSVGDefinitionSrcElement)convert((SVGDefinitionSrcElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_DEFINITION_SRC_TAG).cast());
   }
   public final OMSVGMetadataElement createSVGMetadataElement() {
     return (OMSVGMetadataElement)convert((SVGMetadataElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_METADATA_TAG).cast());

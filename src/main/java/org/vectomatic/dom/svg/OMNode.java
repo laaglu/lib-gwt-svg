@@ -96,7 +96,6 @@ public class OMNode implements HasHandlers {
 			$wnd.otToWrapper["SVGClipPathElement"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGClipPathElement::new(Lorg/vectomatic/dom/svg/impl/SVGClipPathElement;)(elem); };
 			$wnd.otToWrapper["SVGColorProfileElement"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGColorProfileElement::new(Lorg/vectomatic/dom/svg/impl/SVGColorProfileElement;)(elem); };
 			$wnd.otToWrapper["SVGCursorElement"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGCursorElement::new(Lorg/vectomatic/dom/svg/impl/SVGCursorElement;)(elem); };
-			$wnd.otToWrapper["SVGDefinitionSrcElement"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGDefinitionSrcElement::new(Lorg/vectomatic/dom/svg/impl/SVGDefinitionSrcElement;)(elem); };
 			$wnd.otToWrapper["SVGDefsElement"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGDefsElement::new(Lorg/vectomatic/dom/svg/impl/SVGDefsElement;)(elem); };
 			$wnd.otToWrapper["SVGDescElement"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGDescElement::new(Lorg/vectomatic/dom/svg/impl/SVGDescElement;)(elem); };
 			$wnd.otToWrapper["SVGDocument"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGDocument::new(Lorg/vectomatic/dom/svg/impl/SVGDocument;)(elem); };
