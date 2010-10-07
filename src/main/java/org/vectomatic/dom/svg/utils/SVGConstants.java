@@ -445,7 +445,6 @@ public interface SVGConstants {
     String SVG_CLIP_PATH_TAG = "clipPath";
     String SVG_COLOR_PROFILE_TAG = "color-profile";
     String SVG_CURSOR_TAG = "cursor";
-    String SVG_DEFINITION_SRC_TAG = "definition-src";
     String SVG_DEFS_TAG = "defs";
     String SVG_DESC_TAG = "desc";
     String SVG_ELLIPSE_TAG = "ellipse";
