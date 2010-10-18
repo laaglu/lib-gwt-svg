@@ -128,6 +128,13 @@ public class ExternalSVGResourcePrototype implements ExternalSVGResource {
 	private final String name;
 	private final String url;
 
+	/**
+	 * Constructor
+	 * @param name The resource name
+	 * @param url The resource URL
+	 * @param cache A cache of loaded resource
+	 * @param index The index for this resource in the cache
+	 */
 	public ExternalSVGResourcePrototype(String name, String url,
 			SVGResource[] cache, int index) {
 		this.name = name;
@@ -136,12 +143,17 @@ public class ExternalSVGResourcePrototype implements ExternalSVGResource {
 		this.index = index;
 	}
 
+	/**
+	 * Returns the SVG resource name
+	 * @return the SVG resource name
+	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
 	 * Possibly fire off an HTTPRequest for the SVG resource.
+	 * @param callback The request callback
 	 */
 	public void getSvg(ResourceCallback<SVGResource> callback)
 			throws ResourceException {

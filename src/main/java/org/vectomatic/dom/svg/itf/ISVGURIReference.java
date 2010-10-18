@@ -15,10 +15,32 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with libgwtsvg.  If not, see http://www.gnu.org/licenses/
  **********************************************/
+/*
+ * Copyright (c) 2004 World Wide Web Consortium,
+ *
+ * (Massachusetts Institute of Technology, European Research Consortium for
+ * Informatics and Mathematics, Keio University). All Rights Reserved. This
+ * work is distributed under the W3C(r) Software License [1] in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * [1] http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+ */
+
 package org.vectomatic.dom.svg.itf;
 
 import org.vectomatic.dom.svg.OMSVGAnimatedString;
 
+  /**
+   * Interface {@link org.vectomatic.dom.svg.itf.ISVGURIReference} defines an
+   * interface which applies to all elements which have the collection of XLink
+   * attributes, such as <span class='attr-name'>'xlink:href'</span>, which
+   * define a URI reference.
+   */
 public interface ISVGURIReference {
+  /**
+   * Corresponds to attribute <span class='attr-name'>'xlink:href'</span> on
+   * the given element.
+   */
   public OMSVGAnimatedString getHref();
 }

@@ -15,10 +15,27 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with libgwtsvg.  If not, see http://www.gnu.org/licenses/
  **********************************************/
+/*
+ * Copyright (c) 2004 World Wide Web Consortium,
+ *
+ * (Massachusetts Institute of Technology, European Research Consortium for
+ * Informatics and Mathematics, Keio University). All Rights Reserved. This
+ * work is distributed under the W3C(r) Software License [1] in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * [1] http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+ */
+
 package org.vectomatic.dom.svg.impl;
 
 import org.vectomatic.dom.svg.OMSVGAnimatedString;
 
+/**
+ * The {@link org.vectomatic.dom.svg.impl.SVGTRefElement} interface corresponds
+ * to the <a href='http://www.w3.org/TR/SVG11/text.html#TRefElement' title='tref
+ * element specification'>tref</a> element.
+ */
 public class SVGTRefElement extends SVGTextPositioningElement {
   protected SVGTRefElement() {
   }
@@ -26,6 +43,10 @@ public class SVGTRefElement extends SVGTextPositioningElement {
   // Implementation of the svg::SVGTRefElement W3C IDL interface
 
   // Implementation of the svg::SVGURIReference W3C IDL interface
+  /**
+   * Corresponds to attribute <span class='attr-name'>'xlink:href'</span> on
+   * the given element.
+   */
   public final native OMSVGAnimatedString getHref() /*-{
     return this.href;
   }-*/;

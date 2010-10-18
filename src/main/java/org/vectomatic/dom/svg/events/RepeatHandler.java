@@ -19,6 +19,13 @@ package org.vectomatic.dom.svg.events;
 
 import com.google.gwt.event.shared.EventHandler;
 
+/**
+ * Handler interface for {@link RepeatEvent} events.
+ */
 public interface RepeatHandler extends EventHandler {
-	public void onRepeat(RepeatEvent e);
+	/**
+	 * Called when 'repeat' is fired.
+	 * @param event the {@link RepeatEvent} that was fired
+	 */
+	public void onRepeat(RepeatEvent event);
 }

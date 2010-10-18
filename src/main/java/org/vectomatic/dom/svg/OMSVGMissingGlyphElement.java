@@ -15,6 +15,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with libgwtsvg.  If not, see http://www.gnu.org/licenses/
  **********************************************/
+/*
+ * Copyright (c) 2004 World Wide Web Consortium,
+ *
+ * (Massachusetts Institute of Technology, European Research Consortium for
+ * Informatics and Mathematics, Keio University). All Rights Reserved. This
+ * work is distributed under the W3C(r) Software License [1] in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * [1] http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+ */
+
 package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGMissingGlyphElement;
@@ -22,6 +34,14 @@ import org.vectomatic.dom.svg.itf.ISVGStylable;
 
 import com.google.gwt.dom.client.TagName;
 
+/**
+ * <p>The {@link org.vectomatic.dom.svg.OMSVGMissingGlyphElement} interface
+ * corresponds to the <a href='http://www.w3.org/TR/SVG11/fonts.html#MissingGlyphElement'
+ * title='missing-glyph element specification'>missing-glyph</a> element.</p>
+ * <p>Object-oriented access to the attributes of the <a href='http://www.w3.org/TR/SVG11/fonts.html#MissingGlyphElement'
+ * title='missing-glyph element specification'>missing-glyph</a> element via
+ * the SVG DOM is not available.</p>
+ */
 @TagName("missing-glyph")
 public class OMSVGMissingGlyphElement extends OMSVGElement implements ISVGStylable {
   protected OMSVGMissingGlyphElement(SVGMissingGlyphElement ot) {

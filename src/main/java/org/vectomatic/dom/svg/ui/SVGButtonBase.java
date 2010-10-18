@@ -93,11 +93,27 @@ public abstract class SVGButtonBase extends SVGWidget implements HasClickHandler
 		 */
 		DOWN_HOVERING
 	}
+	/**
+	 * Class to represent an SVG button face. A
+	 * button face consists in an array of changes
+	 * to the button SVG which occur when the face is displayed
+	 */
 	public static class SVGFace {
 		private SVGFaceChange[] changes;
+		/**
+		 * Constructor
+		 * @param changes an array of changes to the
+		 *  button SVG which occur when the face is displayed
+		 */
 		public SVGFace(SVGFaceChange[] changes) {
 			this.changes = changes;
 		}
+		/**
+		 * Returns the array of changes to the
+		 * button SVG which occur when the face is displayed
+		 * @return the array of changes to the
+		 * button SVG which occur when the face is displayed
+		 */
 		public SVGFaceChange[] getChanges() {
 			return changes;
 		}
@@ -149,9 +165,22 @@ public abstract class SVGButtonBase extends SVGWidget implements HasClickHandler
 		}
 	}
 	
+	/**
+	 * The {@link org.vectomatic.dom.svg.OMSVGSVGElement} representing
+	 * this button
+	 */
 	protected OMSVGSVGElement svgElement;
+	/**
+	 * The name of the face currently displayed by this button
+	 */
 	protected SVGFaceName currentFaceName;
+	/**
+	 * The face currently displayed by this button
+	 */
 	protected SVGFace currentFace;
+	/**
+	 * A map associating button face names to button faces
+	 */
 	protected Map<SVGFaceName, SVGFace> faces;
 	
 	/**

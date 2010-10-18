@@ -20,7 +20,17 @@ package org.vectomatic.dom.svg.events;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.event.shared.HasHandlers;
 
+/**
+ * A widget that implements this interface provides registration for
+ * {@link RepeatHandler} instances.
+ */
 public interface HasRepeatHandlers extends HasHandlers {
+	/**
+	 * Adds a {@link RepeatHandler} handler.
+	 * 
+	 * @param handler the repeat handler
+	 * @return {@link HandlerRegistration} used to remove this handler
+	 */
 	HandlerRegistration addRepeatHandler(RepeatHandler handler);
 }
 

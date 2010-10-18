@@ -20,6 +20,16 @@ package org.vectomatic.dom.svg.events;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.event.shared.HasHandlers;
 
+/**
+ * A widget that implements this interface provides registration for
+ * {@link FocusInHandler} instances.
+ */
 public interface HasFocusInHandlers extends HasHandlers {
+	/**
+	 * Adds a {@link FocusInHandler} handler.
+	 * 
+	 * @param handler the focusin handler
+	 * @return {@link HandlerRegistration} used to remove this handler
+	 */
 	HandlerRegistration addFocusInHandler(FocusInHandler handler);
 }

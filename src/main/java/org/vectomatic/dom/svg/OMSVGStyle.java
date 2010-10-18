@@ -20,18 +20,40 @@ package org.vectomatic.dom.svg;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.TagName;
 
+/**
+ * Class to represent a CSS style
+ * @author laaglu
+ */
 @TagName("style")
 public class OMSVGStyle extends Style {
+	/**
+	 * Constructor
+	 */
 	protected OMSVGStyle() {
 	}
+	/**
+	 * Clears the value of a named property, causing it to 
+	 * revert to its default.
+ 	 * @param name The property name
+     */
 	public final native void clearSVGProperty(String name) /*-{
 		setPropertyImpl(name, "");
 	}-*/;
 
+	/**
+	 * Gets the value of a named property.
+	 * @param name The property name
+	 * @return The property name
+	 */
 	public final String getSVGProperty(String name) {
 		return getPropertyImpl(name);
 	}
 
+	/**
+	 * Sets the value of a named property.
+	 * @param name The property name
+	 * @param value The property name
+	 */
 	public final void setSVGProperty(String name, String value) {
 		setPropertyImpl(name, value);
 	}

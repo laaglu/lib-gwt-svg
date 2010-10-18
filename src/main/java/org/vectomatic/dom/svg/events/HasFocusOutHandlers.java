@@ -20,6 +20,16 @@ package org.vectomatic.dom.svg.events;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.event.shared.HasHandlers;
 
+/**
+ * A widget that implements this interface provides registration for
+ * {@link FocusOutHandler} instances.
+ */
 public interface HasFocusOutHandlers extends HasHandlers {
+	/**
+	 * Adds a {@link FocusOutHandler} handler.
+	 * 
+	 * @param handler the focusout handler
+	 * @return {@link HandlerRegistration} used to remove this handler
+	 */
 	HandlerRegistration addFocusOutHandler(FocusOutHandler handler);
 }

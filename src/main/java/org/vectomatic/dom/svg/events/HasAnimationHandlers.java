@@ -19,6 +19,10 @@ package org.vectomatic.dom.svg.events;
 
 import com.google.gwt.event.dom.client.HasLoadHandlers;
 
+/**
+ * This is a convenience interface that includes all animation handlers defined by
+ * SVG.
+ */
 public interface HasAnimationHandlers extends HasBeginHandlers, HasEndHandlers, HasRepeatHandlers, HasLoadHandlers {
 
 }

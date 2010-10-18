@@ -15,21 +15,52 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with libgwtsvg.  If not, see http://www.gnu.org/licenses/
  **********************************************/
+/*
+ * Copyright (c) 2004 World Wide Web Consortium,
+ *
+ * (Massachusetts Institute of Technology, European Research Consortium for
+ * Informatics and Mathematics, Keio University). All Rights Reserved. This
+ * work is distributed under the W3C(r) Software License [1] in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * [1] http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+ */
+
 package org.vectomatic.dom.svg;
 
+import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * Used for attributes of type boolean which can be animated.
+ */
 public class OMSVGAnimatedBoolean extends JavaScriptObject {
   protected OMSVGAnimatedBoolean() {
   }
 
   // Implementation of the svg::SVGAnimatedBoolean W3C IDL interface
+  /**
+   * The base value of the given attribute before applying any animations.
+   */
   public final native boolean getBaseVal() /*-{
     return this.baseVal;
   }-*/;
-  public final native void setBaseVal(boolean value) /*-{
+  /**
+   * The base value of the given attribute before applying any animations.
+   * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) Raised on an   attempt
+   * to change the value of a <a href="svgdom.html#ReadOnlyNodes">read only
+   * attribute</a>.
+   */
+  public final native void setBaseVal(boolean value) throws JavaScriptException /*-{
     this.baseVal = value;
   }-*/;
+  /**
+   * If the given attribute or property is being animated, contains the current
+   * animated value of the attribute or property. If the given attribute or
+   * property is not currently being animated, contains the same value as {@link
+   * org.vectomatic.dom.svg.OMSVGAnimatedBoolean#getBaseVal()}.
+   */
   public final native boolean getAnimVal() /*-{
     return this.animVal;
   }-*/;

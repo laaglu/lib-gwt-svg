@@ -29,6 +29,11 @@ import com.google.gwt.event.dom.client.LoseCaptureEvent;
 import com.google.gwt.event.dom.client.LoseCaptureHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 
+/**
+ * Implementation class for low-level GWT integration
+ * (mostly event dispatching)
+ * @author laaglu
+ */
 public class DOMHelperImpl {
 	  protected static boolean eventsInitialized;
 	  private static final int EVT_FOCUSIN = 0x00001;
@@ -60,6 +65,11 @@ public class DOMHelperImpl {
 
 	  private OMSVGElement captureElt;
 	  
+	  /**
+	   * Initializes the event system. Positions event handlers
+	   * on the window so that they can capture events early
+	   * if necessary.
+	   */
 	  protected native void initEventSystem() /*-{
 	    $wnd.__helperImpl = this;
   
@@ -84,6 +94,12 @@ public class DOMHelperImpl {
 
 	  }-*/;
 	  
+	  /**
+	   * Returns the bit mask which corresponds to
+	   * the specified event type
+	   * @param eventType The event type
+	   * @return The bit mask associated to this event type
+	   */
 	  public native int eventGetTypeInt(String eventType) /*-{
 	    switch (eventType) {
 		    case "focusin": return 0x00001;
@@ -116,15 +132,37 @@ public class DOMHelperImpl {
 			initEventSystem();
 		}
 	}
+	/**
+	 * Makes a node sink the events emitted by the specified element
+	 * @param source The node processing the events
+	 * @param elem The element emitting the events
+	 * @param eventName The event name
+	 */
 	public void bindEventListener(OMNode source, Element elem, String eventName) {
 		init();
 		sinkEvents(source, elem, eventGetTypeInt(eventName) | getEventsSunk(elem));
 	}
+	
+	/**
+	 * Returns the element which currently captures all the
+	 * events after a call to {@link org.vectomatic.dom.svg.impl.DOMHelperImpl#setCaptureElement(OMSVGElement, LoseCaptureHandler)}
+	 * or null if element is set to capture events
+	 * @return The event capturing element
+	 */
 	public OMSVGElement getCaptureElement() {
 		init();
 		return captureElt;
 	}
 
+	/**
+	 * Makes the specified element capture all the events, until
+	 * a call to {@link org.vectomatic.dom.svg.impl.DOMHelperImpl#releaseCaptureElement()}
+	 * terminates the capture
+	 * @param captureElt The capturing element
+	 * @param loseCaptureHandler A handler which will be invoked
+	 * if the element loses capture
+	 * @return  {@link HandlerRegistration} used to remove this handler
+	 */
 	public HandlerRegistration setCaptureElement(OMSVGElement captureElt, LoseCaptureHandler loseCaptureHandler) {
 		init();
 		this.captureElt = captureElt;
@@ -135,15 +173,31 @@ public class DOMHelperImpl {
 		return registration;
 	}
 
+	/**
+	 * Stops the forwarding of all events to the capturing element
+	 * specified by {@link org.vectomatic.dom.svg.impl.DOMHelperImpl#setCaptureElement(OMSVGElement, LoseCaptureHandler)}
+	 */
 	public void releaseCaptureElement() {
 		init();
 		captureElt = null;
 	}
 	
+	/**
+	 * Returns the event mask for the specified element
+	 * @param elem The element
+	 * @return The event mask for the specified element
+	 */
 	public native int getEventsSunk(Element elem) /*-{
 	    return elem.__eventMask || 0;
 	}-*/;
 
+	/**
+	 * Changes the event mask and activates the handler
+	 * for the specified element
+	 * @param source The object which will process events
+	 * @param elem The object which emits events
+	 * @param bits The event mask
+	 */
 	protected native void sinkEvents(OMNode source, Element elem, int bits) /*-{
 	    elem.__wrapper = source;
 	    var chMask = (elem.__eventMask || 0) ^ bits;
@@ -190,6 +244,12 @@ public class DOMHelperImpl {
 	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
 	}-*/;
 	
+	/**
+	 * Central dispatching function for events emitted by DOM objects
+	 * @param event The DOM event
+	 * @param node The object processing the event
+	 * @param elem The object emitting the event
+	 */
 	public void dispatch(NativeEvent event, OMNode node, Element elem) {
 		switch(eventGetTypeInt(event.getType())) {
 			// Mouseover and mouseout deserve special treatment
@@ -207,6 +267,12 @@ public class DOMHelperImpl {
 	    DomEvent.fireNativeEvent(event, node, elem);
 	}
 
+	/**
+	 * Dispatching function for events which result from a call
+	 * to {@link #setCaptureElement(OMSVGElement, LoseCaptureHandler)}
+	 * @param event The DOM event
+	 * @param elem The object emitting the event
+	 */
 	public void dispatchCapturedEvent(NativeEvent event, Element elem) {
 		if (captureElt != null) {
 			if (eventGetTypeInt(event.getType()) == EVT_LOOSECAPTURE) {

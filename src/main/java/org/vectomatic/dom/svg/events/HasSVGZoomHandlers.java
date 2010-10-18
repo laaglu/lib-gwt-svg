@@ -20,7 +20,17 @@ package org.vectomatic.dom.svg.events;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.event.shared.HasHandlers;
 
+/**
+ * A widget that implements this interface provides registration for
+ * {@link SVGZoomHandler} instances.
+ */
 public interface HasSVGZoomHandlers extends HasHandlers {
+	/**
+	 * Adds a {@link SVGZoomHandler} handler.
+	 * 
+	 * @param handler the zoom handler
+	 * @return {@link HandlerRegistration} used to remove this handler
+	 */
 	HandlerRegistration addSVGZoomHandler(SVGZoomHandler handler);
 }
 

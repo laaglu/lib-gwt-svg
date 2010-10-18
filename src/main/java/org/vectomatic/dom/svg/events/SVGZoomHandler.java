@@ -19,6 +19,13 @@ package org.vectomatic.dom.svg.events;
 
 import com.google.gwt.event.shared.EventHandler;
 
+/**
+ * Handler interface for {@link SVGZoomEvent} events.
+ */
 public interface SVGZoomHandler extends EventHandler {
-	public void onZoom(SVGZoomEvent e);
+	/**
+	 * Called when 'zoom' is fired.
+	 * @param event the {@link SVGZoomEvent} that was fired
+	 */
+	public void onZoom(SVGZoomEvent event);
 }

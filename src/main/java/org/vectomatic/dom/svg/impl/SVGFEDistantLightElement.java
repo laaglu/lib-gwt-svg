@@ -15,18 +15,45 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with libgwtsvg.  If not, see http://www.gnu.org/licenses/
  **********************************************/
+/*
+ * Copyright (c) 2004 World Wide Web Consortium,
+ *
+ * (Massachusetts Institute of Technology, European Research Consortium for
+ * Informatics and Mathematics, Keio University). All Rights Reserved. This
+ * work is distributed under the W3C(r) Software License [1] in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * [1] http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+ */
+
 package org.vectomatic.dom.svg.impl;
 
 import org.vectomatic.dom.svg.OMSVGAnimatedNumber;
 
+/**
+ * The {@link org.vectomatic.dom.svg.impl.SVGFEDistantLightElement} interface
+ * corresponds to the <a href='http://www.w3.org/TR/SVG11/filters.html#feDistantLightElement'
+ * title='feDistantLight element specification'>feDistantLight</a> element.
+ */
 public class SVGFEDistantLightElement extends SVGElement {
   protected SVGFEDistantLightElement() {
   }
 
   // Implementation of the svg::SVGFEDistantLightElement W3C IDL interface
+  /**
+   * Corresponds to attribute {@link org.vectomatic.dom.svg.impl.SVGFEDistantLightElement#getAzimuth()}
+   * on the given <a href='http://www.w3.org/TR/SVG11/filters.html#feDistantLightElement'
+   * title='feDistantLight element specification'>feDistantLight</a> element.
+   */
   public final native OMSVGAnimatedNumber getAzimuth() /*-{
     return this.azimuth;
   }-*/;
+  /**
+   * Corresponds to attribute {@link org.vectomatic.dom.svg.impl.SVGFEDistantLightElement#getElevation()}
+   * on the given <a href='http://www.w3.org/TR/SVG11/filters.html#feDistantLightElement'
+   * title='feDistantLight element specification'>feDistantLight</a> element.
+   */
   public final native OMSVGAnimatedNumber getElevation() /*-{
     return this.elevation;
   }-*/;

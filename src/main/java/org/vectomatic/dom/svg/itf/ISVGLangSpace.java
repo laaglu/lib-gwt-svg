@@ -15,12 +15,48 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with libgwtsvg.  If not, see http://www.gnu.org/licenses/
  **********************************************/
+/*
+ * Copyright (c) 2004 World Wide Web Consortium,
+ *
+ * (Massachusetts Institute of Technology, European Research Consortium for
+ * Informatics and Mathematics, Keio University). All Rights Reserved. This
+ * work is distributed under the W3C(r) Software License [1] in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * [1] http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+ */
+
 package org.vectomatic.dom.svg.itf;
 
+import com.google.gwt.core.client.JavaScriptException;
 
+  /**
+   * Interface {@link org.vectomatic.dom.svg.itf.ISVGLangSpace} defines an interface
+   * which applies to all elements which have attributes <code>xml:lang</code>
+   * and <code>xml:space</code>.
+   */
 public interface ISVGLangSpace {
+  /**
+   * Corresponds to attribute <code>xml:lang</code> on the given element.
+   */
   public String getXmllang();
-  public void setXmllang(java.lang.String value);
+  /**
+   * Corresponds to attribute <code>xml:lang</code> on the given element.
+   * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) Raised on an   attempt
+   * to change the value of a <a href="svgdom.html#ReadOnlyNodes">read only
+   * attribute</a>.
+   */
+  public void setXmllang(java.lang.String value) throws JavaScriptException;
+  /**
+   * Corresponds to attribute <code>xml:space</code> on the given element.
+   */
   public String getXmlspace();
-  public void setXmlspace(java.lang.String value);
+  /**
+   * Corresponds to attribute <code>xml:space</code> on the given element.
+   * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) Raised on an   attempt
+   * to change the value of a <a href="svgdom.html#ReadOnlyNodes">read only
+   * attribute</a>.
+   */
+  public void setXmlspace(java.lang.String value) throws JavaScriptException;
 }

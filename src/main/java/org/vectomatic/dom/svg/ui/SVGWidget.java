@@ -28,17 +28,19 @@ import com.google.gwt.user.client.ui.Widget;
  * @author laaglu
  */
 public abstract class SVGWidget extends Widget {
-
+	/**
+	 * Constructor
+	 */
 	public SVGWidget() {
 	}
 
 	/**
 	 * Method invoked by the UiBinder to retrieve a UiBinder field inside an SVG document
-	 * @param root
+	 * @param svgElement
 	 * The root element of the SVG document
 	 * @param expr
 	 * An XPath to reach the field
-	 * @return
+	 * @return the retrieved UiBinder field
 	 */
 	public static OMNode getUiBinderField(Element svgElement, String expr) {
 		Element elt = getUiBinderField_(svgElement, expr);

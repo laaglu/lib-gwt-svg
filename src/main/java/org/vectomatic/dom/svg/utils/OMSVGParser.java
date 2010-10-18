@@ -38,13 +38,12 @@ import org.vectomatic.dom.svg.OMSVGDocument;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.impl.SVGDocument;
 import org.vectomatic.dom.svg.impl.SVGParserImpl;
-import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Element;
+import com.google.gwt.core.client.JavaScriptException;
 
 /**
- * libgwtsvg entry points
+ * Class to parse SVG documents and instantiate SVG documents
  * @author laaglu
  */
 public class OMSVGParser {
@@ -60,49 +59,22 @@ public class OMSVGParser {
     	return new OMSVGDocument(doc);
 	}
 
+	/**
+	 * Returns the current document, as an SVG document
+	 * @return the current document, as an SVG document
+	 */
 	public static final OMSVGDocument currentDocument() {
     	return new OMSVGDocument((SVGDocument)DOMHelper.getCurrentDocument().cast());
 	}
 
 	/**
-	 * Parse the supplied SVG text into a document
+	 * Parses the supplied SVG text into a document
 	 * @param rawSvg
 	 * raw xml to be parsed
 	 * @return
 	 * the document resulting from the parse
 	 */
-	// TODO error handling
-	public static final OMSVGSVGElement parse(String rawSvg) {
-		SVGDocument doc = impl.parseFromString(rawSvg, "text/xml").cast();
-		SVGSVGElement svg = DOMHelper.importNode(DOMHelper.getCurrentDocument(), doc.getDocumentElement(), true).cast();
-		operaFix(svg);
-    	return new OMSVGSVGElement(svg);
+	public static final OMSVGSVGElement parse(String rawSvg) throws JavaScriptException {
+		return impl.parse(rawSvg);
 	}
-
-	/**
-	 * Fix for opera.
-	 * SVG Objects created by the parser and imported do not seem to recognize their
-	 * CSS attributes. Reapplying them seems to solve the issue
-	 * @param root
-	 */
-	protected static native void operaFix(Element root) /*-{
-	  var stack = [];
-	  stack.push(root);
-	  while(stack.length > 0) {
-	  	 var elt = stack.pop();
-	  	 if (elt.nodeType == 1 && elt.className && elt.className.baseVal) {
-	  	 	elt.className.baseVal = elt.className.baseVal;
-	  	 }
-	  	 if (elt.nodeType == 1 && elt.hasAttribute("style")) {
-	  	 	elt.setAttribute("style", elt.getAttribute("style"));
-	  	 }
-	  	 var children = elt.childNodes;
-	  	 for(var i = 0; i < children.length; i++) {
-	  	   //alert(elt.tagName + "[" + i + "] --> " + children.item(i));
-	  	   stack.push(children.item(i));
-	  	 }
-	  }
-	}-*/;
-
-
 }

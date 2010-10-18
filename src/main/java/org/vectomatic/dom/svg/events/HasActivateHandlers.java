@@ -20,6 +20,16 @@ package org.vectomatic.dom.svg.events;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.event.shared.HasHandlers;
 
+/**
+ * A widget that implements this interface provides registration for
+ * {@link ActivateHandler} instances.
+ */
 public interface HasActivateHandlers extends HasHandlers {
+	/**
+	 * Adds a {@link ActivateHandler} handler.
+	 * 
+	 * @param handler the activate handler
+	 * @return {@link HandlerRegistration} used to remove this handler
+	 */
 	HandlerRegistration addActivateHandler(ActivateHandler handler);
 }

@@ -19,7 +19,14 @@ package org.vectomatic.dom.svg.events;
 
 import com.google.gwt.event.shared.EventHandler;
 
+/**
+ * Handler interface for {@link ActivateEvent} events.
+ */
 public interface ActivateHandler extends EventHandler {
-	public void onActivate(ActivateEvent e);
+	/**
+	 * Called when 'activate' is fired.
+	 * @param event the {@link ActivateEvent} that was fired
+	 */
+	public void onActivate(ActivateEvent event);
 }
 

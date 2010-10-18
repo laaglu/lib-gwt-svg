@@ -19,6 +19,13 @@ package org.vectomatic.dom.svg.events;
 
 import com.google.gwt.event.shared.EventHandler;
 
+/**
+ * Handler interface for {@link BeginEvent} events.
+ */
 public interface BeginHandler extends EventHandler {
-	public void onBegin(BeginEvent e);
+	/**
+	 * Called when 'begin' is fired.
+	 * @param event the {@link BeginEvent} that was fired
+	 */
+	public void onBegin(BeginEvent event);
 }

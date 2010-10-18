@@ -20,6 +20,16 @@ package org.vectomatic.dom.svg.events;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.event.shared.HasHandlers;
 
+/**
+ * A widget that implements this interface provides registration for
+ * {@link BeginHandler} instances.
+ */
 public interface HasBeginHandlers extends HasHandlers {
+	/**
+	 * Adds a {@link BeginHandler} handler.
+	 * 
+	 * @param handler the begin handler
+	 * @return {@link HandlerRegistration} used to remove this handler
+	 */
 	HandlerRegistration addBeginHandler(BeginHandler handler);
 }

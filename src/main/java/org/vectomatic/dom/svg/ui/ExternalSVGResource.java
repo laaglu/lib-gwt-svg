@@ -16,6 +16,9 @@ import com.google.gwt.resources.ext.ResourceGeneratorType;
 @DefaultExtensions(value = {".svg"})
 @ResourceGeneratorType(ExternalSVGResourceGenerator.class)
 public interface ExternalSVGResource extends ResourcePrototype {
-	  void getSvg(ResourceCallback<SVGResource> callback)
-      throws ResourceException;
+	/**
+	 * Starts an asynchronous request to retrieve the root element of the SVG resource.
+	 * @param callback The callback interface to invoke once the resource has been retrieved
+	 */
+	 void getSvg(ResourceCallback<SVGResource> callback) throws ResourceException;
 }

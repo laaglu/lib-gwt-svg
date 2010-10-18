@@ -19,6 +19,13 @@ package org.vectomatic.dom.svg.events;
 
 import com.google.gwt.event.shared.EventHandler;
 
+/**
+ * Handler interface for {@link FocusInEvent} events.
+ */
 public interface FocusInHandler extends EventHandler {
-	public void onFocusIn(FocusInEvent e);
+	/**
+	 * Called when 'focusin' is fired.
+	 * @param event the {@link FocusInEvent} that was fired
+	 */
+	public void onFocusIn(FocusInEvent event);
 }

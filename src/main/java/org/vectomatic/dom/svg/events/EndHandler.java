@@ -19,6 +19,13 @@ package org.vectomatic.dom.svg.events;
 
 import com.google.gwt.event.shared.EventHandler;
 
+/**
+ * Handler interface for {@link EndEvent} events.
+ */
 public interface EndHandler extends EventHandler {
-	public void onEnd(EndEvent e);
+	/**
+	 * Called when 'end' is fired.
+	 * @param event the {@link EndEvent} that was fired
+	 */
+	public void onEnd(EndEvent event);
 }

@@ -15,51 +15,191 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with libgwtsvg.  If not, see http://www.gnu.org/licenses/
  **********************************************/
+/*
+ * Copyright (c) 2004 World Wide Web Consortium,
+ *
+ * (Massachusetts Institute of Technology, European Research Consortium for
+ * Informatics and Mathematics, Keio University). All Rights Reserved. This
+ * work is distributed under the W3C(r) Software License [1] in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * [1] http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+ */
+
 package org.vectomatic.dom.svg;
 
+import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * The {@link org.vectomatic.dom.svg.OMSVGLength} interface corresponds to
+ * the <a href='types.html#DataTypeLength'>&lt;length&gt;</a> basic data type.
+ * <p id="ReadOnlyLength">An {@link org.vectomatic.dom.svg.OMSVGLength} object
+ * can be designated as <em>read only</em>, which means that attempts to modify
+ * the object will result in an exception being thrown, as described below.</p>
+ */
 public class OMSVGLength extends JavaScriptObject {
+/**
+ * The unit type is not one of predefined unit types. It is invalid to attempt
+ * to define a new value of this type or to attempt to switch an existing
+ * value to this type.
+ */
   public static final short SVG_LENGTHTYPE_UNKNOWN = 0;
+/**
+ * No unit type was provided (i.e., a unitless value was specified), which
+ * indicates a value in user units.
+ */
   public static final short SVG_LENGTHTYPE_NUMBER = 1;
+/**
+ * A percentage value was specified.
+ */
   public static final short SVG_LENGTHTYPE_PERCENTAGE = 2;
+/**
+ * A value was specified using the em units defined in CSS2.
+ */
   public static final short SVG_LENGTHTYPE_EMS = 3;
+/**
+ * A value was specified using the ex units defined in CSS2.
+ */
   public static final short SVG_LENGTHTYPE_EXS = 4;
+/**
+ * A value was specified using the px units defined in CSS2.
+ */
   public static final short SVG_LENGTHTYPE_PX = 5;
+/**
+ * A value was specified using the cm units defined in CSS2.
+ */
   public static final short SVG_LENGTHTYPE_CM = 6;
+/**
+ * A value was specified using the mm units defined in CSS2.
+ */
   public static final short SVG_LENGTHTYPE_MM = 7;
+/**
+ * A value was specified using the in units defined in CSS2.
+ */
   public static final short SVG_LENGTHTYPE_IN = 8;
+/**
+ * A value was specified using the pt units defined in CSS2.
+ */
   public static final short SVG_LENGTHTYPE_PT = 9;
+/**
+ * A value was specified using the pc units defined in CSS2.
+ */
   public static final short SVG_LENGTHTYPE_PC = 10;
   protected OMSVGLength() {
   }
 
   // Implementation of the svg::SVGLength W3C IDL interface
+  /**
+   * The type of the value as specified by one of the SVG_LENGTHTYPE_ constants
+   * defined on this interface.
+   */
   public final native short getUnitType() /*-{
     return this.unitType;
   }-*/;
+  /**
+   * The value as a floating point value, in user units. Setting this attribute
+   * will cause {@link org.vectomatic.dom.svg.OMSVGLength#getValueInSpecifiedUnits()}
+   * and {@link org.vectomatic.dom.svg.OMSVGLength#getValueAsString()} to be
+   * updated automatically to reflect this setting.
+   */
   public final native float getValue() /*-{
     return this.value;
   }-*/;
-  public final native void setValue(float value) /*-{
+  /**
+   * The value as a floating point value, in user units. Setting this attribute
+   * will cause {@link org.vectomatic.dom.svg.OMSVGLength#getValueInSpecifiedUnits()}
+   * and {@link org.vectomatic.dom.svg.OMSVGLength#getValueAsString()} to be
+   * updated automatically to reflect this setting.
+   * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) Raised when the length
+   * corresponds to a <a href="svgdom.html#ReadOnlyNodes">read only attribute</a>
+   * or when the object itself is   <a href="#ReadOnlyLength">read only</a>.
+   */
+  public final native void setValue(float value) throws JavaScriptException /*-{
     this.value = value;
   }-*/;
+  /**
+   * The value as a floating point value, in the units expressed by {@link org.vectomatic.dom.svg.OMSVGLength#getUnitType()}.
+   * Setting this attribute will cause {@link org.vectomatic.dom.svg.OMSVGLength#getValue()}
+   * and {@link org.vectomatic.dom.svg.OMSVGLength#getValueAsString()} to be
+   * updated automatically to reflect this setting.
+   */
   public final native float getValueInSpecifiedUnits() /*-{
     return this.valueInSpecifiedUnits;
   }-*/;
-  public final native void setValueInSpecifiedUnits(float value) /*-{
+  /**
+   * The value as a floating point value, in the units expressed by {@link org.vectomatic.dom.svg.OMSVGLength#getUnitType()}.
+   * Setting this attribute will cause {@link org.vectomatic.dom.svg.OMSVGLength#getValue()}
+   * and {@link org.vectomatic.dom.svg.OMSVGLength#getValueAsString()} to be
+   * updated automatically to reflect this setting.
+   * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) Raised when the length
+   * corresponds to a <a href="svgdom.html#ReadOnlyNodes">read only attribute</a>
+   * or when the object itself is   <a href="#ReadOnlyLength">read only</a>.
+   */
+  public final native void setValueInSpecifiedUnits(float value) throws JavaScriptException /*-{
     this.valueInSpecifiedUnits = value;
   }-*/;
+  /**
+   * The value as a string value, in the units expressed by {@link org.vectomatic.dom.svg.OMSVGLength#getUnitType()}.
+   * Setting this attribute will cause {@link org.vectomatic.dom.svg.OMSVGLength#getValue()},
+   * {@link org.vectomatic.dom.svg.OMSVGLength#getValueInSpecifiedUnits()} and
+   * {@link org.vectomatic.dom.svg.OMSVGLength#getUnitType()} to be updated
+   * automatically to reflect this setting.
+   */
   public final native String getValueAsString() /*-{
     return this.valueAsString;
   }-*/;
-  public final native void setValueAsString(String value) /*-{
+  /**
+   * The value as a string value, in the units expressed by {@link org.vectomatic.dom.svg.OMSVGLength#getUnitType()}.
+   * Setting this attribute will cause {@link org.vectomatic.dom.svg.OMSVGLength#getValue()},
+   * {@link org.vectomatic.dom.svg.OMSVGLength#getValueInSpecifiedUnits()} and
+   * {@link org.vectomatic.dom.svg.OMSVGLength#getUnitType()} to be updated
+   * automatically to reflect this setting.
+   * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) Raised when the length
+   * corresponds to a <a href="svgdom.html#ReadOnlyNodes">read only attribute</a>
+   * or when the object itself is   <a href="#ReadOnlyLength">read only</a>.
+   * @throws DOMException(SYNTAX_ERR) Raised if the assigned string cannot 
+   * be parsed as a valid <code>&lt;length&gt;</code>.
+   */
+  public final native void setValueAsString(String value) throws JavaScriptException /*-{
     this.valueAsString = value;
   }-*/;
-  public final native void newValueSpecifiedUnits(short unitType, float valueInSpecifiedUnits) /*-{
+  /**
+   * Reset the value as a number with an associated {@link org.vectomatic.dom.svg.OMSVGLength#getUnitType()},
+   * thereby replacing the values for all of the attributes on the object.
+   * @param unitType The unit type for the value (e.g., <code>SVG_LENGTHTYPE_MM</code>).
+   * @param valueInSpecifiedUnits The new value.
+   * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) Raised when the length
+   * corresponds to a <a href="svgdom.html#ReadOnlyNodes">read only attribute</a>
+   * or when the object itself is   <a href="#ReadOnlyLength">read only</a>.
+   * @throws DOMException(NOT_SUPPORTED_ERR) Raised if unitType is SVG_LENGTHTYPE_UNKNOWN
+   * or not a valid unit type constant (one of the other SVG_LENGTHTYPE_ constants
+   * defined on this interface).
+   */
+  public final native void newValueSpecifiedUnits(short unitType, float valueInSpecifiedUnits) throws JavaScriptException /*-{
     this.newValueSpecifiedUnits(unitType, valueInSpecifiedUnits);
   }-*/;
-  public final native void convertToSpecifiedUnits(short unitType) /*-{
+  /**
+   * Preserve the same underlying stored value, but reset the stored unit identifier
+   * to the given <var>unitType</var>. Object attributes {@link org.vectomatic.dom.svg.OMSVGLength#getUnitType()},
+   * {@link org.vectomatic.dom.svg.OMSVGLength#getValueInSpecifiedUnits()} and
+   * {@link org.vectomatic.dom.svg.OMSVGLength#getValueAsString()} might be
+   * modified as a result of this method. For example, if the original value
+   * were "0.5cm" and the method was invoked to convert to millimeters, then
+   * the {@link org.vectomatic.dom.svg.OMSVGLength#getUnitType()} would be changed
+   * to <code>SVG_LENGTHTYPE_MM</code>, {@link org.vectomatic.dom.svg.OMSVGLength#getValueInSpecifiedUnits()}
+   * would be changed to the numeric value 5 and {@link org.vectomatic.dom.svg.OMSVGLength#getValueAsString()}
+   * would be changed to "5mm".
+   * @param unitType The unit type to switch to (e.g., <code>SVG_LENGTHTYPE_MM</code>).
+   * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) Raised when the length
+   * corresponds to a <a href="svgdom.html#ReadOnlyNodes">read only attribute</a>
+   * or when the object itself is   <a href="#ReadOnlyLength">read only</a>.
+   * @throws DOMException(NOT_SUPPORTED_ERR) Raised if unitType is SVG_LENGTHTYPE_UNKNOWN
+   * or not a valid unit type constant (one of the other SVG_LENGTHTYPE_ constants
+   * defined on this interface).
+   */
+  public final native void convertToSpecifiedUnits(short unitType) throws JavaScriptException /*-{
     this.convertToSpecifiedUnits(unitType);
   }-*/;
 

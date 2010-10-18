@@ -20,5 +20,9 @@ package org.vectomatic.dom.svg.events;
 import com.google.gwt.event.dom.client.HasScrollHandlers;
 import com.google.gwt.event.logical.shared.HasResizeHandlers;
 
+/**
+ * This is a convenience interface that includes all document handlers defined by
+ * SVG.
+ */
 public interface HasDocumentHandlers extends HasResizeHandlers, HasScrollHandlers, HasSVGZoomHandlers {
 }

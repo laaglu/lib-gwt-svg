@@ -15,10 +15,31 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with libgwtsvg.  If not, see http://www.gnu.org/licenses/
  **********************************************/
+/*
+ * Copyright (c) 2004 World Wide Web Consortium,
+ *
+ * (Massachusetts Institute of Technology, European Research Consortium for
+ * Informatics and Mathematics, Keio University). All Rights Reserved. This
+ * work is distributed under the W3C(r) Software License [1] in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * [1] http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+ */
 package org.vectomatic.dom.svg.events;
 
 import com.google.gwt.event.dom.client.DomEvent;
 
+/**
+ * This event is raised when an element local timeline repeats. 
+ * It will be raised each time the element repeats, after the first iteration.
+ * The event provides a numerical indication of which repeat iteration 
+ * is beginning. The value is a 0-based integer, but the repeat event is 
+ * not raised for the first iteration and so the observed values of the
+ * detail attribute will be &gt;= 1. 
+ * @author laaglu
+ *
+ */
 public class RepeatEvent extends TimeEvent<RepeatHandler> {
 	private static final Type<RepeatHandler> TYPE = new Type<RepeatHandler>(
 			"repeat", new RepeatEvent());

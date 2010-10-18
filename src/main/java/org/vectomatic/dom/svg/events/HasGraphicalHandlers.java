@@ -25,6 +25,10 @@ import com.google.gwt.event.dom.client.HasMouseOutHandlers;
 import com.google.gwt.event.dom.client.HasMouseOverHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
 
+/**
+ * This is a convenience interface that includes all graphical handlers defined by
+ * SVG.
+ */
 public interface HasGraphicalHandlers extends HasMouseDownHandlers,
 HasMouseUpHandlers, HasMouseOutHandlers, HasMouseOverHandlers,
 HasMouseMoveHandlers, HasClickHandlers, HasLoadHandlers, HasFocusInHandlers, HasFocusOutHandlers, HasActivateHandlers {

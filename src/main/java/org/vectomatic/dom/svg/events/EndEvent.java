@@ -15,10 +15,31 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with libgwtsvg.  If not, see http://www.gnu.org/licenses/
  **********************************************/
+/*
+ * Copyright (c) 2004 World Wide Web Consortium,
+ *
+ * (Massachusetts Institute of Technology, European Research Consortium for
+ * Informatics and Mathematics, Keio University). All Rights Reserved. This
+ * work is distributed under the W3C(r) Software License [1] in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * [1] http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+ */
 package org.vectomatic.dom.svg.events;
 
 import com.google.gwt.event.dom.client.DomEvent;
 
+/**
+ * This event is raised at the active end of the element. 
+ * Note that this event is not raised at the simple end of each repeat. 
+ * This event may be raised both in the course of normal (i.e. scheduled 
+ * or interactive) timeline play, as well as in the case that the element 
+ * was ended with the endElement or endElementAt  methods. 
+ * Note that if an element is restarted while it is currently playing, 
+ * the element will raise an end event and another begin event, as the 
+ * element restarts. 
+ */
 public class EndEvent extends TimeEvent<EndHandler> {
 	private static final Type<EndHandler> TYPE = new Type<EndHandler>(
 			"end", new EndEvent());

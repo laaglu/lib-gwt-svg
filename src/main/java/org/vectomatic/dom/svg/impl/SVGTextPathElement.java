@@ -15,28 +15,64 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with libgwtsvg.  If not, see http://www.gnu.org/licenses/
  **********************************************/
+/*
+ * Copyright (c) 2004 World Wide Web Consortium,
+ *
+ * (Massachusetts Institute of Technology, European Research Consortium for
+ * Informatics and Mathematics, Keio University). All Rights Reserved. This
+ * work is distributed under the W3C(r) Software License [1] in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * [1] http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+ */
+
 package org.vectomatic.dom.svg.impl;
 
 import org.vectomatic.dom.svg.OMSVGAnimatedEnumeration;
 import org.vectomatic.dom.svg.OMSVGAnimatedLength;
 import org.vectomatic.dom.svg.OMSVGAnimatedString;
 
+/**
+ * The {@link org.vectomatic.dom.svg.impl.SVGTextPathElement} interface corresponds
+ * to the <a href='http://www.w3.org/TR/SVG11/text.html#TextPathElement' title='textPath
+ * element specification'>textPath</a> element.
+ */
 public class SVGTextPathElement extends SVGTextContentElement {
   protected SVGTextPathElement() {
   }
 
   // Implementation of the svg::SVGTextPathElement W3C IDL interface
+  /**
+   * Corresponds to attribute {@link org.vectomatic.dom.svg.impl.SVGTextPathElement#getStartOffset()}
+   * on the given <a href='http://www.w3.org/TR/SVG11/text.html#TextPathElement'
+   * title='textPath element specification'>textPath</a> element.
+   */
   public final native OMSVGAnimatedLength getStartOffset() /*-{
     return this.startOffset;
   }-*/;
+  /**
+   * Corresponds to attribute {@link org.vectomatic.dom.svg.impl.SVGTextPathElement#getMethod()}
+   * on the given <a href='http://www.w3.org/TR/SVG11/text.html#TextPathElement'
+   * title='textPath element specification'>textPath</a> element.
+   */
   public final native OMSVGAnimatedEnumeration getMethod() /*-{
     return this.method;
   }-*/;
+  /**
+   * Corresponds to attribute {@link org.vectomatic.dom.svg.impl.SVGTextPathElement#getSpacing()}
+   * on the given <a href='http://www.w3.org/TR/SVG11/text.html#TextPathElement'
+   * title='textPath element specification'>textPath</a> element.
+   */
   public final native OMSVGAnimatedEnumeration getSpacing() /*-{
     return this.spacing;
   }-*/;
 
   // Implementation of the svg::SVGURIReference W3C IDL interface
+  /**
+   * Corresponds to attribute <span class='attr-name'>'xlink:href'</span> on
+   * the given element.
+   */
   public final native OMSVGAnimatedString getHref() /*-{
     return this.href;
   }-*/;

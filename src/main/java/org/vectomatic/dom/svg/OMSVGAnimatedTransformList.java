@@ -15,20 +15,49 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with libgwtsvg.  If not, see http://www.gnu.org/licenses/
  **********************************************/
+/*
+ * Copyright (c) 2004 World Wide Web Consortium,
+ *
+ * (Massachusetts Institute of Technology, European Research Consortium for
+ * Informatics and Mathematics, Keio University). All Rights Reserved. This
+ * work is distributed under the W3C(r) Software License [1] in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * [1] http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+ */
+
 package org.vectomatic.dom.svg;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * Used for the various attributes which specify a set of transformations,
+ * such as the <code>transform</code> attribute which is available for many
+ * of SVG's elements, and which can be animated.
+ */
 public class OMSVGAnimatedTransformList extends JavaScriptObject {
   protected OMSVGAnimatedTransformList() {
   }
 
   // Implementation of the svg::SVGAnimatedTransformList W3C IDL interface
+  /**
+   * The base value of the given attribute before applying any animations.
+   */
   public final native OMSVGTransformList getBaseVal() /*-{
-    return this.baseVal ? @org.vectomatic.dom.svg.OMSVGTransformList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.baseVal) : null;
+    return @org.vectomatic.dom.svg.OMNode::convertList(Lcom/google/gwt/core/client/JavaScriptObject;)(this.baseVal);
   }-*/;
+  /**
+   * A <a href="#ReadOnlyTransformList">read only</a> {@link org.vectomatic.dom.svg.OMSVGTransformList}
+   * representing the current animated value of the given attribute.  If the
+   * given attribute is not currently being animated, then the {@link org.vectomatic.dom.svg.OMSVGTransformList}
+   * will have the same contents as {@link org.vectomatic.dom.svg.OMSVGAnimatedTransformList#getBaseVal()}.
+   * The object referenced by {@link org.vectomatic.dom.svg.OMSVGAnimatedTransformList#getAnimVal()}
+   * will always be distinct from the one referenced by {@link org.vectomatic.dom.svg.OMSVGAnimatedTransformList#getBaseVal()},
+   * even when the attribute is not animated.
+   */
   public final native OMSVGTransformList getAnimVal() /*-{
-    return this.animVal ? @org.vectomatic.dom.svg.OMSVGTransformList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(this.animVal) : null;
+    return @org.vectomatic.dom.svg.OMNode::convertList(Lcom/google/gwt/core/client/JavaScriptObject;)(this.animVal);
   }-*/;
 
 }

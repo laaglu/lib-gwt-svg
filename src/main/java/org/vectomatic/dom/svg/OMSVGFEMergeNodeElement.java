@@ -15,12 +15,29 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with libgwtsvg.  If not, see http://www.gnu.org/licenses/
  **********************************************/
+/*
+ * Copyright (c) 2004 World Wide Web Consortium,
+ *
+ * (Massachusetts Institute of Technology, European Research Consortium for
+ * Informatics and Mathematics, Keio University). All Rights Reserved. This
+ * work is distributed under the W3C(r) Software License [1] in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * [1] http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+ */
+
 package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFEMergeNodeElement;
 
 import com.google.gwt.dom.client.TagName;
 
+/**
+ * The {@link org.vectomatic.dom.svg.OMSVGFEMergeNodeElement} interface corresponds
+ * to the <a href='http://www.w3.org/TR/SVG11/filters.html#feMergeNodeElement'
+ * title='feMergeNode element specification'>feMergeNode</a> element.
+ */
 @TagName("feMergeNode")
 public class OMSVGFEMergeNodeElement extends OMSVGElement {
   protected OMSVGFEMergeNodeElement(SVGFEMergeNodeElement ot) {
@@ -28,6 +45,10 @@ public class OMSVGFEMergeNodeElement extends OMSVGElement {
   }
 
   // Implementation of the svg::SVGFEMergeNodeElement W3C IDL interface
+  /**
+   * Corresponds to attribute <code>in</code> on the given <a href='http://www.w3.org/TR/SVG11/filters.html#feMergeNodeElement'
+   * title='feMergeNode element specification'>feMergeNode</a> element.
+   */
   public final OMSVGAnimatedString getIn1() {
     return ((SVGFEMergeNodeElement)ot).getIn1();
   }

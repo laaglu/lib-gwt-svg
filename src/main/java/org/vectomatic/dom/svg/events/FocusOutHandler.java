@@ -19,7 +19,14 @@ package org.vectomatic.dom.svg.events;
 
 import com.google.gwt.event.shared.EventHandler;
 
+/**
+ * Handler interface for {@link FocusOutEvent} events.
+ */
 public interface FocusOutHandler extends EventHandler {
-	public void onFocusOut(FocusOutEvent e);
+	/**
+	 * Called when 'focusout' is fired.
+	 * @param event the {@link FocusOutEvent} that was fired
+	 */
+	public void onFocusOut(FocusOutEvent event);
 }
 
