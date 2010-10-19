@@ -41,6 +41,7 @@ import org.vectomatic.dom.svg.events.SVGZoomEvent;
 import org.vectomatic.dom.svg.events.SVGZoomHandler;
 import org.vectomatic.dom.svg.impl.SVGElement;
 import org.vectomatic.dom.svg.impl.SVGSVGElement;
+import org.vectomatic.dom.svg.itf.ISVGContainerElement;
 import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
 import org.vectomatic.dom.svg.itf.ISVGFitToViewBox;
 import org.vectomatic.dom.svg.itf.ISVGLangSpace;
@@ -85,7 +86,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * Level 2 Style</cite></a> [<a href="refs.html#ref-DOM2STYLE">DOM2STYLE</a>].</p>
  */
 @TagName("svg")
-public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandlers, HasDocumentHandlers, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGLocatable, ISVGFitToViewBox, ISVGZoomAndPan {
+public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandlers, HasDocumentHandlers, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGLocatable, ISVGFitToViewBox, ISVGZoomAndPan, ISVGContainerElement {
   public OMSVGSVGElement(SVGSVGElement ot) {
     super(ot);
   }

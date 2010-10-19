@@ -39,6 +39,7 @@ import org.vectomatic.dom.svg.events.HasGraphicalHandlers;
 import org.vectomatic.dom.svg.impl.SVGElement;
 import org.vectomatic.dom.svg.impl.SVGPolygonElement;
 import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
+import org.vectomatic.dom.svg.itf.ISVGGraphicsElement;
 import org.vectomatic.dom.svg.itf.ISVGLangSpace;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
 import org.vectomatic.dom.svg.itf.ISVGTests;
@@ -68,7 +69,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * title='polygon element specification'>polygon</a> element.
  */
 @TagName("polygon")
-public class OMSVGPolygonElement extends OMSVGElement implements HasGraphicalHandlers, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGTransformable {
+public class OMSVGPolygonElement extends OMSVGElement implements HasGraphicalHandlers, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGTransformable, ISVGGraphicsElement {
   protected OMSVGPolygonElement(SVGPolygonElement ot) {
     super(ot);
   }

@@ -30,6 +30,7 @@
 package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGMaskElement;
+import org.vectomatic.dom.svg.itf.ISVGContainerElement;
 import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
 import org.vectomatic.dom.svg.itf.ISVGLangSpace;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
@@ -45,7 +46,7 @@ import com.google.gwt.dom.client.TagName;
  * element specification'>mask</a>  element.
  */
 @TagName("mask")
-public class OMSVGMaskElement extends OMSVGElement implements ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGUnitTypes {
+public class OMSVGMaskElement extends OMSVGElement implements ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGUnitTypes, ISVGContainerElement {
   protected OMSVGMaskElement(SVGMaskElement ot) {
     super(ot);
   }

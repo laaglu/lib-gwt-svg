@@ -40,6 +40,7 @@ import org.vectomatic.dom.svg.impl.SVGElement;
 import org.vectomatic.dom.svg.impl.SVGPathElement;
 import org.vectomatic.dom.svg.itf.ISVGAnimatedPathData;
 import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
+import org.vectomatic.dom.svg.itf.ISVGGraphicsElement;
 import org.vectomatic.dom.svg.itf.ISVGLangSpace;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
 import org.vectomatic.dom.svg.itf.ISVGTests;
@@ -69,7 +70,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * element specification'>path</a> element.
  */
 @TagName("path")
-public class OMSVGPathElement extends OMSVGElement implements HasGraphicalHandlers, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGTransformable, ISVGAnimatedPathData {
+public class OMSVGPathElement extends OMSVGElement implements HasGraphicalHandlers, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGTransformable, ISVGAnimatedPathData, ISVGGraphicsElement {
   protected OMSVGPathElement(SVGPathElement ot) {
     super(ot);
   }

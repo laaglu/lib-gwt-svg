@@ -37,6 +37,7 @@ import org.vectomatic.dom.svg.events.FocusOutEvent;
 import org.vectomatic.dom.svg.events.FocusOutHandler;
 import org.vectomatic.dom.svg.events.HasGraphicalHandlers;
 import org.vectomatic.dom.svg.impl.SVGSymbolElement;
+import org.vectomatic.dom.svg.itf.ISVGContainerElement;
 import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
 import org.vectomatic.dom.svg.itf.ISVGFitToViewBox;
 import org.vectomatic.dom.svg.itf.ISVGLangSpace;
@@ -66,7 +67,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * element specification'>symbol</a> element.
  */
 @TagName("symbol")
-public class OMSVGSymbolElement extends OMSVGElement implements HasGraphicalHandlers, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGFitToViewBox {
+public class OMSVGSymbolElement extends OMSVGElement implements HasGraphicalHandlers, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGFitToViewBox, ISVGContainerElement {
   protected OMSVGSymbolElement(SVGSymbolElement ot) {
     super(ot);
   }

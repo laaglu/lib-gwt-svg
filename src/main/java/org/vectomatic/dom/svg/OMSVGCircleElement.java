@@ -39,6 +39,7 @@ import org.vectomatic.dom.svg.events.HasGraphicalHandlers;
 import org.vectomatic.dom.svg.impl.SVGCircleElement;
 import org.vectomatic.dom.svg.impl.SVGElement;
 import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
+import org.vectomatic.dom.svg.itf.ISVGGraphicsElement;
 import org.vectomatic.dom.svg.itf.ISVGLangSpace;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
 import org.vectomatic.dom.svg.itf.ISVGTests;
@@ -68,7 +69,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * element specification'>circle</a> element.
  */
 @TagName("circle")
-public class OMSVGCircleElement extends OMSVGElement implements HasGraphicalHandlers, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGTransformable {
+public class OMSVGCircleElement extends OMSVGElement implements HasGraphicalHandlers, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGTransformable, ISVGGraphicsElement {
   protected OMSVGCircleElement(SVGCircleElement ot) {
     super(ot);
   }

@@ -30,6 +30,7 @@
 package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGMarkerElement;
+import org.vectomatic.dom.svg.itf.ISVGContainerElement;
 import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
 import org.vectomatic.dom.svg.itf.ISVGFitToViewBox;
 import org.vectomatic.dom.svg.itf.ISVGLangSpace;
@@ -44,7 +45,7 @@ import com.google.gwt.dom.client.TagName;
  * title='marker element specification'>marker</a>  element.
  */
 @TagName("marker")
-public class OMSVGMarkerElement extends OMSVGElement implements ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGFitToViewBox {
+public class OMSVGMarkerElement extends OMSVGElement implements ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGFitToViewBox, ISVGContainerElement {
   /**
    * The marker unit type is not one of predefined types. It is invalid to attempt
    * to define a new value of this type or to attempt to switch an existing

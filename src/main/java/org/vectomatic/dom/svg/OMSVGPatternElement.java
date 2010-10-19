@@ -30,6 +30,7 @@
 package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGPatternElement;
+import org.vectomatic.dom.svg.itf.ISVGContainerElement;
 import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
 import org.vectomatic.dom.svg.itf.ISVGFitToViewBox;
 import org.vectomatic.dom.svg.itf.ISVGLangSpace;
@@ -47,7 +48,7 @@ import com.google.gwt.dom.client.TagName;
  * title='pattern element specification'>pattern</a> element.
  */
 @TagName("pattern")
-public class OMSVGPatternElement extends OMSVGElement implements ISVGURIReference, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGFitToViewBox, ISVGUnitTypes {
+public class OMSVGPatternElement extends OMSVGElement implements ISVGURIReference, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGFitToViewBox, ISVGUnitTypes, ISVGContainerElement {
   protected OMSVGPatternElement(SVGPatternElement ot) {
     super(ot);
   }

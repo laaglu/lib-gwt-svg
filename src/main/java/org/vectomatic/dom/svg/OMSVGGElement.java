@@ -38,6 +38,7 @@ import org.vectomatic.dom.svg.events.FocusOutHandler;
 import org.vectomatic.dom.svg.events.HasGraphicalHandlers;
 import org.vectomatic.dom.svg.impl.SVGElement;
 import org.vectomatic.dom.svg.impl.SVGGElement;
+import org.vectomatic.dom.svg.itf.ISVGContainerElement;
 import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
 import org.vectomatic.dom.svg.itf.ISVGLangSpace;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
@@ -68,7 +69,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * element specification'>g</a> element.
  */
 @TagName("g")
-public class OMSVGGElement extends OMSVGElement implements HasGraphicalHandlers, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGTransformable {
+public class OMSVGGElement extends OMSVGElement implements HasGraphicalHandlers, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGTransformable, ISVGContainerElement {
   protected OMSVGGElement(SVGGElement ot) {
     super(ot);
   }

@@ -26,29 +26,13 @@
  *
  * [1] http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
  */
-
-package org.vectomatic.dom.svg;
-
-import org.vectomatic.dom.svg.impl.SVGMissingGlyphElement;
-import org.vectomatic.dom.svg.itf.ISVGContainerElement;
-import org.vectomatic.dom.svg.itf.ISVGStylable;
-
-import com.google.gwt.dom.client.TagName;
+package org.vectomatic.dom.svg.itf;
 
 /**
- * <p>The {@link org.vectomatic.dom.svg.OMSVGMissingGlyphElement} interface
- * corresponds to the <a href='http://www.w3.org/TR/SVG11/fonts.html#MissingGlyphElement'
- * title='missing-glyph element specification'>missing-glyph</a> element.</p>
- * <p>Object-oriented access to the attributes of the <a href='http://www.w3.org/TR/SVG11/fonts.html#MissingGlyphElement'
- * title='missing-glyph element specification'>missing-glyph</a> element via
- * the SVG DOM is not available.</p>
+ * An interface to tag elements which can have graphics elements 
+ * and other container elements as child elements. 
+ * Specifically: ‘a’, ‘defs’, ‘glyph’, ‘g’, ‘marker’, ‘mask’, 
+ * ‘missing-glyph’, ‘pattern’, ‘svg’, ‘switch’ and ‘symbol’ 
  */
-@TagName("missing-glyph")
-public class OMSVGMissingGlyphElement extends OMSVGElement implements ISVGStylable, ISVGContainerElement {
-  protected OMSVGMissingGlyphElement(SVGMissingGlyphElement ot) {
-    super(ot);
-  }
-
-  // Implementation of the svg::SVGMissingGlyphElement W3C IDL interface
-
+public interface ISVGContainerElement {
 }
