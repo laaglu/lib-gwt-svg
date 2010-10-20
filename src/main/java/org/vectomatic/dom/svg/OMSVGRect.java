@@ -251,5 +251,31 @@ public class OMSVGRect extends JavaScriptObject {
 	  builder.append(getHeight());
 	  builder.append("}");
 	  return builder.toString();
+  } 
+  /**
+   * Modifies the position and size of this rectangle by adding
+   * the specified margin to it.
+   * @param x the horizontal margin
+   * @param y the vertical margin
+   * @return this rectangle
+   */
+  public OMSVGRect inset(float x, float y) {
+	  return inset(this, x, y);
+  }
+  /**
+   * Modifies the position and size of this rectangle by adding
+   * the specified margin to it and puts the result in the destination 
+   * rectangle.
+   * @param destination the destination rectangle.
+   * @param x the horizontal margin
+   * @param y the vertical margin
+   * @return the destination rectangle.
+   */
+  public OMSVGRect inset(OMSVGRect dest, float x, float y) {
+	  dest.setX(getX() + x);
+	  dest.setY(getY() + y);
+	  dest.setWidth(getWidth() - x * 2);
+	  dest.setHeight(getHeight() - y * 2);
+	  return dest;
   }
 }
