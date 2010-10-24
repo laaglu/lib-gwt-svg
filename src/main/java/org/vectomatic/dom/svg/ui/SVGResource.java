@@ -17,6 +17,12 @@
  **********************************************/
 package org.vectomatic.dom.svg.ui;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 import org.vectomatic.dev.svg.impl.gen.SVGResourceGenerator;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 
@@ -26,11 +32,29 @@ import com.google.gwt.resources.ext.ResourceGeneratorType;
 
 /**
  * A resource that contains SVG that should be incorporated into the compiled output. 
+ * Note that by default SVG resources are validated against the SVG 1.1 XSD schema.
+ * You can opt out of validation by setting the <code>validated="false"</code>
+ * attribute on the annotation.
  * @author laaglu
  */
 @DefaultExtensions(value = {".svg"})
 @ResourceGeneratorType(SVGResourceGenerator.class)
 public interface SVGResource extends ResourcePrototype {
+	/**
+	 * Specifies additional options to control how an SVG is bundled.
+	 */
+	@Documented
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target(ElementType.METHOD)
+	public @interface Validated {
+		/**
+		 * If <code>true</code>, the SVG resource will be validated
+		 * against SVG 1.1 schema. Use <code>false</code> value if
+		 * you need to disable validation
+		 */
+	    boolean validated() default true;
+	}
+
 	/**
 	 * Returns the root element of the SVG resource
 	 * @return

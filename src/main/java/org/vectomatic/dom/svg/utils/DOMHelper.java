@@ -456,6 +456,40 @@ public class DOMHelper {
 	public static final native void setAttributeNS(Element elem, String namespaceURI, String localName, String value) throws JavaScriptException /*-{
 	  elem.setAttributeNS(namespaceURI, localName, value);
 	}-*/;
+	
+    /**
+     * The namespace URI of the specified node, or <code>null</code> if it is 
+     * unspecified (see ).
+     * <br>This is not a computed value that is the result of a namespace 
+     * lookup based on an examination of the namespace declarations in 
+     * scope. It is merely the namespace URI given at creation time.
+     * <br>For nodes of any type other than <code>ELEMENT_NODE</code> and 
+     * <code>ATTRIBUTE_NODE</code> and nodes created with a DOM Level 1 
+     * method, such as <code>Document.createElement()</code>, this is always 
+     * <code>null</code>.
+     * <p ><b>Note:</b> Per the <em>Namespaces in XML</em> Specification [<a href='http://www.w3.org/TR/1999/REC-xml-names-19990114/'>XML Namespaces</a>]
+     *  an attribute does not inherit its namespace from the element it is 
+     * attached to. If an attribute is not explicitly given a namespace, it 
+     * simply has no namespace.
+     * @param node a DOM node
+     * @return The namespace URI of this node
+     */
+	public static native String getNamespaceURI(Node node) /*-{
+	  return node.namespaceURI;
+	}-*/;
+
+    /**
+     * Returns the local part of the qualified name of this node.
+     * <br>For nodes of any type other than <code>ELEMENT_NODE</code> and 
+     * <code>ATTRIBUTE_NODE</code> and nodes created with a DOM Level 1 
+     * method, such as <code>Document.createElement()</code>, this is always 
+     * <code>null</code>.
+     * @param node a DOM node
+     * @return The local part of the qualified name of this node
+     */
+	public static native String getLocalName(Node node) /*-{
+	  return node.localName;
+	}-*/;
 
 	/**
 	 * Makes a node sink the events emitted by the specified element
@@ -562,7 +596,9 @@ public class DOMHelper {
 	}-*/;
 
 	/**
-	 * Evaluates the specified XPath expression
+	 * Evaluates the specified XPath expression and returns
+	 * a iterator for the selected {@link org.vectomatic.dom.svg.OMNode} node list.
+	 * The expression must evaluate to a node list.
 	 * @param root
 	 * The element the expression is rooted at
 	 * @param expr
@@ -573,7 +609,7 @@ public class DOMHelper {
 	 * A node iterator for the selected nodes.
 	 */
 	public static <T extends OMNode> Iterator<T> evaluateXPath(OMElement root, String expr, XPathPrefixResolver resolver) {
-		final JavaScriptObject result = evaluateXPath_(root.getElement(), expr, resolver);
+		final JavaScriptObject result = evaluateNodeListXPath_(root.getElement(), expr, resolver);
 		return new Iterator<T>() {
 			boolean fetched;
 			Node next;
@@ -608,10 +644,176 @@ public class DOMHelper {
 
 	}
 
-	private static native JavaScriptObject evaluateXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
+	/**
+	 * Evaluates the specified XPath expression and returns
+	 * a iterator for the selected {@link com.google.gwt.dom.client.Node} node list.
+	 * The expression must evaluate to a node list.
+	 * @param root
+	 * The element the expression is rooted at
+	 * @param expr
+	 * The XPath expression
+	 * @param resolver
+	 * A prefix resolver if the expression has prefix
+	 * @return
+	 * A node iterator for the selected nodes.
+	 */
+	public static <T extends Node> Iterator<T> evaluateNodeListXPath(Element root, String expr, XPathPrefixResolver resolver) {
+		final JavaScriptObject result = evaluateNodeListXPath_(root, expr, resolver);
+		return new Iterator<T>() {
+			boolean fetched;
+			T next;
+			
+			@Override
+			public boolean hasNext() {
+				if (!fetched) {
+					next = iterateNext(result);
+					fetched = true;
+				}
+				return next != null;
+			}
+
+			@Override
+			public T next() {
+				if (!hasNext()) {
+					throw new NoSuchElementException();
+				}
+				fetched = false;
+				return next;
+			}
+
+			@Override
+			public void remove() {
+				throw new UnsupportedOperationException();
+			}
+			
+			private native T iterateNext(JavaScriptObject result) /*-{
+				return result.iterateNext();
+			}-*/;			
+		};
+	}
+
+	/**
+	 * Evaluates the specified XPath expression and returns
+	 * the matching {@link com.google.gwt.dom.client.Node} node.
+	 * The expression must evaluate to a single node.
+	 * @param root
+	 * The element the expression is rooted at
+	 * @param expr
+	 * The XPath expression
+	 * @param resolver
+	 * A prefix resolver if the expression has prefix
+	 * @return
+	 * The selected node, or null if no such node exists.
+	 */
+	public static <T extends Node> T evaluateNodeXPath(Element root, String expr, XPathPrefixResolver resolver) {
+		return evaluateNodeXPath_(root, expr, resolver);
+	}
+	
+	/**
+	 * Evaluates the specified XPath expression and returns
+	 * the matching {@link java.lang.String}.
+	 * The expression must evaluate to a string.
+	 * @param root
+	 * The element the expression is rooted at
+	 * @param expr
+	 * The XPath expression
+	 * @param resolver
+	 * A prefix resolver if the expression has prefix
+	 * @return
+	 * The matching string, or null if no such string exists.
+	 */
+	public static String evaluateStringXPath(Element root, String expr, XPathPrefixResolver resolver) {
+		return evaluateStringXPath_(root, expr, resolver);
+	}
+
+	/**
+	 * Evaluates the specified XPath expression and returns
+	 * the matching float.
+	 * The expression must evaluate to a number.
+	 * @param root
+	 * The element the expression is rooted at
+	 * @param expr
+	 * The XPath expression
+	 * @param resolver
+	 * A prefix resolver if the expression has prefix
+	 * @return
+	 * The matching float, or NaN if no such number exists.
+	 */
+	public static float evaluateNumberXPath(Element root, String expr, XPathPrefixResolver resolver) {
+		return evaluateNumberXPath_(root, expr, resolver);
+	}
+
+	/**
+	 * Evaluates the specified XPath expression and returns
+	 * the matching boolean.
+	 * The expression must evaluate to a boolean.
+	 * @param root
+	 * The element the expression is rooted at
+	 * @param expr
+	 * The XPath expression
+	 * @param resolver
+	 * A prefix resolver if the expression has prefix
+	 * @return
+	 * The matching boolean.
+	 */
+	public static boolean evaluateBooleanXPath(Element root, String expr, XPathPrefixResolver resolver) {
+		return evaluateBooleanXPath_(root, expr, resolver);
+	}
+
+	/**
+	 * Returns an XPath expression which enables reaching the specified node
+	 * from the root node
+	 * @param node
+	 * The node to reach
+	 * @param root
+	 * The root node, or null to specify the document root
+	 * @return
+	 * An XPath expression which enables reaching the specified node
+	 * from the root node
+	 */
+	public static String getXPath(Node node, Node root) {
+		StringBuilder builder = new StringBuilder();
+		Node parentNode;
+		while ((node != root) && (parentNode = node.getParentNode()) != null) {
+			NodeList<Node> siblings = parentNode.getChildNodes();
+			int index = 0;
+			for (int i = 0, length = siblings.getLength(); i < length; i++) {
+				Node sibling = siblings.getItem(i);
+				if (sibling.getNodeType() == Node.ELEMENT_NODE) {
+					index++;
+					if (node == sibling) {
+						builder.insert(0, "/*[" + index + "]");
+						break;
+					}
+				}
+			}
+			node = parentNode;
+		}
+		return builder.toString();
+	}
+
+	private static native JavaScriptObject evaluateNodeListXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
 		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.ORDERED_NODE_ITERATOR_TYPE , null);
 		return result;
 	}-*/;
+	
+	private static native <T extends Node> T evaluateNodeXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
+		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.ANY_UNORDERED_NODE_TYPE , null);
+		return result.singleNodeValue;
+	}-*/;
 
+	private static native String evaluateStringXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
+		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.STRING_TYPE , null);
+		return result.stringValue;
+	}-*/;
 
+	private static native float evaluateNumberXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
+		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.NUMBER_TYPE , null);
+		return result.numberValue;
+	}-*/;
+	
+	private static native boolean evaluateBooleanXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
+		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.BOOLEAN_TYPE , null);
+		return result.booleanValue;
+	}-*/;
 }

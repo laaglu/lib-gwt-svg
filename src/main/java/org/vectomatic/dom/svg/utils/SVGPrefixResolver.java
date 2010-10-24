@@ -26,6 +26,8 @@ import java.util.Map;
  * @author laaglu
  */
 public class SVGPrefixResolver implements XPathPrefixResolver {
+	public static final SVGPrefixResolver INSTANCE = new SVGPrefixResolver();
+	
 	protected Map<String, String> prefixToUri;
 	/**
 	 * Constructor

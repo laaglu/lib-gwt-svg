@@ -21,6 +21,7 @@ import java.net.URL;
 
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.ui.SVGResource;
+import org.vectomatic.dom.svg.ui.SVGResource.Validated;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
 
 import com.google.gwt.core.ext.Generator;
@@ -69,6 +70,9 @@ public class SVGResourceGenerator extends AbstractResourceGenerator {
 		sw.println("public " + OMSVGSVGElement.class.getName() + " getSvg() {");
 		sw.indent();
 		String toWrite = Util.readURLAsString(resource);
+		if (getValidated(method)) {
+			SVGValidator.validate(toWrite, resource.toExternalForm(), logger, null);
+		}
 		sw.println("return " + OMSVGParser.class.getName() + ".parse(\"" + Generator.escape(toWrite) + "\");");
 		sw.outdent();
 		sw.println("}");
@@ -85,4 +89,13 @@ public class SVGResourceGenerator extends AbstractResourceGenerator {
 		return sw.toString();
 	}
 
+	private boolean getValidated(JMethod method) {
+		Validated validated = method.getAnnotation(Validated.class);
+		if (validated == null) {
+			return true;
+		} else {
+			return validated.validated();
+		}
+	}
+	
 }

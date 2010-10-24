@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.vectomatic.dom.svg.impl.ExternalSVGResourcePrototype;
 import org.vectomatic.dom.svg.ui.SVGResource;
+import org.vectomatic.dom.svg.ui.ExternalSVGResource.Validated;
 
 import com.google.gwt.core.ext.Generator;
 import com.google.gwt.core.ext.TreeLogger;
@@ -130,6 +131,9 @@ public class ExternalSVGResourceGenerator extends AbstractResourceGenerator {
 		URL resource = urls[0];
 
 		String toWrite = Util.readURLAsString(resource);
+		if (getValidated(method)) {
+			SVGValidator.validate(toWrite, resource.toExternalForm(), logger, null);
+		}
 
 		// This de-duplicates strings in the bundle.
 		if (!hashes.containsKey(toWrite)) {
@@ -149,5 +153,14 @@ public class ExternalSVGResourceGenerator extends AbstractResourceGenerator {
 		// Store the (possibly n:1) mapping of resource function to bundle
 		// index.
 		offsets.put(method.getName(), hashes.get(toWrite));
+	}
+
+	private boolean getValidated(JMethod method) {
+		Validated validated = method.getAnnotation(Validated.class);
+		if (validated == null) {
+			return true;
+		} else {
+			return validated.validated();
+		}
 	}
 }

@@ -31,6 +31,7 @@ package org.vectomatic.dom.svg.impl;
 import org.w3c.dom.DOMException;
 
 import com.google.gwt.core.client.JavaScriptException;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Node;
 
 /**
@@ -140,6 +141,14 @@ public class Attr extends Node {
      */
 	public final native boolean isId() /*-{
 	 return this.isId;
+	}-*/;
+	
+    /**
+     * The <code>Element</code> node this attribute is attached to or 
+     * <code>null</code> if this attribute is not in use.
+     */
+	public final native Element getOwnerElement() /*-{
+	 return this.ownerElement;
 	}-*/;
 
 }

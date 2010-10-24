@@ -33,6 +33,7 @@ import com.google.gwt.uibinder.rebind.XMLElement;
 
 public class SVGImageParser implements ElementParser {
 	private static final String ATTR_RESOURCE = "resource";
+	private static final String ATTR_VALIDATED = "validated";
 	public SVGImageParser() {
 	}
 
@@ -50,6 +51,11 @@ public class SVGImageParser implements ElementParser {
 			String resource = elem.consumeAttribute(ATTR_RESOURCE, svgResourceType); 
 			writer.addStatement("%s.setResource(%s);", fieldName, resource);		
 		} else {
+			boolean validated = true;
+			if (elem.hasAttribute(ATTR_VALIDATED)) {
+				String value = elem.consumeBooleanAttribute(ATTR_VALIDATED);
+				validated = Boolean.valueOf(value);
+			}
 			Element container = elem.getElement();
 			NodeList childNodes = container.getChildNodes();
 			Element root = null;
@@ -71,8 +77,11 @@ public class SVGImageParser implements ElementParser {
 		    writer.beginAttachedSection(fieldName + ".getElement()");
 	        SvgInterpreter interpreter = SvgInterpreter.newInterpreterForUiObject(writer, fieldName, root);
 	        String rawSvg = elem.consumeInnerHtml(interpreter);
+	        if (validated) {
+	        	SVGValidator.validate(rawSvg, elem.getLocation().getSystemId(), null, writer);
+	        }
 	        String omSvgParser = OMSVGParser.class.getName();
-			writer.addStatement("%s.setSvgElement(%s.parse(\"%s\"));", fieldName, omSvgParser, rawSvg);		
+			writer.addStatement("%s.setSvgElement(%s.parse(\"%s\"));", fieldName, omSvgParser, rawSvg);
 			writer.endAttachedSection();
 		}
 	}

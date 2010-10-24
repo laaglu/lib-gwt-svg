@@ -271,11 +271,11 @@ public class OMSVGRect extends JavaScriptObject {
    * @param y the vertical margin
    * @return the destination rectangle.
    */
-  public final OMSVGRect inset(OMSVGRect dest, float x, float y) {
-	  dest.setX(getX() + x);
-	  dest.setY(getY() + y);
-	  dest.setWidth(getWidth() - x * 2);
-	  dest.setHeight(getHeight() - y * 2);
-	  return dest;
+  public final OMSVGRect inset(OMSVGRect destination, float x, float y) {
+	  destination.setX(getX() + x);
+	  destination.setY(getY() + y);
+	  destination.setWidth(getWidth() - x * 2);
+	  destination.setHeight(getHeight() - y * 2);
+	  return destination;
   }
 }

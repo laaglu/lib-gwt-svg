@@ -78,6 +78,9 @@ import com.google.gwt.uibinder.client.ElementParserToUse;
  *  &lt;/svg&gt;
  * &lt;/svgui:SVGImage&gt;
  * </pre>
+ * Note that by default SVGImages are validated against the SVG 1.1 XSD schema.
+ * You can opt out of validation by setting the <code>validated="false"</code>
+ * attribute on the SVGImages.
  * @author laaglu
  */
 @ElementParserToUse(className = "org.vectomatic.dev.svg.impl.gen.SVGImageParser")

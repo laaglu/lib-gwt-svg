@@ -26,6 +26,7 @@ public class SVGButtonBaseParser implements ElementParser {
 	protected static final String ATTR_RESOURCE = "resource";
 	protected static final String ATTR_CLASS_NAME_BASE_VAL = "classNameBaseVal";
 	protected static final String ATTR_CLASS_NAMES = "classNames";
+	protected static final String ATTR_VALIDATED = "validated";
 	protected static final String TAG_ELEMENT = "element";
 	protected static final String TAG_UP = "upFace";
 	protected static final String TAG_UP_HOVERING = "upHoveringFace";
@@ -47,7 +48,6 @@ public class SVGButtonBaseParser implements ElementParser {
 	 * @throws UnableToCompleteException 
 	 */
 	protected boolean validate(UiBinderWriter writer, Element container) throws UnableToCompleteException {
-		// TODO: improve validation with a real XML validation (including SVG validation)
 		boolean hasInlineSvg = false;
 		NodeList childNodes = container.getChildNodes();
 		Set<SVGFaceName> faces = new HashSet<SVGFaceName>();
@@ -147,6 +147,12 @@ public class SVGButtonBaseParser implements ElementParser {
 	protected void parseSvg(XMLElement elem, UiBinderWriter writer, String fieldName,
 			XMLElement childElem) throws UnableToCompleteException {
 		
+		boolean validated = true;
+		if (childElem.hasAttribute(ATTR_VALIDATED)) {
+			String value = childElem.consumeBooleanAttribute(ATTR_VALIDATED);
+			validated = Boolean.valueOf(value);
+		}
+
 		Element container = childElem.getElement();
 		NodeList childNodes = container.getChildNodes();
 		Element root = null;
@@ -168,6 +174,9 @@ public class SVGButtonBaseParser implements ElementParser {
 	    writer.beginAttachedSection(fieldName + ".getElement()");
         SvgInterpreter interpreter = SvgInterpreter.newInterpreterForUiObject(writer, fieldName, root);
         String rawSvg = childElem.consumeInnerHtml(interpreter);
+        if (validated) {
+        	SVGValidator.validate(rawSvg, elem.getLocation().getSystemId(), null, writer);
+        }
         String omSvgParser = OMSVGParser.class.getCanonicalName();
 		writer.addStatement("%s.setSvgElement(%s.parse(\"%s\"));", fieldName, omSvgParser, rawSvg);		
 		writer.endAttachedSection();

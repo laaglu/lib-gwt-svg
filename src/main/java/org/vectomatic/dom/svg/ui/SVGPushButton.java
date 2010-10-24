@@ -61,6 +61,9 @@ import com.google.gwt.user.client.Timer;
  *   &lt;svgui:downHoveringFace&gt;&lt;svgui:styleChange classNames="{style.btn1} {style.btn1-down-hovering}"/&gt;&lt;/svgui:downHoveringFace&gt;
  * &lt;/svgui:SVGPushButton&gt;
  * </pre>
+ * Note that by default the inline SVG in SVGPushButtons is validated against the SVG 1.1 XSD schema.
+ * You can opt out of validation by setting the <code>validated="false"</code>
+ * attribute on the <em>svgui:element</em> tag.
  * @author laaglu
  */
 @ElementParserToUse(className = "org.vectomatic.dev.svg.impl.gen.SVGButtonBaseParser")
