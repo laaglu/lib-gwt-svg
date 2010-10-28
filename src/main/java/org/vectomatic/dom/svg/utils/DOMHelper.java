@@ -706,7 +706,7 @@ public class DOMHelper {
 	 * The selected node, or null if no such node exists.
 	 */
 	public static <T extends Node> T evaluateNodeXPath(Element root, String expr, XPathPrefixResolver resolver) {
-		return evaluateNodeXPath_(root, expr, resolver);
+		return (T)evaluateNodeXPath_(root, expr, resolver);
 	}
 	
 	/**
@@ -797,7 +797,7 @@ public class DOMHelper {
 		return result;
 	}-*/;
 	
-	private static native <T extends Node> T evaluateNodeXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
+	private static native Node evaluateNodeXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
 		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.ANY_UNORDERED_NODE_TYPE , null);
 		return result.singleNodeValue;
 	}-*/;
