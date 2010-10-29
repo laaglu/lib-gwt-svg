@@ -1,12 +1,12 @@
 /*
  * Copyright 2008 Google Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -14,6 +14,21 @@
  * the License.
  */
 package com.google.gwt.uibinder.rebind;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import org.vectomatic.dom.svg.OMSVGElement;
+import org.vectomatic.dom.svg.utils.SVGConstants;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import com.google.gwt.core.ext.UnableToCompleteException;
 import com.google.gwt.core.ext.typeinfo.JClassType;
@@ -31,37 +46,23 @@ import com.google.gwt.uibinder.elementparsers.AttributeMessageParser;
 import com.google.gwt.uibinder.elementparsers.BeanParser;
 import com.google.gwt.uibinder.elementparsers.ElementParser;
 import com.google.gwt.uibinder.elementparsers.IsEmptyParser;
+import com.google.gwt.uibinder.elementparsers.UiChildParser;
 import com.google.gwt.uibinder.rebind.messages.MessagesWriter;
 import com.google.gwt.uibinder.rebind.model.ImplicitClientBundle;
 import com.google.gwt.uibinder.rebind.model.ImplicitCssResource;
 import com.google.gwt.uibinder.rebind.model.OwnerClass;
 import com.google.gwt.uibinder.rebind.model.OwnerField;
 
-import org.vectomatic.dom.svg.OMSVGElement;
-import org.vectomatic.dom.svg.utils.SVGConstants;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
 /**
  * Writer for UiBinder generated classes.
- * 
+ *
  * TODO(rdamazio): Refactor this, extract model classes, improve ordering
  * guarantees, etc.
- * 
+ *
  * TODO(rjrjr): Line numbers in error messages.
  */
 @SuppressWarnings("deprecation")
-public class UiBinderWriter {
+public class UiBinderWriter implements Statements {
   private static final String PACKAGE_URI_SCHEME = "urn:import:";
 
   // TODO(rjrjr) Another place that we need a general anonymous field
@@ -116,11 +117,12 @@ public class UiBinderWriter {
 
   /**
    * Escape characters that would mess up interpretation of this string as a
-   * string literal in generated code (that is, protect \n and " ).
+   * string literal in generated code (that is, protect \, \n and " ).
    */
   public static String escapeTextForJavaStringLiteral(String text) {
-    text = text.replaceAll("\"", "\\\\\"");
-    text = text.replaceAll("\n", "\\\\n");
+    text = text.replace("\\", "\\\\");
+    text = text.replace("\"", "\\\"");
+    text = text.replace("\n", "\\n");
 
     return text;
   }
@@ -128,7 +130,7 @@ public class UiBinderWriter {
   /**
    * Returns a list of the given type and all its superclasses and implemented
    * interfaces in a breadth-first traversal.
-   * 
+   *
    * @param type the base type
    * @return a breadth-first collection of its type hierarchy
    */
@@ -173,6 +175,7 @@ public class UiBinderWriter {
   private final List<String> statements = new ArrayList<String>();
   private final HandlerEvaluator handlerEvaluator;
   private final MessagesWriter messages;
+  private final DesignTimeUtils designTime;
   private final Tokenator tokenator = new Tokenator();
 
   private final String templatePath;
@@ -222,9 +225,12 @@ public class UiBinderWriter {
   private final AttributeParsers attributeParsers;
   private final BundleAttributeParsers bundleParsers;
 
+  private final UiBinderContext uiBinderCtx;
+
   public UiBinderWriter(JClassType baseClass, String implClassName,
       String templatePath, TypeOracle oracle, MortalLogger logger,
-      FieldManager fieldManager, MessagesWriter messagesWriter)
+      FieldManager fieldManager, MessagesWriter messagesWriter,
+      DesignTimeUtils designTime, UiBinderContext uiBinderCtx)
       throws UnableToCompleteException {
     this.baseClass = baseClass;
     this.implClassName = implClassName;
@@ -233,6 +239,8 @@ public class UiBinderWriter {
     this.templatePath = templatePath;
     this.fieldManager = fieldManager;
     this.messages = messagesWriter;
+    this.designTime = designTime;
+    this.uiBinderCtx = uiBinderCtx;
 
     // Check for possible misuse 'GWT.create(UiBinder.class)'
     JClassType uibinderItself = oracle.findType(UiBinder.class.getCanonicalName());
@@ -258,7 +266,7 @@ public class UiBinderWriter {
     uiRootType = typeArgs[0];
     uiOwnerType = typeArgs[1];
 
-    ownerClass = new OwnerClass(uiOwnerType, logger);
+    ownerClass = new OwnerClass(uiOwnerType, logger, uiBinderCtx);
     bundleClass = new ImplicitClientBundle(baseClass.getPackage().getName(),
         this.implClassName, CLIENT_BUNDLE_FIELD, logger);
     handlerEvaluator = new HandlerEvaluator(ownerClass, logger, oracle);
@@ -272,7 +280,7 @@ public class UiBinderWriter {
    * Add a statement to be executed right after the current attached element is
    * detached. This is useful for doing things that might be expensive while the
    * element is attached to the DOM.
-   * 
+   *
    * @param format
    * @param args
    * @see #beginAttachedSection(String)
@@ -306,7 +314,7 @@ public class UiBinderWriter {
    * Succeeding calls made to {@link #ensureAttached} and
    * {@link #ensureFieldAttached} must refer to children of this element, until
    * {@link #endAttachedSection} is called.
-   * 
+   *
    * @param element Java expression for the generated code that will return the
    *          dom element to be attached.
    */
@@ -324,7 +332,7 @@ public class UiBinderWriter {
    * generate a unique dom id at runtime. Further code will be generated to be
    * run after widgets are instantiated, to use that dom id in a getElementById
    * call and assign the Element instance to its field.
-   * 
+   *
    * @param fieldName The name of the field being declared
    */
   public String declareDomField(String fieldName)
@@ -342,7 +350,7 @@ public class UiBinderWriter {
   /**
    * Declare a variable that will be filled at runtime with a unique id, safe
    * for use as a dom element's id attribute.
-   * 
+   *
    * @return that variable's name.
    */
   public String declareDomIdHolder() throws UnableToCompleteException {
@@ -371,7 +379,7 @@ public class UiBinderWriter {
       // also a worry in HandlerEvaluator. Need a general scheme for
       // anonymous fields. See the note in HandlerEvaluator and do
       // something like that, but in FieldManager.
-      fieldName = ("f_" + elem.getLocalName() + (++fieldIndex));
+      fieldName = "f_" + elem.getLocalName() + ++fieldIndex;
     }
     fieldName = normalizeFieldName(fieldName);
     fieldManager.registerField(type, fieldName);
@@ -382,7 +390,7 @@ public class UiBinderWriter {
    * If this element has a gwt:field attribute, create a field for it of the
    * appropriate type, and return the field name. If no gwt:field attribute is
    * found, do nothing and return null
-   * 
+   *
    * @return The new field name, or null if no field is created
    */
   public String declareFieldIfNeeded(XMLElement elem)
@@ -434,7 +442,7 @@ public class UiBinderWriter {
   /**
    * End the current attachable section. This will detach the element if it was
    * ever attached and execute any detach statements.
-   * 
+   *
    * @see #beginAttachedSection(String)
    */
   public void endAttachedSection() {
@@ -451,7 +459,7 @@ public class UiBinderWriter {
 
   /**
    * Ensure that the specified element is attached to the DOM.
-   * 
+   *
    * @see #beginAttachedSection(String)
    */
   public void ensureAttached() {
@@ -470,7 +478,7 @@ public class UiBinderWriter {
    * Ensure that the specified field is attached to the DOM. The field must hold
    * an object that responds to Element getElement(). Convenience wrapper for
    * {@link ensureAttached}<code>(field + ".getElement()")</code>.
-   * 
+   *
    * @see #beginAttachedSection(String)
    */
   public void ensureCurrentFieldAttached() {
@@ -480,13 +488,14 @@ public class UiBinderWriter {
   /**
    * Finds the JClassType that corresponds to this XMLElement, which must be a
    * Widget or an Element.
-   * 
+   *
    * @throws UnableToCompleteException If no such widget class exists
    * @throws RuntimeException if asked to handle a non-widget, non-DOM element
    */
   public JClassType findFieldType(XMLElement elem)
       throws UnableToCompleteException {
     String tagName = elem.getLocalName();
+
     
     // laaglu
     String uri = elem.getNamespaceUri();
@@ -554,7 +563,7 @@ public class UiBinderWriter {
   /**
    * Finds an attribute {@link BundleAttributeParser} for the given xml
    * attribute, if any, based on its namespace uri.
-   * 
+   *
    * @return the parser or null
    * @deprecated exists only to support {@link BundleAttributeParser}, which
    *             will be leaving us soon.
@@ -570,8 +579,15 @@ public class UiBinderWriter {
   }
 
   /**
-   * @return The logger, at least until we get get it handed off to parsers via
-   *         constructor args.
+   * Returns the {@link DesignTimeUtils}, not <code>null</code>.
+   */
+  public DesignTimeUtils getDesignTime() {
+    return designTime;
+  }
+
+  /**
+   * Returns the logger, at least until we get get it handed off to parsers via
+   * constructor args.
    */
   public MortalLogger getLogger() {
     return logger;
@@ -614,7 +630,7 @@ public class UiBinderWriter {
    * name of the field (possibly private) that will hold it. The element is
    * likely to make recursive calls back to this method to have its children
    * parsed.
-   * 
+   *
    * @param elem the xml element to be parsed
    * @return the name of the field containing the parsed widget
    */
@@ -648,7 +664,7 @@ public class UiBinderWriter {
   /**
    * Gives the writer the initializer to use for this field instead of the
    * default GWT.create call.
-   * 
+   *
    * @throws IllegalStateException if an initializer has already been set
    */
   public void setFieldInitializer(String fieldName, String factoryMethod) {
@@ -658,7 +674,7 @@ public class UiBinderWriter {
   /**
    * Instructs the writer to initialize the field with a specific constructor
    * invocation, instead of the default GWT.create call.
-   * 
+   *
    * @param fieldName the field to initialize
    * @param type the type of the field
    * @param args arguments to the constructor call
@@ -676,7 +692,7 @@ public class UiBinderWriter {
    * token, surrounded by plus signs. This is useful in strings to be handed to
    * setInnerHTML() and setText() calls, to allow a unique dom id attribute or
    * other runtime expression in the string.
-   * 
+   *
    * @param expression
    */
   public String tokenForExpression(String expression) {
@@ -708,7 +724,7 @@ public class UiBinderWriter {
    * Entry point for the code generation logic. It generates the
    * implementation's superstructure, and parses the root widget (leading to all
    * of its children being parsed as well).
-   * 
+   *
    * @param doc TODO
    */
   void parseDocument(Document doc, PrintWriter printWriter)
@@ -722,7 +738,7 @@ public class UiBinderWriter {
     gwtPrefix = documentElement.lookupPrefix(UiBinderGenerator.BINDER_URI);
 
     XMLElement elem = new XMLElementProviderImpl(attributeParsers,
-        bundleParsers, oracle, logger).get(documentElement);
+        bundleParsers, oracle, logger, designTime).get(documentElement);
     this.rendered = tokenator.detokenate(parseDocumentElement(elem));
     printWriter.print(rendered);
   }
@@ -759,7 +775,7 @@ public class UiBinderWriter {
   /**
    * Ensures that all of the internal data structures are cleaned up correctly
    * at the end of parsing the document.
-   * 
+   *
    * @throws UnableToCompleteException
    */
   private void ensureAttachmentCleanedUp() {
@@ -806,7 +822,7 @@ public class UiBinderWriter {
   /**
    * Inspects this element for a gwt:field attribute. If one is found, the
    * attribute is consumed and its value returned.
-   * 
+   *
    * @return The field name declared by an element, or null if none is declared
    */
   private String getFieldName(XMLElement elem) throws UnableToCompleteException {
@@ -862,7 +878,7 @@ public class UiBinderWriter {
 
   /**
    * Find a set of element parsers for the given ui type.
-   * 
+   *
    * The list of parsers will be returned in order from most- to least-specific.
    */
   private Iterable<ElementParser> getParsersForClass(JClassType type) {
@@ -871,11 +887,12 @@ public class UiBinderWriter {
     /*
      * Let this non-widget parser go first (it finds <m:attribute/> elements).
      * Any other such should land here too.
-     * 
+     *
      * TODO(rjrjr) Need a scheme to associate these with a namespace uri or
      * something?
      */
     parsers.add(new AttributeMessageParser());
+    parsers.add(new UiChildParser(uiBinderCtx));
 
     for (JClassType curType : getClassHierarchyBreadthFirst(type)) {
       try {
@@ -893,7 +910,7 @@ public class UiBinderWriter {
       }
     }
 
-    parsers.add(new BeanParser());
+    parsers.add(new BeanParser(uiBinderCtx));
     parsers.add(new IsEmptyParser());
 
     return parsers;
@@ -973,8 +990,8 @@ public class UiBinderWriter {
   }
 
   /**
-   * Parses a package uri (i.e. package://com.google...).
-   * 
+   * Parses a package uri (e.g., package://com.google...).
+   *
    * @throws UnableToCompleteException on bad package name
    */
   private JPackage parseNamespacePackage(String ns)
@@ -1006,6 +1023,7 @@ public class UiBinderWriter {
     addWidgetParser("HasHTML");
     addWidgetParser("HasWidgets");
     addWidgetParser("HTMLPanel");
+    addWidgetParser("AbsolutePanel");
     addWidgetParser("DockPanel");
     addWidgetParser("StackPanel");
     addWidgetParser("DisclosurePanel");
@@ -1021,6 +1039,7 @@ public class UiBinderWriter {
     addWidgetParser("TabLayoutPanel");
     addWidgetParser("Image");
     addWidgetParser("ListBox");
+    addWidgetParser("Grid");
   }
 
   /**
@@ -1058,6 +1077,7 @@ public class UiBinderWriter {
     writeGwtFields(w);
     w.newline();
 
+    designTime.writeAttributes(this);
     writeAddedStatements(w);
     w.newline();
 
@@ -1101,7 +1121,7 @@ public class UiBinderWriter {
    * gwt:field in the template. For those that have not had constructor
    * generation suppressed, emit GWT.create() calls instantiating them (or die
    * if they have no default constructor).
-   * 
+   *
    * @throws UnableToCompleteException on constructor problem
    */
   private void writeGwtFields(IndentedWriter niceWriter)
@@ -1126,6 +1146,9 @@ public class UiBinderWriter {
   }
 
   private void writeHandlers(IndentedWriter w) throws UnableToCompleteException {
+    if (designTime.isDesignTime()) {
+      return;
+    }
     handlerEvaluator.run(w, fieldManager, "owner");
   }
 
@@ -1152,6 +1175,9 @@ public class UiBinderWriter {
    */
   private void writeOwnerFieldSetters(IndentedWriter niceWriter)
       throws UnableToCompleteException {
+    if (designTime.isDesignTime()) {
+      return;
+    }
     for (OwnerField ownerField : getOwnerClass().getUiFields()) {
       String fieldName = ownerField.getName();
       FieldWriter fieldWriter = fieldManager.lookup(fieldName);
@@ -1221,5 +1247,6 @@ public class UiBinderWriter {
   private void writeStatics(IndentedWriter w) {
     writeStaticMessagesInstance(w);
     writeStaticBundleInstances(w);
+    designTime.addDeclarations(w);
   }
 }
