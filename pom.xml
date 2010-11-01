@@ -7,13 +7,18 @@
 	<version>0.5.0</version>
 	<name>lib-gwt-svg</name>
 	<description>A GWT library to access the SVG functionalities of web browsers</description>
-	<url>http://www.vectomatic.org/mvn-sites/lib-gwt-svg</url>
+	<url>http://www.vectomatic.org/lib-gwt-svg</url>
 	<licenses>
 		<license>
 			<name>LGPLv3</name>
 			<url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
 		</license>
 	</licenses>
+	<scm>
+		<url>http://code.google.com/p/vectomatic/source/browse/#svn/lib-gwt-svg</url>
+		<connection>scm:svn:http://vectomatic.googlecode.com/svn/lib-gwt-svg</connection>
+		<tag>tags/0.5</tag>
+	</scm>
 	<developers>
 		<developer>
 			<id>laaglu</id>
