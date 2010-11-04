@@ -1,7 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.vectomatic</groupId>
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>5</version>
+	</parent>
+  	<groupId>org.vectomatic</groupId>
 	<artifactId>lib-gwt-svg</artifactId>
 	<packaging>jar</packaging>
 	<version>0.5.0</version>
@@ -15,9 +20,8 @@
 		</license>
 	</licenses>
 	<scm>
-		<url>http://code.google.com/p/vectomatic/source/browse/#svn/lib-gwt-svg</url>
-		<connection>scm:svn:http://vectomatic.googlecode.com/svn/lib-gwt-svg</connection>
-		<tag>tags/0.5</tag>
+		<url>http://code.google.com/p/vectomatic/source/browse/#svn/lib-gwt-svg/tags/0.5</url>
+		<connection>scm:svn:http://vectomatic.googlecode.com/svn/lib-gwt-svg/tags/0.5</connection>
 	</scm>
 	<developers>
 		<developer>
@@ -94,6 +98,22 @@
 						<id>attach-javadocs</id>
 						<goals>
 							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<configuration>
+					<keyname>42807FE3</keyname>
+				</configuration>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
 						</goals>
 					</execution>
 				</executions>
