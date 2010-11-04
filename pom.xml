@@ -20,8 +20,8 @@
 		</license>
 	</licenses>
 	<scm>
-		<url>http://code.google.com/p/vectomatic/source/browse/#svn/lib-gwt-svg/tags/0.5</url>
-		<connection>scm:svn:http://vectomatic.googlecode.com/svn/lib-gwt-svg/tags/0.5</connection>
+		<url>http://code.google.com/p/vectomatic/source/browse/#svn/lib-gwt-svg/tags/0.5.0</url>
+		<connection>scm:svn:http://vectomatic.googlecode.com/svn/lib-gwt-svg/tags/0.5.0</connection>
 	</scm>
 	<developers>
 		<developer>
