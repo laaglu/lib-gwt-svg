@@ -29,6 +29,8 @@
 
 package org.vectomatic.dom.svg;
 
+import org.vectomatic.dom.svg.utils.SVGConstants;
+
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.core.client.JavaScriptObject;
 
@@ -204,26 +206,26 @@ public class OMSVGTransform extends JavaScriptObject {
 	StringBuilder builder = new StringBuilder("{");
 	switch(getType()) {
 		case SVG_TRANSFORM_MATRIX:
-			builder.append("matrix(");
+			builder.append(SVGConstants.TRANSFORM_MATRIX + "(");
 			builder.append(getMatrix().getDescription());
 			builder.append(")");
 			break;
 		case SVG_TRANSFORM_TRANSLATE:
-			builder.append("translate(");
+			builder.append(SVGConstants.TRANSFORM_TRANSLATE + "(");
 			builder.append(getMatrix().getE());
 			builder.append(",");
 			builder.append(getMatrix().getF());
 			builder.append(")");
 			break;
 		case SVG_TRANSFORM_SCALE:
-			builder.append("scale(");
+			builder.append(SVGConstants.TRANSFORM_SCALE + "(");
 			builder.append(getMatrix().getA());
 			builder.append(",");
 			builder.append(getMatrix().getD());
 			builder.append(")");
 			break;
 		case SVG_TRANSFORM_ROTATE:
-			builder.append("rotate(");
+			builder.append(SVGConstants.TRANSFORM_ROTATE + "(");
 			builder.append(getAngle());
 			if (getMatrix().getE() != 0f || getMatrix().getF() != 0f) {
 				if (getAngle() == 0f) {
@@ -248,12 +250,12 @@ public class OMSVGTransform extends JavaScriptObject {
 			builder.append(")");
 			break;
 		case SVG_TRANSFORM_SKEWX:
-			builder.append("skewX(");
+			builder.append(SVGConstants.TRANSFORM_SKEWX + "(");
 			builder.append(getAngle());
 			builder.append(")");
 			break;
 		case SVG_TRANSFORM_SKEWY:
-			builder.append("skewY(");
+			builder.append(SVGConstants.TRANSFORM_SKEWY + "(");
 			builder.append(getAngle());
 			builder.append(")");
 			break;
