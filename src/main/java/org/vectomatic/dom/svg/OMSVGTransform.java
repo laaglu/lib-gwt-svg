@@ -204,24 +204,26 @@ public class OMSVGTransform extends JavaScriptObject {
 	StringBuilder builder = new StringBuilder("{");
 	switch(getType()) {
 		case SVG_TRANSFORM_MATRIX:
+			builder.append("matrix(");
 			builder.append(getMatrix().getDescription());
+			builder.append(")");
 			break;
 		case SVG_TRANSFORM_TRANSLATE:
-			builder.append("T(");
+			builder.append("translate(");
 			builder.append(getMatrix().getE());
 			builder.append(",");
 			builder.append(getMatrix().getF());
 			builder.append(")");
 			break;
 		case SVG_TRANSFORM_SCALE:
-			builder.append("S(");
+			builder.append("scale(");
 			builder.append(getMatrix().getA());
 			builder.append(",");
 			builder.append(getMatrix().getD());
 			builder.append(")");
 			break;
 		case SVG_TRANSFORM_ROTATE:
-			builder.append("R(");
+			builder.append("rotate(");
 			builder.append(getAngle());
 			if (getMatrix().getE() != 0f || getMatrix().getF() != 0f) {
 				if (getAngle() == 0f) {
@@ -246,12 +248,12 @@ public class OMSVGTransform extends JavaScriptObject {
 			builder.append(")");
 			break;
 		case SVG_TRANSFORM_SKEWX:
-			builder.append("Kx(");
+			builder.append("skewX(");
 			builder.append(getAngle());
 			builder.append(")");
 			break;
 		case SVG_TRANSFORM_SKEWY:
-			builder.append("Ky(");
+			builder.append("skewY(");
 			builder.append(getAngle());
 			builder.append(")");
 			break;

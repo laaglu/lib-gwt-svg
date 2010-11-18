@@ -24,7 +24,6 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Node;
-import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.dom.client.LoseCaptureEvent;
 import com.google.gwt.event.dom.client.LoseCaptureHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -57,10 +56,8 @@ public class DOMHelperImpl {
 	  private static final int EVT_ZOOM = 0x40000;
 	  private static final int EVT_LOOSECAPTURE = 0x80000;
 	  
-	  @SuppressWarnings("unused")
 	  private static JavaScriptObject svgHandler;
 	  
-	  @SuppressWarnings("unused")
 	  private static JavaScriptObject svgCaptureHandler;
 
 	  private OMSVGElement captureElt;
@@ -264,7 +261,7 @@ public class DOMHelperImpl {
 				}
 				break;
 		}
-	    DomEvent.fireNativeEvent(event, node, elem);
+		node.dispatch(event);
 	}
 
 	/**

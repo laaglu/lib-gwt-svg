@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOverEvent;
@@ -119,6 +120,8 @@ public class SVGPushButton extends SVGButtonBase {
 			}
 			showFace(SVGFaceName.DOWN_HOVERING);
 		}
+		event.stopPropagation();
+		event.preventDefault();
 	}
 	public void onMouseUp(MouseUpEvent event) {
 //		GWT.log("onMouseUp");
@@ -130,6 +133,8 @@ public class SVGPushButton extends SVGButtonBase {
 			}
 			showFace(SVGFaceName.UP_HOVERING);
 		}
+		event.stopPropagation();
+		event.preventDefault();
 	}
 	public void onMouseOver(MouseOverEvent event) {
 //		GWT.log("onMouseOver");
@@ -189,6 +194,4 @@ public class SVGPushButton extends SVGButtonBase {
 	public int getRepeatDelay() {
 		return repeatDelayMillis;
 	}
-
-
 }

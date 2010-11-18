@@ -111,6 +111,8 @@ public class SVGToggleButton extends SVGButtonBase {
 					break;
 			}
 		}
+		event.stopPropagation();
+		event.preventDefault();
 	}
 	@Override
 	public void onMouseUp(MouseUpEvent event) {
@@ -122,6 +124,8 @@ public class SVGToggleButton extends SVGButtonBase {
 				showFace(SVGFaceName.UP);
 			}
 		}
+		event.stopPropagation();
+		event.preventDefault();
 	}
 	@Override
 	public void onMouseOver(MouseOverEvent event) {

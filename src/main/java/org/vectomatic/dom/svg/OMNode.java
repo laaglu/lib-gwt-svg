@@ -39,9 +39,11 @@ import com.google.gwt.dom.client.Node;
 import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.event.shared.HasHandlers;
+import com.google.gwt.event.shared.UmbrellaException;
 import com.google.gwt.user.client.Element;
 
 /**
@@ -49,7 +51,14 @@ import com.google.gwt.user.client.Element;
  * @author laaglu
  */
 public class OMNode implements HasHandlers {
+	/**
+	 * The DOM native overlay type wrapped by this object
+	 */
 	protected Node ot;
+	/**
+	 * The event bus shared by all SVG objects
+	 */
+	static protected EventBus eventBus = new SimpleEventBus();
 
 	/**
 	 * Constructor
@@ -58,19 +67,43 @@ public class OMNode implements HasHandlers {
 	protected OMNode(Node node) {
 		this.ot = node;
 	}
-	public void fireEvent(GwtEvent<?> event) {
-		HandlerManager handlerManager = getHandlerManager(ot);
-		if (handlerManager != null) {
-			handlerManager.fireEvent(event);
-		}
+	/**
+	 * Returns the event bus shared by all SVG objects
+	 * @return the event bus shared by all SVG objects
+	 */
+	public static EventBus getEventBus() {
+		return eventBus;
 	}
-
+    /**
+     * Fires the given event to the handlers listening to the event's type.
+     * <p>
+     * Any exceptions thrown by handlers will be bundled into a
+     * {@link UmbrellaException} and then re-thrown after all handlers have
+     * completed. An exception thrown by a handler will not prevent other handlers
+     * from executing.
+     * @param event the event
+     */
+	public void fireEvent(GwtEvent<?> event) {
+		revive(event);
+		eventBus.fireEventFromSource(event, ot);
+	}
+	/**
+	 * Revive the event. GWT does it by taking advantage of the
+	 * fact that HandlerManager has package access to GwtEvent.
+	 * Here we use a JSNI call to bypass scope restrictions
+	 */
+	private static final native void revive(GwtEvent<?> event) /*-{
+	  event.@com.google.gwt.event.shared.GwtEvent::revive()();
+	}-*/;
+	
 	/**
 	 * Dispatches the specified event to this node
 	 * event handlers
 	 * @param event The event to dispatch
 	 */
 	public void dispatch(NativeEvent event) {
+		// This call wraps the native event into a DomEvent
+		// and invokes fireEvent
 	    DomEvent.fireNativeEvent(event, this, (Element)event.getCurrentEventTarget().cast());
 	}
 
@@ -86,7 +119,7 @@ public class OMNode implements HasHandlers {
 		assert handler != null : "handler must not be null";
 		assert type != null : "type must not be null";
 		DOMHelper.bindEventListener(this, (Element)ot.cast(), type.getName());
-		return ensureHandlers().addHandler(type, handler);
+		return eventBus.addHandlerToSource(type, ot, handler);
 	}
 
 	/**
@@ -98,26 +131,9 @@ public class OMNode implements HasHandlers {
 	 */
 	public final <H extends EventHandler> HandlerRegistration addHandler(
 			final H handler, GwtEvent.Type<H> type) {
-		return ensureHandlers().addHandler(type, handler);
+		return eventBus.addHandlerToSource(type, ot, handler);
 	}
 
-	private HandlerManager ensureHandlers() {
-		HandlerManager handlerManager = getHandlerManager(ot);
-		if (handlerManager == null) {
-			handlerManager = new HandlerManager(this);
-			setHandlerManager(ot, handlerManager);
-		}
-		return handlerManager;
-	}
-	
-	private static native HandlerManager getHandlerManager(Node ot) /*-{
-		return ot.__hm;
-	}-*/;
-	
-	private static native void setHandlerManager(Node ot, HandlerManager manager) /*-{
-		ot.__hm = manager;
-	}-*/;
-	
 	private static class Conversion<T extends OMNode> {
 		static {
 			initialize();

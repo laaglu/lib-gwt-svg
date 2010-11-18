@@ -248,7 +248,7 @@ public class OMSVGMatrix extends JavaScriptObject {
    * @return a textual description of the matrix.
    */
   public final String getDescription() {
-	  StringBuilder builder = new StringBuilder("[");
+	  StringBuilder builder = new StringBuilder();
 	  builder.append(getA());
 	  builder.append(" ");
 	  builder.append(getB());
@@ -260,7 +260,6 @@ public class OMSVGMatrix extends JavaScriptObject {
 	  builder.append(getE());
 	  builder.append(" ");
 	  builder.append(getF());
-	  builder.append("]");
 	  return builder.toString();
   }
 }

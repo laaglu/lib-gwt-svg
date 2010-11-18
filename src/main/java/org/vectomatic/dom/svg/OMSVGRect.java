@@ -158,28 +158,28 @@ public class OMSVGRect extends JavaScriptObject {
    * null if the two rectangles have no intersection.
    */
   public final OMSVGRect intersection(OMSVGRect r, OMSVGRect destination) {
-	if (r.getX() <= getX() && r.getX() <= getMaxX()) {
-		if (r.getY() <= getY() && r.getY() <= getMaxY()) {
+	if (getX() < r.getX() && r.getX() < getMaxX()) {
+		if (getY() < r.getY() && r.getY() < getMaxY()) {
 			destination.setWidth(getMaxX() - r.getX());
 			destination.setX(r.getX());
 			destination.setHeight(getMaxY() - r.getY());
 			destination.setY(r.getY());
 			return destination;
-		} else if (getY() <= r.getY() && getY() <= r.getMaxY()) {
+		} else if (r.getY() < getY() && getY() < r.getMaxY()) {
 			destination.setWidth(getMaxX() - r.getX());
 			destination.setX(r.getX());
 			destination.setHeight(r.getMaxY() - getY());
 			destination.setY(getY());
 			return destination;
 		}
-	} else if (getX() <= r.getX() && getX() <= r.getMaxX()) {
-		if (r.getY() <= getY() && r.getY() <= getMaxY()) {
+	} else if (r.getX() < getX() && getX() < r.getMaxX()) {
+		if (getY() < r.getY() && r.getY() < getMaxY()) {
 			destination.setWidth(r.getMaxX() - getX());
 			destination.setX(getX());
 			destination.setHeight(getMaxY() - r.getY());
 			destination.setY(r.getY());
 			return destination;
-		} else if (getY() <= r.getY() && getY() <= r.getMaxY()) {
+		} else if (r.getY() < getY() && getY() < r.getMaxY()) {
 			destination.setWidth(r.getMaxX() - getX());
 			destination.setX(getX());
 			destination.setHeight(r.getMaxY() - getY());

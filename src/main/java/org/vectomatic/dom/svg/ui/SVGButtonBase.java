@@ -62,7 +62,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * the button.</p>
  * @author laaglu
  */
-public abstract class SVGButtonBase extends SVGWidget implements HasClickHandlers, HasAllMouseHandlers, MouseDownHandler, MouseUpHandler, MouseOverHandler, MouseOutHandler, ISVGStylable {
+public abstract class SVGButtonBase extends SVGWidget implements HasClickHandlers, HasAllMouseHandlers, MouseDownHandler, MouseUpHandler, MouseOverHandler, MouseOutHandler, ClickHandler, ISVGStylable {
 	/**
 	 * Enum to represent the possible states of an SVG button
 	 * @author laaglu
@@ -269,6 +269,7 @@ public abstract class SVGButtonBase extends SVGWidget implements HasClickHandler
 			this.svgElement.addDomHandler(this, MouseOverEvent.getType());
 			this.svgElement.addDomHandler(this, MouseUpEvent.getType());
 			this.svgElement.addDomHandler(this, MouseDownEvent.getType());
+			this.svgElement.addDomHandler(this, ClickEvent.getType());
 		}
 	}
 	/**
@@ -394,5 +395,12 @@ public abstract class SVGButtonBase extends SVGWidget implements HasClickHandler
 
 	public final void setClassNameBaseVal(String className) {
 		svgElement.setClassNameBaseVal(className);
+	}
+	@Override
+	public void onClick(ClickEvent event) {
+		// Silently block the event. Otherwise it will propagate
+		// to parent elements in Webkit and trigger text selection
+		event.stopPropagation();
+		event.preventDefault();
 	}
 }
