@@ -203,7 +203,7 @@ public class OMSVGTransform extends JavaScriptObject {
    * @return a textual description of the transform.
    */
   public final String getDescription() {
-	StringBuilder builder = new StringBuilder("{");
+	StringBuilder builder = new StringBuilder();
 	switch(getType()) {
 		case SVG_TRANSFORM_MATRIX:
 			builder.append(SVGConstants.TRANSFORM_MATRIX + "(");
@@ -264,7 +264,6 @@ public class OMSVGTransform extends JavaScriptObject {
 			builder.append(toString());
 			break;
 	}
-	builder.append("}");
 	return builder.toString();
   }
 }
