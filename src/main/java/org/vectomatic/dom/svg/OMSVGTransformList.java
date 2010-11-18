@@ -236,14 +236,13 @@ public class OMSVGTransformList implements Iterable<OMSVGTransform> {
    * @return a textual description of the transform list.
    */
   public final String getDescription() {
-	StringBuilder builder = new StringBuilder("[");
+	StringBuilder builder = new StringBuilder();
 	for (int i = 0, size = getNumberOfItems(); i < size; i++) {
 	  if (i > 0) {
-		builder.append(", ");
+		builder.append(" ");
 	  }
 	  builder.append(getItem(i).getDescription());
 	}
-	builder.append("]");
 	return builder.toString();
   }
 }
