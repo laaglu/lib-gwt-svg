@@ -38,6 +38,7 @@ import org.vectomatic.dom.svg.events.FocusOutHandler;
 import org.vectomatic.dom.svg.events.HasGraphicalHandlers;
 import org.vectomatic.dom.svg.impl.SVGElement;
 import org.vectomatic.dom.svg.impl.SVGPolylineElement;
+import org.vectomatic.dom.svg.itf.ISVGAnimatedPoints;
 import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
 import org.vectomatic.dom.svg.itf.ISVGGraphicsElement;
 import org.vectomatic.dom.svg.itf.ISVGLangSpace;
@@ -69,7 +70,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * title='polyline element specification'>polyline</a> element.
  */
 @TagName("polyline")
-public class OMSVGPolylineElement extends OMSVGElement implements HasGraphicalHandlers, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGTransformable, ISVGGraphicsElement {
+public class OMSVGPolylineElement extends OMSVGElement implements HasGraphicalHandlers, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGTransformable, ISVGAnimatedPoints, ISVGGraphicsElement {
   protected OMSVGPolylineElement(SVGPolylineElement ot) {
     super(ot);
   }
@@ -89,7 +90,7 @@ public class OMSVGPolylineElement extends OMSVGElement implements HasGraphicalHa
    * attribute. If the given attribute or property is being animated, contains
    * the current animated value of the attribute or property. If the given attribute
    * or property is not currently being animated, contains the same value as
-   * {@link org.vectomatic.dom.svg.OMSVGAnimatedPoints#getPoints()}.
+   * {@link org.vectomatic.dom.svg.itf.ISVGAnimatedPoints#getPoints()}.
    */
   public final OMSVGPointList getAnimatedPoints() {
     return ((SVGPolylineElement)ot).getAnimatedPoints();

@@ -27,40 +27,31 @@
  * [1] http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
  */
 
-package org.vectomatic.dom.svg;
+package org.vectomatic.dom.svg.itf;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import org.vectomatic.dom.svg.OMSVGPointList;
 
-/**
- * <p>The {@link org.vectomatic.dom.svg.OMSVGAnimatedPoints} interface supports
- * elements which have a <span class='attr-name'>'points'</span> attribute
- * which holds a list of coordinate values and which support the ability to
- * animate that attribute.</p> <p>Additionally, the <span class='attr-name'>'points'</span>
- * attribute on the original element accessed via the XML DOM (e.g., using
- * the <code>getAttribute()</code> method call) will reflect any changes made
- * to {@link org.vectomatic.dom.svg.OMSVGAnimatedPoints#getPoints()}.</p>
- */
-public class OMSVGAnimatedPoints extends JavaScriptObject {
-  protected OMSVGAnimatedPoints() {
-  }
-
-  // Implementation of the svg::SVGAnimatedPoints W3C IDL interface
+  /**
+   * <p>The {@link org.vectomatic.dom.svg.itf.ISVGAnimatedPoints} interface
+   * supports elements which have a <span class='attr-name'>'points'</span>
+   * attribute which holds a list of coordinate values and which support the
+   * ability to animate that attribute.</p> <p>Additionally, the <span class='attr-name'>'points'</span>
+   * attribute on the original element accessed via the XML DOM (e.g., using
+   * the <code>getAttribute()</code> method call) will reflect any changes made
+   * to {@link org.vectomatic.dom.svg.itf.ISVGAnimatedPoints#getPoints()}.</p>
+   */
+public interface ISVGAnimatedPoints {
   /**
    * Provides access to the base (i.e., static) contents of the <span class='attr-name'>'points'</span>
    * attribute.
    */
-  public final native OMSVGPointList getPoints() /*-{
-    return @org.vectomatic.dom.svg.OMNode::convertList(Lcom/google/gwt/core/client/JavaScriptObject;)(this.points);
-  }-*/;
+  public OMSVGPointList getPoints();
   /**
    * Provides access to the current animated contents of the <span class='attr-name'>'points'</span>
    * attribute. If the given attribute or property is being animated, contains
    * the current animated value of the attribute or property. If the given attribute
    * or property is not currently being animated, contains the same value as
-   * {@link org.vectomatic.dom.svg.OMSVGAnimatedPoints#getPoints()}.
+   * {@link org.vectomatic.dom.svg.itf.ISVGAnimatedPoints#getPoints()}.
    */
-  public final native OMSVGPointList getAnimatedPoints() /*-{
-    return @org.vectomatic.dom.svg.OMNode::convertList(Lcom/google/gwt/core/client/JavaScriptObject;)(this.animatedPoints);
-  }-*/;
-
+  public OMSVGPointList getAnimatedPoints();
 }

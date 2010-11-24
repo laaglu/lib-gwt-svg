@@ -62,7 +62,7 @@ public class SVGPolylineElement extends SVGElement {
    * attribute. If the given attribute or property is being animated, contains
    * the current animated value of the attribute or property. If the given attribute
    * or property is not currently being animated, contains the same value as
-   * {@link org.vectomatic.dom.svg.OMSVGAnimatedPoints#getPoints()}.
+   * {@link org.vectomatic.dom.svg.itf.ISVGAnimatedPoints#getPoints()}.
    */
   public final native OMSVGPointList getAnimatedPoints() /*-{
     return @org.vectomatic.dom.svg.OMNode::convertList(Lcom/google/gwt/core/client/JavaScriptObject;)(this.animatedPoints);
