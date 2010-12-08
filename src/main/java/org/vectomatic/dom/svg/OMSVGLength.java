@@ -203,4 +203,97 @@ public class OMSVGLength extends JavaScriptObject {
     this.convertToSpecifiedUnits(unitType);
   }-*/;
 
+  // Helper methods
+  private static final short unitToCode(com.google.gwt.dom.client.Style.Unit unit) {
+	switch(unit) {
+		case PCT:
+			return SVG_LENGTHTYPE_PERCENTAGE;
+		case EM:
+			return SVG_LENGTHTYPE_EMS;
+		case EX:
+			return SVG_LENGTHTYPE_EXS;
+		case PX:
+			return SVG_LENGTHTYPE_PX;
+		case CM:
+			return SVG_LENGTHTYPE_CM;
+		case MM:
+			return SVG_LENGTHTYPE_MM;
+		case IN:
+			return SVG_LENGTHTYPE_IN;
+		case PT:
+			return SVG_LENGTHTYPE_PT;
+		case PC:
+			return SVG_LENGTHTYPE_PC;
+	}
+	return SVG_LENGTHTYPE_NUMBER;
+  }
+  private static final com.google.gwt.dom.client.Style.Unit codeToUnit(short unit) {
+	switch(unit) {
+		case SVG_LENGTHTYPE_NUMBER:
+			return null;
+		case SVG_LENGTHTYPE_PERCENTAGE:
+			return com.google.gwt.dom.client.Style.Unit.PCT;
+		case SVG_LENGTHTYPE_EMS:
+			return com.google.gwt.dom.client.Style.Unit.EM;
+		case SVG_LENGTHTYPE_EXS:
+			return com.google.gwt.dom.client.Style.Unit.EX;
+		case SVG_LENGTHTYPE_PX:
+			return com.google.gwt.dom.client.Style.Unit.PX;
+		case SVG_LENGTHTYPE_CM:
+			return com.google.gwt.dom.client.Style.Unit.CM;
+		case SVG_LENGTHTYPE_MM:
+			return com.google.gwt.dom.client.Style.Unit.MM;
+		case SVG_LENGTHTYPE_IN:
+			return com.google.gwt.dom.client.Style.Unit.IN;
+		case SVG_LENGTHTYPE_PT:
+			return com.google.gwt.dom.client.Style.Unit.PT;
+		case SVG_LENGTHTYPE_PC:
+			return com.google.gwt.dom.client.Style.Unit.PC;
+	}
+	throw new IllegalStateException("Unsupported unit conversion");
+  }
+  /**
+   * Returns the type of the value as defined by the
+   * {@link com.google.gwt.dom.client.Style.Unit} enum.
+   */
+  public final com.google.gwt.dom.client.Style.Unit getUnit() {
+	return codeToUnit(getUnitType());
+  }
+  /**
+   * Reset the value as a number with an associated {@link org.vectomatic.dom.svg.OMSVGLength#getUnitType()},
+   * thereby replacing the values for all of the attributes on the object.
+   * @param unitType The unit type for the value.
+   * @param valueInSpecifiedUnits The new value.
+   * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) Raised when the length
+   * corresponds to a <a href="svgdom.html#ReadOnlyNodes">read only attribute</a>
+   * or when the object itself is   <a href="#ReadOnlyLength">read only</a>.
+   * @throws DOMException(NOT_SUPPORTED_ERR) Raised if unitType is SVG_LENGTHTYPE_UNKNOWN
+   * or not a valid unit type constant (one of the other SVG_LENGTHTYPE_ constants
+   * defined on this interface).
+   */
+  public final void newValueSpecifiedUnits(com.google.gwt.dom.client.Style.Unit unitType, float valueInSpecifiedUnits) throws JavaScriptException {
+	newValueSpecifiedUnits(unitToCode(unitType), valueInSpecifiedUnits);
+  }
+  /**
+   * Preserve the same underlying stored value, but reset the stored unit identifier
+   * to the given <var>unitType</var>. Object attributes {@link org.vectomatic.dom.svg.OMSVGLength#getUnitType()},
+   * {@link org.vectomatic.dom.svg.OMSVGLength#getValueInSpecifiedUnits()} and
+   * {@link org.vectomatic.dom.svg.OMSVGLength#getValueAsString()} might be
+   * modified as a result of this method. For example, if the original value
+   * were "0.5cm" and the method was invoked to convert to millimeters, then
+   * the {@link org.vectomatic.dom.svg.OMSVGLength#getUnitType()} would be changed
+   * to <code>SVG_LENGTHTYPE_MM</code>, {@link org.vectomatic.dom.svg.OMSVGLength#getValueInSpecifiedUnits()}
+   * would be changed to the numeric value 5 and {@link org.vectomatic.dom.svg.OMSVGLength#getValueAsString()}
+   * would be changed to "5mm".
+   * @param unitType The unit type to switch to.
+   * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) Raised when the length
+   * corresponds to a <a href="svgdom.html#ReadOnlyNodes">read only attribute</a>
+   * or when the object itself is   <a href="#ReadOnlyLength">read only</a>.
+   * @throws DOMException(NOT_SUPPORTED_ERR) Raised if unitType is SVG_LENGTHTYPE_UNKNOWN
+   * or not a valid unit type constant (one of the other SVG_LENGTHTYPE_ constants
+   * defined on this interface).
+   */
+  public final void convertToSpecifiedUnits(com.google.gwt.dom.client.Style.Unit unitType) throws JavaScriptException {
+	convertToSpecifiedUnits(unitToCode(unitType));
+  }
 }

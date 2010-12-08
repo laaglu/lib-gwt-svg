@@ -503,6 +503,17 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
 	return rect;
   }
   /**
+   * Creates an {@link org.vectomatic.dom.svg.OMSVGRectElement} object in this
+   * document but does not attach it to the document tree. 
+   * The object is initialized with the specified SVG rect and zero
+   * corner radii.
+   * @param rect The SVG rect to use to initialize this rect.
+   * @return An {@link org.vectomatic.dom.svg.OMSVGRectElement} object.
+   */
+  public final OMSVGRectElement createSVGRectElement(OMSVGRect rect) {
+	return createSVGRectElement(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight(), 0, 0);
+  }
+  /**
    * Creates an {@link org.vectomatic.dom.svg.OMSVGTextElement} object in this
    * document but does not attach it to the document tree. 
    * The object is initialized to the specified coordinates and string data.

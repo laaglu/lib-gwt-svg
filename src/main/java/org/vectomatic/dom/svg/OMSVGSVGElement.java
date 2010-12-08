@@ -875,6 +875,15 @@ public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandler
 	return length;
   }
   /**
+   * Creates an {@link org.vectomatic.dom.svg.OMSVGLength} object outside of
+   * any document trees. The object is initialized to the specified length.
+   * @param l the length to use for initialization
+   * @return An {@link org.vectomatic.dom.svg.OMSVGLength} object.
+   */
+  public final OMSVGLength createSVGLength(OMSVGLength l) {
+	return createSVGLength(l.getUnitType(), l.getValueInSpecifiedUnits());
+  }
+  /**
    * Creates an {@link org.vectomatic.dom.svg.OMSVGAngle} object outside of
    * any document trees. The object is initialized to the specified value
    * and unit type.
@@ -888,6 +897,15 @@ public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandler
 	return angle;
   }
   /**
+   * Creates an {@link org.vectomatic.dom.svg.OMSVGAngle} object outside of
+   * any document trees. The object is initialized to the specified angle.
+   * @param a the angle to use for initialization
+   * @return An {@link org.vectomatic.dom.svg.OMSVGAngle} object.
+   */
+  public final OMSVGAngle createSVGAngle(OMSVGAngle a) {
+	return createSVGAngle(a.getUnitType(), a.getValueInSpecifiedUnits());
+  }
+  /**
    * Creates an {@link org.vectomatic.dom.svg.OMSVGPoint} object outside of
    * any document trees. The object is initialized to the specified coordinates.
    * @param x the X coordinate to use for initialization
@@ -899,6 +917,15 @@ public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandler
 	point.setX(x);
 	point.setY(y);
 	return point;
+  }
+  /**
+   * Creates an {@link org.vectomatic.dom.svg.OMSVGPoint} object outside of
+   * any document trees. The object is initialized to the specified point.
+   * @param p the point to use for initialization
+   * @return An {@link org.vectomatic.dom.svg.OMSVGPoint} object.
+   */
+  public final OMSVGPoint createSVGPoint(OMSVGPoint p) {
+	return createSVGPoint(p.getX(), p.getY());
   }
   /**
    * Creates an {@link org.vectomatic.dom.svg.OMSVGMatrix} object outside of
@@ -922,6 +949,15 @@ public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandler
 	return matrix;
   }
   /**
+   * Creates an {@link org.vectomatic.dom.svg.OMSVGMatrix} object outside of
+   * any document trees. The object is initialized to the specified matrix.
+   * @param m the matrix to use for initialization
+   * @return An {@link org.vectomatic.dom.svg.OMSVGMatrix} object.
+   */
+  public final OMSVGMatrix createSVGMatrix(OMSVGMatrix m) {
+	return createSVGMatrix(m.getA(), m.getB(), m.getC(), m.getD(), m.getE(), m.getF());
+  }
+  /**
    * Creates an {@link org.vectomatic.dom.svg.OMSVGRect} object outside of
    * any document trees. The object is initialized to the specified coordinates
    * and size.
@@ -940,12 +976,33 @@ public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandler
 	return rect;
   }
   /**
+   * Creates an {@link org.vectomatic.dom.svg.OMSVGRect} object outside of
+   * any document trees. The object is initialized to the specified rectangle.
+   * @param rect the rect to use for initialization
+   * @param y the Y coordinate to use for initialization
+   * @param width the width to use for initialization
+   * @param height the height to use for initialization
+   * @return An {@link org.vectomatic.dom.svg.OMSVGRect} object.
+   */
+  public final OMSVGRect createSVGRect(OMSVGRect rect) {
+	return createSVGRect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+  }
+  /**
    * Sets the base value for the height of this {@link org.vectomatic.dom.svg.OMSVGSVGElement}
    * to the specified value and unit type.
    * @param unitType the unit type in which the height is specified
    * @param height the height in the specified units
    */
   public final void setHeight(short unitType, float height) {
+	getHeight().getBaseVal().newValueSpecifiedUnits(unitType, height);
+  }
+  /**
+   * Sets the base value for the height of this {@link org.vectomatic.dom.svg.OMSVGSVGElement}
+   * to the specified value and unit type.
+   * @param unitType the unit type in which the height is specified
+   * @param height the height in the specified units
+   */
+  public final void setHeight(com.google.gwt.dom.client.Style.Unit unitType, float height) {
 	getHeight().getBaseVal().newValueSpecifiedUnits(unitType, height);
   }
   /**
@@ -978,6 +1035,15 @@ public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandler
    * @param width the width in the specified units
    */
   public final void setWidth(short unitType, float width) {
+	getWidth().getBaseVal().newValueSpecifiedUnits(unitType, width);
+  }
+  /**
+   * Sets the base value for the width of this {@link org.vectomatic.dom.svg.OMSVGSVGElement}
+   * to the specified value and unit type.
+   * @param unitType the unit type in which the width is specified
+   * @param width the width in the specified units
+   */
+  public final void setWidth(com.google.gwt.dom.client.Style.Unit unitType, float width) {
 	getWidth().getBaseVal().newValueSpecifiedUnits(unitType, width);
   }
 }
