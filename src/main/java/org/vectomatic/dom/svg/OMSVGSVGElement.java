@@ -53,6 +53,7 @@ import org.vectomatic.dom.svg.itf.ISVGZoomAndPan;
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.NodeList;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.TagName;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -873,6 +874,17 @@ public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandler
 	OMSVGLength length = ((SVGSVGElement)ot).createSVGLength();
 	length.newValueSpecifiedUnits(unitType, valueInSpecifiedUnits);
 	return length;
+  }
+  /**
+   * Creates an {@link org.vectomatic.dom.svg.OMSVGLength} object outside of
+   * any document trees. The object is initialized to the specified value
+   * and unit type.
+   * @param unitType the unit type to use for initialization
+   * @param valueInSpecifiedUnits the value to use for initialization, in the specified units
+   * @return An {@link org.vectomatic.dom.svg.OMSVGLength} object.
+   */
+  public final OMSVGLength createSVGLength(Style.Unit unitType, float valueInSpecifiedUnits) {
+	return createSVGLength(unitType, valueInSpecifiedUnits);
   }
   /**
    * Creates an {@link org.vectomatic.dom.svg.OMSVGLength} object outside of

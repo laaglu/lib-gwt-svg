@@ -205,25 +205,27 @@ public class OMSVGLength extends JavaScriptObject {
 
   // Helper methods
   private static final short unitToCode(com.google.gwt.dom.client.Style.Unit unit) {
-	switch(unit) {
-		case PCT:
-			return SVG_LENGTHTYPE_PERCENTAGE;
-		case EM:
-			return SVG_LENGTHTYPE_EMS;
-		case EX:
-			return SVG_LENGTHTYPE_EXS;
-		case PX:
-			return SVG_LENGTHTYPE_PX;
-		case CM:
-			return SVG_LENGTHTYPE_CM;
-		case MM:
-			return SVG_LENGTHTYPE_MM;
-		case IN:
-			return SVG_LENGTHTYPE_IN;
-		case PT:
-			return SVG_LENGTHTYPE_PT;
-		case PC:
-			return SVG_LENGTHTYPE_PC;
+	if (unit != null) {
+		switch(unit) {
+			case PCT:
+				return SVG_LENGTHTYPE_PERCENTAGE;
+			case EM:
+				return SVG_LENGTHTYPE_EMS;
+			case EX:
+				return SVG_LENGTHTYPE_EXS;
+			case PX:
+				return SVG_LENGTHTYPE_PX;
+			case CM:
+				return SVG_LENGTHTYPE_CM;
+			case MM:
+				return SVG_LENGTHTYPE_MM;
+			case IN:
+				return SVG_LENGTHTYPE_IN;
+			case PT:
+				return SVG_LENGTHTYPE_PT;
+			case PC:
+				return SVG_LENGTHTYPE_PC;
+		}
 	}
 	return SVG_LENGTHTYPE_NUMBER;
   }

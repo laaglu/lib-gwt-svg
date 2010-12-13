@@ -389,6 +389,46 @@ public class DOMHelper {
 	}-*/;
 	
     /**
+     * Retrieves an attribute node by name on the specified element.
+     * <br>To retrieve an attribute node by qualified name and namespace URI, 
+     * use the <code>getAttributeNodeNS</code> method.
+     * @param elt The element
+     * @param attrName The name (<code>nodeName</code>) of the attribute to 
+     *   retrieve.
+     * @return The <code>Attr</code> node with the specified name (
+     *   <code>nodeName</code>) or <code>null</code> if there is no such 
+     *   attribute.
+     */
+	public static final native Attr getAttributeNode(Element elt, String attrName) /*-{
+	  return elt.getAttributeNode(attrName);
+	}-*/;
+	
+    /**
+     * Adds a new attribute node to the specified element. If an attribute with that name (
+     * <code>nodeName</code>) is already present in the element, it is 
+     * replaced by the new one. Replacing an attribute node by itself has no 
+     * effect.
+     * <br>To add a new attribute node with a qualified name and namespace 
+     * URI, use the <code>setAttributeNodeNS</code> method.
+     * @param elt The element
+     * @param attr The <code>Attr</code> node to add to the attribute list.
+     * @return If the <code>attr</code> attribute replaces an existing 
+     *   attribute, the replaced <code>Attr</code> node is returned, 
+     *   otherwise <code>null</code> is returned.
+     * @exception DOMException
+     *   WRONG_DOCUMENT_ERR: Raised if <code>attr</code> was created from a 
+     *   different document than the one that created the element.
+     *   <br>NO_MODIFICATION_ALLOWED_ERR: Raised if this node is readonly.
+     *   <br>INUSE_ATTRIBUTE_ERR: Raised if <code>attr</code> is already an 
+     *   attribute of another <code>Element</code> object. The DOM user must 
+     *   explicitly clone <code>Attr</code> nodes to re-use them in other 
+     *   elements.
+     */
+	public static final native Attr setAttributeNode(Element elt, Attr attr) throws JavaScriptException /*-{
+	  return elt.setAttributeNode(attr);
+	}-*/;
+
+    /**
      * Returns <code>true</code> when an attribute with a given local name and 
      * namespace URI is specified on the specified element or has a default value, 
      * <code>false</code> otherwise.

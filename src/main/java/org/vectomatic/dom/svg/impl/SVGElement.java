@@ -88,8 +88,6 @@ public class SVGElement extends Element {
   }-*/;
   
   public final native String getMarkup() /*-{
-      var div = $doc.createElement("div");
-      div.appendChild(this.cloneNode(true));
-      return div.innerHTML;
+	return new XMLSerializer().serializeToString(this);
   }-*/;
 }
