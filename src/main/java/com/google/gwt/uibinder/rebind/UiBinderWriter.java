@@ -1040,6 +1040,9 @@ public class UiBinderWriter implements Statements {
     addWidgetParser("Image");
     addWidgetParser("ListBox");
     addWidgetParser("Grid");
+    addWidgetParser("HasAlignment");
+    addWidgetParser("DateLabel");
+    addWidgetParser("NumberLabel");
   }
 
   /**
@@ -1135,8 +1138,15 @@ public class UiBinderWriter implements Statements {
 
         // TODO why can this be null?
         if (fieldWriter != null) {
-          fieldManager.lookup(fieldName).setInitializer(
-              formatCode("owner.%1$s", fieldName));
+          String initializer;
+          if (designTime.isDesignTime()) {
+            String typeName = ownerField.getType().getRawType().getQualifiedSourceName();
+            initializer = designTime.getProvidedField(typeName,
+                ownerField.getName());
+          } else {
+            initializer = formatCode("owner.%1$s", fieldName);
+          }
+          fieldManager.lookup(fieldName).setInitializer(initializer);
         }
       }
     }
