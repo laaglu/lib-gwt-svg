@@ -554,4 +554,28 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
 	image.getHref().setBaseVal(href);
 	return image;
   }
+  /**
+   * Creates an {@link org.vectomatic.dom.svg.OMSVGTitleElement} object in this
+   * document but does not attach it to the document tree. 
+   * The object is initialized to the specified text.
+   * @param text the title text
+   * @return An {@link org.vectomatic.dom.svg.OMSVGTitleElement} object.
+   */
+  public final OMSVGTitleElement createSVGTitleElement(String text) {
+	  OMSVGTitleElement title = createSVGTitleElement();
+	  title.appendChild(createTextNode(text));
+	  return title;
+  }
+  /**
+   * Creates an {@link org.vectomatic.dom.svg.OMSVGDescElement} object in this
+   * document but does not attach it to the document tree. 
+   * The object is initialized to the specified text.
+   * @param text the description text
+   * @return An {@link org.vectomatic.dom.svg.OMSVGDescElement} object.
+   */
+  public final OMSVGDescElement createSVGDescElement(String text) {
+	  OMSVGDescElement desc = createSVGDescElement();
+	  desc.appendChild(createTextNode(text));
+	  return desc;
+  }
 }
