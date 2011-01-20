@@ -225,8 +225,27 @@ public class DOMHelperImpl {
 	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
 	    if (chMask & 0x00800) elem.onend       = (bits & 0x00800) ?
 	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
-	    if (chMask & 0x01000) elem.onrepeat        = (bits & 0x01000) ?
-	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
+	    if (chMask & 0x00400) {
+	      if (bits & 0x00400) {
+	       elem.addEventListener('begin', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler, false);
+	      } else {
+	       elem.removeEventListener('begin', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler, false);
+	      }
+	    }
+	    if (chMask & 0x00800) {
+	      if (bits & 0x00800) {
+	       elem.addEventListener('end', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler, false);
+	      } else {
+	       elem.removeEventListener('end', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler, false);
+	      }
+	    }
+	    if (chMask & 0x01000) {
+	      if (bits & 0x01000) {
+	       elem.addEventListener('repeat', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler, false);
+	      } else {
+	       elem.removeEventListener('repeat', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler, false);
+	      }
+	    }
 	    if (chMask & 0x02000) elem.onunload = (bits & 0x02000) ?
 	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
 	    if (chMask & 0x04000) elem.onabort      = (bits & 0x04000) ?
@@ -248,6 +267,7 @@ public class DOMHelperImpl {
 	 * @param elem The object emitting the event
 	 */
 	public void dispatch(NativeEvent event, OMNode node, Element elem) {
+		//Window.alert("type=" + event.getType());
 		switch(eventGetTypeInt(event.getType())) {
 			// Mouseover and mouseout deserve special treatment
 			// to solve issues described in:

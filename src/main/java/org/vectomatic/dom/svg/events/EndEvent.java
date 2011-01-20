@@ -29,6 +29,7 @@
 package org.vectomatic.dom.svg.events;
 
 import com.google.gwt.event.dom.client.DomEvent;
+import com.google.gwt.event.dom.client.DomEvent.Type;
 
 /**
  * This event is raised at the active end of the element. 
@@ -43,6 +44,14 @@ import com.google.gwt.event.dom.client.DomEvent;
 public class EndEvent extends TimeEvent<EndHandler> {
 	private static final Type<EndHandler> TYPE = new Type<EndHandler>(
 			"end", new EndEvent());
+	/**
+	 * Necessary hack. DomEvent.fireNativeEvent uses NativeEvent.getType
+	 * to retrieve the type flyweight. However, for SMIL events, the
+	 * event type name is not the same as the event attribute name
+	 * (onend/endEvent vs onmousdown/mousedown for example !)
+	 */
+	private static final Type<EndHandler> TYPE_ = new Type<EndHandler>(
+			"endEvent", new EndEvent());
 
 	/**
 	 * Protected constructor, use
