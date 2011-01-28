@@ -20,7 +20,6 @@ package org.vectomatic.dom.svg.impl;
 import org.vectomatic.dom.svg.OMNode;
 import org.vectomatic.dom.svg.OMSVGElement;
 
-import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Node;
@@ -56,10 +55,6 @@ public class DOMHelperImpl {
 	  private static final int EVT_ZOOM = 0x40000;
 	  private static final int EVT_LOOSECAPTURE = 0x80000;
 	  
-	  private static JavaScriptObject svgHandler;
-	  
-	  private static JavaScriptObject svgCaptureHandler;
-
 	  private OMSVGElement captureElt;
 	  
 	  /**
@@ -69,25 +64,24 @@ public class DOMHelperImpl {
 	   */
 	  protected native void initEventSystem() /*-{
 	    $wnd.__helperImpl = this;
-  
-	    @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler = function(evt) {
+	    $wnd.__svgDispatch = function(evt) {
 	        $wnd.__helperImpl.@org.vectomatic.dom.svg.impl.DOMHelperImpl::dispatch(Lcom/google/gwt/dom/client/NativeEvent;Lorg/vectomatic/dom/svg/OMNode;Lcom/google/gwt/dom/client/Element;)(evt, evt.currentTarget.__wrapper, evt.currentTarget);
 	    };
-
-	    @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler = function(evt) {
+  
+	    $wnd.__svgCapture = function(evt) {
 	        $wnd.__helperImpl.@org.vectomatic.dom.svg.impl.DOMHelperImpl::dispatchCapturedEvent(Lcom/google/gwt/dom/client/NativeEvent;Lcom/google/gwt/dom/client/Element;)(evt, evt.currentTarget);
 	    };
 
-	    $wnd.addEventListener('mousedown', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
-	    $wnd.addEventListener('mouseup', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
-	    $wnd.addEventListener('mousemove', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
-	    $wnd.addEventListener('mouseover', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
-	    $wnd.addEventListener('mouseout', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
-	    $wnd.addEventListener('mousewheel', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
-	    $wnd.addEventListener('click', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
-	    $wnd.addEventListener('focusin', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
-	    $wnd.addEventListener('focusout', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
-	    $wnd.addEventListener('activate', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgCaptureHandler, true);
+	    $wnd.addEventListener('mousedown', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('mouseup', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('mousemove', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('mouseover', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('mouseout', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('mousewheel', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('click', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('focusin', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('focusout', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('activate', $wnd.__svgCapture, true);
 
 	  }-*/;
 	  
@@ -200,64 +194,65 @@ public class DOMHelperImpl {
 	    var chMask = (elem.__eventMask || 0) ^ bits;
 	    elem.__eventMask = bits;
 	    if (!chMask) return;
-	   
 	    if (chMask & 0x00001) elem.onfocusin       = (bits & 0x00001) ?
-	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
+	        $wnd.__svgDispatch : null;
 	    if (chMask & 0x00002) elem.onfocusout    = (bits & 0x00002) ?
-	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
+	        $wnd.__svgDispatch : null;
 	    if (chMask & 0x00004) elem.onmousedown   = (bits & 0x00004) ?
-	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
+	        $wnd.__svgDispatch : null;
 	    if (chMask & 0x00008) elem.onmouseup     = (bits & 0x00008) ?
-	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
+	        $wnd.__svgDispatch : null;
 	    if (chMask & 0x00010) elem.onmouseover   = (bits & 0x00010) ?
-	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
+	        $wnd.__svgDispatch : null;
 	    if (chMask & 0x00020) elem.onmouseout    = (bits & 0x00020) ?
-	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
+	        $wnd.__svgDispatch : null;
 	    if (chMask & 0x00040) elem.onmousemove   = (bits & 0x00040) ?
-	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
+	        $wnd.__svgDispatch : null;
 	    if (chMask & 0x00080) elem.onactivate     = (bits & 0x00080) ?
-	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
+	        $wnd.__svgDispatch : null;
 	    if (chMask & 0x00100) elem.onclick    = (bits & 0x00100) ?
-	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
+	        $wnd.__svgDispatch : null;
 	    if (chMask & 0x00200) elem.onload       = (bits & 0x00200) ?
-	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
-	    if (chMask & 0x00400) elem.onbegin      = (bits & 0x00400) ?
-	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
-	    if (chMask & 0x00800) elem.onend       = (bits & 0x00800) ?
-	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
+	        $wnd.__svgDispatch : null;
 	    if (chMask & 0x00400) {
 	      if (bits & 0x00400) {
-	       elem.addEventListener('begin', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler, false);
+	       //elem.addEventListener('begin', $wnd.__svgDispatch, false);
+	       elem.setAttribute('onbegin', 'window.__svgDispatch(evt);');
 	      } else {
-	       elem.removeEventListener('begin', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler, false);
+	       //elem.removeEventListener('begin', $wnd.__svgDispatch, false);
+	       elem.removeAttribute('onbegin');
 	      }
 	    }
 	    if (chMask & 0x00800) {
 	      if (bits & 0x00800) {
-	       elem.addEventListener('end', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler, false);
+	       //elem.addEventListener('end', $wnd.__svgDispatch, false);
+	       elem.setAttribute('onend', 'window.__svgDispatch(evt);');
 	      } else {
-	       elem.removeEventListener('end', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler, false);
+	       //elem.removeEventListener('end', $wnd.__svgDispatch, false);
+	       elem.removeAttribute('onend');
 	      }
 	    }
 	    if (chMask & 0x01000) {
 	      if (bits & 0x01000) {
-	       elem.addEventListener('repeat', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler, false);
+	       //elem.addEventListener('repeat', $wnd.__svgDispatch, false);
+	       elem.setAttribute('onrepeat', 'window.__svgDispatch(evt);');
 	      } else {
-	       elem.removeEventListener('repeat', @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler, false);
+	       //elem.removeEventListener('repeat', $wnd.__svgDispatch, false);
+	       elem.removeAttribute('onrepeat');
 	      }
 	    }
 	    if (chMask & 0x02000) elem.onunload = (bits & 0x02000) ?
-	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
+	        $wnd.__svgDispatch : null;
 	    if (chMask & 0x04000) elem.onabort      = (bits & 0x04000) ?
-	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
+	        $wnd.__svgDispatch : null;
 	    if (chMask & 0x08000) elem.onerror       = (bits & 0x08000) ?
-	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
+	        $wnd.__svgDispatch : null;
 	    if (chMask & 0x10000) elem.onresize       = (bits & 0x10000) ?
-	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
+	        $wnd.__svgDispatch : null;
 	    if (chMask & 0x20000) elem.onscroll  = (bits & 0x20000) ? 
-	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
+	        $wnd.__svgDispatch : null;
 	    if (chMask & 0x40000) elem.onzoom = (bits & 0x40000) ? 
-	        @org.vectomatic.dom.svg.impl.DOMHelperImpl::svgHandler : null;
+	        $wnd.__svgDispatch : null;
 	}-*/;
 	
 	/**

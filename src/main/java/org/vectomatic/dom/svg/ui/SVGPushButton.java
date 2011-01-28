@@ -21,8 +21,11 @@ import java.util.Map;
 
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 
-import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.EventTarget;
+import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseEvent;
 import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseUpEvent;
@@ -70,15 +73,65 @@ import com.google.gwt.user.client.Timer;
 @ElementParserToUse(className = "org.vectomatic.dev.svg.impl.gen.SVGButtonBaseParser")
 public class SVGPushButton extends SVGButtonBase {
 	private int repeatDelayMillis;
-	private MouseDownEvent mouseDownEvent;
+	private EventClone mouseDownEvent;
 	private CustomerTimer timer;
 	private class CustomerTimer extends Timer {
 		@Override
 		public void run() {
 			if (mouseDownEvent != null) {
-				svgElement.fireEvent(mouseDownEvent);
+				mouseDownEvent.fireEvent(svgElement.getElement());
 			}
 		}
+	}
+	private static class EventClone {
+		private String type;
+		private int canBubbleArg;
+		private int cancelableArg;
+		private int screenX;
+		private int screenY;
+		private int clientX;
+		private int clientY;
+		private boolean ctrlKey;
+		private boolean altKey;
+		private boolean shiftKey;
+		private boolean metaKey;
+		private int button;
+		private EventTarget relatedEventTarget;
+		public EventClone(MouseEvent<?> mouseEvent) {
+			NativeEvent evt = mouseEvent.getNativeEvent();
+			type = evt.getType();
+			screenX = evt.getScreenX();
+			screenY = evt.getScreenY();
+			clientX = evt.getClientX();
+			clientY = evt.getClientY();
+			ctrlKey = evt.getCtrlKey();
+			altKey = evt.getAltKey();
+			shiftKey = evt.getShiftKey();
+			metaKey = evt.getMetaKey();
+			button = evt.getButton();
+			relatedEventTarget = evt.getRelatedEventTarget();
+		}
+
+		public final native void fireEvent(Element element) /*-{
+		   var evt = element.ownerDocument.createEvent("MouseEvents");
+		   evt.initMouseEvent(
+				  this.@org.vectomatic.dom.svg.ui.SVGPushButton.EventClone::type, 
+				  true, 
+				  true, 
+				  $wnd,
+				  0, 
+				  this.@org.vectomatic.dom.svg.ui.SVGPushButton.EventClone::screenX, 
+				  this.@org.vectomatic.dom.svg.ui.SVGPushButton.EventClone::screenY, 
+				  this.@org.vectomatic.dom.svg.ui.SVGPushButton.EventClone::clientX, 
+				  this.@org.vectomatic.dom.svg.ui.SVGPushButton.EventClone::clientY, 
+				  this.@org.vectomatic.dom.svg.ui.SVGPushButton.EventClone::ctrlKey, 
+				  this.@org.vectomatic.dom.svg.ui.SVGPushButton.EventClone::altKey, 
+				  this.@org.vectomatic.dom.svg.ui.SVGPushButton.EventClone::shiftKey,
+				  this.@org.vectomatic.dom.svg.ui.SVGPushButton.EventClone::metaKey,
+				  this.@org.vectomatic.dom.svg.ui.SVGPushButton.EventClone::button, 
+				  this.@org.vectomatic.dom.svg.ui.SVGPushButton.EventClone::relatedEventTarget);
+			element.dispatchEvent(evt);
+		}-*/;
 	}
 	public SVGPushButton() {
 	}
@@ -114,7 +167,7 @@ public class SVGPushButton extends SVGButtonBase {
 //		GWT.log("onMouseDown");
 		if (isEnabled()) {
 			if (timer == null && repeatDelayMillis > 0) {
-				mouseDownEvent = event;
+				mouseDownEvent = new EventClone(event);
 				timer = new CustomerTimer();
 				timer.scheduleRepeating(repeatDelayMillis);
 			}

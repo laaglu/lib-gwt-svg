@@ -273,6 +273,7 @@ public class OMNode implements HasHandlers {
 			if ($wnd.otToWrapper == null) {
 		    	$wnd.otToWrapper = new Object();
 		    }
+			$wnd.otToWrapper["NodeList"] = function(elem) { return @org.vectomatic.dom.svg.OMNodeList::new(Lcom/google/gwt/dom/client/NodeList;)(elem); };
 			$wnd.otToWrapper["SVGLengthList"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGLengthList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(elem); };
 			$wnd.otToWrapper["SVGNumberList"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGNumberList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(elem); };
 			$wnd.otToWrapper["SVGPathSegList"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGPathSegList::new(Lcom/google/gwt/core/client/JavaScriptObject;)(elem); };
@@ -396,6 +397,18 @@ public class OMNode implements HasHandlers {
 		Node lastChild = ot.getLastChild();
 		return (lastChild != null) ? convert(lastChild) : null;
 	}
+	
+	/**
+     * Returns the local part of the qualified name of this node.
+     * <br>For nodes of any type other than <code>ELEMENT_NODE</code> and 
+     * <code>ATTRIBUTE_NODE</code> and nodes created with a DOM Level 1 
+     * method, such as <code>Document.createElement()</code>, this is always 
+     * <code>null</code>.
+     * @return The local part of the qualified name of this node
+     */
+	public final String getLocalName() {
+		return DOMHelper.getLocalName(ot);
+	}
 
     /**
      * The node immediately preceding this node. If there is no such node, 
@@ -407,6 +420,25 @@ public class OMNode implements HasHandlers {
 		return (previousSibling != null) ? convert(previousSibling) : null;
 	}
 
+	/**
+     * The namespace URI of the specified node, or <code>null</code> if it is 
+     * unspecified (see ).
+     * <br>This is not a computed value that is the result of a namespace 
+     * lookup based on an examination of the namespace declarations in 
+     * scope. It is merely the namespace URI given at creation time.
+     * <br>For nodes of any type other than <code>ELEMENT_NODE</code> and 
+     * <code>ATTRIBUTE_NODE</code> and nodes created with a DOM Level 1 
+     * method, such as <code>Document.createElement()</code>, this is always 
+     * <code>null</code>.
+     * <p ><b>Note:</b> Per the <em>Namespaces in XML</em> Specification [<a href='http://www.w3.org/TR/1999/REC-xml-names-19990114/'>XML Namespaces</a>]
+     *  an attribute does not inherit its namespace from the element it is 
+     * attached to. If an attribute is not explicitly given a namespace, it 
+     * simply has no namespace.
+     * @return The namespace URI of this node
+     */
+	public String getNamespaceURI() {
+		return DOMHelper.getNamespaceURI(ot);
+	}
     /**
      * The node immediately following this node. If there is no such node, 
      * this returns <code>null</code>.

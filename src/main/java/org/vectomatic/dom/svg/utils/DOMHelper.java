@@ -289,7 +289,7 @@ public class DOMHelper {
      *   <code>data</code>, or if the specified <code>count</code> is 
      *   negative.
      *   <br>DOMSTRING_SIZE_ERR: Raised if the specified range of text does 
-     *   not fit into a <code>DOMString</code>.
+     *   not fit into a <code>String</code>.
      */
 	public static final native String substringData(Text text, int offset, int count) throws JavaScriptException /*-{
 	  return text.substringData(offset, count);
@@ -298,9 +298,9 @@ public class DOMHelper {
     /**
      * Append the string to the end of the character data of the node. Upon 
      * success, <code>data</code> provides access to the concatenation of 
-     * <code>data</code> and the <code>DOMString</code> specified.
+     * <code>data</code> and the <code>String</code> specified.
      * @param text the text node
-     * @param arg The <code>DOMString</code> to append.
+     * @param arg The <code>String</code> to append.
      * @exception DOMException
      *   NO_MODIFICATION_ALLOWED_ERR: Raised if this node is readonly.
      */

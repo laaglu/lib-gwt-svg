@@ -42,6 +42,14 @@ public class OMText extends OMNode {
 	protected OMText(Text ot) {
 		super(ot);
 	}
+	
+	/**
+	 * Returns the wrapped {@link com.google.gwt.dom.client.Text}
+	 * @return the wrapped {@link com.google.gwt.dom.client.Text}
+	 */
+	public Text getText() {
+		return ot.cast();
+	}
 
 	// Implementation of the dom::CharacterData W3C IDL interface
     /**
