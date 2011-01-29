@@ -476,6 +476,17 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
 	return line;
   }
   /**
+   * Creates an {@link org.vectomatic.dom.svg.OMSVGLineElement} object in this
+   * document but does not attach it to the document tree. 
+   * The object is initialized to the specified endpoints.
+   * @param p1 the first endpoint
+   * @param p2 the the second endpoint
+   * @return An {@link org.vectomatic.dom.svg.OMSVGLineElement} object.
+   */
+  public final OMSVGLineElement createSVGLineElement(OMSVGPoint p1, OMSVGPoint p2) {
+	return createSVGLineElement(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+  }
+  /**
    * Creates an {@link org.vectomatic.dom.svg.OMSVGRectElement} object in this
    * document but does not attach it to the document tree. 
    * The object is initialized to the specified coordinates, size and

@@ -312,4 +312,47 @@ public class OMSVGLineElement extends OMSVGElement implements HasGraphicalHandle
   public final HandlerRegistration addFocusOutHandler(FocusOutHandler handler) {
     return addDomHandler(handler, FocusOutEvent.getType());
   }
+  
+  // Helper methods
+  /**
+   * Computes the intersection point between this line and the tangent
+   * perpendicular to this line through p. The intersection is
+   * returned in parametric form. If one considers the parametric
+   * equation of this line to be: 
+   * <pre>P = P1 + t * (P2 - P1)</pre>
+   * then this method returns the value of t at the intersection point.
+   * @param p The point which defines the tangent.
+   * @return the parametric value of the intersection point.
+   */
+  public final float parametricIntersection(OMSVGPoint p) {
+    return ((SVGLineElement)ot).parametricIntersection(p);
+  }
+  /**
+   * Computes the intersection point between this line and the tangent
+   * perpendicular to this line through p. 
+   * @param p The point which defines the tangent.
+   * @return the intersection point.
+   */
+  public final OMSVGPoint intersectionPoint(OMSVGPoint p) {
+    return ((SVGLineElement)ot).intersectionPoint(p);
+  }
+  /**
+   * Computes the intersection point between this line and the tangent
+   * perpendicular to this line through p and puts the
+   * result in the specified destination point.
+   * @param p The point which defines the tangent.
+   * @param destination The point where to store the result.
+   * @return the intersection point.
+   */
+  public final OMSVGPoint intersectionPoint(OMSVGPoint p, OMSVGPoint destination) {
+    return ((SVGLineElement)ot).intersectionPoint(p);
+  }
+  /**
+   * Computes the distance from the specified point to this line.
+   * @param p A point in the plane
+   * @return the distance to this line.
+   */
+  public final float distanceToLine(OMSVGPoint p) {
+    return ((SVGLineElement)ot).distanceToLine(p);
+  }
 }

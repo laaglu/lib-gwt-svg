@@ -115,7 +115,7 @@ public class OMSVGPoint extends JavaScriptObject {
   }
   /**
    * Adds the specified point to this point and puts the
-   * result is the specified destination point. The points
+   * result in the specified destination point. The points
    * are treated by this method as 2D vectors.
    * @param p the point to add. 
    * @param destination the destination point.
@@ -137,7 +137,7 @@ public class OMSVGPoint extends JavaScriptObject {
   }
   /**
    * Substracts the specified point to this point and puts the
-   * result is the specified destination point. The points
+   * result in the specified destination point. The points
    * are treated by this method as 2D vectors.
    * @param p the point to substract. 
    * @param destination the destination point.
@@ -159,7 +159,7 @@ public class OMSVGPoint extends JavaScriptObject {
   }
   /**
    * Scales this point by the specified factor and puts the
-   * result is the specified destination point. The points
+   * result in the specified destination point. The points
    * are treated by this method as 2D vectors.
    * @param f scale factor. 
    * @param destination the destination point.
@@ -192,7 +192,7 @@ public class OMSVGPoint extends JavaScriptObject {
   }
   /**
    * Multiplies this point by the specified point and puts the
-   * result is the specified destination point. The points
+   * result in the specified destination point. The points
    * are treated by this method as 2D vectors.
    * @param p the point to multiply by. 
    * @param destination the destination point.
@@ -230,7 +230,7 @@ public class OMSVGPoint extends JavaScriptObject {
   }
   /**
    * Applies the <code>Math.round()</code> to the coordinated of this 
-   * point and puts the result is the specified destination point.
+   * point and puts the result in the specified destination point.
    * @param destination the destination point.
    * @return the destination point.
    */
@@ -248,7 +248,7 @@ public class OMSVGPoint extends JavaScriptObject {
   }
   /**
    * Applies the <code>Math.floor()</code> to the coordinated of this 
-   * point and puts the result is the specified destination point.
+   * point and puts the result in the specified destination point.
    * @param destination the destination point.
    * @return the destination point.
    */

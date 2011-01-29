@@ -33,6 +33,7 @@ import org.vectomatic.dom.svg.OMSVGAnimatedBoolean;
 import org.vectomatic.dom.svg.OMSVGAnimatedLength;
 import org.vectomatic.dom.svg.OMSVGAnimatedTransformList;
 import org.vectomatic.dom.svg.OMSVGMatrix;
+import org.vectomatic.dom.svg.OMSVGPoint;
 import org.vectomatic.dom.svg.OMSVGRect;
 import org.vectomatic.dom.svg.OMSVGStringList;
 
@@ -245,4 +246,62 @@ public class SVGLineElement extends SVGElement {
     return this.transform;
   }-*/;
 
+  // Helper methods
+  /**
+   * Computes the intersection point between this line and the tangent
+   * perpendicular to this line through p. The intersection is
+   * returned in parametric form. If one considers the parametric
+   * equation of this line to be: 
+   * <pre>P = P1 + t * (P2 - P1)</pre>
+   * then this method returns the value of t at the intersection point.
+   * @param p The point which defines the tangent.
+   * @return the parametric value of the intersection point.
+   */
+  public final native float parametricIntersection(OMSVGPoint p) /*-{
+  	var x1 = this.x1.baseVal.value;
+  	var y1 = this.y1.baseVal.value;
+  	var x2 = this.x2.baseVal.value;
+  	var y2 = this.y2.baseVal.value;
+	var dx = x2 - x1;
+	var dy = y2 - y1;
+	return ((p.x - x1)*(x2 - x1) + (p.y - y1)*(y2 - y1))/(dx * dx + dy * dy);
+  }-*/;
+  /**
+   * Computes the intersection point between this line and the tangent
+   * perpendicular to this line through p. 
+   * @param p The point which defines the tangent.
+   * @return the intersection point.
+   */
+  public final OMSVGPoint intersectionPoint(OMSVGPoint p) {
+	OMSVGPoint destination = getOwnerSVGElement().createSVGPoint();
+    return intersectionPoint(p,destination);
+  }
+  /**
+   * Computes the intersection point between this line and the tangent
+   * perpendicular to this line through p and puts the
+   * result in the specified destination point.
+   * @param p The point which defines the tangent.
+   * @param destination The point where to store the result.
+   * @return the intersection point.
+   */
+  public final OMSVGPoint intersectionPoint(OMSVGPoint p, OMSVGPoint destination) {
+    float u = parametricIntersection(p);
+    float x1 = getX1().getBaseVal().getValue();
+    float y1 = getY1().getBaseVal().getValue();
+    float x2 = getX2().getBaseVal().getValue();
+    float y2 = getY2().getBaseVal().getValue();
+    float dx = x2 - x1;
+    float dy = y2 - y1;
+    destination.setX(x1 + u * dx);
+    destination.setY(y1 + u * dy);
+    return destination;
+  }
+  /**
+   * Computes the distance from the specified point to this line.
+   * @param p A point in the plane
+   * @return the distance to this line.
+   */
+  public final float distanceToLine(OMSVGPoint p) {
+	return p.distance(intersectionPoint(p));
+  }
 }
