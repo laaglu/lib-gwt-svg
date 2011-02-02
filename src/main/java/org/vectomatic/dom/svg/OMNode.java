@@ -47,7 +47,10 @@ import com.google.gwt.event.shared.UmbrellaException;
 import com.google.gwt.user.client.Element;
 
 /**
- * Wrapper class for DOM Node
+ * Wrapper class for DOM Node. Wrapper classes decorate native
+ * DOM objects with java-like capabilities: capability to implement
+ * interfaces, notably event handler interfaces. Wrapper classes
+ * must not add additional state of their own.
  * @author laaglu
  */
 public class OMNode implements HasHandlers {
@@ -67,6 +70,25 @@ public class OMNode implements HasHandlers {
 	protected OMNode(Node node) {
 		this.ot = node;
 	}
+	
+	/**
+	 * Tests equality of two wrapper types.
+	 * Two wrapper types are considered equal if they
+	 * wrap the same native DOM object.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof OMNode) {
+			return ot.equals(((OMNode)obj).ot);
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return ot.hashCode();
+	}
+	
 	/**
 	 * Returns the event bus shared by all SVG objects
 	 * @return the event bus shared by all SVG objects
@@ -85,7 +107,7 @@ public class OMNode implements HasHandlers {
      */
 	public void fireEvent(GwtEvent<?> event) {
 		revive(event);
-		eventBus.fireEventFromSource(event, ot);
+		eventBus.fireEventFromSource(event, this);
 	}
 	/**
 	 * Revive the event. GWT does it by taking advantage of the
@@ -119,7 +141,7 @@ public class OMNode implements HasHandlers {
 		assert handler != null : "handler must not be null";
 		assert type != null : "type must not be null";
 		DOMHelper.bindEventListener(this, (Element)ot.cast(), type.getName());
-		return eventBus.addHandlerToSource(type, ot, handler);
+		return eventBus.addHandlerToSource(type, this, handler);
 	}
 
 	/**
@@ -131,7 +153,7 @@ public class OMNode implements HasHandlers {
 	 */
 	public final <H extends EventHandler> HandlerRegistration addHandler(
 			final H handler, GwtEvent.Type<H> type) {
-		return eventBus.addHandlerToSource(type, ot, handler);
+		return eventBus.addHandlerToSource(type, this, handler);
 	}
 
 	private static class Conversion<T extends OMNode> {
