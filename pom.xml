@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -9,7 +8,7 @@
   	<groupId>org.vectomatic</groupId>
 	<artifactId>lib-gwt-svg</artifactId>
 	<packaging>jar</packaging>
-	<version>0.5.1-SNAPSHOT</version>
+	<version>0.5.1</version>
 	<name>lib-gwt-svg</name>
 	<description>A GWT library to access the SVG functionalities of web browsers</description>
 	<url>http://www.vectomatic.org/lib-gwt-svg</url>
@@ -20,9 +19,9 @@
 		</license>
 	</licenses>
 	<scm>
-		<url>http://code.google.com/p/vectomatic/source/browse/#svn/lib-gwt-svg/trunk</url>
-		<connection>scm:svn:http://vectomatic.googlecode.com/svn/lib-gwt-svg/trunk</connection>
-		<developerConnection>scm:svn:file:///home/laaglu/svn/laaglu-svn/gwt/lib-gwt-svg/trunk</developerConnection>
+		<url>http://code.google.com/p/vectomatic/source/browse/#svn/lib-gwt-svg/tags/0.5.1</url>
+		<connection>scm:svn:http://vectomatic.googlecode.com/svn/lib-gwt-svg/tags/0.5.1</connection>
+		<developerConnection>scm:svn:file:///home/laaglu/svn/laaglu-svn/gwt/lib-gwt-svg/tags/0.5.1</developerConnection>
 	</scm>
 	<developers>
 		<developer>
