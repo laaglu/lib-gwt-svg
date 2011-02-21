@@ -22,7 +22,7 @@
 	<scm>
 		<url>http://code.google.com/p/vectomatic/source/browse/#svn/lib-gwt-svg/trunk</url>
 		<connection>scm:svn:http://vectomatic.googlecode.com/svn/lib-gwt-svg/trunk</connection>
-		<developerConnection>scm:svn:file:///home/laaglu/svn/laaglu-svn/gwt/lib-gwt-svg/trunk</developerConnection>
+		<developerConnection>scm:svn:file:///home/laaglu/svn/laaglu-svn/lib-gwt-svg/trunk</developerConnection>
 	</scm>
 	<developers>
 		<developer>
