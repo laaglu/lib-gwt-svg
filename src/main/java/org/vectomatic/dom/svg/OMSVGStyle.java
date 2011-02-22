@@ -36,9 +36,9 @@ public class OMSVGStyle extends Style {
 	 * revert to its default.
  	 * @param name The property name
      */
-	public final native void clearSVGProperty(String name) /*-{
+	public final void clearSVGProperty(String name) {
 		setPropertyImpl(name, "");
-	}-*/;
+	}
 
 	/**
 	 * Gets the value of a named property.
