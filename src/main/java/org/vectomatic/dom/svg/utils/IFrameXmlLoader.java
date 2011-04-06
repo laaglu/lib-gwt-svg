@@ -65,7 +65,7 @@ public class IFrameXmlLoader implements AsyncXmlLoader {
 	private native void setFrameLocation(String resourceName, IFrameElement iframe, AsyncXmlLoaderCallback callback) /*-{
 		var gwtThis = this;
 		iframe.onload = function(evt) {
-		  gwtThis.@org.vectomatic.svg.edu.client.commons.IFrameXmlLoader::dispatch(Lcom/google/gwt/dom/client/NativeEvent;Lorg/vectomatic/svg/edu/client/commons/AsyncXmlLoaderCallback;)(evt,callback);
+		  gwtThis.@org.vectomatic.dom.svg.utils.IFrameXmlLoader::dispatch(Lcom/google/gwt/dom/client/NativeEvent;Lorg/vectomatic/dom/svg/utils/AsyncXmlLoaderCallback;)(evt,callback);
 		}
 		iframe.contentDocument.location.href = resourceName;
 	}-*/;
