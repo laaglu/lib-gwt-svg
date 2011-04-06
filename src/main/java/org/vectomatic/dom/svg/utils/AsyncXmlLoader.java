@@ -25,8 +25,8 @@ package org.vectomatic.dom.svg.utils;
  * directly with no specific configuration.</p>
  * <p>If you want to develop a GWT application which can be run
  * either as a regular web application or as a plasmoid / opera control,
- * you will create instances of this type by calling
- * <pre>IFrameXmlLoader loader = GWT.create(IFrameXmlLoader.class)</pre>
+ * you will create instances of this type by calling:
+ * <pre>AsyncXmlLoader loader = GWT.create(AsyncXmlLoader.class)</pre>
  * then use the proper GWT configuration to control which implementation
  * gets instantiated.
  * </p>
@@ -41,6 +41,21 @@ package org.vectomatic.dom.svg.utils;
  * &lt;replace-with class="org.vectomatic.dom.svg.utils.IFrameXmlLoader"&gt;
  *  &lt;when-type-is class="org.vectomatic.dom.svg.utils.AsyncXmlLoader" /&gt;
  * &lt;/replace-with&gt;
+ * </pre>
+ * <p>For instance, if you want to load an SVG image located
+ * in the <b>public</b> directory of your GWT
+ * application, you should make the following call:</p>
+ * <pre>
+ * AsyncXmlLoader loader = ...;
+ * String resourceName = "foo.svg";
+ * loader.loadResource(GWT.getModuleBaseURL() + "/" + resourceName, new AsyncXmlLoaderCallback() {
+ *	public void onSuccess(String resourceName, Element root) {
+ *	 RootPanel.get().add(new SVGImage(OMNode.&lt;OMSVGSVGElement&gt;convert(root)));
+ *	}
+ *	public void onError(String resourceName, Throwable error) {
+ *	 GWT.log("Cannot load " + resourceName, error);
+ *	}
+ * });
  * </pre>
  */
 public interface AsyncXmlLoader {
