@@ -41,7 +41,7 @@ import com.google.gwt.user.rebind.StringSourceWriter;
 
 /**
  * Implementation of ExternalSVGResource derived from Google's original
- * ExternalSVGResourceGenerator implementation
+ * ExternalTextResourceGenerator implementation
  * @author laaglu
  */
 public class ExternalSVGResourceGenerator extends AbstractResourceGenerator {

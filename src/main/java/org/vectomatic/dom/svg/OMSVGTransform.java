@@ -266,4 +266,24 @@ public class OMSVGTransform extends JavaScriptObject {
 	}
 	return builder.toString();
   }
+  /**
+   * Specifies a scaling transform around a center point. 
+   * The resulting transform type is set to SVG_TRANSFORM_MATRIX.
+   * @param sx The scale amount in X.
+   * @param sy The scale amount in Y.
+   * @param tx The X coordinate of the scaling center.
+   * @param ty The Y coordinate of the scaling center.
+   * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) Raised on an attempt
+   * to change the value of a <a href="svgdom.html#ReadOnlyNodes">read only
+   * attribute</a>.
+   */
+  public final void setScale(float sx, float sy, float tx, float ty) throws JavaScriptException {
+    OMSVGMatrix m = getMatrix();
+    m.setA(sx);
+    m.setB(0);
+    m.setC(0);
+    m.setD(sy);
+    m.setE(tx * ( 1 - sx ));
+    m.setF(ty * ( 1 - sy ));
+  }
 }
