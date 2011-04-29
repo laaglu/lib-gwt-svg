@@ -47,9 +47,22 @@ public abstract class SVGWidget extends Widget {
 		return OMNode.convert(elt);
 	}
 	
-	private static native Element getUiBinderField_(Element svgElement, String expr) /*-{
-		var result = $doc.evaluate(expr, svgElement, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE , null);
-		return result.iterateNext();
-	}-*/;
+//	private static native Element getUiBinderField_(Element svgElement, String expr) /*-{
+//		var result = $doc.evaluate(expr, svgElement, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE , null);
+//		return result.iterateNext();
+//	}-*/;
 
+	private static Element getUiBinderField_(Element svgElement, String expr) {
+		for (String str : expr.split("([/\\.\\[\\]\\*])+")) {
+			if (str.length() > 0) {
+				int index = Integer.parseInt(str);
+				svgElement = svgElement.getFirstChildElement();
+				while (index > 1) {
+					svgElement = svgElement.getNextSiblingElement();
+					index--;
+				}
+			}
+		}
+		return svgElement;
+	}
 }
