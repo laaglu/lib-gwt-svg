@@ -305,7 +305,7 @@ public class DOMHelperImpl {
 	 * True if the node is part of the subtree, false otherwise
 	 */
 	protected native boolean isChildOf(Node root, Node node) /*-{
-		while (node != root && node.nodeName != 'BODY') {
+		while (node != null && node != root && node.nodeName != 'BODY') {
 			node= node.parentNode
 		}
 		if (node === root) {
