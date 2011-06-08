@@ -29,8 +29,9 @@
 
 package org.vectomatic.dom.svg;
 
+import java.util.List;
+
 import com.google.gwt.core.client.JavaScriptException;
-import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * The {@link org.vectomatic.dom.svg.OMSVGICCColor} interface expresses an
@@ -38,8 +39,12 @@ import com.google.gwt.core.client.JavaScriptObject;
  * interface is deprecated, and may be dropped from future versions of the
  * SVG specification.</p>
  */
-public class OMSVGICCColor extends JavaScriptObject {
-  protected OMSVGICCColor() {
+public class OMSVGICCColor {
+  private String colorProfile;
+  private List<Integer> colors;
+  public OMSVGICCColor(String colorProfile, List<Integer> colors) {
+    this.colorProfile = colorProfile;
+    this.colors = colors;
   }
 
   // Implementation of the svg::SVGICCColor W3C IDL interface
@@ -47,9 +52,9 @@ public class OMSVGICCColor extends JavaScriptObject {
    * The name of the color profile, which is the first parameter of an ICC color
    * specification.
    */
-  public final native String getColorProfile() /*-{
+  public final String getColorProfile() {
     return this.colorProfile;
-  }-*/;
+  }
   /**
    * The name of the color profile, which is the first parameter of an ICC color
    * specification.
@@ -57,15 +62,25 @@ public class OMSVGICCColor extends JavaScriptObject {
    * to change the value of a <a href="svgdom.html#ReadOnlyNodes">read only
    * attribute</a>.
    */
-  public final native void setColorProfile(String value) throws JavaScriptException /*-{
+  public final void setColorProfile(String value) throws JavaScriptException {
     this.colorProfile = value;
-  }-*/;
+  }
   /**
    * The list of color values that define this ICC color. Each color value is
    * an arbitrary floating point number.
    */
-  public final native OMSVGNumberList getColors() /*-{
-    return @org.vectomatic.dom.svg.OMNode::convertList(Lcom/google/gwt/core/client/JavaScriptObject;)(this.colors);
-  }-*/;
-
+  public final OMSVGNumberList getColors() {
+	return null;
+  }
+  @Override
+  public String toString() {
+	StringBuilder builder = new StringBuilder("OMSVGICCColor(");
+	builder.append(colorProfile);
+	if (colors != null) {
+	  builder.append(", ");
+	  builder.append(colors);
+	}
+    builder.append(")");
+	return builder.toString();
+  }
 }

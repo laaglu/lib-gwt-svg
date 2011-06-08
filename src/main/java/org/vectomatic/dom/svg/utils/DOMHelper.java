@@ -34,9 +34,11 @@ import java.util.NoSuchElementException;
 import org.vectomatic.dom.svg.OMElement;
 import org.vectomatic.dom.svg.OMNode;
 import org.vectomatic.dom.svg.OMSVGElement;
+import org.vectomatic.dom.svg.OMSVGPaint;
 import org.vectomatic.dom.svg.impl.Attr;
 import org.vectomatic.dom.svg.impl.DOMHelperImpl;
 import org.vectomatic.dom.svg.impl.NamedNodeMap;
+import org.vectomatic.dom.svg.impl.SVGPaintParser;
 import org.w3c.dom.DOMException;
 
 import com.google.gwt.core.client.GWT;
@@ -856,4 +858,18 @@ public class DOMHelper {
 		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.BOOLEAN_TYPE , null);
 		return result.booleanValue;
 	}-*/;
+	
+	/**
+	 * Parses an SVG paint value. SVG paint value are
+	 * used for the 'fill' and the 'stroke' SVG attributes.
+	 * @param cssText
+	 * The value to parse
+	 * @return
+	 * The resulting paint object
+	 * @throws JavaScriptException
+	 * If the string to parse is not a valid paint value
+	 */
+	public static OMSVGPaint parse(String cssText) throws JavaScriptException {
+		return SVGPaintParser.INSTANCE.parse(cssText);
+	}
 }

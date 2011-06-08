@@ -182,7 +182,7 @@ public interface SVGConstants {
     String CSS_CRIMSON_VALUE = "crimson";
     String CSS_CRISPEDGES_VALUE = "crispedges";
     String CSS_CROSSHAIR_VALUE = "crosshair";
-    String CSS_CURRENTCOLOR_VALUE = "currentcolor";
+    String CSS_CURRENTCOLOR_VALUE = "currentColor";
     String CSS_CURSIVE_VALUE = "cursive";
     String CSS_CYAN_VALUE = "cyan";
     String CSS_DARKBLUE_VALUE = "darkblue";
