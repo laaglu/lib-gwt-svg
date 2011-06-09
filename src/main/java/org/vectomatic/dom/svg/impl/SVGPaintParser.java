@@ -58,8 +58,8 @@ import com.google.gwt.regexp.shared.RegExp;
  * @author laaglu
  */
 public class SVGPaintParser {
-	private static final OMSVGPaint NONE = new OMSVGPaint(OMSVGPaint.SVG_PAINTTYPE_NONE);
-	private static final OMSVGPaint CURRENT_COLOR = new OMSVGPaint(OMSVGPaint.SVG_PAINTTYPE_CURRENTCOLOR);
+	public static final OMSVGPaint NONE = new OMSVGPaint(OMSVGPaint.SVG_PAINTTYPE_NONE);
+	public static final OMSVGPaint CURRENT_COLOR = new OMSVGPaint(OMSVGPaint.SVG_PAINTTYPE_CURRENTCOLOR);
 	private static Map<String, String> nameToColor;
 	private static final String I255 = "25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9]";
 	private static final String I100 = "[0-9]|[1-9][0-9]?|100";
