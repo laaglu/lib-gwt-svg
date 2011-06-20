@@ -29,6 +29,8 @@
 
 package org.vectomatic.dom.svg;
 
+import org.vectomatic.dom.svg.utils.SVGConstants;
+
 import com.google.gwt.core.client.JavaScriptException;
 
 /**
@@ -93,7 +95,59 @@ public class OMSVGPaint extends OMSVGColor {
   
   public OMSVGPaint(short paintType) {
 	  this.paintType = paintType;
+	  switch(paintType) {
+		  case SVG_PAINTTYPE_NONE:
+			  cssText = SVGConstants.CSS_NONE_VALUE;
+			  break;
+		  case SVG_PAINTTYPE_CURRENTCOLOR:
+			  cssText = SVGConstants.CSS_CURRENTCOLOR_VALUE;
+			  colorType = SVG_COLORTYPE_CURRENTCOLOR;
+			  break;
+	  }
   }
+  
+  @Override
+  public int hashCode() {
+	  int hashCode = paintType;
+	  if (rgbColor != null) {
+		  hashCode += rgbColor.hashCode();
+	  }
+	  if (iccColor != null) {
+		  hashCode += iccColor.hashCode();
+	  }
+	  if (uri != null) {
+		  hashCode += uri.hashCode();
+	  }
+	  return hashCode;
+  }
+  
+  @Override
+  public boolean equals(Object obj) {
+	  if (obj instanceof OMSVGPaint) {
+		  OMSVGPaint p = (OMSVGPaint)obj;
+		  if (paintType == p.paintType) {
+			  switch (paintType) {
+			  case SVG_PAINTTYPE_NONE:
+			  case SVG_PAINTTYPE_CURRENTCOLOR:
+				  return true;
+			  case SVG_PAINTTYPE_RGBCOLOR:
+				  return rgbColor.equals(p.rgbColor);
+			  case SVG_PAINTTYPE_RGBCOLOR_ICCCOLOR:
+				  return rgbColor.equals(p.rgbColor) && iccColor.equals(p.iccColor);
+			  case SVG_PAINTTYPE_URI:
+			  case SVG_PAINTTYPE_URI_NONE:
+				  return uri.equals(p.uri);
+			  case SVG_PAINTTYPE_URI_RGBCOLOR:
+				  return uri.equals(p.uri) && rgbColor.equals(p.rgbColor);
+			  case SVG_PAINTTYPE_URI_RGBCOLOR_ICCCOLOR:
+				  return uri.equals(p.uri) && rgbColor.equals(p.rgbColor) && iccColor.equals(p.iccColor);
+		  }
+	   }
+	}
+	return false;
+  }
+  
+  
 
   // Implementation of the svg::SVGPaint W3C IDL interface
   /**
@@ -151,13 +205,14 @@ public class OMSVGPaint extends OMSVGColor {
 	} else if (paintType == SVG_PAINTTYPE_URI) {
 	    this.rgbColor = null;
 	    this.iccColor = null;
+	    this.cssText = "url(" + uri + ")";
 	} else {
 	  throw new JavaScriptException("Invalid paint spec");
 	}
 	this.paintType = paintType;
     this.uri = uri;
-    if (cssText != null && uri != null) {
-      cssText = uri + " " + cssText;
+    if (paintType != SVG_PAINTTYPE_URI && cssText != null && uri != null) {
+      cssText = "url(" + uri + ") " + cssText;
     }
   }
   

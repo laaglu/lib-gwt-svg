@@ -138,11 +138,11 @@ public class OMSVGColor extends OMCSSValue {
    * has an invalid value.
    */
   public final void setColor(short colorType, String rgbColor, String iccColor) throws JavaScriptException {
-	  //GWT.log("OMSVGColor.setColor(" + colorType + ", '" + rgbColor + "', '" + iccColor + "')");
+//	  GWT.log("OMSVGColor.setColor(" + colorType + ", '" + rgbColor + "', '" + iccColor + "')");
 	  if (colorType == SVG_COLORTYPE_RGBCOLOR_ICCCOLOR && iccColor != null && rgbColor != null) {
 		this.iccColor = SVGPaintParser.INSTANCE.iccColor(iccColor);
 		this.rgbColor = SVGPaintParser.INSTANCE.rgbColor(rgbColor);
-		setCssText(rgbColor + " " + iccColor);
+		setCssText(rgbColor.trim() + " " + iccColor);
 	  } else if (colorType == SVG_COLORTYPE_RGBCOLOR && rgbColor != null && iccColor == null) {
 		this.iccColor = null;
 		this.rgbColor = SVGPaintParser.INSTANCE.rgbColor(rgbColor);

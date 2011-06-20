@@ -42,6 +42,22 @@ public class OMRGBColor {
 	green = new OMCSSPrimitiveValue(g);
 	blue = new OMCSSPrimitiveValue(b);
   }
+  
+  @Override
+  public int hashCode() {
+	return (int)red.getFloatValue(OMCSSPrimitiveValue.CSS_NUMBER) + 256 * (int)green.getFloatValue(OMCSSPrimitiveValue.CSS_NUMBER) + 65536 * (int)blue.getFloatValue(OMCSSPrimitiveValue.CSS_NUMBER);
+  }
+  
+  @Override
+  public boolean equals(Object obj) {
+	  if (obj instanceof OMRGBColor) {
+		  OMRGBColor c = (OMRGBColor)obj;
+		  return red.getFloatValue(OMCSSPrimitiveValue.CSS_NUMBER) == c.getRed().getFloatValue(OMCSSPrimitiveValue.CSS_NUMBER)
+		  	&& green.getFloatValue(OMCSSPrimitiveValue.CSS_NUMBER) == c.getGreen().getFloatValue(OMCSSPrimitiveValue.CSS_NUMBER)
+		  	&& blue.getFloatValue(OMCSSPrimitiveValue.CSS_NUMBER) == c.getBlue().getFloatValue(OMCSSPrimitiveValue.CSS_NUMBER);
+	  }
+	  return false;
+  }
 
   // Implementation of the css::RGBColor W3C IDL interface
   public final OMCSSPrimitiveValue getRed() {

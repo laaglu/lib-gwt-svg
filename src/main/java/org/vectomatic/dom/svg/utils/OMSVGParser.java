@@ -18,8 +18,10 @@
 package org.vectomatic.dom.svg.utils;
 
 import org.vectomatic.dom.svg.OMSVGDocument;
+import org.vectomatic.dom.svg.OMSVGPaint;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.impl.SVGDocument;
+import org.vectomatic.dom.svg.impl.SVGPaintParser;
 import org.vectomatic.dom.svg.impl.SVGParserImpl;
 
 import com.google.gwt.core.client.GWT;
@@ -59,5 +61,19 @@ public class OMSVGParser {
 	 */
 	public static final OMSVGSVGElement parse(String rawSvg) throws JavaScriptException {
 		return impl.parse(rawSvg);
+	}
+
+	/**
+	 * Parses an SVG paint value. SVG paint value are
+	 * used for the 'fill' and the 'stroke' SVG attributes.
+	 * @param cssText
+	 * The value to parse
+	 * @return
+	 * The resulting paint object
+	 * @throws JavaScriptException
+	 * If the string to parse is not a valid paint value
+	 */
+	public static OMSVGPaint parsePaint(String cssText) throws JavaScriptException {
+		return SVGPaintParser.INSTANCE.parse(cssText);
 	}
 }

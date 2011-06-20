@@ -41,10 +41,25 @@ import com.google.gwt.core.client.JavaScriptException;
  */
 public class OMSVGICCColor {
   private String colorProfile;
-  private List<Integer> colors;
+  public List<Integer> colors;
   public OMSVGICCColor(String colorProfile, List<Integer> colors) {
     this.colorProfile = colorProfile;
     this.colors = colors;
+  }
+
+  @Override
+  public int hashCode() {
+	return colorProfile.hashCode() + colors.hashCode();
+  }
+  
+  @Override
+  public boolean equals(Object obj) {
+	if (obj instanceof OMSVGICCColor) {
+	  OMSVGICCColor c = (OMSVGICCColor)obj;
+	  return colorProfile.equals(c.colorProfile)
+	  	&& colors.equals(c.colors);
+	}
+	return false;
   }
 
   // Implementation of the svg::SVGICCColor W3C IDL interface
