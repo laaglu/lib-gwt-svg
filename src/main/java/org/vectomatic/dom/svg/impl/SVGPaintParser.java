@@ -72,7 +72,7 @@ public class SVGPaintParser {
 	private static final RegExp RGB255 = RegExp.compile("^rgb\\(" + WS + "(" + I255 + ")" + COMMA + "(" + I255 + ")" + COMMA + "(" + I255 + ")" + WS + "\\)\\s*", "g");
 	private static final RegExp RGBPCT = RegExp.compile("^rgb\\(" + WS + "(" + I100 + ")%" + COMMA + "(" + I100 + ")%" + COMMA + "(" + I100 + ")%" + WS + "\\)\\s*", "g");
 	private static final RegExp RGBHEX = RegExp.compile("^#(" + HEX + "{6}|" + HEX + "{3})\\s*", "g");
-	private static final RegExp FUNCIRI = RegExp.compile("^url\\(([^\\)]*)\\)\\s*", "g");
+	private static final RegExp FUNCIRI = RegExp.compile("^url\\(['\"]?([^\\)'\"]*)['\"]?\\)\\s*", "g");
 	private static final RegExp COLORNAME = RegExp.compile("^([a-z]{3,})(?!\\()\\s*", "g");
 	private static final RegExp ICC = RegExp.compile("icc-color\\(" + WS + "(" + PROFILE + ")(" + INTLIST + ")" + WS + "\\)", "g");
 

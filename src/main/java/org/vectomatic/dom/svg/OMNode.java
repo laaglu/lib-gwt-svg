@@ -254,25 +254,27 @@ public class OMNode implements HasHandlers {
 		}
 		private final native void convert(Node node) /*-{
 			var wrapper = null;
-		    var type = @org.vectomatic.dom.svg.utils.DOMHelper::getType(Lcom/google/gwt/core/client/JavaScriptObject;)(node);
-		    if (type) {
-		    	var ctor = $wnd.otToWrapper[type];
-		    	if (ctor != null) {
-	    			wrapper = ctor(node);
-		    	} else {
-		    		if (node.nodeType == 1) {
-		    			wrapper = @org.vectomatic.dom.svg.OMElement::new(Lcom/google/gwt/dom/client/Element;)(node);
-		    		} else if (node.nodeType == 2) {
-		    			wrapper = @org.vectomatic.dom.svg.OMAttr::new(Lorg/vectomatic/dom/svg/impl/Attr;)(node);
-		    		} else if (node.nodeType == 3) {
-		    			wrapper = @org.vectomatic.dom.svg.OMText::new(Lcom/google/gwt/dom/client/Text;)(node);
-		    		} else if (node.nodeType == 9) {
-		    			wrapper = @org.vectomatic.dom.svg.OMDocument::new(Lcom/google/gwt/dom/client/Document;)(node);
-		    		} else {
-		    			wrapper = @org.vectomatic.dom.svg.OMNode::new(Lcom/google/gwt/dom/client/Node;)(node);
-		    		}
-		    	}
-		    }
+			if (node != null) {
+			    var type = @org.vectomatic.dom.svg.utils.DOMHelper::getType(Lcom/google/gwt/core/client/JavaScriptObject;)(node);
+			    if (type) {
+			    	var ctor = $wnd.otToWrapper[type];
+			    	if (ctor != null) {
+		    			wrapper = ctor(node);
+			    	} else {
+			    		if (node.nodeType == 1) {
+			    			wrapper = @org.vectomatic.dom.svg.OMElement::new(Lcom/google/gwt/dom/client/Element;)(node);
+			    		} else if (node.nodeType == 2) {
+			    			wrapper = @org.vectomatic.dom.svg.OMAttr::new(Lorg/vectomatic/dom/svg/impl/Attr;)(node);
+			    		} else if (node.nodeType == 3) {
+			    			wrapper = @org.vectomatic.dom.svg.OMText::new(Lcom/google/gwt/dom/client/Text;)(node);
+			    		} else if (node.nodeType == 9) {
+			    			wrapper = @org.vectomatic.dom.svg.OMDocument::new(Lcom/google/gwt/dom/client/Document;)(node);
+			    		} else {
+			    			wrapper = @org.vectomatic.dom.svg.OMNode::new(Lcom/google/gwt/dom/client/Node;)(node);
+			    		}
+			    	}
+			    }
+			}
 	        this.@org.vectomatic.dom.svg.OMNode.Conversion::result = wrapper;
 	    }-*/;
 	}

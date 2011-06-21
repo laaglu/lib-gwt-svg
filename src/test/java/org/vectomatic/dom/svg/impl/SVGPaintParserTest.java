@@ -153,7 +153,20 @@ public class SVGPaintParserTest extends TestCase {
 		assertEquals(OMSVGPaint.SVG_PAINTTYPE_URI, p.getPaintType());
 		assertEquals("#foo", p.getUri());
 	}
-	
+
+	public void testUriColorQuotes() {
+		String cssText = "url(\"#foo\")";
+		OMSVGPaint p = SVGPaintParser.INSTANCE.parse(cssText);
+		assertNotNull(p);
+		assertEquals(OMCSSValue.CSS_CUSTOM, p.getCssValueType());
+		assertEquals("url(#foo)", p.getCssText());
+		assertEquals(OMSVGColor.SVG_COLORTYPE_UNKNOWN, p.getColorType());
+		assertNull(p.getIccColor());
+		assertNull(p.getRgbColor());
+		assertEquals(OMSVGPaint.SVG_PAINTTYPE_URI, p.getPaintType());
+		assertEquals("#foo", p.getUri());
+	}
+
 	
 	public void testUriHex6Color() {
 		String cssText = "url(#foo) #abcDe3";
