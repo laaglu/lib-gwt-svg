@@ -217,7 +217,7 @@ public class OMSVGPaint extends OMSVGColor {
   }
   
   @Override
-  public String toString() {
+  public String getDescription() {
 	StringBuilder builder = new StringBuilder("OMSVGPaint(paintType=");
 	builder.append(paintType);
 	builder.append(", uri=");
@@ -225,9 +225,9 @@ public class OMSVGPaint extends OMSVGColor {
 	builder.append(", colorType=");
 	builder.append(colorType);
 	builder.append(", rgbColor=");
-	builder.append(rgbColor);
+	builder.append(rgbColor.getDescription());
 	builder.append(", iccColor=");
-	builder.append(iccColor);
+	builder.append(iccColor.getDescription());
 	builder.append(", cssValueType=");
 	builder.append(cssValueType);
 	builder.append(", cssText=");

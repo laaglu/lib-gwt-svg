@@ -17,6 +17,10 @@
  **********************************************/
 package org.vectomatic.dom.svg;
 
+import org.vectomatic.dom.svg.impl.DashArrayParser;
+import org.vectomatic.dom.svg.impl.SVGPaintParser;
+import org.vectomatic.dom.svg.utils.SVGConstants;
+
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.TagName;
 
@@ -65,4 +69,21 @@ public class OMSVGStyle extends Style {
 	private native void setPropertyImpl(String name, String value) /*-{
 	    this.setProperty(name, value, '');
 	}-*/;
+	
+	/**
+	 * Gets the value of a named property as a CSS value.
+	 * This method can be applied to get the value of the
+	 * 'fill' and 'paint' properties, which will be returned
+	 * as {@link org.vectomatic.dom.svg.OMSVGPaint} values.
+	 * @param name
+	 * The name of CSS property
+	 * @return
+	 * The property value
+	 */
+	public final OMCSSValue getSVGPropertyCSS(String name) {
+		String cssText = getSVGProperty(name);
+		return SVGConstants.CSS_STROKE_DASHARRAY_PROPERTY.equals(name)
+			? DashArrayParser.INSTANCE.parse(cssText)
+			: SVGPaintParser.INSTANCE.parse(cssText);
+	}
 }

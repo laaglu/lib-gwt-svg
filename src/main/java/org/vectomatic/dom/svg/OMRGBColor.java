@@ -69,8 +69,7 @@ public class OMRGBColor {
   public final OMCSSPrimitiveValue getBlue() {
     return this.blue;
   }
-  @Override
-  public String toString() {
+  public String getDescription() {
 	StringBuilder builder = new StringBuilder("OMRGBColor(r=");
 	builder.append(red);
 	builder.append(", g=");

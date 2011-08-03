@@ -64,12 +64,16 @@ public class OMCSSPrimitiveValue extends OMCSSValue {
   public static final short CSS_RGBCOLOR = 25;
   
   private short primitiveType;
-  private float f;
+  private float value;
   protected OMCSSPrimitiveValue(float f) {
+	  this(f, CSS_NUMBER);
+  }
+
+  public OMCSSPrimitiveValue(float value, short primitiveType) {
 	  super(CSS_PRIMITIVE_VALUE);
-	  setCssText(Float.toString(f));
-	  this.f = f;
-	  this.primitiveType = CSS_NUMBER;
+	  setCssText(Float.toString(value));
+	  this.value = value;
+	  this.primitiveType = primitiveType;
   }
 
   // Implementation of the css::CSSPrimitiveValue W3C IDL interface
@@ -77,16 +81,11 @@ public class OMCSSPrimitiveValue extends OMCSSValue {
     return this.primitiveType;
   }
   public final void setFloatValue(short unitType, float floatValue) throws JavaScriptException {
-	if (primitiveType != CSS_NUMBER || unitType != CSS_NUMBER) {
-	  throw new JavaScriptException("incompatible primitive type " + primitiveType);
-	}
-    this.f = floatValue;
+	this.primitiveType = unitType;
+    this.value = floatValue;
   }
   public final float getFloatValue(short unitType) throws JavaScriptException {
-	if (primitiveType != CSS_NUMBER) {
-	  throw new JavaScriptException("incompatible primitive type " + primitiveType);
-	}
-    return f;
+    return value;
   }
   public final void setStringValue(short stringType, String stringValue) throws JavaScriptException {
     this.setStringValue(stringType, stringValue);
@@ -98,11 +97,11 @@ public class OMCSSPrimitiveValue extends OMCSSValue {
     return this.getRGBColorValue();
   }
   @Override
-  public String toString() {
+  public String getDescription() {
 	StringBuilder builder = new StringBuilder("OMCSSPrimitiveValue(primitiveType=");
 	builder.append(primitiveType);
-	builder.append(", f=");
-	builder.append(f);
+	builder.append(", value=");
+	builder.append(value);
 	builder.append(", cssValueType=");
 	builder.append(cssValueType);
 	builder.append(", cssText=");

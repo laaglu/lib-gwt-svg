@@ -34,7 +34,7 @@ package org.vectomatic.dom.svg;
  * Base class for CSS values
  * @author laaglu
  */
-public class OMCSSValue {
+public abstract class OMCSSValue {
   public static final short CSS_INHERIT = 0;
   public static final short CSS_PRIMITIVE_VALUE = 1;
   public static final short CSS_VALUE_LIST = 2;
@@ -55,4 +55,9 @@ public class OMCSSValue {
   public final short getCssValueType() {
     return this.cssValueType;
   }
+  @Override
+  public String toString() {
+	return cssText;
+  }
+  public abstract String getDescription();
 }

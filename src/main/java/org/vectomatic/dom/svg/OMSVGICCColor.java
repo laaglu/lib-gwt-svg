@@ -87,8 +87,8 @@ public class OMSVGICCColor {
   public final OMSVGNumberList getColors() {
 	return null;
   }
-  @Override
-  public String toString() {
+
+  public String getDescription() {
 	StringBuilder builder = new StringBuilder("OMSVGICCColor(");
 	builder.append(colorProfile);
 	if (colors != null) {

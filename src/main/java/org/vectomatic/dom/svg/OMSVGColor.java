@@ -49,7 +49,7 @@ import com.google.gwt.core.client.JavaScriptException;
  * The {@link org.vectomatic.dom.svg.OMSVGColor} interface is deprecated,
  * and may be dropped from future versions of the SVG specification.</p>
  */
-public class OMSVGColor extends OMCSSValue {
+public abstract class OMSVGColor extends OMCSSValue {
 /**
  * The color type is not one of predefined types. It is invalid to attempt
  * to define a new value of this type or to attempt to switch an existing
