@@ -9,6 +9,7 @@ import org.vectomatic.dom.svg.OMCSSPrimitiveValue;
 import org.vectomatic.dom.svg.OMCSSValue;
 import org.vectomatic.dom.svg.OMCSSValueList;
 
+import com.gargoylesoftware.htmlunit.javascript.host.css.CSSPrimitiveValue;
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
@@ -34,15 +35,15 @@ public class DashArrayParser {
 
 	private DashArrayParser() {
 		unitToPrimitiveType = new HashMap<String, Short>();
-		unitToPrimitiveType.put("em", (short)3);
-		unitToPrimitiveType.put("ex", (short)4);
-		unitToPrimitiveType.put("px", (short)5);
-		unitToPrimitiveType.put("in", (short)8);
-		unitToPrimitiveType.put("cm", (short)6);
-		unitToPrimitiveType.put("mm", (short)7);
-		unitToPrimitiveType.put("pt", (short)9);
-		unitToPrimitiveType.put("pc", (short)10);
-		unitToPrimitiveType.put("%", (short)10);
+		unitToPrimitiveType.put("em", CSSPrimitiveValue.CSS_EMS);
+		unitToPrimitiveType.put("ex", CSSPrimitiveValue.CSS_EXS);
+		unitToPrimitiveType.put("px", CSSPrimitiveValue.CSS_PX);
+		unitToPrimitiveType.put("in", CSSPrimitiveValue.CSS_IN);
+		unitToPrimitiveType.put("cm", CSSPrimitiveValue.CSS_CM);
+		unitToPrimitiveType.put("mm", CSSPrimitiveValue.CSS_MM);
+		unitToPrimitiveType.put("pt", CSSPrimitiveValue.CSS_PT);
+		unitToPrimitiveType.put("pc", CSSPrimitiveValue.CSS_PC);
+		unitToPrimitiveType.put("%", CSSPrimitiveValue.CSS_PERCENTAGE);
 	}
 	
 	public OMCSSValueList parse(String cssText) {
@@ -56,7 +57,7 @@ public class DashArrayParser {
 					String length = lengthArray[i].trim();
 					MatchResult result = LENGTH.exec(length);
 					if (result != null && result.getGroupCount() == 3) {
-						short primitiveType = 5;
+						short primitiveType = CSSPrimitiveValue.CSS_NUMBER;
 						String unit = result.getGroup(2);
 						if (unit != null) {
 							primitiveType = unitToPrimitiveType.get(unit.toLowerCase());

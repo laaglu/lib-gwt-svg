@@ -25,8 +25,8 @@ public class DashArrayParserTest extends TestCase {
 				OMCSSPrimitiveValue.CSS_MM,
 				OMCSSPrimitiveValue.CSS_PT,
 				OMCSSPrimitiveValue.CSS_PC,
-				OMCSSPrimitiveValue.CSS_PC,
-				OMCSSPrimitiveValue.CSS_PX};
+				OMCSSPrimitiveValue.CSS_PERCENTAGE,
+				OMCSSPrimitiveValue.CSS_NUMBER};
 		float[] values = {1, 2, 3, 4, 5, 6, 7.7f, 0.8f, 9, 10};
 		for (int i = 0; i < dashArray.getLength(); i++) {
 			OMCSSValue item = dashArray.getItem(i);

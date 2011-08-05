@@ -29,6 +29,10 @@
 
 package org.vectomatic.dom.svg;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.gargoylesoftware.htmlunit.javascript.host.css.CSSPrimitiveValue;
 import com.google.gwt.core.client.JavaScriptException;
 
 /**
@@ -65,13 +69,31 @@ public class OMCSSPrimitiveValue extends OMCSSValue {
   
   private short primitiveType;
   private float value;
+  private static Map<Short,String> unitToString;
   protected OMCSSPrimitiveValue(float f) {
 	  this(f, CSS_NUMBER);
   }
 
   public OMCSSPrimitiveValue(float value, short primitiveType) {
 	  super(CSS_PRIMITIVE_VALUE);
-	  setCssText(Float.toString(value));
+	  if (unitToString == null) {
+		  unitToString = new HashMap<Short, String>();
+		  unitToString.put(CSS_EMS, "em");
+		  unitToString.put(CSS_EXS, "ex");
+		  unitToString.put(CSS_PX, "px");
+		  unitToString.put(CSS_IN, "in");
+		  unitToString.put(CSS_CM, "cm");
+		  unitToString.put(CSS_MM, "mm");
+		  unitToString.put(CSS_PT, "pt");
+		  unitToString.put(CSS_PC, "pc");
+		  unitToString.put(CSS_PERCENTAGE, "%");
+	  }
+	  StringBuilder builder = new StringBuilder(Float.toString(value));
+	  String unit = unitToString.get(primitiveType);
+	  if (unit != null) {
+		  builder.append(unit);
+	  }
+	  setCssText(builder.toString());
 	  this.value = value;
 	  this.primitiveType = primitiveType;
   }
