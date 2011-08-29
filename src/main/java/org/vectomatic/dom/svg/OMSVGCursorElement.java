@@ -33,6 +33,8 @@ import org.vectomatic.dom.svg.impl.SVGCursorElement;
 import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
 import org.vectomatic.dom.svg.itf.ISVGTests;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -43,6 +45,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("cursor")
 public class OMSVGCursorElement extends OMSVGElement implements ISVGURIReference, ISVGTests, ISVGExternalResourcesRequired {
+  public OMSVGCursorElement() {
+    this((SVGCursorElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_CURSOR_TAG).cast());
+  }
+
   protected OMSVGCursorElement(SVGCursorElement ot) {
     super(ot);
   }

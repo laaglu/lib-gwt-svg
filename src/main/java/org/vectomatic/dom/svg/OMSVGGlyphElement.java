@@ -32,6 +32,8 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGGlyphElement;
 import org.vectomatic.dom.svg.itf.ISVGContainerElement;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -45,6 +47,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("glyph")
 public class OMSVGGlyphElement extends OMSVGElement implements ISVGStylable, ISVGContainerElement {
+  public OMSVGGlyphElement() {
+    this((SVGGlyphElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_GLYPH_TAG).cast());
+  }
+
   protected OMSVGGlyphElement(SVGGlyphElement ot) {
     super(ot);
   }

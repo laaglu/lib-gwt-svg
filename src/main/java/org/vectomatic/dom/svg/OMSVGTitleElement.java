@@ -32,6 +32,8 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGTitleElement;
 import org.vectomatic.dom.svg.itf.ISVGLangSpace;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.TagName;
@@ -43,6 +45,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("title")
 public class OMSVGTitleElement extends OMSVGElement implements ISVGLangSpace, ISVGStylable {
+  public OMSVGTitleElement() {
+    this((SVGTitleElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_TITLE_TAG).cast());
+  }
+
   protected OMSVGTitleElement(SVGTitleElement ot) {
     super(ot);
   }

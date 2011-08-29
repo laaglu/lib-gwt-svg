@@ -49,15 +49,15 @@ import com.google.gwt.user.client.Element;
 /**
  * Wrapper class for DOM Node. Wrapper classes decorate native
  * DOM objects with java-like capabilities: capability to implement
- * interfaces, notably event handler interfaces. Wrapper classes
- * must not add additional state of their own.
+ * interfaces, notably event handler interfaces.
  * @author laaglu
+ * @author Michael Allan
  */
 public class OMNode implements HasHandlers {
 	/**
 	 * The DOM native overlay type wrapped by this object
 	 */
-	protected Node ot;
+	protected final Node ot;
 	/**
 	 * The event bus shared by all SVG objects
 	 */
@@ -65,30 +65,42 @@ public class OMNode implements HasHandlers {
 
 	/**
 	 * Constructor
-	 * @param node The wrapped node
+	 * @param node The node to wrap
 	 */
 	protected OMNode(Node node) {
+		assert getWrapper(node) == null : "node was already wrapped";
+		setWrapper(node, this);
 		this.ot = node;
 	}
 	
 	/**
-	 * Tests equality of two wrapper types.
-	 * Two wrapper types are considered equal if they
-	 * wrap the same native DOM object.
+	 * Sets the __wrapper property of the node.
 	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof OMNode) {
-			return ot.equals(((OMNode)obj).ot);
-		}
-		return false;
-	}
+	private static native void setWrapper(Node node, OMNode wrapper) /*-{
+    	node.__wrapper = wrapper;
+	}-*/;
 	
-	@Override
-	public int hashCode() {
-		return ot.hashCode();
-	}
+	/**
+	 * Returns the __wrapper property of the node.
+	 */
+	private static native OMNode getWrapper(Node node) /*-{ 
+		return node.__wrapper; 
+	}-*/;
 	
+	/**
+	 * Cleanup method for wrapper objects which are
+	 * not needed by the application any more. It
+	 * breaks the back-reference the native DOM object
+	 * maintains on this wrapper type, in order to
+	 * facilitate garbage collection. Use only if
+	 * your code needs to run in a browser which is
+	 * not equipped with an automatic DOM object-native 
+	 * object cycle collector.
+	 */
+	public void cleanup() {
+		setWrapper(ot, null);
+	}
+
 	/**
 	 * Returns the event bus shared by all SVG objects
 	 * @return the event bus shared by all SVG objects
@@ -140,7 +152,7 @@ public class OMNode implements HasHandlers {
 			final H handler, DomEvent.Type<H> type) {
 		assert handler != null : "handler must not be null";
 		assert type != null : "type must not be null";
-		DOMHelper.bindEventListener(this, (Element)ot.cast(), type.getName());
+		DOMHelper.bindEventListener((Element)ot.cast(), type.getName());
 		return eventBus.addHandlerToSource(type, this, handler);
 	}
 
@@ -280,13 +292,20 @@ public class OMNode implements HasHandlers {
 	}
 	
 	/**
-	 * Generates a wrapper around an overlay type node
+	 * Returns the wrapper for the specified overlay type node, automatically constructing
+	 * a new wrapper if the node was previously unwrapped.
 	 * @param <T> the node type
 	 * @param obj The overlay type node
 	 * @return The node wrapper
 	 */
 	public static <T extends OMNode> T convert(Node obj) {
-		return new Conversion<T>(obj).result;
+		// Misleading to parametize by T here, because we cannot guarantee type safety.
+		// The explicit cast below is liable to failure, and so is the implicit cast in
+		// Conversion.  Instead we might try overloading the convert methods, as with a
+		// convert(Element) that safely casts to OMElement.  (Later)
+		@SuppressWarnings("unchecked") T wrapper = (T)getWrapper(obj);
+		if (wrapper == null) wrapper = new Conversion<T>(obj).result;
+		return wrapper;
 	}
 	
 	private static class ListConversion<T extends Iterable<? extends OMNode>> {

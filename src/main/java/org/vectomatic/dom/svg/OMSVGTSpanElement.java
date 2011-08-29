@@ -30,6 +30,8 @@
 package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGTSpanElement;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -40,6 +42,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("tspan")
 public class OMSVGTSpanElement extends OMSVGTextPositioningElement {
+  public OMSVGTSpanElement() {
+    this((SVGTSpanElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_T_SPAN_TAG).cast());
+  }
+
   protected OMSVGTSpanElement(SVGTSpanElement ot) {
     super(ot);
   }

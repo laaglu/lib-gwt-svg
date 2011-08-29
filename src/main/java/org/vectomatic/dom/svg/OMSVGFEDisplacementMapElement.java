@@ -31,6 +31,8 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFEDisplacementMapElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -63,6 +65,10 @@ public class OMSVGFEDisplacementMapElement extends OMSVGElement implements ISVGF
    * Corresponds to value <span class="attr-value">'A'</span>.
    */
   public static final short SVG_CHANNEL_A = 4;
+  public OMSVGFEDisplacementMapElement() {
+    this((SVGFEDisplacementMapElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_DISPLACEMENT_MAP_TAG).cast());
+  }
+
   protected OMSVGFEDisplacementMapElement(SVGFEDisplacementMapElement ot) {
     super(ot);
   }

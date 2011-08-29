@@ -31,6 +31,8 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGTRefElement;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -41,6 +43,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("tref")
 public class OMSVGTRefElement extends OMSVGTextPositioningElement implements ISVGURIReference {
+  public OMSVGTRefElement() {
+    this((SVGTRefElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_T_REF_TAG).cast());
+  }
+
   protected OMSVGTRefElement(SVGTRefElement ot) {
     super(ot);
   }

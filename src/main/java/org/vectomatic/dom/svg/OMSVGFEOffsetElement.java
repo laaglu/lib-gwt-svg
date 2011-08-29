@@ -31,6 +31,8 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFEOffsetElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -41,6 +43,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("feOffset")
 public class OMSVGFEOffsetElement extends OMSVGElement implements ISVGFilterPrimitiveStandardAttributes {
+  public OMSVGFEOffsetElement() {
+    this((SVGFEOffsetElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_OFFSET_TAG).cast());
+  }
+
   protected OMSVGFEOffsetElement(SVGFEOffsetElement ot) {
     super(ot);
   }

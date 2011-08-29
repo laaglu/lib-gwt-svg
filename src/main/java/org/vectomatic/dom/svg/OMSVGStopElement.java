@@ -31,6 +31,8 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGStopElement;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -41,6 +43,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("stop")
 public class OMSVGStopElement extends OMSVGElement implements ISVGStylable {
+  public OMSVGStopElement() {
+    this((SVGStopElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_STOP_TAG).cast());
+  }
+
   protected OMSVGStopElement(SVGStopElement ot) {
     super(ot);
   }

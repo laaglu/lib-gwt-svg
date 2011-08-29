@@ -36,6 +36,8 @@ import org.vectomatic.dom.svg.itf.ISVGLangSpace;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
 import org.vectomatic.dom.svg.itf.ISVGTests;
 import org.vectomatic.dom.svg.itf.ISVGUnitTypes;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.TagName;
@@ -47,6 +49,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("mask")
 public class OMSVGMaskElement extends OMSVGElement implements ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGUnitTypes, ISVGContainerElement {
+  public OMSVGMaskElement() {
+    this((SVGMaskElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_MASK_TAG).cast());
+  }
+
   protected OMSVGMaskElement(SVGMaskElement ot) {
     super(ot);
   }

@@ -31,6 +31,8 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFEComponentTransferElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -42,6 +44,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("feComponentTransfer")
 public class OMSVGFEComponentTransferElement extends OMSVGElement implements ISVGFilterPrimitiveStandardAttributes {
+  public OMSVGFEComponentTransferElement() {
+    this((SVGFEComponentTransferElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_COMPONENT_TRANSFER_TAG).cast());
+  }
+
   protected OMSVGFEComponentTransferElement(SVGFEComponentTransferElement ot) {
     super(ot);
   }

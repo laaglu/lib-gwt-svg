@@ -42,6 +42,8 @@ import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
 import org.vectomatic.dom.svg.itf.ISVGFitToViewBox;
 import org.vectomatic.dom.svg.itf.ISVGLangSpace;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.TagName;
@@ -68,6 +70,10 @@ import com.google.gwt.event.shared.HandlerRegistration;
  */
 @TagName("symbol")
 public class OMSVGSymbolElement extends OMSVGElement implements HasGraphicalHandlers, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGFitToViewBox, ISVGContainerElement {
+  public OMSVGSymbolElement() {
+    this((SVGSymbolElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_SYMBOL_TAG).cast());
+  }
+
   protected OMSVGSymbolElement(SVGSymbolElement ot) {
     super(ot);
   }

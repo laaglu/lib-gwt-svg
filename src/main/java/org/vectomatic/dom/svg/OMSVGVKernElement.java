@@ -30,6 +30,8 @@
 package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGVKernElement;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -43,6 +45,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("vkern")
 public class OMSVGVKernElement extends OMSVGElement {
+  public OMSVGVKernElement() {
+    this((SVGVKernElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_V_KERN_TAG).cast());
+  }
+
   protected OMSVGVKernElement(SVGVKernElement ot) {
     super(ot);
   }

@@ -37,6 +37,8 @@ import org.vectomatic.dom.svg.itf.ISVGStylable;
 import org.vectomatic.dom.svg.itf.ISVGTests;
 import org.vectomatic.dom.svg.itf.ISVGTransformable;
 import org.vectomatic.dom.svg.itf.ISVGUnitTypes;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.TagName;
@@ -48,6 +50,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("clipPath")
 public class OMSVGClipPathElement extends OMSVGElement implements ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGTransformable, ISVGUnitTypes {
+  public OMSVGClipPathElement() {
+    this((SVGClipPathElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_CLIP_PATH_TAG).cast());
+  }
+
   protected OMSVGClipPathElement(SVGClipPathElement ot) {
     super(ot);
   }

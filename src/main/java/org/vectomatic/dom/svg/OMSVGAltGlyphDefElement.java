@@ -30,6 +30,8 @@
 package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGAltGlyphDefElement;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -40,6 +42,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("altGlyphDef")
 public class OMSVGAltGlyphDefElement extends OMSVGElement {
+  public OMSVGAltGlyphDefElement() {
+    this((SVGAltGlyphDefElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_ALT_GLYPH_DEF_TAG).cast());
+  }
+
   protected OMSVGAltGlyphDefElement(SVGAltGlyphDefElement ot) {
     super(ot);
   }

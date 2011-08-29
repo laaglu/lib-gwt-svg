@@ -32,6 +32,8 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGColorProfileElement;
 import org.vectomatic.dom.svg.itf.ISVGRenderingIntent;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -42,6 +44,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("color-profile")
 public class OMSVGColorProfileElement extends OMSVGElement implements ISVGURIReference, ISVGRenderingIntent {
+  public OMSVGColorProfileElement() {
+    this((SVGColorProfileElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_COLOR_PROFILE_TAG).cast());
+  }
+
   protected OMSVGColorProfileElement(SVGColorProfileElement ot) {
     super(ot);
   }

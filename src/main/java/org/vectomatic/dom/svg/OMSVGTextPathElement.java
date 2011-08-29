@@ -31,6 +31,8 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGTextPathElement;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -69,6 +71,10 @@ public class OMSVGTextPathElement extends OMSVGTextContentElement implements ISV
    * Corresponds to value <span class='attr-value'>'exact'</span>.
    */
   public static final short TEXTPATH_SPACINGTYPE_EXACT = 2;
+  public OMSVGTextPathElement() {
+    this((SVGTextPathElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_TEXT_PATH_TAG).cast());
+  }
+
   protected OMSVGTextPathElement(SVGTextPathElement ot) {
     super(ot);
   }

@@ -30,6 +30,8 @@
 package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGAnimateColorElement;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -43,6 +45,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("animateColor")
 public class OMSVGAnimateColorElement extends OMSVGAnimationElement {
+  public OMSVGAnimateColorElement() {
+    this((SVGAnimateColorElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_ANIMATE_COLOR_TAG).cast());
+  }
+
   protected OMSVGAnimateColorElement(SVGAnimateColorElement ot) {
     super(ot);
   }

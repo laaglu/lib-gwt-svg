@@ -30,6 +30,8 @@
 package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFEMergeNodeElement;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -40,6 +42,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("feMergeNode")
 public class OMSVGFEMergeNodeElement extends OMSVGElement {
+  public OMSVGFEMergeNodeElement() {
+    this((SVGFEMergeNodeElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_MERGE_NODE_TAG).cast());
+  }
+
   protected OMSVGFEMergeNodeElement(SVGFEMergeNodeElement ot) {
     super(ot);
   }

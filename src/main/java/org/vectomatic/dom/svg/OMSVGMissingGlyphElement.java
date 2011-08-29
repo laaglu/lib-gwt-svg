@@ -32,6 +32,8 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGMissingGlyphElement;
 import org.vectomatic.dom.svg.itf.ISVGContainerElement;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -45,6 +47,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("missing-glyph")
 public class OMSVGMissingGlyphElement extends OMSVGElement implements ISVGStylable, ISVGContainerElement {
+  public OMSVGMissingGlyphElement() {
+    this((SVGMissingGlyphElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_MISSING_GLYPH_TAG).cast());
+  }
+
   protected OMSVGMissingGlyphElement(SVGMissingGlyphElement ot) {
     super(ot);
   }

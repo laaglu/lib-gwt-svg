@@ -533,12 +533,11 @@ public class DOMHelper {
 
 	/**
 	 * Makes a node sink the events emitted by the specified element
-	 * @param source The node processing the events
 	 * @param elem The element emitting the events
 	 * @param eventName The event name
 	 */
-	public static void bindEventListener(OMNode source, Element elem, String eventName) {
-		impl.bindEventListener(source, elem, eventName);
+	public static void bindEventListener(Element elem, String eventName) {
+		impl.bindEventListener(elem, eventName);
 	}
 	
 	/**

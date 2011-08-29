@@ -31,6 +31,8 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFEColorMatrixElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -63,6 +65,10 @@ public class OMSVGFEColorMatrixElement extends OMSVGElement implements ISVGFilte
    * Corresponds to value <span class="attr-value">'luminanceToAlpha'</span>.
    */
   public static final short SVG_FECOLORMATRIX_TYPE_LUMINANCETOALPHA = 4;
+  public OMSVGFEColorMatrixElement() {
+    this((SVGFEColorMatrixElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_COLOR_MATRIX_TAG).cast());
+  }
+
   protected OMSVGFEColorMatrixElement(SVGFEColorMatrixElement ot) {
     super(ot);
   }

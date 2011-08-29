@@ -30,6 +30,8 @@
 package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGSetElement;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -43,6 +45,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("set")
 public class OMSVGSetElement extends OMSVGAnimationElement {
+  public OMSVGSetElement() {
+    this((SVGSetElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_SET_TAG).cast());
+  }
+
   protected OMSVGSetElement(SVGSetElement ot) {
     super(ot);
   }

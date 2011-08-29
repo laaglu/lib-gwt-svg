@@ -31,6 +31,8 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFESpecularLightingElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -42,6 +44,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("feSpecularLighting")
 public class OMSVGFESpecularLightingElement extends OMSVGElement implements ISVGFilterPrimitiveStandardAttributes {
+  public OMSVGFESpecularLightingElement() {
+    this((SVGFESpecularLightingElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_SPECULAR_LIGHTING_TAG).cast());
+  }
+
   protected OMSVGFESpecularLightingElement(SVGFESpecularLightingElement ot) {
     super(ot);
   }

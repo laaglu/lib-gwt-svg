@@ -30,6 +30,8 @@
 package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFESpotLightElement;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -40,6 +42,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("feSpotLight")
 public class OMSVGFESpotLightElement extends OMSVGElement {
+  public OMSVGFESpotLightElement() {
+    this((SVGFESpotLightElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_SPOT_LIGHT_TAG).cast());
+  }
+
   protected OMSVGFESpotLightElement(SVGFESpotLightElement ot) {
     super(ot);
   }

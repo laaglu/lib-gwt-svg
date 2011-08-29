@@ -49,6 +49,8 @@ import org.vectomatic.dom.svg.itf.ISVGLocatable;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
 import org.vectomatic.dom.svg.itf.ISVGTests;
 import org.vectomatic.dom.svg.itf.ISVGZoomAndPan;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.Node;
@@ -88,6 +90,10 @@ import com.google.gwt.event.shared.HandlerRegistration;
  */
 @TagName("svg")
 public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandlers, HasDocumentHandlers, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGLocatable, ISVGFitToViewBox, ISVGZoomAndPan, ISVGContainerElement {
+  public OMSVGSVGElement() {
+    this((SVGSVGElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_SVG_TAG).cast());
+  }
+
   public OMSVGSVGElement(SVGSVGElement ot) {
     super(ot);
   }

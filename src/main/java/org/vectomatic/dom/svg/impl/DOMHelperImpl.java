@@ -125,13 +125,12 @@ public class DOMHelperImpl {
 	}
 	/**
 	 * Makes a node sink the events emitted by the specified element
-	 * @param source The node processing the events
 	 * @param elem The element emitting the events
 	 * @param eventName The event name
 	 */
-	public void bindEventListener(OMNode source, Element elem, String eventName) {
+	public void bindEventListener(Element elem, String eventName) {
 		init();
-		sinkEvents(source, elem, eventGetTypeInt(eventName) | getEventsSunk(elem));
+		sinkEvents(elem, eventGetTypeInt(eventName) | getEventsSunk(elem));
 	}
 	
 	/**
@@ -185,12 +184,10 @@ public class DOMHelperImpl {
 	/**
 	 * Changes the event mask and activates the handler
 	 * for the specified element
-	 * @param source The object which will process events
 	 * @param elem The object which emits events
 	 * @param bits The event mask
 	 */
-	protected native void sinkEvents(OMNode source, Element elem, int bits) /*-{
-	    elem.__wrapper = source;
+	protected native void sinkEvents(Element elem, int bits) /*-{
 	    var chMask = (elem.__eventMask || 0) ^ bits;
 	    elem.__eventMask = bits;
 	    if (!chMask) return;

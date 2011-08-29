@@ -33,6 +33,8 @@ import org.vectomatic.dom.svg.impl.SVGElement;
 import org.vectomatic.dom.svg.impl.SVGTextElement;
 import org.vectomatic.dom.svg.itf.ISVGGraphicsElement;
 import org.vectomatic.dom.svg.itf.ISVGTransformable;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.TagName;
@@ -44,6 +46,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("text")
 public class OMSVGTextElement extends OMSVGTextPositioningElement implements ISVGTransformable, ISVGGraphicsElement {
+  public OMSVGTextElement() {
+    this((SVGTextElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_TEXT_TAG).cast());
+  }
+
   protected OMSVGTextElement(SVGTextElement ot) {
     super(ot);
   }

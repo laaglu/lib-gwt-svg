@@ -31,6 +31,8 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFECompositeElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -71,6 +73,10 @@ public class OMSVGFECompositeElement extends OMSVGElement implements ISVGFilterP
    * Corresponds to value <span class="attr-value">'arithmetic'</span>.
    */
   public static final short SVG_FECOMPOSITE_OPERATOR_ARITHMETIC = 6;
+  public OMSVGFECompositeElement() {
+    this((SVGFECompositeElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_COMPOSITE_TAG).cast());
+  }
+
   protected OMSVGFECompositeElement(SVGFECompositeElement ot) {
     super(ot);
   }

@@ -31,6 +31,8 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFEBlendElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -67,6 +69,10 @@ public class OMSVGFEBlendElement extends OMSVGElement implements ISVGFilterPrimi
    * Corresponds to value <span class="attr-value">'lighten'</span>.
    */
   public static final short SVG_FEBLEND_MODE_LIGHTEN = 5;
+  public OMSVGFEBlendElement() {
+    this((SVGFEBlendElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_BLEND_TAG).cast());
+  }
+
   protected OMSVGFEBlendElement(SVGFEBlendElement ot) {
     super(ot);
   }

@@ -31,6 +31,8 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFEConvolveMatrixElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -59,6 +61,10 @@ public class OMSVGFEConvolveMatrixElement extends OMSVGElement implements ISVGFi
    * Corresponds to value <span class="attr-value">'none'</span>.
    */
   public static final short SVG_EDGEMODE_NONE = 3;
+  public OMSVGFEConvolveMatrixElement() {
+    this((SVGFEConvolveMatrixElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_CONVOLVE_MATRIX_TAG).cast());
+  }
+
   protected OMSVGFEConvolveMatrixElement(SVGFEConvolveMatrixElement ot) {
     super(ot);
   }

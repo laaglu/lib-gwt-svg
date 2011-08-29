@@ -35,6 +35,8 @@ import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
 import org.vectomatic.dom.svg.itf.ISVGFitToViewBox;
 import org.vectomatic.dom.svg.itf.ISVGLangSpace;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.TagName;
@@ -76,6 +78,10 @@ public class OMSVGMarkerElement extends OMSVGElement implements ISVGLangSpace, I
    * Attribute <code>orient</code> has an angle value.
    */
   public static final short SVG_MARKER_ORIENT_ANGLE = 2;
+  public OMSVGMarkerElement() {
+    this((SVGMarkerElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_MARKER_TAG).cast());
+  }
+
   protected OMSVGMarkerElement(SVGMarkerElement ot) {
     super(ot);
   }

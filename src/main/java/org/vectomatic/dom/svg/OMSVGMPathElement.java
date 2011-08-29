@@ -32,6 +32,8 @@ package org.vectomatic.dom.svg;
 import org.vectomatic.dom.svg.impl.SVGMPathElement;
 import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -42,6 +44,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("mpath")
 public class OMSVGMPathElement extends OMSVGElement implements ISVGURIReference, ISVGExternalResourcesRequired {
+  public OMSVGMPathElement() {
+    this((SVGMPathElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_M_PATH_TAG).cast());
+  }
+
   protected OMSVGMPathElement(SVGMPathElement ot) {
     super(ot);
   }

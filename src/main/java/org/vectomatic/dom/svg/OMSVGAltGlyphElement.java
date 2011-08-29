@@ -31,6 +31,8 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGAltGlyphElement;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.TagName;
@@ -42,6 +44,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("altGlyph")
 public class OMSVGAltGlyphElement extends OMSVGTextPositioningElement implements ISVGURIReference {
+  public OMSVGAltGlyphElement() {
+    this((SVGAltGlyphElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_ALT_GLYPH_TAG).cast());
+  }
+
   protected OMSVGAltGlyphElement(SVGAltGlyphElement ot) {
     super(ot);
   }

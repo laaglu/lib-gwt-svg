@@ -30,6 +30,8 @@
 package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFEFuncRElement;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -40,6 +42,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("feFuncR")
 public class OMSVGFEFuncRElement extends OMSVGComponentTransferFunctionElement {
+  public OMSVGFEFuncRElement() {
+    this((SVGFEFuncRElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_FUNC_R_TAG).cast());
+  }
+
   protected OMSVGFEFuncRElement(SVGFEFuncRElement ot) {
     super(ot);
   }

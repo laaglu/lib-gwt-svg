@@ -38,6 +38,8 @@ import org.vectomatic.dom.svg.itf.ISVGStylable;
 import org.vectomatic.dom.svg.itf.ISVGTests;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
 import org.vectomatic.dom.svg.itf.ISVGUnitTypes;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.TagName;
@@ -49,6 +51,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("pattern")
 public class OMSVGPatternElement extends OMSVGElement implements ISVGURIReference, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGFitToViewBox, ISVGUnitTypes, ISVGContainerElement {
+  public OMSVGPatternElement() {
+    this((SVGPatternElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_PATTERN_TAG).cast());
+  }
+
   protected OMSVGPatternElement(SVGPatternElement ot) {
     super(ot);
   }

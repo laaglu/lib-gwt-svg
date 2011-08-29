@@ -30,6 +30,8 @@
 package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFEDistantLightElement;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -40,6 +42,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("feDistantLight")
 public class OMSVGFEDistantLightElement extends OMSVGElement {
+  public OMSVGFEDistantLightElement() {
+    this((SVGFEDistantLightElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_DISTANT_LIGHT_TAG).cast());
+  }
+
   protected OMSVGFEDistantLightElement(SVGFEDistantLightElement ot) {
     super(ot);
   }

@@ -30,6 +30,8 @@
 package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGRadialGradientElement;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -40,6 +42,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("radialGradient")
 public class OMSVGRadialGradientElement extends OMSVGGradientElement {
+  public OMSVGRadialGradientElement() {
+    this((SVGRadialGradientElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_RADIAL_GRADIENT_TAG).cast());
+  }
+
   protected OMSVGRadialGradientElement(SVGRadialGradientElement ot) {
     super(ot);
   }

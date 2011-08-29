@@ -30,6 +30,8 @@
 package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGMetadataElement;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -40,6 +42,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("metadata")
 public class OMSVGMetadataElement extends OMSVGElement {
+  public OMSVGMetadataElement() {
+    this((SVGMetadataElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_METADATA_TAG).cast());
+  }
+
   protected OMSVGMetadataElement(SVGMetadataElement ot) {
     super(ot);
   }

@@ -18,6 +18,7 @@
 package org.vectomatic.dom.svg.utils;
 
 import org.vectomatic.dom.svg.OMCSSValueList;
+import org.vectomatic.dom.svg.OMNode;
 import org.vectomatic.dom.svg.OMSVGDocument;
 import org.vectomatic.dom.svg.OMSVGPaint;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
@@ -43,7 +44,7 @@ public class OMSVGParser {
 	 */
 	public static final OMSVGDocument createDocument() {
 		SVGDocument doc = DOMHelper.createDocument("http://www.w3.org/2000/svg", "").cast();
-    	return new OMSVGDocument(doc);
+    	return OMNode.convert(doc);
 	}
 
 	/**
@@ -51,7 +52,7 @@ public class OMSVGParser {
 	 * @return the current document, as an SVG document
 	 */
 	public static final OMSVGDocument currentDocument() {
-    	return new OMSVGDocument((SVGDocument)DOMHelper.getCurrentDocument().cast());
+    	return OMNode.convert(DOMHelper.getCurrentDocument());
 	}
 
 	/**

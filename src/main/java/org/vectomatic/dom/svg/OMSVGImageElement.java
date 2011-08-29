@@ -45,6 +45,8 @@ import org.vectomatic.dom.svg.itf.ISVGStylable;
 import org.vectomatic.dom.svg.itf.ISVGTests;
 import org.vectomatic.dom.svg.itf.ISVGTransformable;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.TagName;
@@ -71,6 +73,10 @@ import com.google.gwt.event.shared.HandlerRegistration;
  */
 @TagName("image")
 public class OMSVGImageElement extends OMSVGElement implements HasGraphicalHandlers, ISVGURIReference, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGTransformable, ISVGGraphicsElement {
+  public OMSVGImageElement() {
+    this((SVGImageElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_IMAGE_TAG).cast());
+  }
+
   protected OMSVGImageElement(SVGImageElement ot) {
     super(ot);
   }

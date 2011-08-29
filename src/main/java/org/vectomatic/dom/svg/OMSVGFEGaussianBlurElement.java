@@ -31,6 +31,8 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFEGaussianBlurElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.TagName;
@@ -42,6 +44,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("feGaussianBlur")
 public class OMSVGFEGaussianBlurElement extends OMSVGElement implements ISVGFilterPrimitiveStandardAttributes {
+  public OMSVGFEGaussianBlurElement() {
+    this((SVGFEGaussianBlurElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_GAUSSIAN_BLUR_TAG).cast());
+  }
+
   protected OMSVGFEGaussianBlurElement(SVGFEGaussianBlurElement ot) {
     super(ot);
   }

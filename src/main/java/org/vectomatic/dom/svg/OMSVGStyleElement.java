@@ -31,6 +31,8 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGStyleElement;
 import org.vectomatic.dom.svg.itf.ISVGLangSpace;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.TagName;
@@ -42,6 +44,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("style")
 public class OMSVGStyleElement extends OMSVGElement implements ISVGLangSpace {
+  public OMSVGStyleElement() {
+    this((SVGStyleElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_STYLE_TAG).cast());
+  }
+
   protected OMSVGStyleElement(SVGStyleElement ot) {
     super(ot);
   }

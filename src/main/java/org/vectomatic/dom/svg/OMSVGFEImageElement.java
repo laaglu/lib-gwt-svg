@@ -34,6 +34,8 @@ import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
 import org.vectomatic.dom.svg.itf.ISVGLangSpace;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.TagName;
@@ -45,6 +47,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("feImage")
 public class OMSVGFEImageElement extends OMSVGElement implements ISVGURIReference, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGFilterPrimitiveStandardAttributes {
+  public OMSVGFEImageElement() {
+    this((SVGFEImageElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_IMAGE_TAG).cast());
+  }
+
   protected OMSVGFEImageElement(SVGFEImageElement ot) {
     super(ot);
   }

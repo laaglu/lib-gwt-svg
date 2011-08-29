@@ -35,6 +35,8 @@ import org.vectomatic.dom.svg.itf.ISVGLangSpace;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
 import org.vectomatic.dom.svg.itf.ISVGURIReference;
 import org.vectomatic.dom.svg.itf.ISVGUnitTypes;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.TagName;
@@ -46,6 +48,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("filter")
 public class OMSVGFilterElement extends OMSVGElement implements ISVGURIReference, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGUnitTypes {
+  public OMSVGFilterElement() {
+    this((SVGFilterElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FILTER_TAG).cast());
+  }
+
   protected OMSVGFilterElement(SVGFilterElement ot) {
     super(ot);
   }

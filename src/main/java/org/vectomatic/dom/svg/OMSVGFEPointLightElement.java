@@ -30,6 +30,8 @@
 package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFEPointLightElement;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -40,6 +42,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("fePointLight")
 public class OMSVGFEPointLightElement extends OMSVGElement {
+  public OMSVGFEPointLightElement() {
+    this((SVGFEPointLightElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_POINT_LIGHT_TAG).cast());
+  }
+
   protected OMSVGFEPointLightElement(SVGFEPointLightElement ot) {
     super(ot);
   }

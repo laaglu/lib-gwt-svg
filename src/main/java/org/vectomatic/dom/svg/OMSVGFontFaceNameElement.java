@@ -30,6 +30,8 @@
 package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFontFaceNameElement;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -43,6 +45,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("font-face-name")
 public class OMSVGFontFaceNameElement extends OMSVGElement {
+  public OMSVGFontFaceNameElement() {
+    this((SVGFontFaceNameElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FONT_FACE_NAME_TAG).cast());
+  }
+
   protected OMSVGFontFaceNameElement(SVGFontFaceNameElement ot) {
     super(ot);
   }

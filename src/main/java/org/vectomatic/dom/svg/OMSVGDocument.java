@@ -155,7 +155,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * specification.</p>
  */
 public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
-  public OMSVGDocument(SVGDocument ot) {
+  protected OMSVGDocument(SVGDocument ot) {
     super(ot);
   }
 

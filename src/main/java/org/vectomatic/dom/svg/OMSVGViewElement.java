@@ -33,6 +33,8 @@ import org.vectomatic.dom.svg.impl.SVGViewElement;
 import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
 import org.vectomatic.dom.svg.itf.ISVGFitToViewBox;
 import org.vectomatic.dom.svg.itf.ISVGZoomAndPan;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.TagName;
@@ -44,6 +46,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("view")
 public class OMSVGViewElement extends OMSVGElement implements ISVGExternalResourcesRequired, ISVGFitToViewBox, ISVGZoomAndPan {
+  public OMSVGViewElement() {
+    this((SVGViewElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_VIEW_TAG).cast());
+  }
+
   protected OMSVGViewElement(SVGViewElement ot) {
     super(ot);
   }

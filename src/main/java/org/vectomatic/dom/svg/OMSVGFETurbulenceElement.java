@@ -31,6 +31,8 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFETurbulenceElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -69,6 +71,10 @@ public class OMSVGFETurbulenceElement extends OMSVGElement implements ISVGFilter
    * Corresponds to value <span class="attr-value">'noStitch'</span>.
    */
   public static final short SVG_STITCHTYPE_NOSTITCH = 2;
+  public OMSVGFETurbulenceElement() {
+    this((SVGFETurbulenceElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_TURBULENCE_TAG).cast());
+  }
+
   protected OMSVGFETurbulenceElement(SVGFETurbulenceElement ot) {
     super(ot);
   }

@@ -31,6 +31,8 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFEFloodElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -41,6 +43,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("feFlood")
 public class OMSVGFEFloodElement extends OMSVGElement implements ISVGFilterPrimitiveStandardAttributes {
+  public OMSVGFEFloodElement() {
+    this((SVGFEFloodElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_FLOOD_TAG).cast());
+  }
+
   protected OMSVGFEFloodElement(SVGFEFloodElement ot) {
     super(ot);
   }

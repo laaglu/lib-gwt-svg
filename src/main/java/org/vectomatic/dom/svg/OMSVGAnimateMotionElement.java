@@ -30,6 +30,8 @@
 package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGAnimateMotionElement;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -43,6 +45,10 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("animateMotion")
 public class OMSVGAnimateMotionElement extends OMSVGAnimationElement {
+  public OMSVGAnimateMotionElement() {
+    this((SVGAnimateMotionElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_ANIMATE_MOTION_TAG).cast());
+  }
+
   protected OMSVGAnimateMotionElement(SVGAnimateMotionElement ot) {
     super(ot);
   }

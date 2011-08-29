@@ -31,6 +31,8 @@ package org.vectomatic.dom.svg;
 
 import org.vectomatic.dom.svg.impl.SVGFEMorphologyElement;
 import org.vectomatic.dom.svg.itf.ISVGFilterPrimitiveStandardAttributes;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.TagName;
 
@@ -55,6 +57,10 @@ public class OMSVGFEMorphologyElement extends OMSVGElement implements ISVGFilter
    * Corresponds to value <span class="attr-value">'dilate'</span>.
    */
   public static final short SVG_MORPHOLOGY_OPERATOR_DILATE = 2;
+  public OMSVGFEMorphologyElement() {
+    this((SVGFEMorphologyElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_MORPHOLOGY_TAG).cast());
+  }
+
   protected OMSVGFEMorphologyElement(SVGFEMorphologyElement ot) {
     super(ot);
   }

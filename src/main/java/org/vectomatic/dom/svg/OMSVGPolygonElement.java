@@ -45,6 +45,8 @@ import org.vectomatic.dom.svg.itf.ISVGLangSpace;
 import org.vectomatic.dom.svg.itf.ISVGStylable;
 import org.vectomatic.dom.svg.itf.ISVGTests;
 import org.vectomatic.dom.svg.itf.ISVGTransformable;
+import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.TagName;
@@ -71,6 +73,10 @@ import com.google.gwt.event.shared.HandlerRegistration;
  */
 @TagName("polygon")
 public class OMSVGPolygonElement extends OMSVGElement implements HasGraphicalHandlers, ISVGTests, ISVGLangSpace, ISVGExternalResourcesRequired, ISVGStylable, ISVGTransformable, ISVGAnimatedPoints, ISVGGraphicsElement {
+  public OMSVGPolygonElement() {
+    this((SVGPolygonElement)DOMHelper.createElementNS(DOMHelper.getCurrentDocument(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_POLYGON_TAG).cast());
+  }
+
   protected OMSVGPolygonElement(SVGPolygonElement ot) {
     super(ot);
   }
