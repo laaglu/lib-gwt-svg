@@ -176,7 +176,6 @@ public class OMNode implements HasHandlers {
 			if ($wnd.otToWrapper == null) {
 		    	$wnd.otToWrapper = new Object();
 		    }
-			$wnd.otToWrapper["HTMLDocument"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGDocument::new(Lorg/vectomatic/dom/svg/impl/SVGDocument;)(elem); };
 			$wnd.otToWrapper["SVGAElement"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGAElement::new(Lorg/vectomatic/dom/svg/impl/SVGAElement;)(elem); };
 			$wnd.otToWrapper["SVGAltGlyphDefElement"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGAltGlyphDefElement::new(Lorg/vectomatic/dom/svg/impl/SVGAltGlyphDefElement;)(elem); };
 			$wnd.otToWrapper["SVGAltGlyphElement"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGAltGlyphElement::new(Lorg/vectomatic/dom/svg/impl/SVGAltGlyphElement;)(elem); };
@@ -280,7 +279,7 @@ public class OMNode implements HasHandlers {
 			    		} else if (node.nodeType == 3) {
 			    			wrapper = @org.vectomatic.dom.svg.OMText::new(Lcom/google/gwt/dom/client/Text;)(node);
 			    		} else if (node.nodeType == 9) {
-			    			wrapper = @org.vectomatic.dom.svg.OMDocument::new(Lcom/google/gwt/dom/client/Document;)(node);
+							wrapper = @org.vectomatic.dom.svg.OMSVGDocument::new(Lorg/vectomatic/dom/svg/impl/SVGDocument;)(node);
 			    		} else {
 			    			wrapper = @org.vectomatic.dom.svg.OMNode::new(Lcom/google/gwt/dom/client/Node;)(node);
 			    		}

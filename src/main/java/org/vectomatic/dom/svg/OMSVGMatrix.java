@@ -262,4 +262,12 @@ public class OMSVGMatrix extends JavaScriptObject {
 	  builder.append(getF());
 	  return builder.toString();
   }
+  /**
+   * Returns true if this matrix is the identity matrix
+   * @return
+   * true if this matrix is the identity matrix
+   */
+  public final boolean isIdentity() {
+	  return getA() == 1 && getB() == 0 && getC() == 0 && getD() == 1 && getE() == 0 && getF() == 0;
+  }
 }
