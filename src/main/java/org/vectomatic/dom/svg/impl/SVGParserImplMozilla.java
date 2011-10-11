@@ -19,8 +19,11 @@ package org.vectomatic.dom.svg.impl;
 
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.utils.DOMHelper;
+import org.vectomatic.dom.svg.utils.ParserException;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
-import com.google.gwt.core.client.JavaScriptException;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Text;
 
 /**
  * Internal class to wrap DOM parser implementations for mozilla
@@ -34,9 +37,20 @@ public class SVGParserImplMozilla extends SVGParserImpl {
 	 * @return
 	 * the document resulting from the parse
 	 */
-	public final OMSVGSVGElement parse(String rawSvg) throws JavaScriptException {
+	public final OMSVGSVGElement parse(String rawSvg) throws ParserException {
 		SVGDocument doc = parseFromString(rawSvg, "text/xml").cast();
-		SVGSVGElement svg = DOMHelper.importNode(DOMHelper.getCurrentDocument(), doc.getDocumentElement(), true).cast();
+		Element elt = doc.getDocumentElement();
+		if ("parsererror".equals(DOMHelper.getLocalName(elt))) {
+			String message = "Parsing error";
+			if (elt.getFirstChild() != null) {
+				message = elt.getFirstChild().<Text>cast().getData();
+			}
+			throw new ParserException(ParserException.Type.NotWellFormed, message);
+		}
+		if (!SVGConstants.SVG_NAMESPACE_URI.equals(DOMHelper.getNamespaceURI(elt))) {
+			throw new ParserException(ParserException.Type.NotSvg, "Invalid root element: {" + DOMHelper.getNamespaceURI(elt) + "}" + elt.getTagName());
+		}
+		SVGSVGElement svg = DOMHelper.importNode(DOMHelper.getCurrentDocument(), elt, true).cast();
 		// For some reason xlink:href are not correctly evaluated in
 		// some cases in mozilla. If one clones the node this seems
 		// to solve the problem

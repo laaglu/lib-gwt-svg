@@ -61,8 +61,10 @@ public class OMSVGParser {
 	 * raw xml to be parsed
 	 * @return
 	 * the document resulting from the parse
+	 * @throws ParserException
+	 * if the document is not well-formed or is not SVG
 	 */
-	public static final OMSVGSVGElement parse(String rawSvg) throws JavaScriptException {
+	public static final OMSVGSVGElement parse(String rawSvg) throws ParserException {
 		return impl.parse(rawSvg);
 	}
 

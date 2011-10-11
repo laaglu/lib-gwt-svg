@@ -29,6 +29,18 @@
 			<when-property-is name="user.agent" value="opera" />
 		</any>
 	</replace-with>
+	<replace-with class="org.vectomatic.dom.svg.impl.SVGParserImplWebkit">
+		<when-type-is class="org.vectomatic.dom.svg.impl.SVGParserImpl" />
+		<any>
+			<when-property-is name="user.agent" value="safari" />
+		</any>
+	</replace-with>
+	<replace-with class="org.vectomatic.dom.svg.impl.SVGParserImplIE">
+		<when-type-is class="org.vectomatic.dom.svg.impl.SVGParserImpl" />
+		<any>
+			<when-property-is name="user.agent" value="ie9" />
+		</any>
+	</replace-with>
 	
 	
 </module>

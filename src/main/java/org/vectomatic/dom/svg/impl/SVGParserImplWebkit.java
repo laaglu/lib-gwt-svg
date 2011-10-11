@@ -1,5 +1,5 @@
 /**********************************************
- * Copyright (C) 2010 Lukas Laag
+ * Copyright (C) 2011 Lukas Laag
  * This file is part of lib-gwt-svg.
  * 
  * libgwtsvg is free software: you can redistribute it and/or modify
@@ -21,24 +21,16 @@ import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.utils.DOMHelper;
 import org.vectomatic.dom.svg.utils.ParserException;
 import org.vectomatic.dom.svg.utils.SVGConstants;
+import org.vectomatic.dom.svg.utils.XPathPrefixResolver;
 
-import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Text;
 
-public class SVGParserImpl {
-	@SuppressWarnings("unused")
-	private final JavaScriptObject domParser = createDOMParser();
-	
-	private native JavaScriptObject createDOMParser() /*-{
-	  return new DOMParser();
-	}-*/;
-
-	public final native Document parseFromString(String rawText, String contentType) /*-{
-      return this.@org.vectomatic.dom.svg.impl.SVGParserImpl::domParser.parseFromString(rawText, contentType);
-	}-*/;
-
+/**
+ * Internal class to wrap DOM parser implementations for webkit based browsers
+ * @author laaglu
+ */
+public class SVGParserImplWebkit extends SVGParserImpl {
 	/**
 	 * Parses the supplied SVG text into a document
 	 * @param rawSvg
@@ -46,7 +38,7 @@ public class SVGParserImpl {
 	 * @return
 	 * the document resulting from the parse
 	 */
-	public OMSVGSVGElement parse(String rawSvg) throws ParserException {
+	public final OMSVGSVGElement parse(String rawSvg) throws ParserException {
 		SVGDocument doc = parseFromString(rawSvg, "text/xml").cast();
 		Element elt = doc.getDocumentElement();
 		if ("parsererror".equals(DOMHelper.getLocalName(elt))) {
@@ -55,12 +47,26 @@ public class SVGParserImpl {
 				message = elt.getFirstChild().<Text>cast().getData();
 			}
 			throw new ParserException(ParserException.Type.NotWellFormed, message);
+		} else if ("html".equals(DOMHelper.getLocalName(elt))) {
+			String message = DOMHelper.evaluateStringXPath(elt, "./x:body/x:parsererror/x:div/text()", new XPathPrefixResolver() {
+				@Override
+				public String resolvePrefix(String prefix) {
+					if ("x".equals(prefix)) {
+						return "http://www.w3.org/1999/xhtml";
+					}
+					return null;
+				}
+			});
+			throw new ParserException(ParserException.Type.NotWellFormed, message);
 		}
 		if (!SVGConstants.SVG_NAMESPACE_URI.equals(DOMHelper.getNamespaceURI(elt))) {
 			throw new ParserException(ParserException.Type.NotSvg, "Invalid root element: {" + DOMHelper.getNamespaceURI(elt) + "}" + elt.getTagName());
 		}
 		SVGSVGElement svg = DOMHelper.importNode(DOMHelper.getCurrentDocument(), elt, true).cast();
-    	return new OMSVGSVGElement(svg);
+		// For some reason xlink:href are not correctly evaluated in
+		// some cases in mozilla. If one clones the node this seems
+		// to solve the problem
+    	return new OMSVGSVGElement((SVGSVGElement)svg.cloneNode(true).cast());
 	}
 
 }
