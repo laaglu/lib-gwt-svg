@@ -19,7 +19,9 @@ package org.vectomatic.dom.svg.impl;
 
 import org.vectomatic.dom.svg.OMNode;
 import org.vectomatic.dom.svg.OMSVGElement;
+import org.vectomatic.dom.svg.utils.XPathPrefixResolver;
 
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Node;
@@ -34,28 +36,28 @@ import com.google.gwt.event.shared.HandlerRegistration;
  */
 public class DOMHelperImpl {
 	  protected static boolean eventsInitialized;
-	  private static final int EVT_FOCUSIN = 0x00001;
-	  private static final int EVT_FOCUSOUT = 0x00002;
-	  private static final int EVT_MOUSEDOWN = 0x00004;
-	  private static final int EVT_MOUSEUP = 0x00008;
-	  private static final int EVT_MOUSEOVER = 0x00010;
-	  private static final int EVT_MOUSEOUT = 0x00020;
-	  private static final int EVT_MOUSEMOVE = 0x00040;
-	  private static final int EVT_ACTIVATE = 0x00080;
-	  private static final int EVT_CLICK = 0x00100;
-	  private static final int EVT_LOAD = 0x00200;
-	  private static final int EVT_BEGIN = 0x00400;
-	  private static final int EVT_END = 0x00800;
-	  private static final int EVT_REPEAT = 0x01000;
-	  private static final int EVT_UNLOAD = 0x02000;
-	  private static final int EVT_ABORT = 0x04000;
-	  private static final int EVT_ERROR = 0x08000;
-	  private static final int EVT_RESIZE = 0x10000;
-	  private static final int EVT_SCROLL = 0x20000;
-	  private static final int EVT_ZOOM = 0x40000;
-	  private static final int EVT_LOOSECAPTURE = 0x80000;
+	  protected static final int EVT_FOCUSIN = 0x00001;
+	  protected static final int EVT_FOCUSOUT = 0x00002;
+	  protected static final int EVT_MOUSEDOWN = 0x00004;
+	  protected static final int EVT_MOUSEUP = 0x00008;
+	  protected static final int EVT_MOUSEOVER = 0x00010;
+	  protected static final int EVT_MOUSEOUT = 0x00020;
+	  protected static final int EVT_MOUSEMOVE = 0x00040;
+	  protected static final int EVT_ACTIVATE = 0x00080;
+	  protected static final int EVT_CLICK = 0x00100;
+	  protected static final int EVT_LOAD = 0x00200;
+	  protected static final int EVT_BEGIN = 0x00400;
+	  protected static final int EVT_END = 0x00800;
+	  protected static final int EVT_REPEAT = 0x01000;
+	  protected static final int EVT_UNLOAD = 0x02000;
+	  protected static final int EVT_ABORT = 0x04000;
+	  protected static final int EVT_ERROR = 0x08000;
+	  protected static final int EVT_RESIZE = 0x10000;
+	  protected static final int EVT_SCROLL = 0x20000;
+	  protected static final int EVT_ZOOM = 0x40000;
+	  protected static final int EVT_LOOSECAPTURE = 0x80000;
 	  
-	  private OMSVGElement captureElt;
+	  protected OMSVGElement captureElt;
 	  
 	  /**
 	   * Initializes the event system. Positions event handlers
@@ -117,7 +119,7 @@ public class DOMHelperImpl {
 	    }
 	  }-*/;
 	
-	private void init() {
+	protected void init() {
 		if (!eventsInitialized) {
 			eventsInitialized = true;
 			initEventSystem();
@@ -310,5 +312,34 @@ public class DOMHelperImpl {
 		}
 		return false;
 	}-*/;
+	
+	///////////////////////////////////////////////////////////////
+	// XPath support
+	///////////////////////////////////////////////////////////////
 
+	public native JavaScriptObject evaluateNodeListXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
+		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.ORDERED_NODE_ITERATOR_TYPE , null);
+		return result;
+	}-*/;
+	
+	public native Node evaluateNodeXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
+		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.ANY_UNORDERED_NODE_TYPE , null);
+		return result.singleNodeValue;
+	}-*/;
+
+	public native String evaluateStringXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
+		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.STRING_TYPE , null);
+		return result.stringValue;
+	}-*/;
+
+	public native float evaluateNumberXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
+		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.NUMBER_TYPE , null);
+		return result.numberValue;
+	}-*/;
+	
+	public native boolean evaluateBooleanXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
+		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.BOOLEAN_TYPE , null);
+		return result.booleanValue;
+	}-*/;
+	
 }

@@ -648,7 +648,7 @@ public class DOMHelper {
 	 * A node iterator for the selected nodes.
 	 */
 	public static <T extends OMNode> Iterator<T> evaluateXPath(OMElement root, String expr, XPathPrefixResolver resolver) {
-		final JavaScriptObject result = evaluateNodeListXPath_(root.getElement(), expr, resolver);
+		final JavaScriptObject result = impl.evaluateNodeListXPath_(root.getElement(), expr, resolver);
 		return new Iterator<T>() {
 			boolean fetched;
 			Node next;
@@ -697,7 +697,7 @@ public class DOMHelper {
 	 * A node iterator for the selected nodes.
 	 */
 	public static <T extends Node> Iterator<T> evaluateNodeListXPath(Element root, String expr, XPathPrefixResolver resolver) {
-		final JavaScriptObject result = evaluateNodeListXPath_(root, expr, resolver);
+		final JavaScriptObject result = impl.evaluateNodeListXPath_(root, expr, resolver);
 		return new Iterator<T>() {
 			boolean fetched;
 			T next;
@@ -745,7 +745,7 @@ public class DOMHelper {
 	 * The selected node, or null if no such node exists.
 	 */
 	public static <T extends Node> T evaluateNodeXPath(Element root, String expr, XPathPrefixResolver resolver) {
-		return (T)evaluateNodeXPath_(root, expr, resolver);
+		return (T)(impl.evaluateNodeXPath_(root, expr, resolver));
 	}
 	
 	/**
@@ -762,7 +762,7 @@ public class DOMHelper {
 	 * The matching string, or null if no such string exists.
 	 */
 	public static String evaluateStringXPath(Element root, String expr, XPathPrefixResolver resolver) {
-		return evaluateStringXPath_(root, expr, resolver);
+		return impl.evaluateStringXPath_(root, expr, resolver);
 	}
 
 	/**
@@ -779,7 +779,7 @@ public class DOMHelper {
 	 * The matching float, or NaN if no such number exists.
 	 */
 	public static float evaluateNumberXPath(Element root, String expr, XPathPrefixResolver resolver) {
-		return evaluateNumberXPath_(root, expr, resolver);
+		return impl.evaluateNumberXPath_(root, expr, resolver);
 	}
 
 	/**
@@ -796,7 +796,7 @@ public class DOMHelper {
 	 * The matching boolean.
 	 */
 	public static boolean evaluateBooleanXPath(Element root, String expr, XPathPrefixResolver resolver) {
-		return evaluateBooleanXPath_(root, expr, resolver);
+		return impl.evaluateBooleanXPath_(root, expr, resolver);
 	}
 
 	/**
@@ -830,29 +830,4 @@ public class DOMHelper {
 		}
 		return builder.toString();
 	}
-
-	private static native JavaScriptObject evaluateNodeListXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
-		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.ORDERED_NODE_ITERATOR_TYPE , null);
-		return result;
-	}-*/;
-	
-	private static native Node evaluateNodeXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
-		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.ANY_UNORDERED_NODE_TYPE , null);
-		return result.singleNodeValue;
-	}-*/;
-
-	private static native String evaluateStringXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
-		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.STRING_TYPE , null);
-		return result.stringValue;
-	}-*/;
-
-	private static native float evaluateNumberXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
-		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.NUMBER_TYPE , null);
-		return result.numberValue;
-	}-*/;
-	
-	private static native boolean evaluateBooleanXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
-		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.BOOLEAN_TYPE , null);
-		return result.booleanValue;
-	}-*/;
 }

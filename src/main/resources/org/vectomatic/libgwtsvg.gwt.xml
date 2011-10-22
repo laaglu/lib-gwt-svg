@@ -6,16 +6,23 @@
 	<inherits name='com.google.gwt.xml.XML' />
 	<source path="dom" />
 
-    <!-- Fall through to this rule is the browser isn't Mozilla -->
+    <!-- Default implementation -->
 	<replace-with class="org.vectomatic.dom.svg.impl.DOMHelperImpl">
 		<when-type-is class="org.vectomatic.dom.svg.impl.DOMHelperImpl" />
 	</replace-with>
+    <!-- IE9 implementation -->
+	<replace-with class="org.vectomatic.dom.svg.impl.DOMHelperImplIE">
+		<when-type-is class="org.vectomatic.dom.svg.impl.DOMHelperImpl" />
+		<any>
+			<when-property-is name="user.agent" value="ie9" />
+		</any>
+	</replace-with>
 	
-	
-    <!-- Fall through to this rule is the browser isn't Mozilla or Opera -->
+    <!-- Default implementation -->
 	<replace-with class="org.vectomatic.dom.svg.impl.SVGParserImpl">
 		<when-type-is class="org.vectomatic.dom.svg.impl.SVGParserImpl" />
 	</replace-with>
+    <!-- Mozilla implementation -->
 	<replace-with class="org.vectomatic.dom.svg.impl.SVGParserImplMozilla">
 		<when-type-is class="org.vectomatic.dom.svg.impl.SVGParserImpl" />
 		<any>
@@ -23,18 +30,21 @@
 			<when-property-is name="user.agent" value="gecko1_8" />
 		</any>
 	</replace-with>
+    <!-- Opera implementation -->
 	<replace-with class="org.vectomatic.dom.svg.impl.SVGParserImplOpera">
 		<when-type-is class="org.vectomatic.dom.svg.impl.SVGParserImpl" />
 		<any>
 			<when-property-is name="user.agent" value="opera" />
 		</any>
 	</replace-with>
+    <!-- WebKit implementation -->
 	<replace-with class="org.vectomatic.dom.svg.impl.SVGParserImplWebkit">
 		<when-type-is class="org.vectomatic.dom.svg.impl.SVGParserImpl" />
 		<any>
 			<when-property-is name="user.agent" value="safari" />
 		</any>
 	</replace-with>
+    <!-- IE implementation -->
 	<replace-with class="org.vectomatic.dom.svg.impl.SVGParserImplIE">
 		<when-type-is class="org.vectomatic.dom.svg.impl.SVGParserImpl" />
 		<any>
