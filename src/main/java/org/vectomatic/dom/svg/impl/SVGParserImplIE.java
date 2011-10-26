@@ -17,10 +17,16 @@
  **********************************************/
 package org.vectomatic.dom.svg.impl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.utils.DOMHelper;
 import org.vectomatic.dom.svg.utils.ParserException;
 import org.vectomatic.dom.svg.utils.SVGConstants;
+import org.vectomatic.dom.svg.utils.SVGPrefixResolver;
+import org.vectomatic.dom.svg.utils.XPathPrefixResolver;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.Element;
@@ -42,6 +48,7 @@ public class SVGParserImplIE extends SVGParserImpl {
 		SVGDocument doc = null;
 		try {
 			doc = parseFromString(rawSvg, "text/xml").cast();
+			
 		} catch(JavaScriptException e) {
 			throw new ParserException(ParserException.Type.NotWellFormed, e.getMessage());
 		}
@@ -57,10 +64,20 @@ public class SVGParserImplIE extends SVGParserImpl {
 			throw new ParserException(ParserException.Type.NotSvg, "Invalid root element: {" + DOMHelper.getNamespaceURI(elt) + "}" + elt.getTagName());
 		}
 		SVGSVGElement svg = DOMHelper.importNode(DOMHelper.getCurrentDocument(), elt, true).cast();
-		// For some reason xlink:href are not correctly evaluated in
-		// some cases in mozilla. If one clones the node this seems
-		// to solve the problem
-    	return new OMSVGSVGElement((SVGSVGElement)svg.cloneNode(true).cast());
+		// IE9 bug workaround: update all SVG style elements by
+		// adding a trailing whitespace char, otherwise IE9 will
+		// ignore them
+		Iterator<Text> iterator = DOMHelper.evaluateNodeListXPath(svg, ".//svg:style/text()", SVGPrefixResolver.INSTANCE);
+		List<Text> styleTexts = new ArrayList<Text>();
+		while(iterator.hasNext()) {
+			Text styleText = iterator.next();
+			styleTexts.add(styleText);
+		}
+		for (Text styleText : styleTexts) {
+			styleText.<Text>cast().setData(styleText.<Text>cast().getData() + " ");
+		}
+		
+    	return new OMSVGSVGElement(svg);
 	}
 
 }

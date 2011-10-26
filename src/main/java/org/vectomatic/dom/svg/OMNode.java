@@ -537,7 +537,7 @@ public class OMNode implements HasHandlers {
      *   <code>Element</code> node.
      */
 	public final OMNode insertBefore(OMNode newChild, OMNode refChild) throws JavaScriptException {
-		ot.insertBefore(newChild.ot, refChild.ot);
+		ot.insertBefore(newChild.ot, refChild != null ? refChild.ot : null);
 		return newChild;
 	}
 
