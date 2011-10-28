@@ -310,4 +310,17 @@ public class OMSVGCircleElement extends OMSVGElement implements HasGraphicalHand
   public final HandlerRegistration addFocusOutHandler(FocusOutHandler handler) {
     return addDomHandler(handler, FocusOutEvent.getType());
   }
+  // Helper methods
+  /**
+   * Constructor.
+   * @param cx the X coordinate of the circle center
+   * @param cy the Y coordinate of the circle center
+   * @param r the circle radius
+   */
+  public OMSVGCircleElement(float cx, float cy, float r) {
+    this();
+	getCx().getBaseVal().setValue(cx);
+	getCy().getBaseVal().setValue(cy);
+	getR().getBaseVal().setValue(r);
+  }
 }

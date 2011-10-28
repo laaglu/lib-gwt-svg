@@ -360,4 +360,26 @@ public class OMSVGLineElement extends OMSVGElement implements HasGraphicalHandle
   public final float distanceToLine(OMSVGPoint p) {
     return ((SVGLineElement)ot).distanceToLine(p);
   }
+  /**
+   * Constructor
+   * @param x1 the X coordinate of the first endpoint
+   * @param y1 the Y coordinate of the first endpoint
+   * @param x2 the X coordinate of the second endpoint
+   * @param y2 the Y coordinate of the second endpoint
+   */
+  public OMSVGLineElement(float x1, float y1, float x2, float y2) {
+	this();
+	getX1().getBaseVal().setValue(x1);
+	getY1().getBaseVal().setValue(y1);
+	getX2().getBaseVal().setValue(x2);
+	getY2().getBaseVal().setValue(y2);
+  }
+  /**
+   * Constructor
+   * @param p1 the first endpoint
+   * @param p2 the the second endpoint
+   */
+  public OMSVGLineElement(OMSVGPoint p1, OMSVGPoint p2) {
+	this(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+  }
 }

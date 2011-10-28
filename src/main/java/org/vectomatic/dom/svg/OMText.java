@@ -32,6 +32,7 @@ import org.vectomatic.dom.svg.utils.DOMHelper;
 import org.w3c.dom.DOMException;
 
 import com.google.gwt.core.client.JavaScriptException;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Text;
 
 /**
@@ -39,6 +40,13 @@ import com.google.gwt.dom.client.Text;
  * @author laaglu
  */
 public class OMText extends OMNode {
+	/**
+	 * Constructor
+	 * @param data The text data
+	 */
+	public OMText(String data) {
+		this(Document.get().createTextNode(data));
+	}
 	protected OMText(Text ot) {
 		super(ot);
 	}

@@ -318,4 +318,19 @@ public class OMSVGEllipseElement extends OMSVGElement implements HasGraphicalHan
   public final HandlerRegistration addFocusOutHandler(FocusOutHandler handler) {
     return addDomHandler(handler, FocusOutEvent.getType());
   }
+  // Helper methods
+  /**
+   * Constructor.
+   * @param cx the X coordinate of the ellipse center
+   * @param cy the Y coordinate of the ellipse center
+   * @param rx the X-axis radius of the ellipse
+   * @param ry the Y-axis radius of the ellipse
+   */
+  public OMSVGEllipseElement(float cx, float cy, float rx, float ry) {
+    this();
+	getCx().getBaseVal().setValue(cx);
+	getCy().getBaseVal().setValue(cy);
+	getRx().getBaseVal().setValue(rx);
+	getRy().getBaseVal().setValue(ry);
+  }
 }

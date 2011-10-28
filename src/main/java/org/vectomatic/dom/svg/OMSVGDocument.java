@@ -432,11 +432,7 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
    * @return An {@link org.vectomatic.dom.svg.OMSVGCircleElement} object.
    */
   public final OMSVGCircleElement createSVGCircleElement(float cx, float cy, float r) {
-	OMSVGCircleElement circle = createSVGCircleElement();
-	circle.getCx().getBaseVal().setValue(cx);
-	circle.getCy().getBaseVal().setValue(cy);
-	circle.getR().getBaseVal().setValue(r);
-	return circle;
+	return new OMSVGCircleElement(cx, cy, r);
   }
   /**
    * Creates an {@link org.vectomatic.dom.svg.OMSVGEllipseElement} object in this
@@ -450,12 +446,7 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
    * @return An {@link org.vectomatic.dom.svg.OMSVGEllipseElement} object.
    */
   public final OMSVGEllipseElement createSVGEllipseElement(float cx, float cy, float rx, float ry) {
-	OMSVGEllipseElement ellipse = createSVGEllipseElement();
-	ellipse.getCx().getBaseVal().setValue(cx);
-	ellipse.getCy().getBaseVal().setValue(cy);
-	ellipse.getRx().getBaseVal().setValue(rx);
-	ellipse.getRy().getBaseVal().setValue(ry);
-	return ellipse;
+	return new OMSVGEllipseElement(cx, cy, rx, ry);
   }
   /**
    * Creates an {@link org.vectomatic.dom.svg.OMSVGLineElement} object in this
@@ -468,12 +459,7 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
    * @return An {@link org.vectomatic.dom.svg.OMSVGLineElement} object.
    */
   public final OMSVGLineElement createSVGLineElement(float x1, float y1, float x2, float y2) {
-	OMSVGLineElement line = createSVGLineElement();
-	line.getX1().getBaseVal().setValue(x1);
-	line.getY1().getBaseVal().setValue(y1);
-	line.getX2().getBaseVal().setValue(x2);
-	line.getY2().getBaseVal().setValue(y2);
-	return line;
+	return new OMSVGLineElement(x1, y1, x2, y2);
   }
   /**
    * Creates an {@link org.vectomatic.dom.svg.OMSVGLineElement} object in this
@@ -484,7 +470,7 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
    * @return An {@link org.vectomatic.dom.svg.OMSVGLineElement} object.
    */
   public final OMSVGLineElement createSVGLineElement(OMSVGPoint p1, OMSVGPoint p2) {
-	return createSVGLineElement(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+	return new OMSVGLineElement(p1, p2);
   }
   /**
    * Creates an {@link org.vectomatic.dom.svg.OMSVGRectElement} object in this
@@ -500,18 +486,7 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
    * @return An {@link org.vectomatic.dom.svg.OMSVGRectElement} object.
    */
   public final OMSVGRectElement createSVGRectElement(float x, float y, float width, float height, float rx, float ry) {
-	OMSVGRectElement rect = createSVGRectElement();
-	rect.getX().getBaseVal().setValue(x);
-	rect.getY().getBaseVal().setValue(y);
-	rect.getWidth().getBaseVal().setValue(width);
-	rect.getHeight().getBaseVal().setValue(height);
-	if (rx != 0f) {
-		rect.getRx().getBaseVal().setValue(rx);
-	}
-	if (ry != 0f) {
-		rect.getRy().getBaseVal().setValue(ry);
-	}
-	return rect;
+	return new OMSVGRectElement(x, y, width, height, rx, ry);
   }
   /**
    * Creates an {@link org.vectomatic.dom.svg.OMSVGRectElement} object in this
@@ -522,7 +497,7 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
    * @return An {@link org.vectomatic.dom.svg.OMSVGRectElement} object.
    */
   public final OMSVGRectElement createSVGRectElement(OMSVGRect rect) {
-	return createSVGRectElement(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight(), 0, 0);
+	return new OMSVGRectElement(rect);
   }
   /**
    * Creates an {@link org.vectomatic.dom.svg.OMSVGTextElement} object in this
@@ -535,14 +510,7 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
    * @return An {@link org.vectomatic.dom.svg.OMSVGTextElement} object.
    */
   public final OMSVGTextElement createSVGTextElement(float x, float y, short unitType, String data) {
-    OMSVGTextElement text = createSVGTextElement();
-    OMSVGSVGElement svg = createSVGSVGElement();
-	OMSVGLength xCoord = svg.createSVGLength(unitType, x);
-	text.getX().getBaseVal().appendItem(xCoord);
-	OMSVGLength yCoord = svg.createSVGLength(unitType, y);
-	text.getY().getBaseVal().appendItem(yCoord);
-	text.appendChild(createTextNode(data));
-	return text;
+	return new OMSVGTextElement(x, y, unitType, data);
   }
   /**
    * Creates an {@link org.vectomatic.dom.svg.OMSVGImageElement} object in this
@@ -557,13 +525,7 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
    * @return An {@link org.vectomatic.dom.svg.OMSVGImageElement} object.
    */
   public final OMSVGImageElement createSVGImageElement(float x, float y, float width, float height, String href) {
-	OMSVGImageElement image = createSVGImageElement();
-	image.getX().getBaseVal().setValue(x);
-	image.getY().getBaseVal().setValue(y);
-	image.getWidth().getBaseVal().setValue(width);
-	image.getHeight().getBaseVal().setValue(height);
-	image.getHref().setBaseVal(href);
-	return image;
+	return new OMSVGImageElement(x, y, width, height, href);
   }
   /**
    * Creates an {@link org.vectomatic.dom.svg.OMSVGTitleElement} object in this
@@ -573,9 +535,7 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
    * @return An {@link org.vectomatic.dom.svg.OMSVGTitleElement} object.
    */
   public final OMSVGTitleElement createSVGTitleElement(String text) {
-	  OMSVGTitleElement title = createSVGTitleElement();
-	  title.appendChild(createTextNode(text));
-	  return title;
+	return new OMSVGTitleElement(text);
   }
   /**
    * Creates an {@link org.vectomatic.dom.svg.OMSVGDescElement} object in this
@@ -585,8 +545,6 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
    * @return An {@link org.vectomatic.dom.svg.OMSVGDescElement} object.
    */
   public final OMSVGDescElement createSVGDescElement(String text) {
-	  OMSVGDescElement desc = createSVGDescElement();
-	  desc.appendChild(createTextNode(text));
-	  return desc;
+	return new OMSVGDescElement(text);
   }
 }

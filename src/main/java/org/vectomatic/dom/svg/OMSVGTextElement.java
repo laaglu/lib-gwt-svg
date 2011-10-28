@@ -140,4 +140,21 @@ public class OMSVGTextElement extends OMSVGTextPositioningElement implements ISV
     return ((SVGTextElement)ot).getTransform();
   }
 
+  // Helper methods
+  /**
+   * Constructor.
+   * @param x the X coordinate of the text in specified units
+   * @param y the Y coordinate of the text in specified units
+   * @param unitType the unit type used to specify the text coordinates
+   * @param data the string represented by the text object.
+   */
+  public OMSVGTextElement(float x, float y, short unitType, String data) {
+	this();
+    OMSVGSVGElement svg = new OMSVGSVGElement();
+	OMSVGLength xCoord = svg.createSVGLength(unitType, x);
+	getX().getBaseVal().appendItem(xCoord);
+	OMSVGLength yCoord = svg.createSVGLength(unitType, y);
+	getY().getBaseVal().appendItem(yCoord);
+	appendChild(new OMText(data));
+  }
 }

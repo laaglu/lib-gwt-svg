@@ -87,4 +87,13 @@ public class OMSVGTitleElement extends OMSVGElement implements ISVGLangSpace, IS
     ((SVGTitleElement)ot).setXmlspace(value);
   }
 
+  // Helper methods
+  /**
+   * Constructor.
+   * @param text the title text
+   */
+  public OMSVGTitleElement(String text) {
+    this();
+    appendChild(new OMText(text));
+  }
 }

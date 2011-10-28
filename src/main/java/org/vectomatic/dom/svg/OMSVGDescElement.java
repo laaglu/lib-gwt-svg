@@ -87,4 +87,13 @@ public class OMSVGDescElement extends OMSVGElement implements ISVGLangSpace, ISV
     ((SVGDescElement)ot).setXmlspace(value);
   }
 
+  // Helper methods
+  /**
+   * Constructor.
+   * @param text the desc text
+   */
+  public OMSVGDescElement(String text) {
+    this();
+    appendChild(new OMText(text));
+  }
 }

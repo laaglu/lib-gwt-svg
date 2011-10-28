@@ -334,4 +334,34 @@ public class OMSVGRectElement extends OMSVGElement implements HasGraphicalHandle
   public final HandlerRegistration addFocusOutHandler(FocusOutHandler handler) {
     return addDomHandler(handler, FocusOutEvent.getType());
   }
+  // Helper methods
+  /**
+   * Constructor
+   * @param x the X coordinate of the upper left corner
+   * @param y the Y coordinate of the upper left corner
+   * @param width the width of the rectangle
+   * @param height the width of the rectangle
+   * @param rx the X-axis radius of the rectangle corner
+   * @param ry the Y-axis radius of the rectangle corner
+   */
+  public OMSVGRectElement(float x, float y, float width, float height, float rx, float ry) {
+    this();
+	getX().getBaseVal().setValue(x);
+	getY().getBaseVal().setValue(y);
+	getWidth().getBaseVal().setValue(width);
+	getHeight().getBaseVal().setValue(height);
+	if (rx != 0f) {
+		getRx().getBaseVal().setValue(rx);
+	}
+	if (ry != 0f) {
+		getRy().getBaseVal().setValue(ry);
+	}
+  }
+  /**
+   * Constructor
+   * @param rect The SVG rect to use to initialize this rect.
+   */
+  public OMSVGRectElement(OMSVGRect rect) {
+    this(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight(), 0, 0);
+  }
 }

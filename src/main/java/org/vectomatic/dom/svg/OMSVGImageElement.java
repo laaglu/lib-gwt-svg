@@ -336,4 +336,21 @@ public class OMSVGImageElement extends OMSVGElement implements HasGraphicalHandl
   public final HandlerRegistration addFocusOutHandler(FocusOutHandler handler) {
     return addDomHandler(handler, FocusOutEvent.getType());
   }
+  // Helper methods
+  /**
+   * Constructor.
+   * @param x the X coordinate of the image
+   * @param y the Y coordinate of the image
+   * @param width the width of the image
+   * @param height the width of the image
+   * @param href the bitmap image referenced by this image element
+   */
+  public OMSVGImageElement(float x, float y, float width, float height, String href) {
+    this();
+	getX().getBaseVal().setValue(x);
+	getY().getBaseVal().setValue(y);
+	getWidth().getBaseVal().setValue(width);
+	getHeight().getBaseVal().setValue(height);
+	getHref().setBaseVal(href);
+  }
 }
