@@ -17,12 +17,18 @@
  **********************************************/
 package org.vectomatic.dom.svg.impl;
 
+import java.util.Stack;
+
+import org.vectomatic.dom.svg.OMSVGAnimatedString;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
+import org.vectomatic.dom.svg.OMSVGStyle;
 import org.vectomatic.dom.svg.utils.DOMHelper;
 import org.vectomatic.dom.svg.utils.ParserException;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Node;
+import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.dom.client.Text;
 
 
@@ -59,26 +65,49 @@ public class SVGParserImplOpera extends SVGParserImpl {
 	/**
 	 * Fix for opera.
 	 * SVG Objects created by the parser and imported do not seem to recognize their
-	 * CSS attributes. Reapplying them seems to solve the issue
+	 * CSS attributes. Reapplying them seems to solve the issue.
+	 * The CSS style attributes which contain hrefs to svg elements are corrupted an
+	 * need to be fixed as well.
 	 * @param root
 	 */
-	private static native void operaFix(Element root) /*-{
-	  var stack = [];
-	  stack.push(root);
-	  while(stack.length > 0) {
-	  	 var elt = stack.pop();
-	  	 if (elt.nodeType == 1 && elt.className && elt.className.baseVal) {
-	  	 	elt.className.baseVal = elt.className.baseVal;
-	  	 }
-	  	 if (elt.nodeType == 1 && elt.hasAttribute("style")) {
-	  	 	elt.setAttribute("style", elt.getAttribute("style"));
-	  	 }
-	  	 var children = elt.childNodes;
-	  	 for(var i = 0; i < children.length; i++) {
-	  	   //alert(elt.tagName + "[" + i + "] --> " + children.item(i));
-	  	   stack.push(children.item(i));
-	  	 }
-	  }
-	}-*/;
-
+	private static void operaFix(Element root) {
+		Stack<Element> stack = new Stack<Element>();
+		stack.push(root);
+		while(!stack.empty()) {
+			Element element = stack.pop();
+			if (SVGConstants.SVG_NAMESPACE_URI.equals(DOMHelper.getNamespaceURI(element))) {
+				OMSVGAnimatedString cn = element.<SVGElement>cast().getClassName_();
+				if (cn != null) {
+					String value = cn.getBaseVal();
+					if (value != null && value.length() > 0) {
+						cn.setBaseVal(value);
+					}
+				}
+				if (element.hasAttribute(SVGConstants.SVG_STYLE_ATTRIBUTE)) {
+					element.setAttribute(SVGConstants.SVG_STYLE_ATTRIBUTE, element.getAttribute(SVGConstants.SVG_STYLE_ATTRIBUTE));
+					OMSVGStyle style = element.getStyle().<OMSVGStyle>cast();
+					fixProperty(style, SVGConstants.CSS_FILL_PROPERTY);
+					fixProperty(style, SVGConstants.CSS_STROKE_PROPERTY);
+				}
+			}
+			NodeList<Node> childNodes = element.getChildNodes();
+			for (int i = 0, length = childNodes.getLength(); i < length; i++) {
+				Node node = childNodes.getItem(i);
+				if (node.getNodeType() == Node.ELEMENT_NODE) {
+					stack.push(node.<Element>cast());
+				}
+			}
+		}
+	}
+	private static void fixProperty(OMSVGStyle style, String propertyName) {
+		String propertyValue = style.getSVGProperty(propertyName);
+		if (propertyValue != null && propertyValue.length() > 0) {
+			int ix1 = propertyValue.indexOf("#");
+			int ix2 = propertyValue.lastIndexOf("\"");
+			if (ix1 != -1 && ix2 != -1) {
+				propertyValue = DOMHelper.toUrl(propertyValue.substring(ix1 + 1, ix2));
+				style.setSVGProperty(propertyName, propertyValue);
+			}
+		}		
+	}
 }

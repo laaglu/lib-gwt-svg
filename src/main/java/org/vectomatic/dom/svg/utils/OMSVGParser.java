@@ -43,7 +43,7 @@ public class OMSVGParser {
 	 * a new empty SVG document
 	 */
 	public static final OMSVGDocument createDocument() {
-		SVGDocument doc = DOMHelper.createDocument("http://www.w3.org/2000/svg", "").cast();
+		SVGDocument doc = DOMHelper.createDocument(SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_SVG_TAG).cast();
     	return OMNode.convert(doc);
 	}
 
