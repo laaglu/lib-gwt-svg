@@ -51,8 +51,8 @@ public class OMNamedNodeMap<T extends OMNode> implements Iterable<T> {
 	}
 	
 	/**
-	 * Returns the wrapped {@org.vectomatic.dom.svg.impl.NamedNodeMap}
-	 * @return the wrapped {@org.vectomatic.dom.svg.impl.NamedNodeMap}
+	 * Returns the wrapped {@link org.vectomatic.dom.svg.impl.NamedNodeMap}
+	 * @return the wrapped {@link org.vectomatic.dom.svg.impl.NamedNodeMap}
 	 */
 	public NamedNodeMap<? extends Node> getNamedNodeMap() {
 		return ot;

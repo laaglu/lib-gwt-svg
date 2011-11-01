@@ -997,9 +997,6 @@ public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandler
    * Creates an {@link org.vectomatic.dom.svg.OMSVGRect} object outside of
    * any document trees. The object is initialized to the specified rectangle.
    * @param rect the rect to use for initialization
-   * @param y the Y coordinate to use for initialization
-   * @param width the width to use for initialization
-   * @param height the height to use for initialization
    * @return An {@link org.vectomatic.dom.svg.OMSVGRect} object.
    */
   public final OMSVGRect createSVGRect(OMSVGRect rect) {
