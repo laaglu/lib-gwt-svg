@@ -35,8 +35,8 @@ import com.google.gwt.uibinder.client.ElementParserToUse;
  * <li>DOWN</li>
  * </ul>
  * <p>You can define an SVG toggle button using UiBinder templates. Use
- * the <em>svgui:up</em>, <em>svgui:upDisabled</em>, <em>svgui:upHovering</em>
- * <em>svgui:down</em>, <em>svgui:downDisabled</em>, <em>svgui:downHovering</em>
+ * the <em>svgui:upFace</em>, <em>svgui:upDisabledFace</em>, <em>svgui:upHoveringFace</em>
+ * <em>svgui:downFace</em>, <em>svgui:downDisabledFace</em>, <em>svgui:downHoveringFace</em>
  * tags to defined faces.</p>
  * <p>Depending on your needs, you can either define the SVG inline with
  * the <em>svgui:element</em> tag. This can be convenient if you want to 
@@ -65,15 +65,10 @@ public class SVGToggleButton extends SVGButtonBase {
 	}
 	public SVGToggleButton(OMSVGSVGElement svgElement, Map<SVGFaceName, SVGFace> faces) {
 		super(svgElement, faces);
+		showFace(SVGFaceName.UP);
 	}
 	public SVGToggleButton(SVGResource resource, Map<SVGFaceName, SVGFace> faces) {
 		this(resource.getSvg(), faces);
-	}
-	
-	@Override
-	public void setSvgElement(OMSVGSVGElement svgElement) {
-		super.setSvgElement(svgElement);
-		showFace(SVGFaceName.DOWN);
 	}
 
 	/**

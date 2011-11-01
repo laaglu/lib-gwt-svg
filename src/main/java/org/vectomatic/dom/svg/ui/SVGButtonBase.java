@@ -175,10 +175,6 @@ public abstract class SVGButtonBase extends SVGWidget implements HasClickHandler
 	 */
 	protected SVGFaceName currentFaceName;
 	/**
-	 * The face currently displayed by this button
-	 */
-	protected SVGFace currentFace;
-	/**
 	 * A map associating button face names to button faces
 	 */
 	protected Map<SVGFaceName, SVGFace> faces;
@@ -326,20 +322,21 @@ public abstract class SVGButtonBase extends SVGWidget implements HasClickHandler
 	 */
 	public void showFace(SVGFaceName faceName) {
 //		GWT.log((currentFaceName != null ? currentFaceName.name() : "null") + " -> " + faceName.name());
-		if (faceName != currentFaceName || currentFace == null) {
+		SVGFace currentFace = currentFaceName != null ? getFace(currentFaceName) : null;
+		SVGFace face = faceName != null ? getFace(faceName) : null;
+		if (face != currentFace) {
 			if (currentFace != null) {
 				for (SVGFaceChange change : currentFace.getChanges()) {
 					change.uninstall(this);
 				}
 			}
-			currentFaceName = faceName;
-			currentFace = getFace(currentFaceName);
-			if (currentFace != null) {
-				for (SVGFaceChange change : currentFace.getChanges()) {
+			if (face != null) {
+				for (SVGFaceChange change : face.getChanges()) {
 					change.install(this);
 				}
 			}
 		}
+		currentFaceName = faceName;
 	}
 	
 	@Override
