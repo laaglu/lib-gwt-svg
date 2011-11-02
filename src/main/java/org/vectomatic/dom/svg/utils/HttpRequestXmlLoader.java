@@ -45,9 +45,8 @@ public class HttpRequestXmlLoader implements AsyncXmlLoader {
 
 			private void onSuccess(Request request, Response response) {
 				SVGParserImpl impl = GWT.create(SVGParserImpl.class);
-				Element root = impl.parseFromString(response.getText(), "text/xml").getDocumentElement();
-				Element localRoot = DOMHelper.importNode(DOMHelper.getCurrentDocument(), root, true).cast();
-				callback.onSuccess(resourceUrl, localRoot);
+				Element root = impl.parse(response.getText());
+				callback.onSuccess(resourceUrl, root);
 			}
 			
 			public void onResponseReceived(Request request, Response response) {

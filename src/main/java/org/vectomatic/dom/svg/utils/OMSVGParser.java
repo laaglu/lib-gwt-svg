@@ -26,6 +26,7 @@ import org.vectomatic.dom.svg.impl.DashArrayParser;
 import org.vectomatic.dom.svg.impl.SVGDocument;
 import org.vectomatic.dom.svg.impl.SVGPaintParser;
 import org.vectomatic.dom.svg.impl.SVGParserImpl;
+import org.vectomatic.dom.svg.impl.SVGSVGElement;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptException;
@@ -65,7 +66,11 @@ public class OMSVGParser {
 	 * if the document is not well-formed or is not SVG
 	 */
 	public static final OMSVGSVGElement parse(String rawSvg) throws ParserException {
-		return impl.parse(rawSvg);
+		SVGSVGElement elt = impl.parse(rawSvg);
+		if (!SVGConstants.SVG_NAMESPACE_URI.equals(DOMHelper.getNamespaceURI(elt))) {
+			throw new ParserException(ParserException.Type.NotSvg, "Invalid root element: {" + DOMHelper.getNamespaceURI(elt) + "}" + elt.getTagName());
+		}
+		return new OMSVGSVGElement(elt);
 	}
 
 	/**

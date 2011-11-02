@@ -17,7 +17,6 @@
  **********************************************/
 package org.vectomatic.dom.svg.impl;
 
-import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.utils.DOMHelper;
 import org.vectomatic.dom.svg.utils.ParserException;
 import org.vectomatic.dom.svg.utils.SVGConstants;
@@ -46,7 +45,7 @@ public class SVGParserImpl {
 	 * @return
 	 * the document resulting from the parse
 	 */
-	public OMSVGSVGElement parse(String rawSvg) throws ParserException {
+	public SVGSVGElement parse(String rawSvg) throws ParserException {
 		SVGDocument doc = parseFromString(rawSvg, "text/xml").cast();
 		Element elt = doc.getDocumentElement();
 		if ("parsererror".equals(DOMHelper.getLocalName(elt))) {
@@ -56,11 +55,7 @@ public class SVGParserImpl {
 			}
 			throw new ParserException(ParserException.Type.NotWellFormed, message);
 		}
-		if (!SVGConstants.SVG_NAMESPACE_URI.equals(DOMHelper.getNamespaceURI(elt))) {
-			throw new ParserException(ParserException.Type.NotSvg, "Invalid root element: {" + DOMHelper.getNamespaceURI(elt) + "}" + elt.getTagName());
-		}
-		SVGSVGElement svg = DOMHelper.importNode(DOMHelper.getCurrentDocument(), elt, true).cast();
-    	return new OMSVGSVGElement(svg);
+		return DOMHelper.importNode(DOMHelper.getCurrentDocument(), elt, true).<SVGSVGElement>cast();
 	}
 
 }

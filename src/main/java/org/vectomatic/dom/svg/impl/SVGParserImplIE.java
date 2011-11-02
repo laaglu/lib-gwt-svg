@@ -21,12 +21,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.utils.DOMHelper;
 import org.vectomatic.dom.svg.utils.ParserException;
-import org.vectomatic.dom.svg.utils.SVGConstants;
 import org.vectomatic.dom.svg.utils.SVGPrefixResolver;
-import org.vectomatic.dom.svg.utils.XPathPrefixResolver;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.Element;
@@ -44,7 +41,7 @@ public class SVGParserImplIE extends SVGParserImpl {
 	 * @return
 	 * the document resulting from the parse
 	 */
-	public final OMSVGSVGElement parse(String rawSvg) throws ParserException {
+	public final SVGSVGElement parse(String rawSvg) throws ParserException {
 		SVGDocument doc = null;
 		try {
 			doc = parseFromString(rawSvg, "text/xml").cast();
@@ -60,9 +57,6 @@ public class SVGParserImplIE extends SVGParserImpl {
 			}
 			throw new ParserException(ParserException.Type.NotWellFormed, message);
 		}
-		if (!SVGConstants.SVG_NAMESPACE_URI.equals(DOMHelper.getNamespaceURI(elt))) {
-			throw new ParserException(ParserException.Type.NotSvg, "Invalid root element: {" + DOMHelper.getNamespaceURI(elt) + "}" + elt.getTagName());
-		}
 		SVGSVGElement svg = DOMHelper.importNode(DOMHelper.getCurrentDocument(), elt, true).cast();
 		// IE9 bug workaround: update all SVG style elements by
 		// adding a trailing whitespace char, otherwise IE9 will
@@ -77,7 +71,7 @@ public class SVGParserImplIE extends SVGParserImpl {
 			styleText.<Text>cast().setData(styleText.<Text>cast().getData() + " ");
 		}
 		
-    	return new OMSVGSVGElement(svg);
+    	return svg;
 	}
 
 }

@@ -20,7 +20,6 @@ package org.vectomatic.dom.svg.impl;
 import java.util.Stack;
 
 import org.vectomatic.dom.svg.OMSVGAnimatedString;
-import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.OMSVGStyle;
 import org.vectomatic.dom.svg.utils.DOMHelper;
 import org.vectomatic.dom.svg.utils.ParserException;
@@ -30,6 +29,8 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.dom.client.Text;
+import com.google.gwt.regexp.shared.MatchResult;
+import com.google.gwt.regexp.shared.RegExp;
 
 
 /**
@@ -37,6 +38,16 @@ import com.google.gwt.dom.client.Text;
  * @author laaglu
  */
 public class SVGParserImplOpera extends SVGParserImpl {
+	private static final String URL = "^url\\((['\"])?[^#\\)]*#([^'\"\\)]*)\\1\\)$";
+	private static final RegExp URLExp = RegExp.compile(URL, "g");
+	private static String getRef(String expr) {
+		URLExp.setLastIndex(0);
+		MatchResult result = URLExp.exec(expr);
+		if (result != null && result.getGroupCount() == 3) {
+			return result.getGroup(2);
+		}
+		return null;
+	}
 	/**
 	 * Parses the supplied SVG text into a document
 	 * @param rawSvg
@@ -44,7 +55,7 @@ public class SVGParserImplOpera extends SVGParserImpl {
 	 * @return
 	 * the document resulting from the parse
 	 */
-	public final OMSVGSVGElement parse(String rawSvg) throws ParserException {
+	public final SVGSVGElement parse(String rawSvg) throws ParserException {
 		SVGDocument doc = parseFromString(rawSvg, "text/xml").cast();
 		Element elt = doc.getDocumentElement();
 		if ("parsererror".equals(DOMHelper.getLocalName(elt))) {
@@ -54,12 +65,9 @@ public class SVGParserImplOpera extends SVGParserImpl {
 			}
 			throw new ParserException(ParserException.Type.NotWellFormed, message);
 		}
-		if (!SVGConstants.SVG_NAMESPACE_URI.equals(DOMHelper.getNamespaceURI(elt))) {
-			throw new ParserException(ParserException.Type.NotSvg, "Invalid root element: {" + DOMHelper.getNamespaceURI(elt) + "}" + elt.getTagName());
-		}
 		SVGSVGElement svg = DOMHelper.importNode(DOMHelper.getCurrentDocument(), elt, true).cast();
 		operaFix(svg);
-    	return new OMSVGSVGElement(svg);
+    	return svg;
 	}
 	
 	/**
@@ -102,11 +110,10 @@ public class SVGParserImplOpera extends SVGParserImpl {
 	private static void fixProperty(OMSVGStyle style, String propertyName) {
 		String propertyValue = style.getSVGProperty(propertyName);
 		if (propertyValue != null && propertyValue.length() > 0) {
-			int ix1 = propertyValue.indexOf("#");
-			int ix2 = propertyValue.lastIndexOf("\"");
-			if (ix1 != -1 && ix2 != -1) {
-				propertyValue = DOMHelper.toUrl(propertyValue.substring(ix1 + 1, ix2));
-				style.setSVGProperty(propertyName, propertyValue);
+			String ref = getRef(propertyValue);
+			if (ref != null) {
+				String url = "url('#" + ref + "')";
+				style.setSVGProperty(propertyName, url);
 			}
 		}		
 	}
