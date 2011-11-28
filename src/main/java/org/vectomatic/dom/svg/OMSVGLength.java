@@ -204,7 +204,12 @@ public class OMSVGLength extends JavaScriptObject {
   }-*/;
 
   // Helper methods
-  private static final short unitToCode(com.google.gwt.dom.client.Style.Unit unit) {
+  /**
+   * Converts a {@link com.google.gwt.dom.client.Style.Unit} enum to an
+   * SVG length constant.
+   * @return an SVG length constant.
+   */
+  public static final short unitToCode(com.google.gwt.dom.client.Style.Unit unit) {
 	if (unit != null) {
 		switch(unit) {
 			case PCT:
@@ -229,7 +234,12 @@ public class OMSVGLength extends JavaScriptObject {
 	}
 	return SVG_LENGTHTYPE_NUMBER;
   }
-  private static final com.google.gwt.dom.client.Style.Unit codeToUnit(short unit) {
+  /**
+   * Converts an SVG length constant to
+   * a {@link com.google.gwt.dom.client.Style.Unit} enum.
+   * @return a {@link com.google.gwt.dom.client.Style.Unit} enum.
+   */
+  public static final com.google.gwt.dom.client.Style.Unit codeToUnit(short unit) {
 	switch(unit) {
 		case SVG_LENGTHTYPE_NUMBER:
 			return null;

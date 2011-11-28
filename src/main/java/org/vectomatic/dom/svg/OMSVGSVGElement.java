@@ -890,7 +890,7 @@ public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandler
    * @return An {@link org.vectomatic.dom.svg.OMSVGLength} object.
    */
   public final OMSVGLength createSVGLength(Style.Unit unitType, float valueInSpecifiedUnits) {
-	return createSVGLength(unitType, valueInSpecifiedUnits);
+	return createSVGLength(OMSVGLength.unitToCode(unitType), valueInSpecifiedUnits);
   }
   /**
    * Creates an {@link org.vectomatic.dom.svg.OMSVGLength} object outside of
