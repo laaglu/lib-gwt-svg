@@ -8,6 +8,7 @@ import java.util.Map;
 import org.vectomatic.dom.svg.OMCSSPrimitiveValue;
 import org.vectomatic.dom.svg.OMCSSValue;
 import org.vectomatic.dom.svg.OMCSSValueList;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.gargoylesoftware.htmlunit.javascript.host.css.CSSPrimitiveValue;
 import com.google.gwt.core.client.JavaScriptException;
@@ -46,31 +47,35 @@ public class DashArrayParser {
 		unitToPrimitiveType.put("%", CSSPrimitiveValue.CSS_PERCENTAGE);
 	}
 	
-	public OMCSSValueList parse(String cssText) {
+	public OMCSSValue parse(String cssText) {
 		OMCSSValue[] values = null;
-		if (cssText != null) {
-			List<OMCSSPrimitiveValue> lengths = new ArrayList<OMCSSPrimitiveValue>();
-			String[] lengthArray = cssText.split(COMMA);
-			for (int i = 0; i < lengthArray.length; i++) {
-				if (lengthArray[i].length() > 0) {
-					LENGTH.setLastIndex(0);
-					String length = lengthArray[i].trim();
-					MatchResult result = LENGTH.exec(length);
-					if (result != null && result.getGroupCount() == 3) {
-						short primitiveType = CSSPrimitiveValue.CSS_NUMBER;
-						String unit = result.getGroup(2);
-						if (unit != null) {
-							primitiveType = unitToPrimitiveType.get(unit.toLowerCase());
-						}
-						float value = Float.parseFloat(result.getGroup(1));
-						lengths.add(new OMCSSPrimitiveValue(value, primitiveType));
-					} else {
-						throw new JavaScriptException("Invalid length spec: " + length);
+		if (SVGConstants.CSS_NONE_VALUE.equals(cssText) || cssText == null || cssText.length() == 0) {
+			return new OMCSSPrimitiveValue(cssText, OMCSSPrimitiveValue.CSS_IDENT);
+		} else if (SVGConstants.CSS_INHERIT_VALUE.equals(cssText)) {
+			return new OMCSSPrimitiveValue(cssText, OMCSSPrimitiveValue.CSS_IDENT);
+		}
+		
+		List<OMCSSPrimitiveValue> lengths = new ArrayList<OMCSSPrimitiveValue>();
+		String[] lengthArray = cssText.split(COMMA);
+		for (int i = 0; i < lengthArray.length; i++) {
+			if (lengthArray[i].length() > 0) {
+				LENGTH.setLastIndex(0);
+				String length = lengthArray[i].trim();
+				MatchResult result = LENGTH.exec(length);
+				if (result != null && result.getGroupCount() == 3) {
+					short primitiveType = CSSPrimitiveValue.CSS_NUMBER;
+					String unit = result.getGroup(2);
+					if (unit != null) {
+						primitiveType = unitToPrimitiveType.get(unit.toLowerCase());
 					}
+					float value = Float.parseFloat(result.getGroup(1));
+					lengths.add(new OMCSSPrimitiveValue(value, primitiveType));
+				} else {
+					throw new JavaScriptException("Invalid length spec: " + length);
 				}
 			}
-			values = lengths.toArray(new OMCSSValue[lengths.size()]);
 		}
+		values = lengths.toArray(new OMCSSValue[lengths.size()]);
 		return new OMCSSValueList(values, cssText);
 	}
 

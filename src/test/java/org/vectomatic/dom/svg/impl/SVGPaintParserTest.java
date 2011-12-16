@@ -111,6 +111,12 @@ public class SVGPaintParserTest extends TestCase {
 		assertEquals(OMSVGPaint.SVG_PAINTTYPE_NONE, p.getPaintType());
 		assertNull(p.getUri());
 	}
+	
+	public void testInheritColor() {
+		String cssText = SVGConstants.CSS_INHERIT_VALUE;
+		OMSVGPaint p = SVGPaintParser.INSTANCE.parse(cssText);
+		assertEquals(p, SVGPaintParser.INHERIT);
+	}
 
 	public void testCurrentColor() {
 		String cssText = SVGConstants.CSS_CURRENTCOLOR_VALUE;

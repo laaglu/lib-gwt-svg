@@ -129,6 +129,7 @@ public class OMSVGPaint extends OMSVGColor {
 			  switch (paintType) {
 			  case SVG_PAINTTYPE_NONE:
 			  case SVG_PAINTTYPE_CURRENTCOLOR:
+			  case SVG_PAINTTYPE_UNKNOWN:
 				  return true;
 			  case SVG_PAINTTYPE_RGBCOLOR:
 				  return rgbColor.equals(p.rgbColor);

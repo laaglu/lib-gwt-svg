@@ -17,7 +17,7 @@
  **********************************************/
 package org.vectomatic.dom.svg.utils;
 
-import org.vectomatic.dom.svg.OMCSSValueList;
+import org.vectomatic.dom.svg.OMCSSValue;
 import org.vectomatic.dom.svg.OMNode;
 import org.vectomatic.dom.svg.OMSVGDocument;
 import org.vectomatic.dom.svg.OMSVGPaint;
@@ -95,7 +95,7 @@ public class OMSVGParser {
 	 * The resulting dasharray
 	 * @throws JavaScriptException
 	 */
-	public static OMCSSValueList parseDashArray(String cssText) throws JavaScriptException {
+	public static OMCSSValue parseDashArray(String cssText) throws JavaScriptException {
 		return DashArrayParser.INSTANCE.parse(cssText);
 	}
 }

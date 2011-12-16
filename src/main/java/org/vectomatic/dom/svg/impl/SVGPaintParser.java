@@ -59,6 +59,7 @@ import com.google.gwt.regexp.shared.RegExp;
  */
 public class SVGPaintParser {
 	public static final OMSVGPaint NONE = new OMSVGPaint(OMSVGPaint.SVG_PAINTTYPE_NONE);
+	public static final OMSVGPaint INHERIT = new OMSVGPaint(OMSVGPaint.SVG_PAINTTYPE_UNKNOWN);
 	public static final OMSVGPaint CURRENT_COLOR = new OMSVGPaint(OMSVGPaint.SVG_PAINTTYPE_CURRENTCOLOR);
 	private static Map<String, String> nameToColor;
 	private static final String I255 = "25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9]";
@@ -104,6 +105,9 @@ public class SVGPaintParser {
 				OMSVGPaint paint = new OMSVGPaint(OMSVGPaint.SVG_PAINTTYPE_URI_NONE);
 				paint.setPaint(OMSVGPaint.SVG_PAINTTYPE_URI_NONE, uri, null, null);
 				return paint;
+			} else if (SVGConstants.CSS_INHERIT_VALUE.equals(cssText)) {
+				// none
+				return INHERIT;
 			} else if (SVGConstants.CSS_CURRENTCOLOR_VALUE.equals(cssText)) {
 				// currentColor
 				if (uri == null) {

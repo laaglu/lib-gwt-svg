@@ -32,7 +32,6 @@ package org.vectomatic.dom.svg;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.gargoylesoftware.htmlunit.javascript.host.css.CSSPrimitiveValue;
 import com.google.gwt.core.client.JavaScriptException;
 
 /**
@@ -68,13 +67,14 @@ public class OMCSSPrimitiveValue extends OMCSSValue {
   public static final short CSS_RGBCOLOR = 25;
   
   private short primitiveType;
-  private float value;
+  private float floatValue;
+  private String stringValue;
   private static Map<Short,String> unitToString;
   protected OMCSSPrimitiveValue(float f) {
 	  this(f, CSS_NUMBER);
   }
 
-  public OMCSSPrimitiveValue(float value, short primitiveType) {
+  public OMCSSPrimitiveValue(float floatValue, short primitiveType) {
 	  super(CSS_PRIMITIVE_VALUE);
 	  if (unitToString == null) {
 		  unitToString = new HashMap<Short, String>();
@@ -88,14 +88,20 @@ public class OMCSSPrimitiveValue extends OMCSSValue {
 		  unitToString.put(CSS_PC, "pc");
 		  unitToString.put(CSS_PERCENTAGE, "%");
 	  }
-	  StringBuilder builder = new StringBuilder(Float.toString(value));
+	  StringBuilder builder = new StringBuilder(Float.toString(floatValue));
 	  String unit = unitToString.get(primitiveType);
 	  if (unit != null) {
 		  builder.append(unit);
 	  }
 	  setCssText(builder.toString());
-	  this.value = value;
+	  this.floatValue = floatValue;
 	  this.primitiveType = primitiveType;
+  }
+  public OMCSSPrimitiveValue(String stringValue, short primitiveType) {
+	  super(CSS_PRIMITIVE_VALUE);
+	  this.stringValue = stringValue;
+	  this.primitiveType = primitiveType;
+	  this.cssText = stringValue;
   }
 
   // Implementation of the css::CSSPrimitiveValue W3C IDL interface
@@ -104,26 +110,31 @@ public class OMCSSPrimitiveValue extends OMCSSValue {
   }
   public final void setFloatValue(short unitType, float floatValue) throws JavaScriptException {
 	this.primitiveType = unitType;
-    this.value = floatValue;
+    this.floatValue = floatValue;
   }
   public final float getFloatValue(short unitType) throws JavaScriptException {
-    return value;
+    return floatValue;
   }
   public final void setStringValue(short stringType, String stringValue) throws JavaScriptException {
-    this.setStringValue(stringType, stringValue);
+	  this.primitiveType = stringType;
+	  this.stringValue = stringValue;
   }
   public final String getStringValue() throws JavaScriptException {
-    return this.getStringValue();
+    return stringValue;
   }
   public final OMRGBColor getRGBColorValue() throws JavaScriptException {
-    return this.getRGBColorValue();
+    throw new UnsupportedOperationException();
   }
   @Override
   public String getDescription() {
 	StringBuilder builder = new StringBuilder("OMCSSPrimitiveValue(primitiveType=");
 	builder.append(primitiveType);
 	builder.append(", value=");
-	builder.append(value);
+	if (primitiveType >= CSS_NUMBER && CSS_NUMBER <= CSS_GRAD) {
+		builder.append(floatValue);
+	} else {
+		builder.append(stringValue);
+	}
 	builder.append(", cssValueType=");
 	builder.append(cssValueType);
 	builder.append(", cssText=");
