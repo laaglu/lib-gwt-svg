@@ -1,5 +1,5 @@
 /**********************************************
- * Copyright (C) 2010 Lukas Laag
+ * Copyright (C) 2010-2011 Lukas Laag
  * This file is part of lib-gwt-svg.
  * 
  * libgwtsvg is free software: you can redistribute it and/or modify
@@ -63,6 +63,14 @@ import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.dom.client.TouchCancelEvent;
+import com.google.gwt.event.dom.client.TouchCancelHandler;
+import com.google.gwt.event.dom.client.TouchEndEvent;
+import com.google.gwt.event.dom.client.TouchEndHandler;
+import com.google.gwt.event.dom.client.TouchMoveEvent;
+import com.google.gwt.event.dom.client.TouchMoveHandler;
+import com.google.gwt.event.dom.client.TouchStartEvent;
+import com.google.gwt.event.dom.client.TouchStartHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 
 /**
@@ -242,6 +250,22 @@ public abstract class OMSVGAnimationElement extends OMSVGElement implements HasG
   @Override
   public final HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
     return addDomHandler(handler, MouseUpEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addTouchCancelHandler(TouchCancelHandler handler) {
+    return addDomHandler(handler, TouchCancelEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addTouchEndHandler(TouchEndHandler handler) {
+    return addDomHandler(handler, TouchEndEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addTouchMoveHandler(TouchMoveHandler handler) {
+    return addDomHandler(handler, TouchMoveEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addTouchStartHandler(TouchStartHandler handler) {
+    return addDomHandler(handler, TouchStartEvent.getType());
   }
   @Override
   public final HandlerRegistration addActivateHandler(ActivateHandler handler) {

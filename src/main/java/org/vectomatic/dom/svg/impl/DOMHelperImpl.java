@@ -56,6 +56,10 @@ public class DOMHelperImpl {
 	  protected static final int EVT_SCROLL = 0x20000;
 	  protected static final int EVT_ZOOM = 0x40000;
 	  protected static final int EVT_LOOSECAPTURE = 0x80000;
+	  protected static final int EVT_TOUCHSTART = 0x100000;
+	  protected static final int EVT_TOUCHEND = 0x200000;
+	  protected static final int EVT_TOUCHMOVE = 0x400000;
+	  protected static final int EVT_TOUCHCANCEL = 0x800000;
 	  
 	  protected OMSVGElement captureElt;
 	  
@@ -84,6 +88,10 @@ public class DOMHelperImpl {
 	    $wnd.addEventListener('focusin', $wnd.__svgCapture, true);
 	    $wnd.addEventListener('focusout', $wnd.__svgCapture, true);
 	    $wnd.addEventListener('activate', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('touchstart', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('touchend', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('touchmove', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('touchcancel', $wnd.__svgCapture, true);
 
 	  }-*/;
 	  
@@ -115,6 +123,10 @@ public class DOMHelperImpl {
 		    case "scroll": return 0x20000;
 		    case "zoom": return 0x40000;
 		    case "losecapture": return 0x80000;
+		    case "touchstart": return 0x100000;
+		    case "touchend": return 0x200000;
+		    case "touchmove": return 0x400000;
+		    case "touchcancel": return 0x800000;
 		    default: return 0;
 	    }
 	  }-*/;
@@ -193,25 +205,25 @@ public class DOMHelperImpl {
 	    var chMask = (elem.__eventMask || 0) ^ bits;
 	    elem.__eventMask = bits;
 	    if (!chMask) return;
-	    if (chMask & 0x00001) elem.onfocusin       = (bits & 0x00001) ?
+	    if (chMask & 0x00001) elem.onfocusin = (bits & 0x00001) ?
 	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x00002) elem.onfocusout    = (bits & 0x00002) ?
+	    if (chMask & 0x00002) elem.onfocusout = (bits & 0x00002) ?
 	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x00004) elem.onmousedown   = (bits & 0x00004) ?
+	    if (chMask & 0x00004) elem.onmousedown = (bits & 0x00004) ?
 	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x00008) elem.onmouseup     = (bits & 0x00008) ?
+	    if (chMask & 0x00008) elem.onmouseup = (bits & 0x00008) ?
 	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x00010) elem.onmouseover   = (bits & 0x00010) ?
+	    if (chMask & 0x00010) elem.onmouseover = (bits & 0x00010) ?
 	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x00020) elem.onmouseout    = (bits & 0x00020) ?
+	    if (chMask & 0x00020) elem.onmouseout = (bits & 0x00020) ?
 	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x00040) elem.onmousemove   = (bits & 0x00040) ?
+	    if (chMask & 0x00040) elem.onmousemove = (bits & 0x00040) ?
 	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x00080) elem.onactivate     = (bits & 0x00080) ?
+	    if (chMask & 0x00080) elem.onactivate = (bits & 0x00080) ?
 	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x00100) elem.onclick    = (bits & 0x00100) ?
+	    if (chMask & 0x00100) elem.onclick = (bits & 0x00100) ?
 	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x00200) elem.onload       = (bits & 0x00200) ?
+	    if (chMask & 0x00200) elem.onload = (bits & 0x00200) ?
 	        $wnd.__svgDispatch : null;
 	    if (chMask & 0x00400) {
 	      if (bits & 0x00400) {
@@ -242,15 +254,23 @@ public class DOMHelperImpl {
 	    }
 	    if (chMask & 0x02000) elem.onunload = (bits & 0x02000) ?
 	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x04000) elem.onabort      = (bits & 0x04000) ?
+	    if (chMask & 0x04000) elem.onabort = (bits & 0x04000) ?
 	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x08000) elem.onerror       = (bits & 0x08000) ?
+	    if (chMask & 0x08000) elem.onerror = (bits & 0x08000) ?
 	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x10000) elem.onresize       = (bits & 0x10000) ?
+	    if (chMask & 0x10000) elem.onresize = (bits & 0x10000) ?
 	        $wnd.__svgDispatch : null;
 	    if (chMask & 0x20000) elem.onscroll  = (bits & 0x20000) ? 
 	        $wnd.__svgDispatch : null;
 	    if (chMask & 0x40000) elem.onzoom = (bits & 0x40000) ? 
+	        $wnd.__svgDispatch : null;
+	    if (chMask & 0x100000) elem.ontouchstart = (bits & 0x100000) ? 
+	        $wnd.__svgDispatch : null;
+	    if (chMask & 0x200000) elem.ontouchend = (bits & 0x200000) ? 
+	        $wnd.__svgDispatch : null;
+	    if (chMask & 0x400000) elem.ontouchmove = (bits & 0x400000) ? 
+	        $wnd.__svgDispatch : null;
+	    if (chMask & 0x800000) elem.ontouchcancel = (bits & 0x800000) ? 
 	        $wnd.__svgDispatch : null;
 	}-*/;
 	

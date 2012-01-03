@@ -45,6 +45,14 @@ import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseWheelEvent;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.event.dom.client.ScrollHandler;
+import com.google.gwt.event.dom.client.TouchCancelEvent;
+import com.google.gwt.event.dom.client.TouchCancelHandler;
+import com.google.gwt.event.dom.client.TouchEndEvent;
+import com.google.gwt.event.dom.client.TouchEndHandler;
+import com.google.gwt.event.dom.client.TouchMoveEvent;
+import com.google.gwt.event.dom.client.TouchMoveHandler;
+import com.google.gwt.event.dom.client.TouchStartEvent;
+import com.google.gwt.event.dom.client.TouchStartHandler;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.ElementParserToUse;
@@ -135,6 +143,23 @@ public class SVGImage extends SVGWidget implements HasGraphicalHandlers, HasAllM
 	public HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
 		return addDomHandler(handler, MouseMoveEvent.getType());
 	}
+	@Override
+	public final HandlerRegistration addTouchCancelHandler(TouchCancelHandler handler) {
+		return addDomHandler(handler, TouchCancelEvent.getType());
+	}
+	@Override
+	public final HandlerRegistration addTouchEndHandler(TouchEndHandler handler) {
+		return addDomHandler(handler, TouchEndEvent.getType());
+	}
+	@Override
+	public final HandlerRegistration addTouchMoveHandler(TouchMoveHandler handler) {
+		return addDomHandler(handler, TouchMoveEvent.getType());
+	}
+	@Override
+	public final HandlerRegistration addTouchStartHandler(TouchStartHandler handler) {
+		return addDomHandler(handler, TouchStartEvent.getType());
+	}
+	
 	@Override
 	public HandlerRegistration addClickHandler(ClickHandler handler) {
 		return addDomHandler(handler, ClickEvent.getType());

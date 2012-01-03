@@ -1,5 +1,5 @@
 /**********************************************
- * Copyright (C) 2010 Lukas Laag
+ * Copyright (C) 2010-2011 Lukas Laag
  * This file is part of lib-gwt-svg.
  * 
  * libgwtsvg is free software: you can redistribute it and/or modify
