@@ -60,7 +60,9 @@ public class DOMHelperImpl {
 	  protected static final int EVT_TOUCHEND = 0x200000;
 	  protected static final int EVT_TOUCHMOVE = 0x400000;
 	  protected static final int EVT_TOUCHCANCEL = 0x800000;
-	  
+	  protected static final int EVT_GESTURESTART = 0x1000000;
+	  protected static final int EVT_GESTURECHANGE = 0x2000000;
+	  protected static final int EVT_GESTUREEND = 0x4000000;
 	  protected OMSVGElement captureElt;
 	  
 	  /**
@@ -92,7 +94,9 @@ public class DOMHelperImpl {
 	    $wnd.addEventListener('touchend', $wnd.__svgCapture, true);
 	    $wnd.addEventListener('touchmove', $wnd.__svgCapture, true);
 	    $wnd.addEventListener('touchcancel', $wnd.__svgCapture, true);
-
+	    $wnd.addEventListener('gesturestart', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('gesturechange', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('gestureend', $wnd.__svgCapture, true);
 	  }-*/;
 	  
 	  /**
@@ -127,6 +131,9 @@ public class DOMHelperImpl {
 		    case "touchend": return 0x200000;
 		    case "touchmove": return 0x400000;
 		    case "touchcancel": return 0x800000;
+			case "gesturestart": return 0x1000000;
+			case "gesturechange": return 0x2000000;
+			case "gestureend": return 0x4000000;
 		    default: return 0;
 	    }
 	  }-*/;
@@ -271,6 +278,12 @@ public class DOMHelperImpl {
 	    if (chMask & 0x400000) elem.ontouchmove = (bits & 0x400000) ? 
 	        $wnd.__svgDispatch : null;
 	    if (chMask & 0x800000) elem.ontouchcancel = (bits & 0x800000) ? 
+	        $wnd.__svgDispatch : null;
+	    if (chMask & 0x1000000) elem.ongesturestart = (bits & 0x1000000) ?
+	        $wnd.__svgDispatch : null;
+	    if (chMask & 0x2000000) elem.ongesturechange = (bits & 0x2000000) ?
+	        $wnd.__svgDispatch : null;
+	    if (chMask & 0x4000000) elem.ongestureend = (bits & 0x4000000) ?
 	        $wnd.__svgDispatch : null;
 	}-*/;
 	
