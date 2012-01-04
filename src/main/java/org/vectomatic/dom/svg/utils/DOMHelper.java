@@ -830,4 +830,16 @@ public class DOMHelper {
 		}
 		return builder.toString();
 	}
+	
+	/***
+	 * Returns whether touch events on SVG elements are supported
+	 * on the current platform.
+	 * @return true if touch events on SVG elements are supported
+	 * on the current platform, false otherwise
+	 */
+	public static native boolean supportsSvgTouchEvents() /*-{
+	   var elem = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+	   elem.setAttribute('ontouchstart', 'return;');
+	   return (typeof elem.ontouchstart) == "function";
+	}-*/;
 }
