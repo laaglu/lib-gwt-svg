@@ -52,5 +52,13 @@
 		</any>
 	</replace-with>
 	
+	    <!-- WebKit implementation -->
+	<replace-with class="org.vectomatic.dom.svg.impl.CSSHelperWebkit">
+		<when-type-is class="org.vectomatic.dom.svg.impl.CSSHelper" />
+		<any>
+			<when-property-is name="user.agent" value="safari" />
+		</any>
+	</replace-with>
+	
 	
 </module>

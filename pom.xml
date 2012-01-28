@@ -142,39 +142,4 @@
 			</plugin>
 		</plugins>
 	</reporting>
-	<distributionManagement>
-		<repository>
-			<id>${deployment.id}</id>
-			<name>maven repository</name>
-			<url>${deployment.root}/mvn</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>local nexus snapshot repository</name>
-			<url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-        <site>
-			<id>${deployment.id}</id>
-			<name>maven site</name>
-			<url>${deployment.root}/mvn-sites/${project.artifactId}</url>
-		</site>
-	</distributionManagement>
-	<profiles>
-		<profile>
-			<id>development</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<deployment.id>local-server</deployment.id>
-				<deployment.root>scp://localhost/var/www/vectomatic</deployment.root>
-			</properties>
-		</profile>
-		<profile>
-			<id>production</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-		</profile>
-	</profiles>
 </project>

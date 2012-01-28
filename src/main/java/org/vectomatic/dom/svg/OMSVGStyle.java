@@ -17,10 +17,12 @@
  **********************************************/
 package org.vectomatic.dom.svg;
 
+import org.vectomatic.dom.svg.impl.CSSHelper;
 import org.vectomatic.dom.svg.impl.DashArrayParser;
 import org.vectomatic.dom.svg.impl.SVGPaintParser;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.TagName;
 
@@ -30,6 +32,7 @@ import com.google.gwt.dom.client.TagName;
  */
 @TagName("style")
 public class OMSVGStyle extends Style {
+	protected static CSSHelper cssHelper = GWT.create(CSSHelper.class);
 	/**
 	 * Constructor
 	 */
@@ -41,7 +44,7 @@ public class OMSVGStyle extends Style {
  	 * @param name The property name
      */
 	public final void clearSVGProperty(String name) {
-		setPropertyImpl(name, "");
+		cssHelper.setProperty(this, name, "");
 	}
 
 	/**
@@ -50,7 +53,7 @@ public class OMSVGStyle extends Style {
 	 * @return The property name
 	 */
 	public final String getSVGProperty(String name) {
-		return getPropertyImpl(name);
+		return cssHelper.getProperty(this, name);
 	}
 
 	/**
@@ -59,17 +62,9 @@ public class OMSVGStyle extends Style {
 	 * @param value The property name
 	 */
 	public final void setSVGProperty(String name, String value) {
-		setPropertyImpl(name, value);
+		cssHelper.setProperty(this, name, value);
 	}
 
-	private native String getPropertyImpl(String name) /*-{
-	    return this.getPropertyValue(name);
-	}-*/;
-
-	private native void setPropertyImpl(String name, String value) /*-{
-	    this.setProperty(name, value, '');
-	}-*/;
-	
 	/**
 	 * Gets the value of a named property as a CSS value.
 	 * This method can be applied to get the value of the
