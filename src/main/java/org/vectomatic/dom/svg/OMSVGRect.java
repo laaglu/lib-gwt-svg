@@ -210,8 +210,8 @@ public class OMSVGRect extends JavaScriptObject {
   public final OMSVGRect union(OMSVGRect r, OMSVGRect destination) {
 	  float x = Math.min(getX(), r.getX());
 	  float y = Math.min(getY(), r.getY());
-	  destination.setWidth(Math.max(getMaxX(), r.getMaxX()) - destination.getX());
-	  destination.setHeight(Math.max(getMaxY(), r.getMaxY()) - destination.getY());
+	  destination.setWidth(Math.max(getMaxX(), r.getMaxX()) - x);
+	  destination.setHeight(Math.max(getMaxY(), r.getMaxY()) - y);
 	  destination.setX(x);
 	  destination.setY(y);
 	  return destination;
