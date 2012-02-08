@@ -29,7 +29,7 @@ public class CSSHelperWebkit extends CSSHelper {
 		// which makes it hard to parse these values (because they cannot be
 		// distinguished from '#aabbcc' rgb paint values)
 		var value = style.getPropertyCSSValue(name);
-		if (value != null && typeof value.paintType != "undefined" && value.uri != null) {
+		if (value != null && typeof value.paintType != "undefined" && value.uri != null && value.uri.length > 0) {
 			return "url(" + value.uri + ")";
 		}
 		return style.getPropertyValue(name);
