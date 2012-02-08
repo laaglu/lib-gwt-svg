@@ -8,7 +8,7 @@
   	<groupId>org.vectomatic</groupId>
 	<artifactId>lib-gwt-svg</artifactId>
 	<packaging>jar</packaging>
-	<version>0.5.5-SNAPSHOT</version>
+	<version>0.5.5</version>
 	<name>lib-gwt-svg</name>
 	<description>A GWT library to access the SVG functionalities of web browsers</description>
 	<url>http://www.vectomatic.org/lib-gwt-svg</url>
@@ -19,9 +19,9 @@
 		</license>
 	</licenses>
 	<scm>
-		<url>http://code.google.com/p/vectomatic/source/browse/#svn/lib-gwt-svg/trunk</url>
-		<connection>scm:svn:http://vectomatic.googlecode.com/svn/lib-gwt-svg/trunk</connection>
-		<developerConnection>scm:svn:file:///home/laaglu/svn/laaglu-svn/lib-gwt-svg/trunk</developerConnection>
+		<url>http://code.google.com/p/vectomatic/source/browse/#svn/lib-gwt-svg/tags/0.5.5</url>
+		<connection>scm:svn:http://vectomatic.googlecode.com/svn/lib-gwt-svg/tags/0.5.5</connection>
+		<developerConnection>scm:svn:file:///home/laaglu/svn/laaglu-svn/lib-gwt-svg/tags/0.5.5</developerConnection>
 	</scm>
 	<developers>
 		<developer>
