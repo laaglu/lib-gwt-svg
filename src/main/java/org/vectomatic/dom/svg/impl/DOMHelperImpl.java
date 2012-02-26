@@ -36,33 +36,6 @@ import com.google.gwt.event.shared.HandlerRegistration;
  */
 public class DOMHelperImpl {
 	  protected static boolean eventsInitialized;
-	  protected static final int EVT_FOCUSIN = 0x00001;
-	  protected static final int EVT_FOCUSOUT = 0x00002;
-	  protected static final int EVT_MOUSEDOWN = 0x00004;
-	  protected static final int EVT_MOUSEUP = 0x00008;
-	  protected static final int EVT_MOUSEOVER = 0x00010;
-	  protected static final int EVT_MOUSEOUT = 0x00020;
-	  protected static final int EVT_MOUSEMOVE = 0x00040;
-	  protected static final int EVT_ACTIVATE = 0x00080;
-	  protected static final int EVT_CLICK = 0x00100;
-	  protected static final int EVT_LOAD = 0x00200;
-	  protected static final int EVT_BEGIN = 0x00400;
-	  protected static final int EVT_END = 0x00800;
-	  protected static final int EVT_REPEAT = 0x01000;
-	  protected static final int EVT_UNLOAD = 0x02000;
-	  protected static final int EVT_ABORT = 0x04000;
-	  protected static final int EVT_ERROR = 0x08000;
-	  protected static final int EVT_RESIZE = 0x10000;
-	  protected static final int EVT_SCROLL = 0x20000;
-	  protected static final int EVT_ZOOM = 0x40000;
-	  protected static final int EVT_LOOSECAPTURE = 0x80000;
-	  protected static final int EVT_TOUCHSTART = 0x100000;
-	  protected static final int EVT_TOUCHEND = 0x200000;
-	  protected static final int EVT_TOUCHMOVE = 0x400000;
-	  protected static final int EVT_TOUCHCANCEL = 0x800000;
-	  protected static final int EVT_GESTURESTART = 0x1000000;
-	  protected static final int EVT_GESTURECHANGE = 0x2000000;
-	  protected static final int EVT_GESTUREEND = 0x4000000;
 	  protected OMSVGElement captureElt;
 	  
 	  /**
@@ -97,46 +70,15 @@ public class DOMHelperImpl {
 	    $wnd.addEventListener('gesturestart', $wnd.__svgCapture, true);
 	    $wnd.addEventListener('gesturechange', $wnd.__svgCapture, true);
 	    $wnd.addEventListener('gestureend', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('dragstart', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('drag', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('dragenter', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('dragleave', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('dragover', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('drop', $wnd.__svgCapture, true);
+	    $wnd.addEventListener('dragend', $wnd.__svgCapture, true);
 	  }-*/;
 	  
-	  /**
-	   * Returns the bit mask which corresponds to
-	   * the specified event type
-	   * @param eventType The event type
-	   * @return The bit mask associated to this event type
-	   */
-	  public native int eventGetTypeInt(String eventType) /*-{
-	    switch (eventType) {
-		    case "focusin": return 0x00001;
-		    case "focusinout": return 0x00002;
-		    case "mousedown": return 0x00004;
-		    case "mouseup": return 0x00008;
-		    case "mouseover": return 0x00010;
-		    case "mouseout": return 0x00020;
-		    case "mousemove": return 0x00040;
-		    case "activate": return 0x00080;
-		    case "click": return 0x00100;
-		    case "load": return 0x00200;
-		    case "begin": return 0x00400;
-		    case "end": return 0x00800;
-		    case "repeat": return 0x01000;
-		    case "unload": return 0x02000;
-		    case "abort": return 0x04000;
-		    case "error": return 0x08000;
-		    case "resize": return 0x10000;
-		    case "scroll": return 0x20000;
-		    case "zoom": return 0x40000;
-		    case "losecapture": return 0x80000;
-		    case "touchstart": return 0x100000;
-		    case "touchend": return 0x200000;
-		    case "touchmove": return 0x400000;
-		    case "touchcancel": return 0x800000;
-			case "gesturestart": return 0x1000000;
-			case "gesturechange": return 0x2000000;
-			case "gestureend": return 0x4000000;
-		    default: return 0;
-	    }
-	  }-*/;
 	
 	protected void init() {
 		if (!eventsInitialized) {
@@ -151,9 +93,19 @@ public class DOMHelperImpl {
 	 */
 	public void bindEventListener(Element elem, String eventName) {
 		init();
-		sinkEvents(elem, eventGetTypeInt(eventName) | getEventsSunk(elem));
+		sinkEvents(elem, eventName);
 	}
-	
+
+	/**
+	 * Makes a node stop sinking the events emitted by the specified element
+	 * @param elem The element emitting the events
+	 * @param eventName The event name
+	 */
+	public void unbindEventListener(Element elem, String eventName) {
+		init();
+		unsinkEvents(elem, eventName);
+	}
+
 	/**
 	 * Returns the element which currently captures all the
 	 * events after a call to {@link org.vectomatic.dom.svg.impl.DOMHelperImpl#setCaptureElement(OMSVGElement, LoseCaptureHandler)}
@@ -194,99 +146,25 @@ public class DOMHelperImpl {
 	}
 	
 	/**
-	 * Returns the event mask for the specified element
-	 * @param elem The element
-	 * @return The event mask for the specified element
+	 * Activate the event listener for the specified
+	 * event on an element
+	 * @param elem The object which emits events
+	 * @param eventName The event name
 	 */
-	public native int getEventsSunk(Element elem) /*-{
-	    return elem.__eventMask || 0;
+	protected native void sinkEvents(Element elem, String eventName) /*-{
+		elem.addEventListener(eventName, $wnd.__svgDispatch, false);
 	}-*/;
 
 	/**
-	 * Changes the event mask and activates the handler
-	 * for the specified element
+	 * Deactivate the event listener for the specified
+	 * event on an element
 	 * @param elem The object which emits events
-	 * @param bits The event mask
+	 * @param eventName The event name
 	 */
-	protected native void sinkEvents(Element elem, int bits) /*-{
-	    var chMask = (elem.__eventMask || 0) ^ bits;
-	    elem.__eventMask = bits;
-	    if (!chMask) return;
-	    if (chMask & 0x00001) elem.onfocusin = (bits & 0x00001) ?
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x00002) elem.onfocusout = (bits & 0x00002) ?
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x00004) elem.onmousedown = (bits & 0x00004) ?
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x00008) elem.onmouseup = (bits & 0x00008) ?
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x00010) elem.onmouseover = (bits & 0x00010) ?
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x00020) elem.onmouseout = (bits & 0x00020) ?
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x00040) elem.onmousemove = (bits & 0x00040) ?
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x00080) elem.onactivate = (bits & 0x00080) ?
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x00100) elem.onclick = (bits & 0x00100) ?
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x00200) elem.onload = (bits & 0x00200) ?
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x00400) {
-	      if (bits & 0x00400) {
-	       //elem.addEventListener('begin', $wnd.__svgDispatch, false);
-	       elem.setAttribute('onbegin', 'window.__svgDispatch(evt);');
-	      } else {
-	       //elem.removeEventListener('begin', $wnd.__svgDispatch, false);
-	       elem.removeAttribute('onbegin');
-	      }
-	    }
-	    if (chMask & 0x00800) {
-	      if (bits & 0x00800) {
-	       //elem.addEventListener('end', $wnd.__svgDispatch, false);
-	       elem.setAttribute('onend', 'window.__svgDispatch(evt);');
-	      } else {
-	       //elem.removeEventListener('end', $wnd.__svgDispatch, false);
-	       elem.removeAttribute('onend');
-	      }
-	    }
-	    if (chMask & 0x01000) {
-	      if (bits & 0x01000) {
-	       //elem.addEventListener('repeat', $wnd.__svgDispatch, false);
-	       elem.setAttribute('onrepeat', 'window.__svgDispatch(evt);');
-	      } else {
-	       //elem.removeEventListener('repeat', $wnd.__svgDispatch, false);
-	       elem.removeAttribute('onrepeat');
-	      }
-	    }
-	    if (chMask & 0x02000) elem.onunload = (bits & 0x02000) ?
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x04000) elem.onabort = (bits & 0x04000) ?
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x08000) elem.onerror = (bits & 0x08000) ?
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x10000) elem.onresize = (bits & 0x10000) ?
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x20000) elem.onscroll  = (bits & 0x20000) ? 
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x40000) elem.onzoom = (bits & 0x40000) ? 
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x100000) elem.ontouchstart = (bits & 0x100000) ? 
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x200000) elem.ontouchend = (bits & 0x200000) ? 
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x400000) elem.ontouchmove = (bits & 0x400000) ? 
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x800000) elem.ontouchcancel = (bits & 0x800000) ? 
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x1000000) elem.ongesturestart = (bits & 0x1000000) ?
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x2000000) elem.ongesturechange = (bits & 0x2000000) ?
-	        $wnd.__svgDispatch : null;
-	    if (chMask & 0x4000000) elem.ongestureend = (bits & 0x4000000) ?
-	        $wnd.__svgDispatch : null;
+	protected native void unsinkEvents(Element elem, String eventName) /*-{
+		elem.removeEventListener(eventName, $wnd.__svgDispatch, false);
 	}-*/;
-	
+
 	/**
 	 * Central dispatching function for events emitted by DOM objects
 	 * @param event The DOM event
@@ -295,18 +173,16 @@ public class DOMHelperImpl {
 	 */
 	public void dispatch(NativeEvent event, OMNode node, Element elem) {
 		//Window.alert("type=" + event.getType());
-		switch(eventGetTypeInt(event.getType())) {
+		String eventName = event.getType();
+		if ("mouseover".equals(eventName) || "mouseout".equals(eventName)) {
 			// Mouseover and mouseout deserve special treatment
 			// to solve issues described in:
 			// http://www.quirksmode.org/js/events_mouse.html
 			// For SVG, it seems better to test against the tree rooted at
 			// evt.currentTarget than againt the subtree rooted at evt.target
-			case EVT_MOUSEOVER:
-			case EVT_MOUSEOUT:
-				if (isChildOf((Node)event.getCurrentEventTarget().cast(), (Node)event.getRelatedEventTarget().cast())) {
-					return;
-				}
-				break;
+			if (isChildOf((Node)event.getCurrentEventTarget().cast(), (Node)event.getRelatedEventTarget().cast())) {
+				return;
+			}
 		}
 		node.dispatch(event);
 	}
@@ -319,7 +195,8 @@ public class DOMHelperImpl {
 	 */
 	public void dispatchCapturedEvent(NativeEvent event, Element elem) {
 		if (captureElt != null) {
-			if (eventGetTypeInt(event.getType()) == EVT_LOOSECAPTURE) {
+			String eventName = event.getType();
+			if ("loosecapture".equals(eventName)) {
 				captureElt = null;
 			}
 			dispatch(event, captureElt, elem);

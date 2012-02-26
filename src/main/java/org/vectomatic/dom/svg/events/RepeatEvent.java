@@ -47,7 +47,7 @@ public class RepeatEvent extends TimeEvent<RepeatHandler> {
 	 * Necessary hack. DomEvent.fireNativeEvent uses NativeEvent.getType
 	 * to retrieve the type flyweight. However, for SMIL events, the
 	 * event type name is not the same as the event attribute name
-	 * (onrepeat/repeatEvent vs onmousdown/mousedown for example !)
+	 * (onrepeat/repeatEvent vs onmousedown/mousedown for example !)
 	 */
 	private static final Type<RepeatHandler> TYPE_ = new Type<RepeatHandler>(
 			"repeatEvent", new RepeatEvent());

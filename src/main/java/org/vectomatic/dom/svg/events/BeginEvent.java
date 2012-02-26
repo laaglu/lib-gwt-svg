@@ -40,7 +40,6 @@
 package org.vectomatic.dom.svg.events;
 
 import com.google.gwt.event.dom.client.DomEvent;
-import com.google.gwt.event.dom.client.DomEvent.Type;
 
 /**
  * This event is raised when the element local timeline begins to play.
@@ -64,7 +63,7 @@ public class BeginEvent extends TimeEvent<BeginHandler> {
 	 * Necessary hack. DomEvent.fireNativeEvent uses NativeEvent.getType
 	 * to retrieve the type flyweight. However, for SMIL events, the
 	 * event type name is not the same as the event attribute name
-	 * (onbegin/beginEvent vs onmousdown/mousedown for example !)
+	 * (onbegin/beginEvent vs onmousedown/mousedown for example !)
 	 */
 	private static final Type<BeginHandler> TYPE_ = new Type<BeginHandler>(
 			"beginEvent", new BeginEvent());

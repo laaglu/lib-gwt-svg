@@ -11,7 +11,7 @@
 	<version>0.5.6-SNAPSHOT</version>
 	<name>lib-gwt-svg</name>
 	<description>A GWT library to access the SVG functionalities of web browsers</description>
-	<url>http://www.vectomatic.org/lib-gwt-svg</url>
+	<url>http://www.vectomatic.org/libs/lib-gwt-svg</url>
 	<licenses>
 		<license>
 			<name>LGPLv3</name>
@@ -142,4 +142,31 @@
 			</plugin>
 		</plugins>
 	</reporting>
+	<distributionManagement>
+		<downloadUrl>http://www.vectomatic.org/libs/lib-gwt-svg</downloadUrl>
+	</distributionManagement>
+	<profiles>
+		<!-- ==========================================
+		 Profiles to deploy to your own environment. Define
+		 the associated properties in your settings.xml to
+		 describe the server you want to deploy to.
+		 ==============================================-->
+		<profile>
+			<id>deployment-local</id>
+			<distributionManagement>
+				<repository>
+					<id>${vectomatic.release.id}</id>
+					<url>${vectomatic.release.url}</url>
+				</repository>
+				<snapshotRepository>
+					<id>${vectomatic.snapshots.id}</id>
+					<url>${vectomatic.snapshots.url}</url>
+				</snapshotRepository>
+				<site>
+					<id>${vectomatic.site.id}</id>
+					<url>${vectomatic.site.url}</url>
+				</site>
+			</distributionManagement>
+		</profile>
+	</profiles>
 </project>

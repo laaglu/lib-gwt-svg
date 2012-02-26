@@ -17,6 +17,7 @@
  **********************************************/
 package org.vectomatic.dom.svg.events;
 
+import com.google.gwt.event.dom.client.HasAllDragAndDropHandlers;
 import com.google.gwt.event.dom.client.HasAllTouchHandlers;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.HasLoadHandlers;
@@ -32,6 +33,6 @@ import com.google.gwt.event.dom.client.HasMouseUpHandlers;
  */
 public interface HasGraphicalHandlers extends HasMouseDownHandlers,
 HasMouseUpHandlers, HasMouseOutHandlers, HasMouseOverHandlers,
-HasMouseMoveHandlers, HasClickHandlers, HasLoadHandlers, HasFocusInHandlers, HasFocusOutHandlers, HasActivateHandlers, HasAllTouchHandlers {
+HasMouseMoveHandlers, HasClickHandlers, HasLoadHandlers, HasFocusInHandlers, HasFocusOutHandlers, HasActivateHandlers, HasAllTouchHandlers, HasAllDragAndDropHandlers {
 
 }

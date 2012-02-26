@@ -48,7 +48,7 @@ public class EndEvent extends TimeEvent<EndHandler> {
 	 * Necessary hack. DomEvent.fireNativeEvent uses NativeEvent.getType
 	 * to retrieve the type flyweight. However, for SMIL events, the
 	 * event type name is not the same as the event attribute name
-	 * (onend/endEvent vs onmousdown/mousedown for example !)
+	 * (onend/endEvent vs onmousedown/mousedown for example !)
 	 */
 	private static final Type<EndHandler> TYPE_ = new Type<EndHandler>(
 			"endEvent", new EndEvent());

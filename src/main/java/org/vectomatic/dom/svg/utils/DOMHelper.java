@@ -539,7 +539,16 @@ public class DOMHelper {
 	public static void bindEventListener(Element elem, String eventName) {
 		impl.bindEventListener(elem, eventName);
 	}
-	
+
+	/**
+	 * Stops making a node sink the events emitted by the specified element
+	 * @param elem The element emitting the events
+	 * @param eventName The event name
+	 */
+	public static void unbindEventListener(Element elem, String eventName) {
+		impl.unbindEventListener(elem, eventName);
+	}
+
 	/**
 	 * Returns the element which currently captures all the
 	 * events after a call to {@link org.vectomatic.dom.svg.utils.DOMHelper#setCaptureElement(OMSVGElement, LoseCaptureHandler)}
@@ -630,7 +639,16 @@ public class DOMHelper {
 	 * @return
 	 * true if the feature is supported, false otherwise 
 	 */
-	public static native boolean hasFeature(String featureName) /*-{
+	public static boolean hasFeature(String featureName) {
+		if (SVGConstants.SVG_FEATURE_TOUCH_EVENTS.equals(featureName)) {
+			return supportsSvgTouchEvents();
+		} if (SVGConstants.SVG_FEATURE_DND_EVENTS.equals(featureName)) {
+			return supportsSvgDndEvents();
+		} else {
+			return hasFeature_(featureName);
+		}
+	}
+	private static native boolean hasFeature_(String featureName) /*-{
 		return $doc.implementation.hasFeature(featureName, 1.1);
 	}-*/;
 
@@ -831,15 +849,40 @@ public class DOMHelper {
 		return builder.toString();
 	}
 	
-	/***
+	/**
 	 * Returns whether touch events on SVG elements are supported
 	 * on the current platform.
 	 * @return true if touch events on SVG elements are supported
 	 * on the current platform, false otherwise
+	 * @deprecated
+	 * Use the {@link #hasFeature(String)} method with the
+	 * {@link SVGConstants#SVG_FEATURE_TOUCH_EVENTS} parameter instead.
 	 */
 	public static native boolean supportsSvgTouchEvents() /*-{
 	   var elem = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
 	   elem.setAttribute('ontouchstart', 'return;');
 	   return (typeof elem.ontouchstart) == "function";
 	}-*/;
+	
+	/***
+	 * Returns whether drag and drop events on SVG elements are supported
+	 * on the current platform.
+	 * @return true if drag and drop events on SVG elements are supported
+	 * on the current platform, false otherwise
+	 */
+	private static native boolean supportsSvgDndEvents() /*-{
+	   var elem = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+	   return 'ondragstart' in elem;
+	}-*/;
+	
+	/**
+	 * Returns a base64 encoding of the specified binary string
+	 * @param str
+	 * A binary string (obtained for instance by the FileReader API)
+	 * @return a base64 encoded string.
+	 */
+	public static native String base64encode(String str) /*-{
+		return $wnd.btoa(str);
+	}-*/;
+
 }

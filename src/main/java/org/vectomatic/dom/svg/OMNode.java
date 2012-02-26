@@ -28,6 +28,7 @@
  */
 package org.vectomatic.dom.svg;
 
+import org.vectomatic.dom.svg.impl.DOMEventBus;
 import org.vectomatic.dom.svg.utils.DOMHelper;
 import org.w3c.dom.DOMException;
 
@@ -37,10 +38,9 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Node;
 import com.google.gwt.event.dom.client.DomEvent;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.event.shared.HasHandlers;
 import com.google.gwt.event.shared.UmbrellaException;
@@ -61,7 +61,7 @@ public class OMNode implements HasHandlers {
 	/**
 	 * The event bus shared by all SVG objects
 	 */
-	static protected EventBus eventBus = new SimpleEventBus();
+	static protected EventBus eventBus = new DOMEventBus();
 
 	/**
 	 * Constructor

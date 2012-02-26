@@ -51,6 +51,20 @@ import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.TagName;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.DragEndEvent;
+import com.google.gwt.event.dom.client.DragEndHandler;
+import com.google.gwt.event.dom.client.DragEnterEvent;
+import com.google.gwt.event.dom.client.DragEnterHandler;
+import com.google.gwt.event.dom.client.DragEvent;
+import com.google.gwt.event.dom.client.DragHandler;
+import com.google.gwt.event.dom.client.DragLeaveEvent;
+import com.google.gwt.event.dom.client.DragLeaveHandler;
+import com.google.gwt.event.dom.client.DragOverEvent;
+import com.google.gwt.event.dom.client.DragOverHandler;
+import com.google.gwt.event.dom.client.DragStartEvent;
+import com.google.gwt.event.dom.client.DragStartHandler;
+import com.google.gwt.event.dom.client.DropEvent;
+import com.google.gwt.event.dom.client.DropHandler;
 import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.event.dom.client.MouseDownEvent;
@@ -281,6 +295,34 @@ public class OMSVGCircleElement extends OMSVGElement implements HasGraphicalHand
   @Override
   public final HandlerRegistration addClickHandler(ClickHandler handler) {
     return addDomHandler(handler, ClickEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addDragEndHandler(DragEndHandler handler) {
+    return addDomHandler(handler, DragEndEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addDragEnterHandler(DragEnterHandler handler) {
+    return addDomHandler(handler, DragEnterEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addDragHandler(DragHandler handler) {
+    return addDomHandler(handler, DragEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addDragLeaveHandler(DragLeaveHandler handler) {
+    return addDomHandler(handler, DragLeaveEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addDragOverHandler(DragOverHandler handler) {
+    return addDomHandler(handler, DragOverEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addDragStartHandler(DragStartHandler handler) {
+    return addDomHandler(handler, DragStartEvent.getType());
+  }
+  @Override
+  public final HandlerRegistration addDropHandler(DropHandler handler) {
+    return addDomHandler(handler, DropEvent.getType());
   }
   @Override
   public final HandlerRegistration addLoadHandler(LoadHandler handler) {
