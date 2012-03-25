@@ -1,11 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>5</version>
+		<groupId>org.vectomatic</groupId>
+		<artifactId>vectomatic-parent</artifactId>
+		<version>0.1</version>
 	</parent>
-  	<groupId>org.vectomatic</groupId>
 	<artifactId>lib-gwt-svg</artifactId>
 	<packaging>jar</packaging>
 	<version>0.5.6-SNAPSHOT</version>
@@ -19,40 +18,24 @@
 		</license>
 	</licenses>
 	<scm>
-		<url>http://code.google.com/p/vectomatic/source/browse/#svn/lib-gwt-svg/trunk</url>
-		<connection>scm:svn:http://vectomatic.googlecode.com/svn/lib-gwt-svg/trunk</connection>
-		<developerConnection>scm:svn:file:///home/laaglu/svn/laaglu-svn/lib-gwt-svg/trunk</developerConnection>
+		<url>scm:git:git@github.com:laaglu/lib-gwt-svg.git</url>
+		<connection>scm:git:git@github.com:laaglu/lib-gwt-svg.git</connection>
+		<developerConnection>scm:git:git@github.com:laaglu/lib-gwt-svg.git</developerConnection>
 	</scm>
-	<developers>
-		<developer>
-			<id>laaglu</id>
-			<name>Lukas Laag</name>
-			<email>laaglu@gmail.com</email>
-			<url>http://www.vectomatic.org</url>
-			<roles>
-				<role>architect</role>
-				<role>developer</role>
-			</roles>
-			<timezone>1</timezone>
-		</developer>
-	</developers>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
-			<version>2.4.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-dev</artifactId>
-			<version>2.4.0</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
@@ -69,104 +52,8 @@
 				<directory>${basedir}/src/main/resources</directory>
 			</resource>
 		</resources>
-		<plugins>
-			<!-- Build using java 1.6. GWT requires at least Java 1.5 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-			<!-- Deploy source code in the repository -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- Deploy javadoc in the repository -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
 	</build>
-	<reporting>
-		<plugins>
-			<plugin>
-				<!-- Lock down to 2.0.1 + no license report because of
-				http://jira.codehaus.org/browse/MPIR-150 -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>2.0.1</version>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>index</report>
-							<report>dependencies</report>
-							<report>project-team</report>
-							<report>summary</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.6.1</version>
-				<configuration>
-					<aggregate>true</aggregate>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jxr-plugin</artifactId>
-				<configuration>
-					<aggregate>true</aggregate>
-				</configuration>
-			</plugin>
-		</plugins>
-	</reporting>
 	<distributionManagement>
 		<downloadUrl>http://www.vectomatic.org/libs/lib-gwt-svg</downloadUrl>
 	</distributionManagement>
-	<profiles>
-		<!-- ==========================================
-		 Profiles to deploy to your own environment. Define
-		 the associated properties in your settings.xml to
-		 describe the server you want to deploy to.
-		 ==============================================-->
-		<profile>
-			<id>deployment-local</id>
-			<distributionManagement>
-				<repository>
-					<id>${vectomatic.release.id}</id>
-					<url>${vectomatic.release.url}</url>
-				</repository>
-				<snapshotRepository>
-					<id>${vectomatic.snapshots.id}</id>
-					<url>${vectomatic.snapshots.url}</url>
-				</snapshotRepository>
-				<site>
-					<id>${vectomatic.site.id}</id>
-					<url>${vectomatic.site.url}</url>
-				</site>
-			</distributionManagement>
-		</profile>
-	</profiles>
 </project>
