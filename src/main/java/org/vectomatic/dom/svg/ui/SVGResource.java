@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
 import org.vectomatic.dev.svg.impl.gen.SVGResourceGenerator;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 
-import com.google.gwt.resources.client.ResourcePrototype;
+import com.google.gwt.resources.client.DataResource;
 import com.google.gwt.resources.ext.DefaultExtensions;
 import com.google.gwt.resources.ext.ResourceGeneratorType;
 
@@ -39,7 +39,7 @@ import com.google.gwt.resources.ext.ResourceGeneratorType;
  */
 @DefaultExtensions(value = {".svg"})
 @ResourceGeneratorType(SVGResourceGenerator.class)
-public interface SVGResource extends ResourcePrototype {
+public interface SVGResource extends DataResource {
 	/**
 	 * Specifies additional options to control how an SVG is bundled.
 	 */

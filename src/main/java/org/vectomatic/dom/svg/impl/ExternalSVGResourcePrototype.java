@@ -28,6 +28,8 @@ import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
 import com.google.gwt.resources.client.ResourceCallback;
 import com.google.gwt.resources.client.ResourceException;
+import com.google.gwt.safehtml.shared.SafeUri;
+import com.google.gwt.safehtml.shared.UriUtils;
 
 /**
  * Implementation of ExternalSVGResource derived from Google's original
@@ -70,12 +72,24 @@ public class ExternalSVGResourcePrototype implements ExternalSVGResource {
 				final String resourceText = extractString(jso, i);
 				cache[i] = new SVGResource() {
 
+					@Override
 					public String getName() {
 						return name;
 					}
 
+					@Override
 					public OMSVGSVGElement getSvg() {
 						return OMSVGParser.parse(resourceText);
+					}
+
+					@Override
+					public SafeUri getSafeUri() {
+						return UriUtils.fromSafeConstant("data:image/svg+xml;utf8," + resourceText);
+					}
+
+					@Override
+					public String getUrl() {
+						return "data:image/svg+xml;utf8," + resourceText;
 					}
 
 				};

@@ -32,6 +32,8 @@ import com.google.gwt.dev.util.Util;
 import com.google.gwt.resources.ext.AbstractResourceGenerator;
 import com.google.gwt.resources.ext.ResourceContext;
 import com.google.gwt.resources.ext.ResourceGeneratorUtil;
+import com.google.gwt.safehtml.shared.SafeUri;
+import com.google.gwt.safehtml.shared.UriUtils;
 import com.google.gwt.user.rebind.SourceWriter;
 import com.google.gwt.user.rebind.StringSourceWriter;
 
@@ -60,26 +62,44 @@ public class SVGResourceGenerator extends AbstractResourceGenerator {
 		//     return OMSVGParser.parse("...");
 		//   }
 		// };
-		SourceWriter sw = new StringSourceWriter();
-		sw.println("new " + SVGResource.class.getName() + "() {");
-		sw.indent();
-
-		// Convenience when examining the generated code.
-		sw.println("// " + resource.toExternalForm());
-
-		sw.println("public " + OMSVGSVGElement.class.getName() + " getSvg() {");
-		sw.indent();
 		String toWrite = Util.readURLAsString(resource);
 		if (getValidated(method)) {
 			SVGValidator.validate(toWrite, resource.toExternalForm(), logger, null);
 		}
-		sw.println("return " + OMSVGParser.class.getName() + ".parse(\"" + Generator.escape(toWrite) + "\");");
+		
+		SourceWriter sw = new StringSourceWriter();
+		sw.println("new " + SVGResource.class.getName() + "() {");
+		sw.indent();
+		sw.println("private String svg=\"" + Generator.escape(toWrite) + "\";");
+
+		// Convenience when examining the generated code.
+		sw.println("// " + resource.toExternalForm());
+
+	    sw.println("@Override");
+		sw.println("public " + OMSVGSVGElement.class.getName() + " getSvg() {");
+		sw.indent();
+		sw.println("return " + OMSVGParser.class.getName() + ".parse(svg);");
 		sw.outdent();
 		sw.println("}");
 
+	    sw.println("@Override");
 	    sw.println("public String getName() {");
 	    sw.indent();
 	    sw.println("return \"" + method.getName() + "\";");
+	    sw.outdent();
+	    sw.println("}");
+	    
+	    sw.println("@Override");
+	    sw.println("public String getUrl() {");
+	    sw.indent();
+		sw.println("return \"data:image/svg+xml;utf8,\" + svg;");
+	    sw.outdent();
+	    sw.println("}");
+
+	    sw.println("@Override");
+	    sw.println("public " + SafeUri.class.getName() + " getSafeUri() {");
+	    sw.indent();
+		sw.println("return " + UriUtils.class.getName() + ".fromSafeConstant(\"data:image/svg+xml;utf8,\" + svg);");
 	    sw.outdent();
 	    sw.println("}");
 
