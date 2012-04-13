@@ -22,6 +22,7 @@ import java.net.URL;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.ui.SVGResource;
 import org.vectomatic.dom.svg.ui.SVGResource.Validated;
+import org.vectomatic.dom.svg.utils.DOMHelper;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
 
 import com.google.gwt.core.ext.Generator;
@@ -92,14 +93,14 @@ public class SVGResourceGenerator extends AbstractResourceGenerator {
 	    sw.println("@Override");
 	    sw.println("public String getUrl() {");
 	    sw.indent();
-		sw.println("return \"data:image/svg+xml;utf8,\" + svg;");
+		sw.println("return \"data:image/svg+xml;base64,\" + " + DOMHelper.class.getName() + ".base64encode(svg);");
 	    sw.outdent();
 	    sw.println("}");
 
 	    sw.println("@Override");
 	    sw.println("public " + SafeUri.class.getName() + " getSafeUri() {");
 	    sw.indent();
-		sw.println("return " + UriUtils.class.getName() + ".fromSafeConstant(\"data:image/svg+xml;utf8,\" + svg);");
+		sw.println("return " + UriUtils.class.getName() + ".fromSafeConstant(\"data:image/svg+xml;base64,\" + " + DOMHelper.class.getName() + ".base64encode(svg));");
 	    sw.outdent();
 	    sw.println("}");
 
