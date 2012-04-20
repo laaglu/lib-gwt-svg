@@ -308,4 +308,24 @@ public class OMSVGLength extends JavaScriptObject {
   public final void convertToSpecifiedUnits(com.google.gwt.dom.client.Style.Unit unitType) throws JavaScriptException {
 	convertToSpecifiedUnits(unitToCode(unitType));
   }
+  
+  /**
+   * The value as a floating point value, in the units expressed by the given <var>unitType</var>.
+   * @param unitType The unit type to use to express the value.
+   */
+  public final float getValueInSpecifiedUnits(com.google.gwt.dom.client.Style.Unit unitType) {
+    return getValueInSpecifiedUnits(unitToCode(unitType));
+  }
+
+  /**
+   * The value as a floating point value, in the units expressed by the given <var>unitType</var>.
+   * @param unitType The unit type to use to express the value.
+   */
+  public final native float getValueInSpecifiedUnits(short unitType) /*-{
+    var u = this.unitType;
+    this.convertToSpecifiedUnits(unitType);
+    var v = this.valueInSpecifiedUnits;
+    this.convertToSpecifiedUnits(u);
+    return v;
+  }-*/;
 }
