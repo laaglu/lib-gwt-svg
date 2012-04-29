@@ -874,15 +874,5 @@ public class DOMHelper {
 	   var elem = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
 	   return 'ondragstart' in elem;
 	}-*/;
-	
-	/**
-	 * Returns a base64 encoding of the specified binary string
-	 * @param str
-	 * A binary string (obtained for instance by the FileReader API)
-	 * @return a base64 encoded string.
-	 */
-	public static native String base64encode(String str) /*-{
-		return $wnd.btoa(str);
-	}-*/;
 
 }
