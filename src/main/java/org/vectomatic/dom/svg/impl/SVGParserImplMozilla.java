@@ -17,10 +17,17 @@
  **********************************************/
 package org.vectomatic.dom.svg.impl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.vectomatic.dom.svg.OMSVGScriptElement;
 import org.vectomatic.dom.svg.utils.DOMHelper;
 import org.vectomatic.dom.svg.utils.ParserException;
+import org.vectomatic.dom.svg.utils.SVGPrefixResolver;
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.Text;
 
 /**
@@ -49,7 +56,27 @@ public class SVGParserImplMozilla extends SVGParserImpl {
 		// For some reason xlink:href are not correctly evaluated in
 		// some cases in mozilla. If one clones the node this seems
 		// to solve the problem
-    	return svg.cloneNode(true).<SVGSVGElement>cast();
+    	return fixScriptElements(svg.cloneNode(true).<SVGSVGElement>cast());
 	}
+	
+	private static SVGSVGElement fixScriptElements(SVGSVGElement svg) {
+		// Put all scripts in a list (XPath result sets cannot be modified during traversal).
+		List<SVGScriptElement> scripts = new ArrayList<SVGScriptElement>();
+		Iterator<Node> iterator = DOMHelper.evaluateNodeListXPath(svg, "//svg:script", SVGPrefixResolver.INSTANCE);
+		while (iterator.hasNext()) {
+			scripts.add(iterator.next().<SVGScriptElement>cast());
+		}
+		for (SVGScriptElement script : scripts) {
+			// Reparent the script subtree under a fresh script node
+			SVGScriptElement newScript = new OMSVGScriptElement().getElement().<SVGScriptElement>cast();
+			Node node;
+			while((node = script.getFirstChild()) != null) {
+				newScript.appendChild(script.removeChild(node));
+			}
+			script.getParentNode().replaceChild(newScript, script);
+		}
+		return svg;
+	}
+
 
 }
