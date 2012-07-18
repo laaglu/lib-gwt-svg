@@ -18,7 +18,6 @@
 package org.vectomatic.dom.svg.utils;
 
 import org.vectomatic.dom.svg.impl.SVGParserImpl;
-import org.vectomatic.dom.svg.utils.DOMHelper;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
@@ -45,7 +44,7 @@ public class HttpRequestXmlLoader implements AsyncXmlLoader {
 
 			private void onSuccess(Request request, Response response) {
 				SVGParserImpl impl = GWT.create(SVGParserImpl.class);
-				Element root = impl.parse(response.getText());
+				Element root = impl.parse(response.getText(), true);
 				callback.onSuccess(resourceUrl, root);
 			}
 			

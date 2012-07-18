@@ -38,10 +38,13 @@ public class SVGParserImplIE extends SVGParserImpl {
 	 * Parses the supplied SVG text into a document
 	 * @param rawSvg
 	 * raw xml to be parsed
+	 * @param enableScripts
+	 * true to enable embedded scripts, false otherwise
 	 * @return
 	 * the document resulting from the parse
 	 */
-	public final SVGSVGElement parse(String rawSvg) throws ParserException {
+	@Override
+	public final SVGSVGElement parse(String rawSvg, boolean enableScripts) throws ParserException {
 		SVGDocument doc = null;
 		try {
 			doc = parseFromString(rawSvg, "text/xml").cast();
@@ -71,7 +74,7 @@ public class SVGParserImplIE extends SVGParserImpl {
 			styleText.<Text>cast().setData(styleText.<Text>cast().getData() + " ");
 		}
 		
-    	return svg;
+		return enableScripts ? enableScriptElements(svg) : svg;
 	}
 
 }

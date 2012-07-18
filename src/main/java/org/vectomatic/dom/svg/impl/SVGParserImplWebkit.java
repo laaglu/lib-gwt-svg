@@ -33,10 +33,13 @@ public class SVGParserImplWebkit extends SVGParserImpl {
 	 * Parses the supplied SVG text into a document
 	 * @param rawSvg
 	 * raw xml to be parsed
+	 * @param enableScripts
+	 * true to enable embedded scripts, false otherwise
 	 * @return
 	 * the document resulting from the parse
 	 */
-	public final SVGSVGElement parse(String rawSvg) throws ParserException {
+	@Override
+	public final SVGSVGElement parse(String rawSvg, boolean enableScripts) throws ParserException {
 		SVGDocument doc = parseFromString(rawSvg, "text/xml").cast();
 		Element elt = doc.getDocumentElement();
 		if ("parsererror".equals(DOMHelper.getLocalName(elt))) {
@@ -61,7 +64,8 @@ public class SVGParserImplWebkit extends SVGParserImpl {
 		// For some reason xlink:href are not correctly evaluated in
 		// some cases in mozilla. If one clones the node this seems
 		// to solve the problem
-    	return svg.cloneNode(true).<SVGSVGElement>cast();
+    	svg = svg.cloneNode(true).<SVGSVGElement>cast();
+		return enableScripts ? enableScriptElements(svg) : svg;
 	}
 
 }

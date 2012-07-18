@@ -57,7 +57,8 @@ public class OMSVGParser {
 	}
 
 	/**
-	 * Parses the supplied SVG text into a document
+	 * Parses the supplied SVG text into a document. If the SVG contains embedded
+	 * scripts, they will be enabled.
 	 * @param rawSvg
 	 * raw xml to be parsed
 	 * @return
@@ -66,7 +67,22 @@ public class OMSVGParser {
 	 * if the document is not well-formed or is not SVG
 	 */
 	public static final OMSVGSVGElement parse(String rawSvg) throws ParserException {
-		SVGSVGElement elt = impl.parse(rawSvg);
+		return parse(rawSvg, true);
+	}
+
+	/**
+	 * Parses the supplied SVG text into a document
+	 * @param rawSvg
+	 * raw xml to be parsed
+	 * @param enableScripts
+	 * true to enable embedded scripts, false otherwise
+	 * @return
+	 * the document resulting from the parse
+	 * @throws ParserException
+	 * if the document is not well-formed or is not SVG
+	 */
+	public static final OMSVGSVGElement parse(String rawSvg, boolean enableScripts) throws ParserException {
+		SVGSVGElement elt = impl.parse(rawSvg, enableScripts);
 		if (!SVGConstants.SVG_NAMESPACE_URI.equals(DOMHelper.getNamespaceURI(elt))) {
 			throw new ParserException(ParserException.Type.NotSvg, "Invalid root element: {" + DOMHelper.getNamespaceURI(elt) + "}" + elt.getTagName());
 		}

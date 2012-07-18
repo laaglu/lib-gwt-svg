@@ -23,6 +23,8 @@ import org.w3c.dom.Node;
 
 import com.google.gwt.core.ext.UnableToCompleteException;
 import com.google.gwt.core.ext.typeinfo.JClassType;
+import com.google.gwt.uibinder.rebind.FieldManager;
+import com.google.gwt.uibinder.rebind.FieldWriter;
 import com.google.gwt.uibinder.rebind.UiBinderWriter;
 import com.google.gwt.uibinder.rebind.XMLElement;
 
@@ -42,10 +44,23 @@ public class SvgFieldInterpreter implements XMLElement.Interpreter<String> {
 		String fieldName = writer.declareFieldIfNeeded(elem);
 		if (fieldName != null) {
 			JClassType type = writer.findFieldType(elem);
-		    writer.setFieldInitializer(fieldName, "null");
-		    writer.addInitStatement(
-		        "%s = (" + type.getQualifiedSourceName() + ")" + SVGWidget.class.getName() + ".getUiBinderField(%s, \"%s\");",
-		        fieldName, ancestorExpression, getXpath(elem.getElement()));
+			StringBuilder builder = new StringBuilder();
+			builder.append("(");
+			builder.append(type.getQualifiedSourceName());
+			builder.append(")");
+			builder.append(SVGWidget.class.getName());
+			builder.append(".getUiBinderField(");
+		    FieldManager fieldManager = writer.getFieldManager();
+			builder.append(fieldManager.convertFieldToGetter(ancestorExpression));
+			builder.append(".getSvgElement().getElement(), \"");
+			builder.append(getXpath(elem.getElement()));
+			builder.append("\")");
+			FieldWriter ancestorWriter = fieldManager.require(ancestorExpression);
+			ancestorWriter.setBuildPrecedence(1 + ancestorWriter.getBuildPrecedence());
+		    writer.setFieldInitializer(fieldName, builder.toString());
+//		    writer.addInitStatement(
+//		        "%s = (" + type.getQualifiedSourceName() + ")" + SVGWidget.class.getName() + ".getUiBinderField(%s, \"%s\");",
+//		        fieldName, ancestorExpression, getXpath(elem.getElement()));
 		    return null;
 		}
 

@@ -52,10 +52,13 @@ public class SVGParserImplOpera extends SVGParserImpl {
 	 * Parses the supplied SVG text into a document
 	 * @param rawSvg
 	 * raw xml to be parsed
+	 * @param enableScripts
+	 * true to enable embedded scripts, false otherwise
 	 * @return
 	 * the document resulting from the parse
 	 */
-	public final SVGSVGElement parse(String rawSvg) throws ParserException {
+	@Override
+	public final SVGSVGElement parse(String rawSvg, boolean enableScripts) throws ParserException {
 		SVGDocument doc = parseFromString(rawSvg, "text/xml").cast();
 		Element elt = doc.getDocumentElement();
 		if ("parsererror".equals(DOMHelper.getLocalName(elt))) {
@@ -67,7 +70,7 @@ public class SVGParserImplOpera extends SVGParserImpl {
 		}
 		SVGSVGElement svg = DOMHelper.importNode(DOMHelper.getCurrentDocument(), elt, true).cast();
 		operaFix(svg);
-    	return svg;
+		return enableScripts ? enableScriptElements(svg) : svg;
 	}
 	
 	/**
