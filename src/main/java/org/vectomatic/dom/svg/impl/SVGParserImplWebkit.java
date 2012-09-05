@@ -60,11 +60,7 @@ public class SVGParserImplWebkit extends SVGParserImpl {
 			});
 			throw new ParserException(ParserException.Type.NotWellFormed, message);
 		}
-		SVGSVGElement svg = DOMHelper.importNode(DOMHelper.getCurrentDocument(), elt, true).cast();
-		// For some reason xlink:href are not correctly evaluated in
-		// some cases in mozilla. If one clones the node this seems
-		// to solve the problem
-    	svg = svg.cloneNode(true).<SVGSVGElement>cast();
+		SVGSVGElement svg = elt.<SVGSVGElement>cast();
 		return enableScripts ? enableScriptElements(svg) : svg;
 	}
 
