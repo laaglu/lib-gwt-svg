@@ -54,120 +54,48 @@ public class OMNode extends FocusWidget {
 	 * The DOM native overlay type wrapped by this object
 	 */
 	protected final Node ot;
-	/**
-	 * The event bus shared by all SVG objects
-	 */
-	//static protected EventBus eventBus = new DOMEventBus();
 
 	/**
 	 * Constructor
 	 * @param node The node to wrap
 	 */
 	protected OMNode(Node node) {
-//		assert getWrapper(node) == null : "node was already wrapped";
-//		setWrapper(node, this);s
 		this.ot = node;
 		
 		setElement(Element.as(node));
 		setTabIndex(0);
 	}
 	
-//	/**
-//	 * Sets the __wrapper property of the node.
-//	 */
-//	private static native void setWrapper(Node node, OMNode wrapper) /*-{
-//    	node.__wrapper = wrapper;
-//	}-*/;
-//	
-//	/**
-//	 * Returns the __wrapper property of the node.
-//	 */
+	@Override
+	protected void onDetach() {
+	  cleanup();
+	  super.onDetach();
+	}
+	
 	private static native OMNode getWrapper(Node node) /*-{ 
 		return node.__wrapper; 
 	}-*/;
 	
-	/**
-	 * Cleanup method for wrapper objects which are
-	 * not needed by the application any more. It
-	 * breaks the back-reference the native DOM object
-	 * maintains on this wrapper type, in order to
-	 * facilitate garbage collection. Use only if
-	 * your code needs to run in a browser which is
-	 * not equipped with an automatic DOM object-native 
-	 * object cycle collector.
-	 */
-	public void cleanup() {
-		//setWrapper(ot, null);
+	private void cleanup() {
+	    setWrapper(ot, null);
 	}
-
-	/**
-	 * Returns the event bus shared by all SVG objects
-	 * @return the event bus shared by all SVG objects
-	 */
-//	public static EventBus getEventBus() {
-//		return eventBus;
-//	}
-    /**
-     * Fires the given event to the handlers listening to the event's type.
-     * <p>
-     * Any exceptions thrown by handlers will be bundled into a
-     * {@link UmbrellaException} and then re-thrown after all handlers have
-     * completed. An exception thrown by a handler will not prevent other handlers
-     * from executing.
-     * @param event the event
-     */
-//	public void fireEvent(GwtEvent<?> event) {
-//		revive(event);
-//		eventBus.fireEventFromSource(event, this);
-//	}
-	/**
-	 * Revive the event. GWT does it by taking advantage of the
-	 * fact that HandlerManager has package access to GwtEvent.
-	 * Here we use a JSNI call to bypass scope restrictions
-	 */
-//	private static final native void revive(GwtEvent<?> event) /*-{
-//	  alert('revive');
-//	  event.@com.google.gwt.event.shared.GwtEvent::revive()();
-//	}-*/;
+	
+  private static native void setWrapper(Node node, OMNode wrapper) /*-{
+    node.__wrapper = wrapper;
+  }-*/;
 	
 	/**
 	 * Dispatches the specified event to this node
 	 * event handlers
 	 * @param event The event to dispatch
 	 */
+	@Deprecated
 	public void dispatch(NativeEvent event) {
 		// This call wraps the native event into a DomEvent
 		// and invokes fireEvent
 	    System.out.println("OMNNode.dispatch(): event=" + event);
 	    DomEvent.fireNativeEvent(event, this, (Element)event.getCurrentEventTarget().cast());
 	}
-
-	/**
-	 * Adds a DOM handler to this node's list of handlers
-	 * @param <H> The handler type
-	 * @param handler The DOM handler
-	 * @param type The event type
-	 * @return {@link HandlerRegistration} used to remove this handler
-	 */
-//	public final <H extends EventHandler> HandlerRegistration addDomHandler(
-//			final H handler, DomEvent.Type<H> type) {
-//		assert handler != null : "handler must not be null";
-//		assert type != null : "type must not be null";
-//		DOMHelper.bindEventListener((Element)ot.cast(), type.getName());
-//		return eventBus.addHandlerToSource(type, this, handler);
-//	}
-
-	/**
-	 * Adds a handler to this node's list of handlers
-	 * @param <H> The handler type
-	 * @param handler The handler
-	 * @param type The event type
-	 * @return {@link HandlerRegistration} used to remove this handler
-	 */
-//	public final <H extends EventHandler> HandlerRegistration addHandler(
-//			final H handler, GwtEvent.Type<H> type) {
-//		return eventBus.addHandlerToSource(type, this, handler);
-//	}
 
 	private static class Conversion<T extends OMNode> {
 	  
