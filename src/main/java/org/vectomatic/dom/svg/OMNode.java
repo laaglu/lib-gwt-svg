@@ -28,7 +28,6 @@
  */
 package org.vectomatic.dom.svg;
 
-import org.vectomatic.dom.svg.impl.DOMEventBus;
 import org.vectomatic.dom.svg.utils.DOMHelper;
 import org.w3c.dom.DOMException;
 
@@ -38,13 +37,10 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Node;
 import com.google.gwt.event.dom.client.DomEvent;
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.event.shared.HasHandlers;
-import com.google.gwt.event.shared.UmbrellaException;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.ui.FocusWidget;
 
 /**
  * Wrapper class for DOM Node. Wrapper classes decorate native
@@ -53,7 +49,7 @@ import com.google.gwt.user.client.Element;
  * @author laaglu
  * @author Michael Allan
  */
-public class OMNode implements HasHandlers {
+public class OMNode extends FocusWidget {
 	/**
 	 * The DOM native overlay type wrapped by this object
 	 */
@@ -61,28 +57,31 @@ public class OMNode implements HasHandlers {
 	/**
 	 * The event bus shared by all SVG objects
 	 */
-	static protected EventBus eventBus = new DOMEventBus();
+	//static protected EventBus eventBus = new DOMEventBus();
 
 	/**
 	 * Constructor
 	 * @param node The node to wrap
 	 */
 	protected OMNode(Node node) {
-		assert getWrapper(node) == null : "node was already wrapped";
-		setWrapper(node, this);
+//		assert getWrapper(node) == null : "node was already wrapped";
+//		setWrapper(node, this);s
 		this.ot = node;
+		
+		setElement(Element.as(node));
+		setTabIndex(0);
 	}
 	
-	/**
-	 * Sets the __wrapper property of the node.
-	 */
-	private static native void setWrapper(Node node, OMNode wrapper) /*-{
-    	node.__wrapper = wrapper;
-	}-*/;
-	
-	/**
-	 * Returns the __wrapper property of the node.
-	 */
+//	/**
+//	 * Sets the __wrapper property of the node.
+//	 */
+//	private static native void setWrapper(Node node, OMNode wrapper) /*-{
+//    	node.__wrapper = wrapper;
+//	}-*/;
+//	
+//	/**
+//	 * Returns the __wrapper property of the node.
+//	 */
 	private static native OMNode getWrapper(Node node) /*-{ 
 		return node.__wrapper; 
 	}-*/;
@@ -98,16 +97,16 @@ public class OMNode implements HasHandlers {
 	 * object cycle collector.
 	 */
 	public void cleanup() {
-		setWrapper(ot, null);
+		//setWrapper(ot, null);
 	}
 
 	/**
 	 * Returns the event bus shared by all SVG objects
 	 * @return the event bus shared by all SVG objects
 	 */
-	public static EventBus getEventBus() {
-		return eventBus;
-	}
+//	public static EventBus getEventBus() {
+//		return eventBus;
+//	}
     /**
      * Fires the given event to the handlers listening to the event's type.
      * <p>
@@ -117,18 +116,19 @@ public class OMNode implements HasHandlers {
      * from executing.
      * @param event the event
      */
-	public void fireEvent(GwtEvent<?> event) {
-		revive(event);
-		eventBus.fireEventFromSource(event, this);
-	}
+//	public void fireEvent(GwtEvent<?> event) {
+//		revive(event);
+//		eventBus.fireEventFromSource(event, this);
+//	}
 	/**
 	 * Revive the event. GWT does it by taking advantage of the
 	 * fact that HandlerManager has package access to GwtEvent.
 	 * Here we use a JSNI call to bypass scope restrictions
 	 */
-	private static final native void revive(GwtEvent<?> event) /*-{
-	  event.@com.google.gwt.event.shared.GwtEvent::revive()();
-	}-*/;
+//	private static final native void revive(GwtEvent<?> event) /*-{
+//	  alert('revive');
+//	  event.@com.google.gwt.event.shared.GwtEvent::revive()();
+//	}-*/;
 	
 	/**
 	 * Dispatches the specified event to this node
@@ -138,6 +138,7 @@ public class OMNode implements HasHandlers {
 	public void dispatch(NativeEvent event) {
 		// This call wraps the native event into a DomEvent
 		// and invokes fireEvent
+	    System.out.println("OMNNode.dispatch(): event=" + event);
 	    DomEvent.fireNativeEvent(event, this, (Element)event.getCurrentEventTarget().cast());
 	}
 
@@ -148,13 +149,13 @@ public class OMNode implements HasHandlers {
 	 * @param type The event type
 	 * @return {@link HandlerRegistration} used to remove this handler
 	 */
-	public final <H extends EventHandler> HandlerRegistration addDomHandler(
-			final H handler, DomEvent.Type<H> type) {
-		assert handler != null : "handler must not be null";
-		assert type != null : "type must not be null";
-		DOMHelper.bindEventListener((Element)ot.cast(), type.getName());
-		return eventBus.addHandlerToSource(type, this, handler);
-	}
+//	public final <H extends EventHandler> HandlerRegistration addDomHandler(
+//			final H handler, DomEvent.Type<H> type) {
+//		assert handler != null : "handler must not be null";
+//		assert type != null : "type must not be null";
+//		DOMHelper.bindEventListener((Element)ot.cast(), type.getName());
+//		return eventBus.addHandlerToSource(type, this, handler);
+//	}
 
 	/**
 	 * Adds a handler to this node's list of handlers
@@ -163,15 +164,17 @@ public class OMNode implements HasHandlers {
 	 * @param type The event type
 	 * @return {@link HandlerRegistration} used to remove this handler
 	 */
-	public final <H extends EventHandler> HandlerRegistration addHandler(
-			final H handler, GwtEvent.Type<H> type) {
-		return eventBus.addHandlerToSource(type, this, handler);
-	}
+//	public final <H extends EventHandler> HandlerRegistration addHandler(
+//			final H handler, GwtEvent.Type<H> type) {
+//		return eventBus.addHandlerToSource(type, this, handler);
+//	}
 
 	private static class Conversion<T extends OMNode> {
+	  
 		static {
 			initialize();
 		}
+		
 		private static final native void initialize() /*-{
 			if ($wnd.otToWrapper == null) {
 		    	$wnd.otToWrapper = new Object();
@@ -259,10 +262,12 @@ public class OMNode implements HasHandlers {
 			$wnd.otToWrapper["SVGViewElement"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGViewElement::new(Lorg/vectomatic/dom/svg/impl/SVGViewElement;)(elem); };
 			$wnd.otToWrapper["SVGVKernElement"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGVKernElement::new(Lorg/vectomatic/dom/svg/impl/SVGVKernElement;)(elem); };
 		}-*/;
+		
 		T result;
 		Conversion(Node node) {
 			convert(node);
 		}
+		
 		private final native void convert(Node node) /*-{
 			var wrapper = null;
 			if (node != null) {
@@ -279,7 +284,7 @@ public class OMNode implements HasHandlers {
 			    		} else if (node.nodeType == 3) {
 			    			wrapper = @org.vectomatic.dom.svg.OMText::new(Lcom/google/gwt/dom/client/Text;)(node);
 			    		} else if (node.nodeType == 9) {
-							wrapper = @org.vectomatic.dom.svg.OMSVGDocument::new(Lorg/vectomatic/dom/svg/impl/SVGDocument;)(node);
+							  wrapper = @org.vectomatic.dom.svg.OMSVGDocument::new(Lorg/vectomatic/dom/svg/impl/SVGDocument;)(node);
 			    		} else {
 			    			wrapper = @org.vectomatic.dom.svg.OMNode::new(Lcom/google/gwt/dom/client/Node;)(node);
 			    		}

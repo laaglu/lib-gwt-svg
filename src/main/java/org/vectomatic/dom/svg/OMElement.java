@@ -52,9 +52,9 @@ public class OMElement extends OMNode {
 	 * Returns the wrapped Element
 	 * @return the wrapped Element
 	 */
-	public Element getElement() {
-		return ot.cast();
-	}
+//	public Element getElement() {
+//		return ot.cast();
+//	}
 
 	// Implementation of the dom::Element W3C IDL interface
     /**
