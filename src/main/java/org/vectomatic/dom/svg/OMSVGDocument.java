@@ -154,6 +154,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * Object Model (HTML) Level 1</a> chapter of the [<a href="refs.html#ref-DOM1">DOM1</a>]
  * specification.</p>
  */
+@Deprecated
 public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
   protected OMSVGDocument(SVGDocument ot) {
     super(ot);
@@ -181,7 +182,9 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
     return addDomHandler(handler, SVGZoomEvent.getType());
   }
   public final OMSVGSVGElement createSVGSVGElement() {
-    return (OMSVGSVGElement)convert((SVGSVGElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_SVG_TAG).cast());
+    //return (OMSVGSVGElement)convert((SVGSVGElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_SVG_TAG).cast());
+    OMSVGSVGElement widget = new OMSVGSVGElement();
+    return widget;
   }
   public final OMSVGGElement createSVGGElement() {
     return (OMSVGGElement)convert((SVGGElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_G_TAG).cast());

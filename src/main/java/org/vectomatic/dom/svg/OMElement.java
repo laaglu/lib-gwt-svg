@@ -47,14 +47,6 @@ public class OMElement extends OMNode {
 	protected OMElement(Element element) {
 		super(element);
 	}
-	
-	/**
-	 * Returns the wrapped Element
-	 * @return the wrapped Element
-	 */
-	public Element getElement() {
-		return ot.cast();
-	}
 
 	// Implementation of the dom::Element W3C IDL interface
     /**

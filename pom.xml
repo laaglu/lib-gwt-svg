@@ -1,59 +1,131 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.vectomatic</groupId>
-		<artifactId>vectomatic-parent</artifactId>
-		<version>0.2-SNAPSHOT</version>
-	</parent>
-	<artifactId>lib-gwt-svg</artifactId>
-	<packaging>jar</packaging>
-	<version>0.5.7-SNAPSHOT</version>
-	<name>lib-gwt-svg</name>
-	<description>A GWT library to access the SVG functionalities of web browsers</description>
-	<url>http://www.vectomatic.org/libs/lib-gwt-svg</url>
-	<licenses>
-		<license>
-			<name>LGPLv3</name>
-			<url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
-		</license>
-	</licenses>
-	<scm>
-		<url>scm:git:git@github.com:laaglu/lib-gwt-svg.git</url>
-		<connection>scm:git:git@github.com:laaglu/lib-gwt-svg.git</connection>
-		<developerConnection>scm:git:git@github.com:laaglu/lib-gwt-svg.git</developerConnection>
-	</scm>
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-user</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-dev</artifactId>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
-	<build>
-		<!-- Add java sources to the jar (necessary for GWT) -->
-		<resources>
-			<resource>
-				<directory>${basedir}/src/main/java</directory>
-				<includes>
-					<include>**/*.java</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>${basedir}/src/main/resources</directory>
-			</resource>
-		</resources>
-	</build>
-	<distributionManagement>
-		<downloadUrl>http://www.vectomatic.org/libs/lib-gwt-svg</downloadUrl>
-	</distributionManagement>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--<parent>-->
+        <!--<groupId>org.vectomatic</groupId>-->
+        <!--<artifactId>vectomatic-parent</artifactId>-->
+        <!--<version>0.2-SNAPSHOT</version>-->
+        <!--<relativePath>../vectomatic-parent/pom.xml</relativePath>-->
+    <!--</parent>-->
+    <groupId>org.vectomatic</groupId>
+
+    <artifactId>lib-gwt-svg</artifactId>
+    <packaging>jar</packaging>
+    <version>0.5.7-FORK-SNAPSHOT</version>
+    <name>lib-gwt-svg</name>
+    <description>A GWT library to access the SVG functionalities of web browsers</description>
+    <url>http://www.vectomatic.org/libs/lib-gwt-svg</url>
+
+    <licenses>
+        <license>
+            <name>LGPLv3</name>
+            <url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>scm:git:git@github.com:laaglu/lib-gwt-svg.git</url>
+        <connection>scm:git:git@github.com:laaglu/lib-gwt-svg.git</connection>
+        <developerConnection>scm:git:git@github.com:laaglu/lib-gwt-svg.git</developerConnection>
+    </scm>
+
+    <properties>
+        <deployFileUrl>${project.distributionManagement.snapshotRepository.url}</deployFileUrl>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>release-mode</id>
+            <properties>
+                <deployFileUrl>${project.distributionManagement.repository.url}</deployFileUrl>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-user</artifactId>
+            <version>2.5.0-rc2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-dev</artifactId>
+            <version>2.5.0-rc2</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- Add java sources to the jar (necessary for GWT) -->
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/java</directory>
+                <includes>
+                    <include>**/*.java</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>deploy</phase>
+                        <configuration>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                            <url>${deployFileUrl}</url>
+                            <artifactId>${project.artifactId}</artifactId>
+                            <groupId>${project.groupId}</groupId>
+                            <version>${project.version}</version>
+                            <file>${project.build.directory}/${project.build.finalName}.jar</file>
+                        </configuration>
+                        <goals>
+                            <goal>deploy-file</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <releaseProfiles>release-mode</releaseProfiles>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+    <distributionManagement>
+        <repository>
+            <id>engonyx-releases</id>
+            <url>http://development.engonyx.com/nexus/content/repositories/engonyx-releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>engonyx-snapshots</id>
+            <url>http://development.engonyx.com/nexus/content/repositories/engonyx-snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 </project>

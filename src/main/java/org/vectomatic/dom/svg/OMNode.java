@@ -28,7 +28,6 @@
  */
 package org.vectomatic.dom.svg;
 
-import org.vectomatic.dom.svg.impl.DOMEventBus;
 import org.vectomatic.dom.svg.utils.DOMHelper;
 import org.w3c.dom.DOMException;
 
@@ -38,13 +37,8 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Node;
 import com.google.gwt.event.dom.client.DomEvent;
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.event.shared.EventHandler;
-import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.event.shared.HasHandlers;
-import com.google.gwt.event.shared.UmbrellaException;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.ui.FocusWidget;
 
 /**
  * Wrapper class for DOM Node. Wrapper classes decorate native
@@ -53,125 +47,65 @@ import com.google.gwt.user.client.Element;
  * @author laaglu
  * @author Michael Allan
  */
-public class OMNode implements HasHandlers {
+public class OMNode extends FocusWidget {
 	/**
 	 * The DOM native overlay type wrapped by this object
 	 */
 	protected final Node ot;
-	/**
-	 * The event bus shared by all SVG objects
-	 */
-	static protected EventBus eventBus = new DOMEventBus();
 
 	/**
 	 * Constructor
 	 * @param node The node to wrap
 	 */
 	protected OMNode(Node node) {
-		assert getWrapper(node) == null : "node was already wrapped";
-		setWrapper(node, this);
 		this.ot = node;
+		
+		setElement(Element.as(node));
+		setTabIndex(0);
 	}
 	
-	/**
-	 * Sets the __wrapper property of the node.
-	 */
-	private static native void setWrapper(Node node, OMNode wrapper) /*-{
-    	node.__wrapper = wrapper;
-	}-*/;
+	@Override
+	protected void onDetach() {
+	  cleanup();
+	  super.onDetach();
+	}
 	
-	/**
-	 * Returns the __wrapper property of the node.
-	 */
+	@Deprecated
 	private static native OMNode getWrapper(Node node) /*-{ 
 		return node.__wrapper; 
 	}-*/;
 	
-	/**
-	 * Cleanup method for wrapper objects which are
-	 * not needed by the application any more. It
-	 * breaks the back-reference the native DOM object
-	 * maintains on this wrapper type, in order to
-	 * facilitate garbage collection. Use only if
-	 * your code needs to run in a browser which is
-	 * not equipped with an automatic DOM object-native 
-	 * object cycle collector.
-	 */
-	public void cleanup() {
-		setWrapper(ot, null);
+	@Deprecated
+	private void cleanup() {
+	  setWrapper(ot, null);
 	}
-
-	/**
-	 * Returns the event bus shared by all SVG objects
-	 * @return the event bus shared by all SVG objects
-	 */
-	public static EventBus getEventBus() {
-		return eventBus;
-	}
-    /**
-     * Fires the given event to the handlers listening to the event's type.
-     * <p>
-     * Any exceptions thrown by handlers will be bundled into a
-     * {@link UmbrellaException} and then re-thrown after all handlers have
-     * completed. An exception thrown by a handler will not prevent other handlers
-     * from executing.
-     * @param event the event
-     */
-	public void fireEvent(GwtEvent<?> event) {
-		revive(event);
-		eventBus.fireEventFromSource(event, this);
-	}
-	/**
-	 * Revive the event. GWT does it by taking advantage of the
-	 * fact that HandlerManager has package access to GwtEvent.
-	 * Here we use a JSNI call to bypass scope restrictions
-	 */
-	private static final native void revive(GwtEvent<?> event) /*-{
-	  event.@com.google.gwt.event.shared.GwtEvent::revive()();
-	}-*/;
+	
+	@Deprecated
+  private static native void setWrapper(Node node, OMNode wrapper) /*-{
+    node.__wrapper = wrapper;
+  }-*/;
 	
 	/**
 	 * Dispatches the specified event to this node
 	 * event handlers
 	 * @param event The event to dispatch
 	 */
+	@Deprecated
 	public void dispatch(NativeEvent event) {
 		// This call wraps the native event into a DomEvent
 		// and invokes fireEvent
+	    System.out.println("OMNNode.dispatch(): event=" + event);
 	    DomEvent.fireNativeEvent(event, this, (Element)event.getCurrentEventTarget().cast());
 	}
 
-	/**
-	 * Adds a DOM handler to this node's list of handlers
-	 * @param <H> The handler type
-	 * @param handler The DOM handler
-	 * @param type The event type
-	 * @return {@link HandlerRegistration} used to remove this handler
-	 */
-	public final <H extends EventHandler> HandlerRegistration addDomHandler(
-			final H handler, DomEvent.Type<H> type) {
-		assert handler != null : "handler must not be null";
-		assert type != null : "type must not be null";
-		DOMHelper.bindEventListener((Element)ot.cast(), type.getName());
-		return eventBus.addHandlerToSource(type, this, handler);
-	}
-
-	/**
-	 * Adds a handler to this node's list of handlers
-	 * @param <H> The handler type
-	 * @param handler The handler
-	 * @param type The event type
-	 * @return {@link HandlerRegistration} used to remove this handler
-	 */
-	public final <H extends EventHandler> HandlerRegistration addHandler(
-			final H handler, GwtEvent.Type<H> type) {
-		return eventBus.addHandlerToSource(type, this, handler);
-	}
-
+	@Deprecated
 	private static class Conversion<T extends OMNode> {
+	  
 		static {
 			initialize();
 		}
+		
+		@Deprecated
 		private static final native void initialize() /*-{
 			if ($wnd.otToWrapper == null) {
 		    	$wnd.otToWrapper = new Object();
@@ -259,10 +193,13 @@ public class OMNode implements HasHandlers {
 			$wnd.otToWrapper["SVGViewElement"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGViewElement::new(Lorg/vectomatic/dom/svg/impl/SVGViewElement;)(elem); };
 			$wnd.otToWrapper["SVGVKernElement"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGVKernElement::new(Lorg/vectomatic/dom/svg/impl/SVGVKernElement;)(elem); };
 		}-*/;
+		
 		T result;
 		Conversion(Node node) {
 			convert(node);
 		}
+		
+		@Deprecated
 		private final native void convert(Node node) /*-{
 			var wrapper = null;
 			if (node != null) {
@@ -279,7 +216,7 @@ public class OMNode implements HasHandlers {
 			    		} else if (node.nodeType == 3) {
 			    			wrapper = @org.vectomatic.dom.svg.OMText::new(Lcom/google/gwt/dom/client/Text;)(node);
 			    		} else if (node.nodeType == 9) {
-							wrapper = @org.vectomatic.dom.svg.OMSVGDocument::new(Lorg/vectomatic/dom/svg/impl/SVGDocument;)(node);
+							  wrapper = @org.vectomatic.dom.svg.OMSVGDocument::new(Lorg/vectomatic/dom/svg/impl/SVGDocument;)(node);
 			    		} else {
 			    			wrapper = @org.vectomatic.dom.svg.OMNode::new(Lcom/google/gwt/dom/client/Node;)(node);
 			    		}
@@ -297,6 +234,7 @@ public class OMNode implements HasHandlers {
 	 * @param obj The overlay type node
 	 * @return The node wrapper
 	 */
+	@Deprecated
 	public static <T extends OMNode> T convert(Node obj) {
 		// Misleading to parametize by T here, because we cannot guarantee type safety.
 		// The explicit cast below is liable to failure, and so is the implicit cast in
@@ -307,10 +245,13 @@ public class OMNode implements HasHandlers {
 		return wrapper;
 	}
 	
+	@Deprecated
 	private static class ListConversion<T extends Iterable<? extends OMNode>> {
 		static {
 			initialize();
 		}
+		
+		@Deprecated
 		private static final native void initialize() /*-{
 			if ($wnd.otToWrapper == null) {
 		    	$wnd.otToWrapper = new Object();
@@ -327,6 +268,8 @@ public class OMNode implements HasHandlers {
 		ListConversion(JavaScriptObject list) {
 			convert(list);
 		}
+		
+		@Deprecated
 		private final native void convert(JavaScriptObject list) /*-{
 			var wrapper = null;
 		    var type = @org.vectomatic.dom.svg.utils.DOMHelper::getType(Lcom/google/gwt/core/client/JavaScriptObject;)(list);
@@ -346,6 +289,7 @@ public class OMNode implements HasHandlers {
 	 * @param obj The overlay type list
 	 * @return The list wrapper
 	 */
+	@Deprecated
 	public static <T extends Iterable<? extends OMNode>> T convertList(JavaScriptObject obj) {
 		return new ListConversion<T>(obj).result;
 	}
@@ -354,6 +298,7 @@ public class OMNode implements HasHandlers {
 	 * Returns the wrapped node
 	 * @return the wrapped node
 	 */
+	@Deprecated
 	public Node getNode() {
 		return ot;
 	}
@@ -363,6 +308,7 @@ public class OMNode implements HasHandlers {
      * The name of this node, depending on its type.
      * @return name of this node
      */
+	@Deprecated
 	public final String getNodeName() {
 		return ot.getNodeName();
 	}
@@ -372,6 +318,7 @@ public class OMNode implements HasHandlers {
      * When it is defined to be <code>null</code>, setting it has no effect, 
      * including if the node is read-only.
      */
+	@Deprecated
 	public final String getNodeValue() {
 		return ot.getNodeValue();
 	}
@@ -385,6 +332,7 @@ public class OMNode implements HasHandlers {
      *   NO_MODIFICATION_ALLOWED_ERR: Raised when the node is readonly and if 
      *   it is not defined to be <code>null</code>.
      */
+	@Deprecated
 	public final void setNodeValue(String value) throws JavaScriptException {
 		ot.setNodeValue(value);
 	}
@@ -393,6 +341,7 @@ public class OMNode implements HasHandlers {
      * A code representing the type of the underlying object.
      * @return A code representing the type of the underlying object
      */
+	@Deprecated
 	public final short getNodeType() {
 		return ot.getNodeType();
 	}
@@ -405,6 +354,7 @@ public class OMNode implements HasHandlers {
      * <code>null</code>.
      * @return The parent of this node
      */
+	@Deprecated
 	public final OMNode getParentNode() {
 		Node parentNode = ot.getParentNode();
 		return (parentNode != null) ? convert(parentNode) : null;
@@ -416,6 +366,7 @@ public class OMNode implements HasHandlers {
      * nodes.
      * @return A <code>OMNodeList</code> that contains all children of this node. If 
      */
+	@Deprecated
 	public final <T extends OMNode> OMNodeList<T> getChildNodes() {
 		return new OMNodeList<T>(ot.getChildNodes());
 	}
@@ -425,6 +376,7 @@ public class OMNode implements HasHandlers {
      * <code>null</code>.
      * @return The first child of this node.
      */
+	@Deprecated
 	public final OMNode getFirstChild() {
 		Node firstChild = ot.getFirstChild();
 		return (firstChild != null) ? convert(firstChild) : null;
@@ -435,6 +387,7 @@ public class OMNode implements HasHandlers {
      * <code>null</code>.
      * @return The last child of this node. 
      */
+	@Deprecated
 	public final OMNode getLastChild() {
 		Node lastChild = ot.getLastChild();
 		return (lastChild != null) ? convert(lastChild) : null;
@@ -448,6 +401,7 @@ public class OMNode implements HasHandlers {
      * <code>null</code>.
      * @return The local part of the qualified name of this node
      */
+	@Deprecated
 	public final String getLocalName() {
 		return DOMHelper.getLocalName(ot);
 	}
@@ -457,6 +411,7 @@ public class OMNode implements HasHandlers {
      * this returns <code>null</code>.
      * @return The node immediately preceding this node.
      */
+	@Deprecated
 	public final OMNode getPreviousSibling() {
 		Node previousSibling = ot.getPreviousSibling();
 		return (previousSibling != null) ? convert(previousSibling) : null;
@@ -478,6 +433,7 @@ public class OMNode implements HasHandlers {
      * simply has no namespace.
      * @return The namespace URI of this node
      */
+	@Deprecated
 	public String getNamespaceURI() {
 		return DOMHelper.getNamespaceURI(ot);
 	}
@@ -486,6 +442,7 @@ public class OMNode implements HasHandlers {
      * this returns <code>null</code>.
      * @return The node immediately following this node.
      */
+	@Deprecated
 	public final OMNode getNextSibling() {
 		Node nextSibling = ot.getNextSibling();
 		return (nextSibling != null) ? convert(nextSibling) : null;
@@ -499,6 +456,7 @@ public class OMNode implements HasHandlers {
      * <code>null</code>.
      * @return The <code>OMDocument</code> object associated with this node.
      */
+	@Deprecated
 	public final OMDocument getOwnerDocument() {
 		Document document = ot.getOwnerDocument();
 		return (document != null) ? (OMDocument)convert(document) : null;
@@ -536,6 +494,7 @@ public class OMNode implements HasHandlers {
      *   support the insertion of a <code>DocumentType</code> or 
      *   <code>Element</code> node.
      */
+	@Deprecated
 	public final OMNode insertBefore(OMNode newChild, OMNode refChild) throws JavaScriptException {
 		ot.insertBefore(newChild.ot, refChild != null ? refChild.ot : null);
 		return newChild;
@@ -573,6 +532,7 @@ public class OMNode implements HasHandlers {
      *   support the replacement of the <code>DocumentType</code> child or 
      *   <code>Element</code> child.
      */
+	@Deprecated
 	public final OMNode replaceChild(OMNode newChild, OMNode oldChild) throws JavaScriptException {
 		ot.replaceChild(newChild.ot, oldChild.ot);
 		return oldChild;
@@ -592,6 +552,7 @@ public class OMNode implements HasHandlers {
      *   support the removal of the <code>DocumentType</code> child or the 
      *   <code>Element</code> child.
      */
+	@Deprecated
 	public final OMNode removeChild(OMNode oldChild) throws JavaScriptException {
 		ot.removeChild(oldChild.ot);
 		return oldChild;
@@ -621,6 +582,7 @@ public class OMNode implements HasHandlers {
      *   if the DOM implementation doesn't support the removal of the 
      *   <code>DocumentType</code> child or <code>Element</code> child.
      */
+	@Deprecated
 	public final OMNode appendChild(OMNode newChild) throws JavaScriptException {
 		ot.appendChild(newChild.ot);
 		return newChild;
@@ -631,6 +593,7 @@ public class OMNode implements HasHandlers {
      * @return Returns <code>true</code> if this node has any children, 
      *   <code>false</code> otherwise.
      */
+	@Deprecated
 	public final boolean hasChildNodes() {
 		return ot.hasChildNodes();
 	}
@@ -669,6 +632,7 @@ public class OMNode implements HasHandlers {
      *   itself (and its attributes, if it is an <code>Element</code>).
      * @return The duplicate node.
      */
+	@Deprecated
 	public final OMNode cloneNode(boolean deep) {
 		return convert(ot.cloneNode(deep));
 	}
@@ -694,11 +658,13 @@ public class OMNode implements HasHandlers {
      * sufficient, since XPointers do not differentiate between 
      * <code>Text</code> nodes and <code>CDATASection</code> nodes.
      */
+	@Deprecated
 	public final void normalize() {
 		DOMHelper.normalize(ot);
 	}
 	
 	@Override
+	@Deprecated
 	public String toString() {
 		return ot.toString();
 	}
