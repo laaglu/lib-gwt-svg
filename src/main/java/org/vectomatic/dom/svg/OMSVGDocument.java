@@ -154,6 +154,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * Object Model (HTML) Level 1</a> chapter of the [<a href="refs.html#ref-DOM1">DOM1</a>]
  * specification.</p>
  */
+@Deprecated
 public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
   protected OMSVGDocument(SVGDocument ot) {
     super(ot);
