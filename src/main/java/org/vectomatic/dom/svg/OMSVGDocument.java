@@ -156,6 +156,8 @@ import com.google.gwt.event.shared.HandlerRegistration;
  */
 @Deprecated
 public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
+  
+  @Deprecated
   protected OMSVGDocument(SVGDocument ot) {
     super(ot);
   }
@@ -165,261 +167,427 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
    * The root <a href='http://www.w3.org/TR/SVG11/struct.html#SVGElement' title='svg
    * element specification'>svg</a> in the document hierarchy.
    */
+  @Deprecated
   public final OMSVGSVGElement getRootElement() {
     return (OMSVGSVGElement)convert(((SVGDocument)ot).getRootElement());
   }
 
+  @Deprecated
   @Override
   public final HandlerRegistration addScrollHandler(ScrollHandler handler) {
     return addDomHandler(handler, ScrollEvent.getType());
   }
+  
+  @Deprecated
   @Override
   public final HandlerRegistration addResizeHandler(ResizeHandler handler) {
     return addHandler(handler, ResizeEvent.getType());
   }
+  
+  @Deprecated
   @Override
   public final HandlerRegistration addSVGZoomHandler(SVGZoomHandler handler) {
     return addDomHandler(handler, SVGZoomEvent.getType());
   }
+  
+  @Deprecated
   public final OMSVGSVGElement createSVGSVGElement() {
     //return (OMSVGSVGElement)convert((SVGSVGElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_SVG_TAG).cast());
     OMSVGSVGElement widget = new OMSVGSVGElement();
     return widget;
   }
+  
+  @Deprecated
   public final OMSVGGElement createSVGGElement() {
     return (OMSVGGElement)convert((SVGGElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_G_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGDefsElement createSVGDefsElement() {
     return (OMSVGDefsElement)convert((SVGDefsElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_DEFS_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGDescElement createSVGDescElement() {
     return (OMSVGDescElement)convert((SVGDescElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_DESC_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGTitleElement createSVGTitleElement() {
     return (OMSVGTitleElement)convert((SVGTitleElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_TITLE_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGSymbolElement createSVGSymbolElement() {
     return (OMSVGSymbolElement)convert((SVGSymbolElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_SYMBOL_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGUseElement createSVGUseElement() {
     return (OMSVGUseElement)convert((SVGUseElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_USE_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGImageElement createSVGImageElement() {
     return (OMSVGImageElement)convert((SVGImageElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_IMAGE_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGSwitchElement createSVGSwitchElement() {
     return (OMSVGSwitchElement)convert((SVGSwitchElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_SWITCH_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGStyleElement createSVGStyleElement() {
     return (OMSVGStyleElement)convert((SVGStyleElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_STYLE_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGPathElement createSVGPathElement() {
     return (OMSVGPathElement)convert((SVGPathElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_PATH_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGRectElement createSVGRectElement() {
     return (OMSVGRectElement)convert((SVGRectElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_RECT_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGCircleElement createSVGCircleElement() {
     return (OMSVGCircleElement)convert((SVGCircleElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_CIRCLE_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGEllipseElement createSVGEllipseElement() {
     return (OMSVGEllipseElement)convert((SVGEllipseElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_ELLIPSE_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGLineElement createSVGLineElement() {
     return (OMSVGLineElement)convert((SVGLineElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_LINE_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGPolylineElement createSVGPolylineElement() {
     return (OMSVGPolylineElement)convert((SVGPolylineElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_POLYLINE_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGPolygonElement createSVGPolygonElement() {
     return (OMSVGPolygonElement)convert((SVGPolygonElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_POLYGON_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGTextElement createSVGTextElement() {
     return (OMSVGTextElement)convert((SVGTextElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_TEXT_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGTSpanElement createSVGTSpanElement() {
     return (OMSVGTSpanElement)convert((SVGTSpanElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_T_SPAN_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGTRefElement createSVGTRefElement() {
     return (OMSVGTRefElement)convert((SVGTRefElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_T_REF_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGTextPathElement createSVGTextPathElement() {
     return (OMSVGTextPathElement)convert((SVGTextPathElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_TEXT_PATH_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGAltGlyphElement createSVGAltGlyphElement() {
     return (OMSVGAltGlyphElement)convert((SVGAltGlyphElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_ALT_GLYPH_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGAltGlyphDefElement createSVGAltGlyphDefElement() {
     return (OMSVGAltGlyphDefElement)convert((SVGAltGlyphDefElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_ALT_GLYPH_DEF_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGAltGlyphItemElement createSVGAltGlyphItemElement() {
     return (OMSVGAltGlyphItemElement)convert((SVGAltGlyphItemElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_ALT_GLYPH_ITEM_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGGlyphRefElement createSVGGlyphRefElement() {
     return (OMSVGGlyphRefElement)convert((SVGGlyphRefElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_GLYPH_REF_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGMarkerElement createSVGMarkerElement() {
     return (OMSVGMarkerElement)convert((SVGMarkerElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_MARKER_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGColorProfileElement createSVGColorProfileElement() {
     return (OMSVGColorProfileElement)convert((SVGColorProfileElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_COLOR_PROFILE_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGLinearGradientElement createSVGLinearGradientElement() {
     return (OMSVGLinearGradientElement)convert((SVGLinearGradientElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_LINEAR_GRADIENT_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGRadialGradientElement createSVGRadialGradientElement() {
     return (OMSVGRadialGradientElement)convert((SVGRadialGradientElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_RADIAL_GRADIENT_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGStopElement createSVGStopElement() {
     return (OMSVGStopElement)convert((SVGStopElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_STOP_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGPatternElement createSVGPatternElement() {
     return (OMSVGPatternElement)convert((SVGPatternElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_PATTERN_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGClipPathElement createSVGClipPathElement() {
     return (OMSVGClipPathElement)convert((SVGClipPathElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_CLIP_PATH_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGMaskElement createSVGMaskElement() {
     return (OMSVGMaskElement)convert((SVGMaskElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_MASK_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFilterElement createSVGFilterElement() {
     return (OMSVGFilterElement)convert((SVGFilterElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FILTER_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFEBlendElement createSVGFEBlendElement() {
     return (OMSVGFEBlendElement)convert((SVGFEBlendElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_BLEND_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFEColorMatrixElement createSVGFEColorMatrixElement() {
     return (OMSVGFEColorMatrixElement)convert((SVGFEColorMatrixElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_COLOR_MATRIX_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFEComponentTransferElement createSVGFEComponentTransferElement() {
     return (OMSVGFEComponentTransferElement)convert((SVGFEComponentTransferElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_COMPONENT_TRANSFER_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFEFuncRElement createSVGFEFuncRElement() {
     return (OMSVGFEFuncRElement)convert((SVGFEFuncRElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_FUNC_R_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFEFuncGElement createSVGFEFuncGElement() {
     return (OMSVGFEFuncGElement)convert((SVGFEFuncGElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_FUNC_G_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFEFuncBElement createSVGFEFuncBElement() {
     return (OMSVGFEFuncBElement)convert((SVGFEFuncBElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_FUNC_B_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFEFuncAElement createSVGFEFuncAElement() {
     return (OMSVGFEFuncAElement)convert((SVGFEFuncAElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_FUNC_A_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFECompositeElement createSVGFECompositeElement() {
     return (OMSVGFECompositeElement)convert((SVGFECompositeElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_COMPOSITE_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFEConvolveMatrixElement createSVGFEConvolveMatrixElement() {
     return (OMSVGFEConvolveMatrixElement)convert((SVGFEConvolveMatrixElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_CONVOLVE_MATRIX_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFEDiffuseLightingElement createSVGFEDiffuseLightingElement() {
     return (OMSVGFEDiffuseLightingElement)convert((SVGFEDiffuseLightingElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_DIFFUSE_LIGHTING_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFEDistantLightElement createSVGFEDistantLightElement() {
     return (OMSVGFEDistantLightElement)convert((SVGFEDistantLightElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_DISTANT_LIGHT_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFEPointLightElement createSVGFEPointLightElement() {
     return (OMSVGFEPointLightElement)convert((SVGFEPointLightElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_POINT_LIGHT_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFESpotLightElement createSVGFESpotLightElement() {
     return (OMSVGFESpotLightElement)convert((SVGFESpotLightElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_SPOT_LIGHT_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFEDisplacementMapElement createSVGFEDisplacementMapElement() {
     return (OMSVGFEDisplacementMapElement)convert((SVGFEDisplacementMapElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_DISPLACEMENT_MAP_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFEFloodElement createSVGFEFloodElement() {
     return (OMSVGFEFloodElement)convert((SVGFEFloodElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_FLOOD_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFEGaussianBlurElement createSVGFEGaussianBlurElement() {
     return (OMSVGFEGaussianBlurElement)convert((SVGFEGaussianBlurElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_GAUSSIAN_BLUR_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFEImageElement createSVGFEImageElement() {
     return (OMSVGFEImageElement)convert((SVGFEImageElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_IMAGE_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFEMergeElement createSVGFEMergeElement() {
     return (OMSVGFEMergeElement)convert((SVGFEMergeElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_MERGE_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFEMergeNodeElement createSVGFEMergeNodeElement() {
     return (OMSVGFEMergeNodeElement)convert((SVGFEMergeNodeElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_MERGE_NODE_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFEMorphologyElement createSVGFEMorphologyElement() {
     return (OMSVGFEMorphologyElement)convert((SVGFEMorphologyElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_MORPHOLOGY_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFEOffsetElement createSVGFEOffsetElement() {
     return (OMSVGFEOffsetElement)convert((SVGFEOffsetElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_OFFSET_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFESpecularLightingElement createSVGFESpecularLightingElement() {
     return (OMSVGFESpecularLightingElement)convert((SVGFESpecularLightingElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_SPECULAR_LIGHTING_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFETileElement createSVGFETileElement() {
     return (OMSVGFETileElement)convert((SVGFETileElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_TILE_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFETurbulenceElement createSVGFETurbulenceElement() {
     return (OMSVGFETurbulenceElement)convert((SVGFETurbulenceElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FE_TURBULENCE_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGCursorElement createSVGCursorElement() {
     return (OMSVGCursorElement)convert((SVGCursorElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_CURSOR_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGAElement createSVGAElement() {
     return (OMSVGAElement)convert((SVGAElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_A_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGViewElement createSVGViewElement() {
     return (OMSVGViewElement)convert((SVGViewElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_VIEW_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGScriptElement createSVGScriptElement() {
     return (OMSVGScriptElement)convert((SVGScriptElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_SCRIPT_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGAnimateElement createSVGAnimateElement() {
     return (OMSVGAnimateElement)convert((SVGAnimateElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_ANIMATE_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGSetElement createSVGSetElement() {
     return (OMSVGSetElement)convert((SVGSetElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_SET_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGAnimateMotionElement createSVGAnimateMotionElement() {
     return (OMSVGAnimateMotionElement)convert((SVGAnimateMotionElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_ANIMATE_MOTION_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGMPathElement createSVGMPathElement() {
     return (OMSVGMPathElement)convert((SVGMPathElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_M_PATH_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGAnimateColorElement createSVGAnimateColorElement() {
     return (OMSVGAnimateColorElement)convert((SVGAnimateColorElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_ANIMATE_COLOR_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGAnimateTransformElement createSVGAnimateTransformElement() {
     return (OMSVGAnimateTransformElement)convert((SVGAnimateTransformElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_ANIMATE_TRANSFORM_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFontElement createSVGFontElement() {
     return (OMSVGFontElement)convert((SVGFontElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FONT_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGGlyphElement createSVGGlyphElement() {
     return (OMSVGGlyphElement)convert((SVGGlyphElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_GLYPH_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGMissingGlyphElement createSVGMissingGlyphElement() {
     return (OMSVGMissingGlyphElement)convert((SVGMissingGlyphElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_MISSING_GLYPH_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGHKernElement createSVGHKernElement() {
     return (OMSVGHKernElement)convert((SVGHKernElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_H_KERN_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGVKernElement createSVGVKernElement() {
     return (OMSVGVKernElement)convert((SVGVKernElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_V_KERN_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFontFaceElement createSVGFontFaceElement() {
     return (OMSVGFontFaceElement)convert((SVGFontFaceElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FONT_FACE_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFontFaceSrcElement createSVGFontFaceSrcElement() {
     return (OMSVGFontFaceSrcElement)convert((SVGFontFaceSrcElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FONT_FACE_SRC_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFontFaceUriElement createSVGFontFaceUriElement() {
     return (OMSVGFontFaceUriElement)convert((SVGFontFaceUriElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FONT_FACE_URI_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFontFaceFormatElement createSVGFontFaceFormatElement() {
     return (OMSVGFontFaceFormatElement)convert((SVGFontFaceFormatElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FONT_FACE_FORMAT_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGFontFaceNameElement createSVGFontFaceNameElement() {
     return (OMSVGFontFaceNameElement)convert((SVGFontFaceNameElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FONT_FACE_NAME_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGMetadataElement createSVGMetadataElement() {
     return (OMSVGMetadataElement)convert((SVGMetadataElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_METADATA_TAG).cast());
   }
+  
+  @Deprecated
   public final OMSVGForeignObjectElement createSVGForeignObjectElement() {
     return (OMSVGForeignObjectElement)convert((SVGForeignObjectElement)DOMHelper.createElementNS((Document)ot.cast(), SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_FOREIGN_OBJECT_TAG).cast());
   }
@@ -434,6 +602,7 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
    * @param r the circle radius
    * @return An {@link org.vectomatic.dom.svg.OMSVGCircleElement} object.
    */
+  @Deprecated
   public final OMSVGCircleElement createSVGCircleElement(float cx, float cy, float r) {
 	return new OMSVGCircleElement(cx, cy, r);
   }
@@ -448,6 +617,7 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
    * @param ry the Y-axis radius of the ellipse
    * @return An {@link org.vectomatic.dom.svg.OMSVGEllipseElement} object.
    */
+  @Deprecated
   public final OMSVGEllipseElement createSVGEllipseElement(float cx, float cy, float rx, float ry) {
 	return new OMSVGEllipseElement(cx, cy, rx, ry);
   }
@@ -461,6 +631,7 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
    * @param y2 the Y coordinate of the second endpoint
    * @return An {@link org.vectomatic.dom.svg.OMSVGLineElement} object.
    */
+  @Deprecated
   public final OMSVGLineElement createSVGLineElement(float x1, float y1, float x2, float y2) {
 	return new OMSVGLineElement(x1, y1, x2, y2);
   }
@@ -472,6 +643,7 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
    * @param p2 the the second endpoint
    * @return An {@link org.vectomatic.dom.svg.OMSVGLineElement} object.
    */
+  @Deprecated
   public final OMSVGLineElement createSVGLineElement(OMSVGPoint p1, OMSVGPoint p2) {
 	return new OMSVGLineElement(p1, p2);
   }
@@ -488,6 +660,7 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
    * @param ry the Y-axis radius of the rectangle corner
    * @return An {@link org.vectomatic.dom.svg.OMSVGRectElement} object.
    */
+  @Deprecated
   public final OMSVGRectElement createSVGRectElement(float x, float y, float width, float height, float rx, float ry) {
 	return new OMSVGRectElement(x, y, width, height, rx, ry);
   }
@@ -499,6 +672,7 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
    * @param rect The SVG rect to use to initialize this rect.
    * @return An {@link org.vectomatic.dom.svg.OMSVGRectElement} object.
    */
+  @Deprecated
   public final OMSVGRectElement createSVGRectElement(OMSVGRect rect) {
 	return new OMSVGRectElement(rect);
   }
@@ -512,6 +686,7 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
    * @param data the string represented by the text object.
    * @return An {@link org.vectomatic.dom.svg.OMSVGTextElement} object.
    */
+  @Deprecated
   public final OMSVGTextElement createSVGTextElement(float x, float y, short unitType, String data) {
 	return new OMSVGTextElement(x, y, unitType, data);
   }
@@ -527,6 +702,7 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
    * @param href the bitmap image referenced by this image element
    * @return An {@link org.vectomatic.dom.svg.OMSVGImageElement} object.
    */
+  @Deprecated
   public final OMSVGImageElement createSVGImageElement(float x, float y, float width, float height, String href) {
 	return new OMSVGImageElement(x, y, width, height, href);
   }
@@ -537,6 +713,7 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
    * @param text the title text
    * @return An {@link org.vectomatic.dom.svg.OMSVGTitleElement} object.
    */
+  @Deprecated
   public final OMSVGTitleElement createSVGTitleElement(String text) {
 	return new OMSVGTitleElement(text);
   }
@@ -547,6 +724,7 @@ public class OMSVGDocument extends OMDocument implements HasDocumentHandlers {
    * @param text the description text
    * @return An {@link org.vectomatic.dom.svg.OMSVGDescElement} object.
    */
+  @Deprecated
   public final OMSVGDescElement createSVGDescElement(String text) {
 	return new OMSVGDescElement(text);
   }

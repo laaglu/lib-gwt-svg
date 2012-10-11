@@ -36,9 +36,77 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Node;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DomEvent;
+import com.google.gwt.event.dom.client.DoubleClickEvent;
+import com.google.gwt.event.dom.client.DoubleClickHandler;
+import com.google.gwt.event.dom.client.DragEndEvent;
+import com.google.gwt.event.dom.client.DragEndHandler;
+import com.google.gwt.event.dom.client.DragEnterEvent;
+import com.google.gwt.event.dom.client.DragEnterHandler;
+import com.google.gwt.event.dom.client.DragEvent;
+import com.google.gwt.event.dom.client.DragHandler;
+import com.google.gwt.event.dom.client.DragLeaveEvent;
+import com.google.gwt.event.dom.client.DragLeaveHandler;
+import com.google.gwt.event.dom.client.DragOverEvent;
+import com.google.gwt.event.dom.client.DragOverHandler;
+import com.google.gwt.event.dom.client.DragStartEvent;
+import com.google.gwt.event.dom.client.DragStartHandler;
+import com.google.gwt.event.dom.client.DropEvent;
+import com.google.gwt.event.dom.client.DropHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.GestureChangeEvent;
+import com.google.gwt.event.dom.client.GestureChangeHandler;
+import com.google.gwt.event.dom.client.GestureEndEvent;
+import com.google.gwt.event.dom.client.GestureEndHandler;
+import com.google.gwt.event.dom.client.GestureStartEvent;
+import com.google.gwt.event.dom.client.GestureStartHandler;
+import com.google.gwt.event.dom.client.HasAllDragAndDropHandlers;
+import com.google.gwt.event.dom.client.HasAllFocusHandlers;
+import com.google.gwt.event.dom.client.HasAllGestureHandlers;
+import com.google.gwt.event.dom.client.HasAllKeyHandlers;
+import com.google.gwt.event.dom.client.HasAllMouseHandlers;
+import com.google.gwt.event.dom.client.HasAllTouchHandlers;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.HasDoubleClickHandlers;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.dom.client.MouseWheelEvent;
+import com.google.gwt.event.dom.client.MouseWheelHandler;
+import com.google.gwt.event.dom.client.TouchCancelEvent;
+import com.google.gwt.event.dom.client.TouchCancelHandler;
+import com.google.gwt.event.dom.client.TouchEndEvent;
+import com.google.gwt.event.dom.client.TouchEndHandler;
+import com.google.gwt.event.dom.client.TouchMoveEvent;
+import com.google.gwt.event.dom.client.TouchMoveHandler;
+import com.google.gwt.event.dom.client.TouchStartEvent;
+import com.google.gwt.event.dom.client.TouchStartHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.ui.FocusWidget;
+import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.HasEnabled;
+import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Wrapper class for DOM Node. Wrapper classes decorate native
@@ -47,7 +115,11 @@ import com.google.gwt.user.client.ui.FocusWidget;
  * @author laaglu
  * @author Michael Allan
  */
-public class OMNode extends FocusWidget {
+public class OMNode extends ComplexPanel implements
+  HasClickHandlers, HasDoubleClickHandlers, HasEnabled,
+  HasAllDragAndDropHandlers, HasAllFocusHandlers, HasAllGestureHandlers,
+  HasAllKeyHandlers, HasAllMouseHandlers, HasAllTouchHandlers, HasWidgets {
+  
 	/**
 	 * The DOM native overlay type wrapped by this object
 	 */
@@ -61,7 +133,6 @@ public class OMNode extends FocusWidget {
 		this.ot = node;
 		
 		setElement(Element.as(node));
-		setTabIndex(0);
 	}
 	
 	@Override
@@ -376,10 +447,12 @@ public class OMNode extends FocusWidget {
      * <code>null</code>.
      * @return The first child of this node.
      */
-	@Deprecated
 	public final OMNode getFirstChild() {
-		Node firstChild = ot.getFirstChild();
-		return (firstChild != null) ? convert(firstChild) : null;
+    try {
+      return (OMNode) getChildren().get(0);
+    } catch (Exception e) {
+      return null;
+    }
 	}
 
     /**
@@ -387,10 +460,12 @@ public class OMNode extends FocusWidget {
      * <code>null</code>.
      * @return The last child of this node. 
      */
-	@Deprecated
 	public final OMNode getLastChild() {
-		Node lastChild = ot.getLastChild();
-		return (lastChild != null) ? convert(lastChild) : null;
+	  try {
+      return (OMNode) getChildren().get(getChildren().size());
+    } catch (Exception e) {
+      return null;
+    }
 	}
 	
 	/**
@@ -494,9 +569,9 @@ public class OMNode extends FocusWidget {
      *   support the insertion of a <code>DocumentType</code> or 
      *   <code>Element</code> node.
      */
-	@Deprecated
-	public final OMNode insertBefore(OMNode newChild, OMNode refChild) throws JavaScriptException {
-		ot.insertBefore(newChild.ot, refChild != null ? refChild.ot : null);
+	public final OMNode insertBefore(OMNode newChild, OMNode refChild) {
+		int beforeIndex = getChildren().indexOf(refChild);
+	  insertChild(newChild, beforeIndex);
 		return newChild;
 	}
 
@@ -532,13 +607,18 @@ public class OMNode extends FocusWidget {
      *   support the replacement of the <code>DocumentType</code> child or 
      *   <code>Element</code> child.
      */
-	@Deprecated
-	public final OMNode replaceChild(OMNode newChild, OMNode oldChild) throws JavaScriptException {
-		ot.replaceChild(newChild.ot, oldChild.ot);
+	
+	// TODO does this work?
+	public final OMNode replaceChild(OMNode newChild, OMNode oldChild) {
+	  int oldIndex = getChildren().indexOf(oldChild);
+	  insertChild(newChild, oldIndex);
+	  getChildren().remove(oldChild);
 		return oldChild;
 	}
 
 	  /**
+	   * Deprecated, Use oldChild.removeFromParent();
+	   * 
      * Removes the child node indicated by <code>oldChild</code> from the list 
      * of children, and returns it.
      * @param oldChild The node being removed.
@@ -553,8 +633,13 @@ public class OMNode extends FocusWidget {
      *   <code>Element</code> child.
      */
 	@Deprecated
-	public final OMNode removeChild(OMNode oldChild) throws JavaScriptException {
-		ot.removeChild(oldChild.ot);
+	public final OMNode removeChild(OMNode oldChild) {
+//	  try {
+//      getChildren().remove(oldChild);
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
+	  oldChild.removeFromParent();
 		return oldChild;
 	}
 
@@ -582,9 +667,8 @@ public class OMNode extends FocusWidget {
      *   if the DOM implementation doesn't support the removal of the 
      *   <code>DocumentType</code> child or <code>Element</code> child.
      */
-	@Deprecated
-	public final OMNode appendChild(OMNode newChild) throws JavaScriptException {
-		ot.appendChild(newChild.ot);
+	public final OMNode appendChild(OMNode newChild) {
+	  add(newChild, getElement());
 		return newChild;
 	}
 
@@ -593,10 +677,9 @@ public class OMNode extends FocusWidget {
      * @return Returns <code>true</code> if this node has any children, 
      *   <code>false</code> otherwise.
      */
-	@Deprecated
-	public final boolean hasChildNodes() {
-		return ot.hasChildNodes();
-	}
+  public boolean hasChildren() {
+    return getChildren().size() > 0;
+  }
 
     /**
      * Returns a duplicate of this node, i.e., serves as a generic copy 
@@ -664,8 +747,179 @@ public class OMNode extends FocusWidget {
 	}
 	
 	@Override
-	@Deprecated
 	public String toString() {
 		return ot.toString();
 	}
+	
+  public HandlerRegistration addBlurHandler(BlurHandler handler) {
+    return addDomHandler(handler, BlurEvent.getType());
+  }
+
+  public HandlerRegistration addClickHandler(ClickHandler handler) {
+    return addDomHandler(handler, ClickEvent.getType());
+  }
+
+  public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
+    return addDomHandler(handler, DoubleClickEvent.getType());
+  }
+
+  public HandlerRegistration addDragEndHandler(DragEndHandler handler) {
+    return addBitlessDomHandler(handler, DragEndEvent.getType());
+  }
+
+  public HandlerRegistration addDragEnterHandler(DragEnterHandler handler) {
+    return addBitlessDomHandler(handler, DragEnterEvent.getType());
+  }
+
+  public HandlerRegistration addDragHandler(DragHandler handler) {
+    return addBitlessDomHandler(handler, DragEvent.getType());
+  }
+
+  public HandlerRegistration addDragLeaveHandler(DragLeaveHandler handler) {
+    return addBitlessDomHandler(handler, DragLeaveEvent.getType());
+  }
+
+  public HandlerRegistration addDragOverHandler(DragOverHandler handler) {
+    return addBitlessDomHandler(handler, DragOverEvent.getType());
+  }
+
+  public HandlerRegistration addDragStartHandler(DragStartHandler handler) {
+    return addBitlessDomHandler(handler, DragStartEvent.getType());
+  }
+
+  public HandlerRegistration addDropHandler(DropHandler handler) {
+    return addBitlessDomHandler(handler, DropEvent.getType());
+  }
+
+  public HandlerRegistration addFocusHandler(FocusHandler handler) {
+    return addDomHandler(handler, FocusEvent.getType());
+  }
+
+  public HandlerRegistration addGestureChangeHandler(GestureChangeHandler handler) {
+    return addDomHandler(handler, GestureChangeEvent.getType());
+  }
+
+  public HandlerRegistration addGestureEndHandler(GestureEndHandler handler) {
+    return addDomHandler(handler, GestureEndEvent.getType());
+  }
+
+  public HandlerRegistration addGestureStartHandler(GestureStartHandler handler) {
+    return addDomHandler(handler, GestureStartEvent.getType());
+  }
+
+  public HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
+    return addDomHandler(handler, KeyDownEvent.getType());
+  }
+
+  public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
+    return addDomHandler(handler, KeyPressEvent.getType());
+  }
+
+  public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
+    return addDomHandler(handler, KeyUpEvent.getType());
+  }
+
+  public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
+    return addDomHandler(handler, MouseDownEvent.getType());
+  }
+
+  public HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
+    return addDomHandler(handler, MouseMoveEvent.getType());
+  }
+
+  public HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
+    return addDomHandler(handler, MouseOutEvent.getType());
+  }
+
+  public HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
+    return addDomHandler(handler, MouseOverEvent.getType());
+  }
+
+  public HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
+    return addDomHandler(handler, MouseUpEvent.getType());
+  }
+
+  public HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
+    return addDomHandler(handler, MouseWheelEvent.getType());
+  }
+
+  public HandlerRegistration addTouchCancelHandler(TouchCancelHandler handler) {
+    return addDomHandler(handler, TouchCancelEvent.getType());
+  }
+
+  public HandlerRegistration addTouchEndHandler(TouchEndHandler handler) {
+    return addDomHandler(handler, TouchEndEvent.getType());
+  }
+
+  public HandlerRegistration addTouchMoveHandler(TouchMoveHandler handler) {
+    return addDomHandler(handler, TouchMoveEvent.getType());
+  }
+
+  public HandlerRegistration addTouchStartHandler(TouchStartHandler handler) {
+    return addDomHandler(handler, TouchStartEvent.getType());
+  }
+
+  /**
+   * Gets whether this widget is enabled.
+   * 
+   * @return <code>true</code> if the widget is enabled
+   */
+  public boolean isEnabled() {
+    return !DOM.getElementPropertyBoolean(getElement(), "disabled");
+  }
+
+  /**
+   * Sets whether this widget is enabled.
+   * 
+   * @param enabled <code>true</code> to enable the widget, <code>false</code>
+   *          to disable it
+   */
+  public void setEnabled(boolean enabled) {
+    DOM.setElementPropertyBoolean(getElement(), "disabled", !enabled);
+  }
+
+  /**
+   * Isnert a child
+   */
+  public void insertChild(IsWidget w, int beforeIndex) {
+    insertChild(asWidgetOrNull(w), beforeIndex);
+  }
+
+  /**
+   * Inserts a child before the specified index.
+   * 
+   * @param w the widget to be inserted
+   * @param beforeIndex the index before which it will be inserted
+   * @throws IndexOutOfBoundsException if <code>beforeIndex</code> is out of
+   *           range
+   */
+  public void insertChild(Widget w, int beforeIndex) {
+    insert(w, getElement(), beforeIndex, true);
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((ot == null) ? 0 : ot.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    OMNode other = (OMNode) obj;
+    if (ot == null) {
+      if (other.ot != null)
+        return false;
+    } else if (!ot.equals(other.ot))
+      return false;
+    return true;
+  }
+  
 }

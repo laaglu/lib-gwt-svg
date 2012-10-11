@@ -38,23 +38,25 @@ import com.google.gwt.core.client.JavaScriptException;
 public class OMSVGParser {
 	private static final SVGParserImpl impl = GWT.create(SVGParserImpl.class);
 
-	/**
-	 * Creates a new empty SVG document
-	 * @return
-	 * a new empty SVG document
-	 */
-	public static final OMSVGDocument createDocument() {
-		SVGDocument doc = DOMHelper.createDocument(SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_SVG_TAG).cast();
-    	return OMNode.convert(doc);
-	}
-
-	/**
-	 * Returns the current document, as an SVG document
-	 * @return the current document, as an SVG document
-	 */
-	public static final OMSVGDocument currentDocument() {
-    	return OMNode.convert(DOMHelper.getCurrentDocument());
-	}
+//	/**
+//	 * Creates a new empty SVG document
+//	 * @return
+//	 * a new empty SVG document
+//	 */
+//	@Deprecated
+//	public static final OMSVGDocument createDocument() {
+//		SVGDocument doc = DOMHelper.createDocument(SVGConstants.SVG_NAMESPACE_URI, SVGConstants.SVG_SVG_TAG).cast();
+//    	return OMNode.convert(doc);
+//	}
+//
+//	/**
+//	 * Returns the current document, as an SVG document
+//	 * @return the current document, as an SVG document
+//	 */
+//	@Deprecated
+//	public static final OMSVGDocument currentDocument() {
+//    	return OMNode.convert(DOMHelper.getCurrentDocument());
+//	}
 
 	/**
 	 * Parses the supplied SVG text into a document. If the SVG contains embedded
