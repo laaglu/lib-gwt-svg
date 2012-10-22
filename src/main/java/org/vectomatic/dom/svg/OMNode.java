@@ -34,8 +34,10 @@ import org.w3c.dom.DOMException;
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Node;
+import com.google.gwt.dom.client.Text;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -101,7 +103,6 @@ import com.google.gwt.event.dom.client.TouchStartEvent;
 import com.google.gwt.event.dom.client.TouchStartHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -132,7 +133,8 @@ public class OMNode extends ComplexPanel implements
 	protected OMNode(Node node) {
 		this.ot = node;
 		
-		setElement(Element.as(node));
+		com.google.gwt.dom.client.Element e = node.cast();
+		setElement(e);
 	}
 	
 	@Override
@@ -166,7 +168,7 @@ public class OMNode extends ComplexPanel implements
 		// This call wraps the native event into a DomEvent
 		// and invokes fireEvent
 	    System.out.println("OMNNode.dispatch(): event=" + event);
-	    DomEvent.fireNativeEvent(event, this, (Element)event.getCurrentEventTarget().cast());
+	    //DomEvent.fireNativeEvent(event, this, (Element)event.getCurrentEventTarget().cast());
 	}
 
 	@Deprecated

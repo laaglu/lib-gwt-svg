@@ -149,12 +149,12 @@ public class OMSVGTextElement extends OMSVGTextPositioningElement implements ISV
    * @param data the string represented by the text object.
    */
   public OMSVGTextElement(float x, float y, short unitType, String data) {
-	this();
+    this();
     OMSVGSVGElement svg = new OMSVGSVGElement();
-	OMSVGLength xCoord = svg.createSVGLength(unitType, x);
-	getX().getBaseVal().appendItem(xCoord);
-	OMSVGLength yCoord = svg.createSVGLength(unitType, y);
-	getY().getBaseVal().appendItem(yCoord);
-	appendChild(new OMText(data));
+  	OMSVGLength xCoord = svg.createSVGLength(unitType, x);
+  	getX().getBaseVal().appendItem(xCoord);
+  	OMSVGLength yCoord = svg.createSVGLength(unitType, y);
+  	getY().getBaseVal().appendItem(yCoord);
+  	appendChild(new OMText(data));
   }
 }
