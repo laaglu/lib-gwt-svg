@@ -28,23 +28,86 @@
  */
 package org.vectomatic.dom.svg;
 
-import org.vectomatic.dom.svg.impl.DOMEventBus;
 import org.vectomatic.dom.svg.utils.DOMHelper;
 import org.w3c.dom.DOMException;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Node;
+import com.google.gwt.dom.client.Text;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DomEvent;
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.event.shared.EventHandler;
-import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.event.dom.client.DoubleClickEvent;
+import com.google.gwt.event.dom.client.DoubleClickHandler;
+import com.google.gwt.event.dom.client.DragEndEvent;
+import com.google.gwt.event.dom.client.DragEndHandler;
+import com.google.gwt.event.dom.client.DragEnterEvent;
+import com.google.gwt.event.dom.client.DragEnterHandler;
+import com.google.gwt.event.dom.client.DragEvent;
+import com.google.gwt.event.dom.client.DragHandler;
+import com.google.gwt.event.dom.client.DragLeaveEvent;
+import com.google.gwt.event.dom.client.DragLeaveHandler;
+import com.google.gwt.event.dom.client.DragOverEvent;
+import com.google.gwt.event.dom.client.DragOverHandler;
+import com.google.gwt.event.dom.client.DragStartEvent;
+import com.google.gwt.event.dom.client.DragStartHandler;
+import com.google.gwt.event.dom.client.DropEvent;
+import com.google.gwt.event.dom.client.DropHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.GestureChangeEvent;
+import com.google.gwt.event.dom.client.GestureChangeHandler;
+import com.google.gwt.event.dom.client.GestureEndEvent;
+import com.google.gwt.event.dom.client.GestureEndHandler;
+import com.google.gwt.event.dom.client.GestureStartEvent;
+import com.google.gwt.event.dom.client.GestureStartHandler;
+import com.google.gwt.event.dom.client.HasAllDragAndDropHandlers;
+import com.google.gwt.event.dom.client.HasAllFocusHandlers;
+import com.google.gwt.event.dom.client.HasAllGestureHandlers;
+import com.google.gwt.event.dom.client.HasAllKeyHandlers;
+import com.google.gwt.event.dom.client.HasAllMouseHandlers;
+import com.google.gwt.event.dom.client.HasAllTouchHandlers;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.HasDoubleClickHandlers;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.dom.client.MouseWheelEvent;
+import com.google.gwt.event.dom.client.MouseWheelHandler;
+import com.google.gwt.event.dom.client.TouchCancelEvent;
+import com.google.gwt.event.dom.client.TouchCancelHandler;
+import com.google.gwt.event.dom.client.TouchEndEvent;
+import com.google.gwt.event.dom.client.TouchEndHandler;
+import com.google.gwt.event.dom.client.TouchMoveEvent;
+import com.google.gwt.event.dom.client.TouchMoveHandler;
+import com.google.gwt.event.dom.client.TouchStartEvent;
+import com.google.gwt.event.dom.client.TouchStartHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.event.shared.HasHandlers;
-import com.google.gwt.event.shared.UmbrellaException;
-import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.HasEnabled;
+import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Wrapper class for DOM Node. Wrapper classes decorate native
@@ -53,125 +116,69 @@ import com.google.gwt.user.client.Element;
  * @author laaglu
  * @author Michael Allan
  */
-public class OMNode implements HasHandlers {
+public class OMNode extends ComplexPanel implements
+  HasClickHandlers, HasDoubleClickHandlers, HasEnabled,
+  HasAllDragAndDropHandlers, HasAllFocusHandlers, HasAllGestureHandlers,
+  HasAllKeyHandlers, HasAllMouseHandlers, HasAllTouchHandlers, HasWidgets {
+  
 	/**
 	 * The DOM native overlay type wrapped by this object
 	 */
 	protected final Node ot;
-	/**
-	 * The event bus shared by all SVG objects
-	 */
-	static protected EventBus eventBus = new DOMEventBus();
 
 	/**
 	 * Constructor
 	 * @param node The node to wrap
 	 */
 	protected OMNode(Node node) {
-		assert getWrapper(node) == null : "node was already wrapped";
-		setWrapper(node, this);
 		this.ot = node;
+		
+		com.google.gwt.dom.client.Element e = node.cast();
+		setElement(e);
 	}
 	
-	/**
-	 * Sets the __wrapper property of the node.
-	 */
-	private static native void setWrapper(Node node, OMNode wrapper) /*-{
-    	node.__wrapper = wrapper;
-	}-*/;
+	@Override
+	protected void onDetach() {
+	  cleanup();
+	  super.onDetach();
+	}
 	
-	/**
-	 * Returns the __wrapper property of the node.
-	 */
+	@Deprecated
 	private static native OMNode getWrapper(Node node) /*-{ 
 		return node.__wrapper; 
 	}-*/;
 	
-	/**
-	 * Cleanup method for wrapper objects which are
-	 * not needed by the application any more. It
-	 * breaks the back-reference the native DOM object
-	 * maintains on this wrapper type, in order to
-	 * facilitate garbage collection. Use only if
-	 * your code needs to run in a browser which is
-	 * not equipped with an automatic DOM object-native 
-	 * object cycle collector.
-	 */
-	public void cleanup() {
-		setWrapper(ot, null);
+	@Deprecated
+	private void cleanup() {
+	  setWrapper(ot, null);
 	}
-
-	/**
-	 * Returns the event bus shared by all SVG objects
-	 * @return the event bus shared by all SVG objects
-	 */
-	public static EventBus getEventBus() {
-		return eventBus;
-	}
-    /**
-     * Fires the given event to the handlers listening to the event's type.
-     * <p>
-     * Any exceptions thrown by handlers will be bundled into a
-     * {@link UmbrellaException} and then re-thrown after all handlers have
-     * completed. An exception thrown by a handler will not prevent other handlers
-     * from executing.
-     * @param event the event
-     */
-	public void fireEvent(GwtEvent<?> event) {
-		revive(event);
-		eventBus.fireEventFromSource(event, this);
-	}
-	/**
-	 * Revive the event. GWT does it by taking advantage of the
-	 * fact that HandlerManager has package access to GwtEvent.
-	 * Here we use a JSNI call to bypass scope restrictions
-	 */
-	private static final native void revive(GwtEvent<?> event) /*-{
-	  event.@com.google.gwt.event.shared.GwtEvent::revive()();
-	}-*/;
+	
+	@Deprecated
+  private static native void setWrapper(Node node, OMNode wrapper) /*-{
+    node.__wrapper = wrapper;
+  }-*/;
 	
 	/**
 	 * Dispatches the specified event to this node
 	 * event handlers
 	 * @param event The event to dispatch
 	 */
+	@Deprecated
 	public void dispatch(NativeEvent event) {
 		// This call wraps the native event into a DomEvent
 		// and invokes fireEvent
+	    System.out.println("OMNNode.dispatch(): event=" + event);
 	    DomEvent.fireNativeEvent(event, this, (Element)event.getCurrentEventTarget().cast());
 	}
 
-	/**
-	 * Adds a DOM handler to this node's list of handlers
-	 * @param <H> The handler type
-	 * @param handler The DOM handler
-	 * @param type The event type
-	 * @return {@link HandlerRegistration} used to remove this handler
-	 */
-	public final <H extends EventHandler> HandlerRegistration addDomHandler(
-			final H handler, DomEvent.Type<H> type) {
-		assert handler != null : "handler must not be null";
-		assert type != null : "type must not be null";
-		DOMHelper.bindEventListener((Element)ot.cast(), type.getName());
-		return eventBus.addHandlerToSource(type, this, handler);
-	}
-
-	/**
-	 * Adds a handler to this node's list of handlers
-	 * @param <H> The handler type
-	 * @param handler The handler
-	 * @param type The event type
-	 * @return {@link HandlerRegistration} used to remove this handler
-	 */
-	public final <H extends EventHandler> HandlerRegistration addHandler(
-			final H handler, GwtEvent.Type<H> type) {
-		return eventBus.addHandlerToSource(type, this, handler);
-	}
-
+	@Deprecated
 	private static class Conversion<T extends OMNode> {
+	  
 		static {
 			initialize();
 		}
+		
+		@Deprecated
 		private static final native void initialize() /*-{
 			if ($wnd.otToWrapper == null) {
 		    	$wnd.otToWrapper = new Object();
@@ -259,10 +266,13 @@ public class OMNode implements HasHandlers {
 			$wnd.otToWrapper["SVGViewElement"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGViewElement::new(Lorg/vectomatic/dom/svg/impl/SVGViewElement;)(elem); };
 			$wnd.otToWrapper["SVGVKernElement"] = function(elem) { return @org.vectomatic.dom.svg.OMSVGVKernElement::new(Lorg/vectomatic/dom/svg/impl/SVGVKernElement;)(elem); };
 		}-*/;
+		
 		T result;
 		Conversion(Node node) {
 			convert(node);
 		}
+		
+		@Deprecated
 		private final native void convert(Node node) /*-{
 			var wrapper = null;
 			if (node != null) {
@@ -279,7 +289,7 @@ public class OMNode implements HasHandlers {
 			    		} else if (node.nodeType == 3) {
 			    			wrapper = @org.vectomatic.dom.svg.OMText::new(Lcom/google/gwt/dom/client/Text;)(node);
 			    		} else if (node.nodeType == 9) {
-							wrapper = @org.vectomatic.dom.svg.OMSVGDocument::new(Lorg/vectomatic/dom/svg/impl/SVGDocument;)(node);
+							  wrapper = @org.vectomatic.dom.svg.OMSVGDocument::new(Lorg/vectomatic/dom/svg/impl/SVGDocument;)(node);
 			    		} else {
 			    			wrapper = @org.vectomatic.dom.svg.OMNode::new(Lcom/google/gwt/dom/client/Node;)(node);
 			    		}
@@ -297,6 +307,7 @@ public class OMNode implements HasHandlers {
 	 * @param obj The overlay type node
 	 * @return The node wrapper
 	 */
+	@Deprecated
 	public static <T extends OMNode> T convert(Node obj) {
 		// Misleading to parametize by T here, because we cannot guarantee type safety.
 		// The explicit cast below is liable to failure, and so is the implicit cast in
@@ -307,10 +318,13 @@ public class OMNode implements HasHandlers {
 		return wrapper;
 	}
 	
+	@Deprecated
 	private static class ListConversion<T extends Iterable<? extends OMNode>> {
 		static {
 			initialize();
 		}
+		
+		@Deprecated
 		private static final native void initialize() /*-{
 			if ($wnd.otToWrapper == null) {
 		    	$wnd.otToWrapper = new Object();
@@ -327,6 +341,8 @@ public class OMNode implements HasHandlers {
 		ListConversion(JavaScriptObject list) {
 			convert(list);
 		}
+		
+		@Deprecated
 		private final native void convert(JavaScriptObject list) /*-{
 			var wrapper = null;
 		    var type = @org.vectomatic.dom.svg.utils.DOMHelper::getType(Lcom/google/gwt/core/client/JavaScriptObject;)(list);
@@ -346,6 +362,7 @@ public class OMNode implements HasHandlers {
 	 * @param obj The overlay type list
 	 * @return The list wrapper
 	 */
+	@Deprecated
 	public static <T extends Iterable<? extends OMNode>> T convertList(JavaScriptObject obj) {
 		return new ListConversion<T>(obj).result;
 	}
@@ -354,6 +371,7 @@ public class OMNode implements HasHandlers {
 	 * Returns the wrapped node
 	 * @return the wrapped node
 	 */
+	@Deprecated
 	public Node getNode() {
 		return ot;
 	}
@@ -363,6 +381,7 @@ public class OMNode implements HasHandlers {
      * The name of this node, depending on its type.
      * @return name of this node
      */
+	@Deprecated
 	public final String getNodeName() {
 		return ot.getNodeName();
 	}
@@ -372,6 +391,7 @@ public class OMNode implements HasHandlers {
      * When it is defined to be <code>null</code>, setting it has no effect, 
      * including if the node is read-only.
      */
+	@Deprecated
 	public final String getNodeValue() {
 		return ot.getNodeValue();
 	}
@@ -385,6 +405,7 @@ public class OMNode implements HasHandlers {
      *   NO_MODIFICATION_ALLOWED_ERR: Raised when the node is readonly and if 
      *   it is not defined to be <code>null</code>.
      */
+	@Deprecated
 	public final void setNodeValue(String value) throws JavaScriptException {
 		ot.setNodeValue(value);
 	}
@@ -393,6 +414,7 @@ public class OMNode implements HasHandlers {
      * A code representing the type of the underlying object.
      * @return A code representing the type of the underlying object
      */
+	@Deprecated
 	public final short getNodeType() {
 		return ot.getNodeType();
 	}
@@ -405,6 +427,7 @@ public class OMNode implements HasHandlers {
      * <code>null</code>.
      * @return The parent of this node
      */
+	@Deprecated
 	public final OMNode getParentNode() {
 		Node parentNode = ot.getParentNode();
 		return (parentNode != null) ? convert(parentNode) : null;
@@ -416,6 +439,7 @@ public class OMNode implements HasHandlers {
      * nodes.
      * @return A <code>OMNodeList</code> that contains all children of this node. If 
      */
+	@Deprecated
 	public final <T extends OMNode> OMNodeList<T> getChildNodes() {
 		return new OMNodeList<T>(ot.getChildNodes());
 	}
@@ -426,8 +450,11 @@ public class OMNode implements HasHandlers {
      * @return The first child of this node.
      */
 	public final OMNode getFirstChild() {
-		Node firstChild = ot.getFirstChild();
-		return (firstChild != null) ? convert(firstChild) : null;
+    try {
+      return (OMNode) getChildren().get(0);
+    } catch (Exception e) {
+      return null;
+    }
 	}
 
     /**
@@ -436,8 +463,11 @@ public class OMNode implements HasHandlers {
      * @return The last child of this node. 
      */
 	public final OMNode getLastChild() {
-		Node lastChild = ot.getLastChild();
-		return (lastChild != null) ? convert(lastChild) : null;
+	  try {
+      return (OMNode) getChildren().get(getChildren().size());
+    } catch (Exception e) {
+      return null;
+    }
 	}
 	
 	/**
@@ -448,6 +478,7 @@ public class OMNode implements HasHandlers {
      * <code>null</code>.
      * @return The local part of the qualified name of this node
      */
+	@Deprecated
 	public final String getLocalName() {
 		return DOMHelper.getLocalName(ot);
 	}
@@ -457,6 +488,7 @@ public class OMNode implements HasHandlers {
      * this returns <code>null</code>.
      * @return The node immediately preceding this node.
      */
+	@Deprecated
 	public final OMNode getPreviousSibling() {
 		Node previousSibling = ot.getPreviousSibling();
 		return (previousSibling != null) ? convert(previousSibling) : null;
@@ -478,6 +510,7 @@ public class OMNode implements HasHandlers {
      * simply has no namespace.
      * @return The namespace URI of this node
      */
+	@Deprecated
 	public String getNamespaceURI() {
 		return DOMHelper.getNamespaceURI(ot);
 	}
@@ -486,6 +519,7 @@ public class OMNode implements HasHandlers {
      * this returns <code>null</code>.
      * @return The node immediately following this node.
      */
+	@Deprecated
 	public final OMNode getNextSibling() {
 		Node nextSibling = ot.getNextSibling();
 		return (nextSibling != null) ? convert(nextSibling) : null;
@@ -499,6 +533,7 @@ public class OMNode implements HasHandlers {
      * <code>null</code>.
      * @return The <code>OMDocument</code> object associated with this node.
      */
+	@Deprecated
 	public final OMDocument getOwnerDocument() {
 		Document document = ot.getOwnerDocument();
 		return (document != null) ? (OMDocument)convert(document) : null;
@@ -536,8 +571,9 @@ public class OMNode implements HasHandlers {
      *   support the insertion of a <code>DocumentType</code> or 
      *   <code>Element</code> node.
      */
-	public final OMNode insertBefore(OMNode newChild, OMNode refChild) throws JavaScriptException {
-		ot.insertBefore(newChild.ot, refChild != null ? refChild.ot : null);
+	public final OMNode insertBefore(OMNode newChild, OMNode refChild) {
+		int beforeIndex = getChildren().indexOf(refChild);
+	  insertChild(newChild, beforeIndex);
 		return newChild;
 	}
 
@@ -573,12 +609,18 @@ public class OMNode implements HasHandlers {
      *   support the replacement of the <code>DocumentType</code> child or 
      *   <code>Element</code> child.
      */
-	public final OMNode replaceChild(OMNode newChild, OMNode oldChild) throws JavaScriptException {
-		ot.replaceChild(newChild.ot, oldChild.ot);
+	
+	// TODO does this work?
+	public final OMNode replaceChild(OMNode newChild, OMNode oldChild) {
+	  int oldIndex = getChildren().indexOf(oldChild);
+	  insertChild(newChild, oldIndex);
+	  getChildren().remove(oldChild);
 		return oldChild;
 	}
 
 	  /**
+	   * Deprecated, Use oldChild.removeFromParent();
+	   * 
      * Removes the child node indicated by <code>oldChild</code> from the list 
      * of children, and returns it.
      * @param oldChild The node being removed.
@@ -592,8 +634,14 @@ public class OMNode implements HasHandlers {
      *   support the removal of the <code>DocumentType</code> child or the 
      *   <code>Element</code> child.
      */
-	public final OMNode removeChild(OMNode oldChild) throws JavaScriptException {
-		ot.removeChild(oldChild.ot);
+	@Deprecated
+	public final OMNode removeChild(OMNode oldChild) {
+//	  try {
+//      getChildren().remove(oldChild);
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
+	  oldChild.removeFromParent();
 		return oldChild;
 	}
 
@@ -621,8 +669,8 @@ public class OMNode implements HasHandlers {
      *   if the DOM implementation doesn't support the removal of the 
      *   <code>DocumentType</code> child or <code>Element</code> child.
      */
-	public final OMNode appendChild(OMNode newChild) throws JavaScriptException {
-		ot.appendChild(newChild.ot);
+	public final OMNode appendChild(OMNode newChild) {
+	  add(newChild, getElement());
 		return newChild;
 	}
 
@@ -631,9 +679,9 @@ public class OMNode implements HasHandlers {
      * @return Returns <code>true</code> if this node has any children, 
      *   <code>false</code> otherwise.
      */
-	public final boolean hasChildNodes() {
-		return ot.hasChildNodes();
-	}
+  public boolean hasChildren() {
+    return getChildren().size() > 0;
+  }
 
     /**
      * Returns a duplicate of this node, i.e., serves as a generic copy 
@@ -669,6 +717,7 @@ public class OMNode implements HasHandlers {
      *   itself (and its attributes, if it is an <code>Element</code>).
      * @return The duplicate node.
      */
+	@Deprecated
 	public final OMNode cloneNode(boolean deep) {
 		return convert(ot.cloneNode(deep));
 	}
@@ -694,6 +743,7 @@ public class OMNode implements HasHandlers {
      * sufficient, since XPointers do not differentiate between 
      * <code>Text</code> nodes and <code>CDATASection</code> nodes.
      */
+	@Deprecated
 	public final void normalize() {
 		DOMHelper.normalize(ot);
 	}
@@ -702,4 +752,176 @@ public class OMNode implements HasHandlers {
 	public String toString() {
 		return ot.toString();
 	}
+	
+  public HandlerRegistration addBlurHandler(BlurHandler handler) {
+    return addDomHandler(handler, BlurEvent.getType());
+  }
+
+  public HandlerRegistration addClickHandler(ClickHandler handler) {
+    return addDomHandler(handler, ClickEvent.getType());
+  }
+
+  public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
+    return addDomHandler(handler, DoubleClickEvent.getType());
+  }
+
+  public HandlerRegistration addDragEndHandler(DragEndHandler handler) {
+    return addBitlessDomHandler(handler, DragEndEvent.getType());
+  }
+
+  public HandlerRegistration addDragEnterHandler(DragEnterHandler handler) {
+    return addBitlessDomHandler(handler, DragEnterEvent.getType());
+  }
+
+  public HandlerRegistration addDragHandler(DragHandler handler) {
+    return addBitlessDomHandler(handler, DragEvent.getType());
+  }
+
+  public HandlerRegistration addDragLeaveHandler(DragLeaveHandler handler) {
+    return addBitlessDomHandler(handler, DragLeaveEvent.getType());
+  }
+
+  public HandlerRegistration addDragOverHandler(DragOverHandler handler) {
+    return addBitlessDomHandler(handler, DragOverEvent.getType());
+  }
+
+  public HandlerRegistration addDragStartHandler(DragStartHandler handler) {
+    return addBitlessDomHandler(handler, DragStartEvent.getType());
+  }
+
+  public HandlerRegistration addDropHandler(DropHandler handler) {
+    return addBitlessDomHandler(handler, DropEvent.getType());
+  }
+
+  public HandlerRegistration addFocusHandler(FocusHandler handler) {
+    return addDomHandler(handler, FocusEvent.getType());
+  }
+
+  public HandlerRegistration addGestureChangeHandler(GestureChangeHandler handler) {
+    return addDomHandler(handler, GestureChangeEvent.getType());
+  }
+
+  public HandlerRegistration addGestureEndHandler(GestureEndHandler handler) {
+    return addDomHandler(handler, GestureEndEvent.getType());
+  }
+
+  public HandlerRegistration addGestureStartHandler(GestureStartHandler handler) {
+    return addDomHandler(handler, GestureStartEvent.getType());
+  }
+
+  public HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
+    return addDomHandler(handler, KeyDownEvent.getType());
+  }
+
+  public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
+    return addDomHandler(handler, KeyPressEvent.getType());
+  }
+
+  public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
+    return addDomHandler(handler, KeyUpEvent.getType());
+  }
+
+  public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
+    return addDomHandler(handler, MouseDownEvent.getType());
+  }
+
+  public HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
+    return addDomHandler(handler, MouseMoveEvent.getType());
+  }
+
+  public HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
+    return addDomHandler(handler, MouseOutEvent.getType());
+  }
+
+  public HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
+    return addDomHandler(handler, MouseOverEvent.getType());
+  }
+
+  public HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
+    return addDomHandler(handler, MouseUpEvent.getType());
+  }
+
+  public HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
+    return addDomHandler(handler, MouseWheelEvent.getType());
+  }
+
+  public HandlerRegistration addTouchCancelHandler(TouchCancelHandler handler) {
+    return addDomHandler(handler, TouchCancelEvent.getType());
+  }
+
+  public HandlerRegistration addTouchEndHandler(TouchEndHandler handler) {
+    return addDomHandler(handler, TouchEndEvent.getType());
+  }
+
+  public HandlerRegistration addTouchMoveHandler(TouchMoveHandler handler) {
+    return addDomHandler(handler, TouchMoveEvent.getType());
+  }
+
+  public HandlerRegistration addTouchStartHandler(TouchStartHandler handler) {
+    return addDomHandler(handler, TouchStartEvent.getType());
+  }
+
+  /**
+   * Gets whether this widget is enabled.
+   * 
+   * @return <code>true</code> if the widget is enabled
+   */
+  public boolean isEnabled() {
+    return !DOM.getElementPropertyBoolean(getElement(), "disabled");
+  }
+
+  /**
+   * Sets whether this widget is enabled.
+   * 
+   * @param enabled <code>true</code> to enable the widget, <code>false</code>
+   *          to disable it
+   */
+  public void setEnabled(boolean enabled) {
+    DOM.setElementPropertyBoolean(getElement(), "disabled", !enabled);
+  }
+
+  /**
+   * Isnert a child
+   */
+  public void insertChild(IsWidget w, int beforeIndex) {
+    insertChild(asWidgetOrNull(w), beforeIndex);
+  }
+
+  /**
+   * Inserts a child before the specified index.
+   * 
+   * @param w the widget to be inserted
+   * @param beforeIndex the index before which it will be inserted
+   * @throws IndexOutOfBoundsException if <code>beforeIndex</code> is out of
+   *           range
+   */
+  public void insertChild(Widget w, int beforeIndex) {
+    insert(w, getElement(), beforeIndex, true);
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((ot == null) ? 0 : ot.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    OMNode other = (OMNode) obj;
+    if (ot == null) {
+      if (other.ot != null)
+        return false;
+    } else if (!ot.equals(other.ot))
+      return false;
+    return true;
+  }
+  
 }

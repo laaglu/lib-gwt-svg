@@ -33,6 +33,7 @@ import org.w3c.dom.DOMException;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.Text;
 
 /**
@@ -48,7 +49,7 @@ public class OMText extends OMNode {
 		this(Document.get().createTextNode(data));
 	}
 	protected OMText(Text ot) {
-		super(ot);
+		super((Node) ot);
 	}
 	
 	/**

@@ -1998,7 +1998,9 @@ public class UiBinderWriter implements Statements {
     JParameter[] renderParameters = findRenderParameters(baseClass);
     for (JParameter param : renderParameters) {
       // Prevent fields from render() parameters from being optimized.
-      fieldManager.disableOptimization(param.getName());
+      
+      // TODO errors
+      //fieldManager.disableOptimization(param.getName());
     }
 
     // public UiRendererImplClass() {

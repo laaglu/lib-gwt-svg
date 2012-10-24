@@ -38,6 +38,7 @@ import com.google.gwt.dom.client.Document;
  * Wrapper class for DOM Document
  * @author laaglu
  */
+@Deprecated
 public class OMDocument extends OMNode {
 	/**
 	 * Constructor
