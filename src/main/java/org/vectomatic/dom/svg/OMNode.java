@@ -168,7 +168,7 @@ public class OMNode extends ComplexPanel implements
 		// This call wraps the native event into a DomEvent
 		// and invokes fireEvent
 	    System.out.println("OMNNode.dispatch(): event=" + event);
-	    //DomEvent.fireNativeEvent(event, this, (Element)event.getCurrentEventTarget().cast());
+	    DomEvent.fireNativeEvent(event, this, (Element)event.getCurrentEventTarget().cast());
 	}
 
 	@Deprecated
