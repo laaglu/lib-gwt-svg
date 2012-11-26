@@ -60,7 +60,10 @@ public class SVGParserImplWebkit extends SVGParserImpl {
 			});
 			throw new ParserException(ParserException.Type.NotWellFormed, message);
 		}
-		SVGSVGElement svg = elt.<SVGSVGElement>cast();
+		// Import + clone seem to be required for embedded QTWebkit (though they are not needed
+		// for Chromium but there is no simple way to distinguish both)
+		SVGSVGElement svg = DOMHelper.importNode(DOMHelper.getCurrentDocument(), elt, true).cast();
+    	svg = svg.cloneNode(true).<SVGSVGElement>cast();
 		return enableScripts ? enableScriptElements(svg) : svg;
 	}
 
