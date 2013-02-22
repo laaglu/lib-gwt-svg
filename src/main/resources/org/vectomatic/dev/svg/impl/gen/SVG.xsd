@@ -1602,8 +1602,8 @@
     <attributeGroup ref="svg:PresentationAttributes-TextElements"/>
     <attribute name="transform" type="svg:TransformListType" use="optional"/>
     <attributeGroup ref="svg:graphicsElementEvents"/>
-    <attribute name="x" type="svg:CoordinateType" use="optional"/>
-    <attribute name="y" type="svg:CoordinateType" use="optional"/>
+    <attribute name="x" type="svg:CoordinatesType" use="optional"/>
+    <attribute name="y" type="svg:CoordinatesType" use="optional"/>
     <attribute name="textLength" type="svg:LengthType" use="optional"/>
     <attribute name="lengthAdjust" use="optional">
       <simpleType>
