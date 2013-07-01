@@ -1103,6 +1103,18 @@ public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandler
    * @param height the height to use for the viewbox
    */
   public final void setViewBox(float x, float y, float width, float height) {
+	if (!((SVGSVGElement)ot).hasAttribute(SVGConstants.SVG_VIEW_BOX_ATTRIBUTE)) {
+		StringBuilder builder = new StringBuilder();
+		builder.append(x);
+		builder.append(" ");
+		builder.append(y);
+		builder.append(" ");
+		builder.append(width);
+		builder.append(" ");
+		builder.append(height);
+		((SVGSVGElement)ot).setAttribute(SVGConstants.SVG_VIEW_BOX_ATTRIBUTE, builder.toString());
+		return;
+	}
 	OMSVGRect viewBox = getViewBox().getBaseVal();
 	viewBox.setX(x);
 	viewBox.setY(y);
