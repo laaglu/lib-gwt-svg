@@ -15,6 +15,7 @@
 		<when-type-is class="org.vectomatic.dom.svg.impl.DOMHelperImpl" />
 		<any>
 			<when-property-is name="user.agent" value="ie9" />
+            <when-property-is name="user.agent" value="ie10" />
 		</any>
 	</replace-with>
 	
@@ -49,6 +50,7 @@
 		<when-type-is class="org.vectomatic.dom.svg.impl.SVGParserImpl" />
 		<any>
 			<when-property-is name="user.agent" value="ie9" />
+            <when-property-is name="user.agent" value="ie10" />
 		</any>
 	</replace-with>
 	
