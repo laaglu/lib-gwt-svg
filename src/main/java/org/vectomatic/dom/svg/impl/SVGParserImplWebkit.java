@@ -40,6 +40,9 @@ public class SVGParserImplWebkit extends SVGParserImpl {
 	 */
 	@Override
 	public final SVGSVGElement parse(String rawSvg, boolean enableScripts) throws ParserException {
+		if (isIE()) {
+			return parseIE(rawSvg, enableScripts);
+		}
 		SVGDocument doc = parseFromString(rawSvg, "text/xml").cast();
 		Element elt = doc.getDocumentElement();
 		if ("parsererror".equals(DOMHelper.getLocalName(elt))) {

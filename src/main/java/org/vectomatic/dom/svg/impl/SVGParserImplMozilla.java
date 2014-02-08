@@ -17,17 +17,10 @@
  **********************************************/
 package org.vectomatic.dom.svg.impl;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import org.vectomatic.dom.svg.OMSVGScriptElement;
 import org.vectomatic.dom.svg.utils.DOMHelper;
 import org.vectomatic.dom.svg.utils.ParserException;
-import org.vectomatic.dom.svg.utils.SVGPrefixResolver;
 
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.Text;
 
 /**
@@ -46,6 +39,9 @@ public class SVGParserImplMozilla extends SVGParserImpl {
 	 */
 	@Override
 	public final SVGSVGElement parse(String rawSvg, boolean enableScripts) throws ParserException {
+		if (isIE()) {
+			return parseIE(rawSvg, enableScripts);
+		}
 		SVGDocument doc = parseFromString(rawSvg, "text/xml").cast();
 		Element elt = doc.getDocumentElement();
 		if ("parsererror".equals(DOMHelper.getLocalName(elt))) {

@@ -21,17 +21,24 @@ import org.vectomatic.dom.svg.OMNode;
 import org.vectomatic.dom.svg.OMSVGElement;
 import org.vectomatic.dom.svg.utils.XPathPrefixResolver;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Node;
+import com.google.gwt.dom.client.ScriptElement;
 import com.google.gwt.event.dom.client.LoseCaptureEvent;
 import com.google.gwt.event.dom.client.LoseCaptureHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.TextResource;
 
 /**
  * Implementation class for low-level GWT integration
  * (mostly event dispatching)
+ * Xpath support for IE, based on Cameron McCormack's library
+ * (http://mcc.id.au/xpathjs)
  * @author laaglu
  */
 public class DOMHelperImpl {
@@ -228,28 +235,120 @@ public class DOMHelperImpl {
 	///////////////////////////////////////////////////////////////
 
 	public native JavaScriptObject evaluateNodeListXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
-		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.ORDERED_NODE_ITERATOR_TYPE , null);
+		var result, xpath;
+		if (typeof Document.prototype.evaluate !== 'function') {
+			xpath = new XPathExpression(expr, $wnd.xpr, $wnd.xpp);
+			$wnd.xpr.gwtresolver = resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null;
+			result = xpath.evaluate(svgElement, XPathResult.ORDERED_NODE_ITERATOR_TYPE);
+		} else {
+			result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.ORDERED_NODE_ITERATOR_TYPE , null);
+		}
 		return result;
 	}-*/;
 	
 	public native Node evaluateNodeXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
-		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.ANY_UNORDERED_NODE_TYPE , null);
+		var result, xpath;
+		if (typeof Document.prototype.evaluate !== 'function') {
+			xpath = new XPathExpression(expr, $wnd.xpr, $wnd.xpp);
+			$wnd.xpr.gwtresolver = resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null;
+			result = xpath.evaluate(svgElement, XPathResult.ANY_UNORDERED_NODE_TYPE);
+		} else {
+			result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.ANY_UNORDERED_NODE_TYPE , null);
+		}
 		return result.singleNodeValue;
 	}-*/;
 
 	public native String evaluateStringXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
-		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.STRING_TYPE , null);
+		var result, xpath;
+		if (typeof Document.prototype.evaluate !== 'function') {
+			xpath = new XPathExpression(expr, $wnd.xpr, $wnd.xpp);
+			$wnd.xpr.gwtresolver = resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null;
+			result = xpath.evaluate(svgElement, XPathResult.STRING_TYPE);
+		} else {
+			result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.STRING_TYPE , null);
+		}
 		return result.stringValue;
 	}-*/;
 
 	public native float evaluateNumberXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
-		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.NUMBER_TYPE , null);
+		var result, xpath;
+		if (typeof Document.prototype.evaluate !== 'function') {
+			xpath = new XPathExpression(expr, $wnd.xpr, $wnd.xpp);
+			$wnd.xpr.gwtresolver = resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null;
+			result = xpath.evaluate(svgElement, XPathResult.NUMBER_TYPE);
+		} else {
+			result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.NUMBER_TYPE , null);
+		}
 		return result.numberValue;
 	}-*/;
 	
 	public native boolean evaluateBooleanXPath_(Element svgElement, String expr, XPathPrefixResolver resolver) /*-{
-		var result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.BOOLEAN_TYPE , null);
+		var result, xpath;
+		if (typeof Document.prototype.evaluate !== 'function') {
+			xpath = new XPathExpression(expr, $wnd.xpr, $wnd.xpp);
+			$wnd.xpr.gwtresolver = resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null;
+			result = xpath.evaluate(svgElement, XPathResult.BOOLEAN_TYPE);
+		} else {
+			result = svgElement.ownerDocument.evaluate(expr, svgElement, resolver ? function(prefix) { return resolver.@org.vectomatic.dom.svg.utils.XPathPrefixResolver::resolvePrefix(Ljava/lang/String;)(prefix); } : null, XPathResult.BOOLEAN_TYPE , null);
+		}
 		return result.booleanValue;
 	}-*/;
 	
+	///////////////////////////////////////////////////////////////
+	// XPath shim for IE support
+	///////////////////////////////////////////////////////////////
+
+	public interface Resource extends ClientBundle {
+		static Resource INSTANCE = GWT.create(Resource.class);
+		@Source("xpath.js")
+		TextResource xpath();
+	}
+	
+	public DOMHelperImpl() {
+		if (!hasNativeXPath()) {
+			// Inject the xpath.js script in the iframe document (not
+			// in the main document, otherwise the added code will not be
+			// seen by the GWT code which lives in the iframe document)
+			Document doc = getIFrameDocument();
+			ScriptElement scriptElem = doc.createScriptElement(Resource.INSTANCE.xpath().getText());
+			doc.getBody().appendChild(scriptElem);
+			initXPath();
+		}
+	}
+
+	public static native boolean hasNativeXPath() /*-{
+		return typeof Document.prototype.evaluate === 'function';
+	}-*/;
+
+	protected native void initXPath() /*-{
+		$wnd.xpp = new XPathParser();
+		
+		// Create a custom namespace resolver
+		SvgNamespaceResolver.prototype = new NamespaceResolver();
+		SvgNamespaceResolver.prototype.constructor = SvgNamespaceResolver;
+		SvgNamespaceResolver.superclass = NamespaceResolver.prototype;
+		function SvgNamespaceResolver() {
+			this.gwtresolver = null;
+		}
+		
+		SvgNamespaceResolver.prototype.getNamespace = function(prefix, n) {
+		  var ns = null;
+		  if (this.gwtresolver != null) {
+		    ns = this.gwtresolver(prefix);
+		  }
+		  if (ns == null) {
+		  	ns = n.namespaceURI;
+		  }
+		  if (ns == null) {
+		  	ns = SvgNamespaceResolver.superclass.getNamespace(prefix, n);
+		  }
+		  return ns;
+		};
+		$wnd.xpr = new SvgNamespaceResolver();
+	}-*/;
+	
+	public static native Document getIFrameDocument() /*-{
+		return document;
+	}-*/;
+
 }

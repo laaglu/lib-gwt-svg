@@ -24,9 +24,9 @@ import java.util.List;
 import org.vectomatic.dom.svg.OMSVGScriptElement;
 import org.vectomatic.dom.svg.utils.DOMHelper;
 import org.vectomatic.dom.svg.utils.ParserException;
-import org.vectomatic.dom.svg.utils.SVGConstants;
 import org.vectomatic.dom.svg.utils.SVGPrefixResolver;
 
+import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
@@ -55,6 +55,9 @@ public class SVGParserImpl {
 	 * the document resulting from the parse
 	 */
 	public SVGSVGElement parse(String rawSvg, boolean enableScripts) throws ParserException {
+		if (isIE()) {
+			return parseIE(rawSvg, enableScripts);
+		}
 		SVGDocument doc = parseFromString(rawSvg, "text/xml").cast();
 		Element elt = doc.getDocumentElement();
 		if ("parsererror".equals(DOMHelper.getLocalName(elt))) {
@@ -92,6 +95,43 @@ public class SVGParserImpl {
 			script.getParentNode().replaceChild(newScript, script);
 		}
 		return svg;
+	}
+	
+	public static native boolean isIE() /*-{
+		return typeof document.documentMode === 'number';
+	}-*/;
+	
+	public final SVGSVGElement parseIE(String rawSvg, boolean enableScripts) throws ParserException {
+		SVGDocument doc = null;
+		try {
+			doc = parseFromString(rawSvg, "text/xml").cast();
+			
+		} catch(JavaScriptException e) {
+			throw new ParserException(ParserException.Type.NotWellFormed, e.getMessage());
+		}
+		Element elt = doc.getDocumentElement();
+		if ("parsererror".equals(DOMHelper.getLocalName(elt))) {
+			String message = "Parsing error";
+			if (elt.getFirstChild() != null) {
+				message = elt.getFirstChild().<Text>cast().getData();
+			}
+			throw new ParserException(ParserException.Type.NotWellFormed, message);
+		}
+		SVGSVGElement svg = DOMHelper.importNode(DOMHelper.getCurrentDocument(), elt, true).cast();
+		// IE9 bug workaround: update all SVG style elements by
+		// adding a trailing whitespace char, otherwise IE9 will
+		// ignore them
+		Iterator<Text> iterator = DOMHelper.evaluateNodeListXPath(svg, ".//svg:style/text()", SVGPrefixResolver.INSTANCE);
+		List<Text> styleTexts = new ArrayList<Text>();
+		while(iterator.hasNext()) {
+			Text styleText = iterator.next();
+			styleTexts.add(styleText);
+		}
+		for (Text styleText : styleTexts) {
+			styleText.<Text>cast().setData(styleText.<Text>cast().getData() + " ");
+		}
+		
+		return enableScripts ? enableScriptElements(svg) : svg;
 	}
 
 }

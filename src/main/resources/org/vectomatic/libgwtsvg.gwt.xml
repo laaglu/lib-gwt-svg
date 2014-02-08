@@ -7,19 +7,6 @@
 	<source path="dom" />
 
     <!-- Default implementation -->
-	<replace-with class="org.vectomatic.dom.svg.impl.DOMHelperImpl">
-		<when-type-is class="org.vectomatic.dom.svg.impl.DOMHelperImpl" />
-	</replace-with>
-    <!-- IE9 implementation -->
-	<replace-with class="org.vectomatic.dom.svg.impl.DOMHelperImplIE">
-		<when-type-is class="org.vectomatic.dom.svg.impl.DOMHelperImpl" />
-		<any>
-			<when-property-is name="user.agent" value="ie9" />
-            <when-property-is name="user.agent" value="ie10" />
-		</any>
-	</replace-with>
-	
-    <!-- Default implementation -->
 	<replace-with class="org.vectomatic.dom.svg.impl.SVGParserImpl">
 		<when-type-is class="org.vectomatic.dom.svg.impl.SVGParserImpl" />
 	</replace-with>
@@ -31,13 +18,6 @@
 			<when-property-is name="user.agent" value="gecko1_8" />
 		</any>
 	</replace-with>
-    <!-- Opera implementation -->
-	<replace-with class="org.vectomatic.dom.svg.impl.SVGParserImplOpera">
-		<when-type-is class="org.vectomatic.dom.svg.impl.SVGParserImpl" />
-		<any>
-			<when-property-is name="user.agent" value="opera" />
-		</any>
-	</replace-with>
     <!-- WebKit implementation -->
 	<replace-with class="org.vectomatic.dom.svg.impl.SVGParserImplWebkit">
 		<when-type-is class="org.vectomatic.dom.svg.impl.SVGParserImpl" />
@@ -45,22 +25,5 @@
 			<when-property-is name="user.agent" value="safari" />
 		</any>
 	</replace-with>
-    <!-- IE implementation -->
-	<replace-with class="org.vectomatic.dom.svg.impl.SVGParserImplIE">
-		<when-type-is class="org.vectomatic.dom.svg.impl.SVGParserImpl" />
-		<any>
-			<when-property-is name="user.agent" value="ie9" />
-            <when-property-is name="user.agent" value="ie10" />
-		</any>
-	</replace-with>
-	
-	    <!-- WebKit implementation -->
-	<replace-with class="org.vectomatic.dom.svg.impl.CSSHelperWebkit">
-		<when-type-is class="org.vectomatic.dom.svg.impl.CSSHelper" />
-		<any>
-			<when-property-is name="user.agent" value="safari" />
-		</any>
-	</replace-with>
-	
 	
 </module>
