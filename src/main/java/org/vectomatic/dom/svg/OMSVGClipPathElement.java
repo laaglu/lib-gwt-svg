@@ -126,7 +126,8 @@ public class OMSVGClipPathElement extends OMSVGElement implements ISVGTests, ISV
    * title='svg element specification'>svg</a> element.
    */
   public final OMSVGElement getNearestViewportElement() {
-    return (OMSVGElement)convert(((SVGClipPathElement)ot).getNearestViewportElement());
+    SVGElement elt = ((SVGClipPathElement)ot).getNearestViewportElement();
+    return elt != null ? (OMSVGElement)convert(elt) : null;
   }
   /**
    * The farthest ancestor <a href='http://www.w3.org/TR/SVG11/struct.html#SVGElement'
@@ -135,7 +136,8 @@ public class OMSVGClipPathElement extends OMSVGElement implements ISVGTests, ISV
    * title='svg element specification'>svg</a> element.
    */
   public final OMSVGElement getFarthestViewportElement() {
-    return (OMSVGElement)convert(((SVGClipPathElement)ot).getFarthestViewportElement());
+    SVGElement elt = ((SVGClipPathElement)ot).getFarthestViewportElement();
+    return elt != null ? (OMSVGElement)convert(elt) : null;
   }
   /**
    * Returns the tight bounding box in current user space (i.e., after application

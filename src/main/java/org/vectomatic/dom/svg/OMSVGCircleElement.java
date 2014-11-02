@@ -185,7 +185,8 @@ public class OMSVGCircleElement extends OMSVGElement implements HasGraphicalHand
    * title='svg element specification'>svg</a> element.
    */
   public final OMSVGElement getNearestViewportElement() {
-    return (OMSVGElement)convert(((SVGCircleElement)ot).getNearestViewportElement());
+    SVGElement elt = ((SVGCircleElement)ot).getNearestViewportElement();
+    return elt != null ? (OMSVGElement)convert(elt) : null;
   }
   /**
    * The farthest ancestor <a href='http://www.w3.org/TR/SVG11/struct.html#SVGElement'
@@ -194,7 +195,8 @@ public class OMSVGCircleElement extends OMSVGElement implements HasGraphicalHand
    * title='svg element specification'>svg</a> element.
    */
   public final OMSVGElement getFarthestViewportElement() {
-    return (OMSVGElement)convert(((SVGCircleElement)ot).getFarthestViewportElement());
+    SVGElement elt = ((SVGCircleElement)ot).getFarthestViewportElement();
+    return elt != null ? (OMSVGElement)convert(elt) : null;
   }
   /**
    * Returns the tight bounding box in current user space (i.e., after application

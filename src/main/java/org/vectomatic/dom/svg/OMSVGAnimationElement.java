@@ -44,7 +44,6 @@ import org.vectomatic.dom.svg.events.HasGraphicalHandlers;
 import org.vectomatic.dom.svg.events.RepeatEvent;
 import org.vectomatic.dom.svg.events.RepeatHandler;
 import org.vectomatic.dom.svg.impl.SVGAnimationElement;
-import org.vectomatic.dom.svg.impl.SVGElement;
 import org.vectomatic.dom.svg.itf.ISVGExternalResourcesRequired;
 import org.vectomatic.dom.svg.itf.ISVGTests;
 

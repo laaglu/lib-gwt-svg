@@ -212,7 +212,8 @@ public class OMSVGUseElement extends OMSVGElement implements HasGraphicalHandler
    * title='svg element specification'>svg</a> element.
    */
   public final OMSVGElement getNearestViewportElement() {
-    return (OMSVGElement)convert(((SVGUseElement)ot).getNearestViewportElement());
+    SVGElement elt = ((SVGUseElement)ot).getNearestViewportElement();
+    return elt != null ? (OMSVGElement)convert(elt) : null;
   }
   /**
    * The farthest ancestor <a href='http://www.w3.org/TR/SVG11/struct.html#SVGElement'
@@ -221,7 +222,8 @@ public class OMSVGUseElement extends OMSVGElement implements HasGraphicalHandler
    * title='svg element specification'>svg</a> element.
    */
   public final OMSVGElement getFarthestViewportElement() {
-    return (OMSVGElement)convert(((SVGUseElement)ot).getFarthestViewportElement());
+    SVGElement elt = ((SVGUseElement)ot).getFarthestViewportElement();
+    return elt != null ? (OMSVGElement)convert(elt) : null;
   }
   /**
    * Returns the tight bounding box in current user space (i.e., after application

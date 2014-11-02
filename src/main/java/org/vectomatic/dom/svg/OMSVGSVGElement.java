@@ -53,6 +53,7 @@ import org.vectomatic.dom.svg.utils.DOMHelper;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import com.google.gwt.core.client.JavaScriptException;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.dom.client.Style;
@@ -631,7 +632,8 @@ public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandler
    * @return The matching element.
    */
   public final OMElement getElementById(String elementId) {
-    return (OMElement) convert(((SVGSVGElement)ot).getElementById(elementId));
+	Element elt = ((SVGSVGElement)ot).getElementById(elementId);
+    return elt != null ? (OMElement) convert(elt) : null;
   }
 
   // Implementation of the svg::SVGExternalResourcesRequired W3C IDL interface
@@ -707,7 +709,8 @@ public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandler
    * title='svg element specification'>svg</a> element.
    */
   public final OMSVGElement getNearestViewportElement() {
-    return (OMSVGElement)convert(((SVGSVGElement)ot).getNearestViewportElement());
+    SVGElement elt = ((SVGSVGElement)ot).getNearestViewportElement();
+    return elt != null ? (OMSVGElement)convert(elt) : null;
   }
   /**
    * The farthest ancestor <a href='http://www.w3.org/TR/SVG11/struct.html#SVGElement'
@@ -716,7 +719,8 @@ public class OMSVGSVGElement extends OMSVGElement implements HasGraphicalHandler
    * title='svg element specification'>svg</a> element.
    */
   public final OMSVGElement getFarthestViewportElement() {
-    return (OMSVGElement)convert(((SVGSVGElement)ot).getFarthestViewportElement());
+    SVGElement elt = ((SVGSVGElement)ot).getFarthestViewportElement();
+    return elt != null ? (OMSVGElement)convert(elt) : null;
   }
   /**
    * Returns the tight bounding box in current user space (i.e., after application

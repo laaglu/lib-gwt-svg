@@ -33,6 +33,7 @@ import org.w3c.dom.DOMException;
 
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
 
 /**
  * Wrapper class for DOM Document
@@ -169,7 +170,8 @@ public class OMDocument extends OMNode {
      * @return The matching element or <code>null</code> if there is none.
      */
 	public final <T extends OMElement> T getElementById(String elementId) {
-		return OMNode.<T>convert(((Document)ot).getElementById(elementId));
+		Element elt = ((Document)ot).getElementById(elementId);
+		return elt != null ? OMNode.<T>convert(elt) : null;
 	}
 	
     /**

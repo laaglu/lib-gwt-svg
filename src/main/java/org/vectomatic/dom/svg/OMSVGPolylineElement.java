@@ -181,7 +181,8 @@ public class OMSVGPolylineElement extends OMSVGElement implements HasGraphicalHa
    * title='svg element specification'>svg</a> element.
    */
   public final OMSVGElement getNearestViewportElement() {
-    return (OMSVGElement)convert(((SVGPolylineElement)ot).getNearestViewportElement());
+    SVGElement elt = ((SVGPolylineElement)ot).getNearestViewportElement();
+    return elt != null ? (OMSVGElement)convert(elt) : null;
   }
   /**
    * The farthest ancestor <a href='http://www.w3.org/TR/SVG11/struct.html#SVGElement'
@@ -190,7 +191,8 @@ public class OMSVGPolylineElement extends OMSVGElement implements HasGraphicalHa
    * title='svg element specification'>svg</a> element.
    */
   public final OMSVGElement getFarthestViewportElement() {
-    return (OMSVGElement)convert(((SVGPolylineElement)ot).getFarthestViewportElement());
+    SVGElement elt = ((SVGPolylineElement)ot).getFarthestViewportElement();
+    return elt != null ? (OMSVGElement)convert(elt) : null;
   }
   /**
    * Returns the tight bounding box in current user space (i.e., after application

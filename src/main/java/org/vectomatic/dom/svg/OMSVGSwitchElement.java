@@ -161,7 +161,8 @@ public class OMSVGSwitchElement extends OMSVGElement implements HasGraphicalHand
    * title='svg element specification'>svg</a> element.
    */
   public final OMSVGElement getNearestViewportElement() {
-    return (OMSVGElement)convert(((SVGSwitchElement)ot).getNearestViewportElement());
+    SVGElement elt = ((SVGSwitchElement)ot).getNearestViewportElement();
+    return elt != null ? (OMSVGElement)convert(elt) : null;
   }
   /**
    * The farthest ancestor <a href='http://www.w3.org/TR/SVG11/struct.html#SVGElement'
@@ -170,7 +171,8 @@ public class OMSVGSwitchElement extends OMSVGElement implements HasGraphicalHand
    * title='svg element specification'>svg</a> element.
    */
   public final OMSVGElement getFarthestViewportElement() {
-    return (OMSVGElement)convert(((SVGSwitchElement)ot).getFarthestViewportElement());
+    SVGElement elt = ((SVGSwitchElement)ot).getFarthestViewportElement();
+    return elt != null ? (OMSVGElement)convert(elt) : null;
   }
   /**
    * Returns the tight bounding box in current user space (i.e., after application
