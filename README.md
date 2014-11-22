@@ -85,8 +85,12 @@ Lib-gwt-svg requires GWT 2.x. Depending on the version you GWT you are using, yo
 <td>0.5.8</td>
 </tr>
 <tr>
-<td>2.6.0</td>
+<td>2.6.x</td>
 <td>0.5.9</td>
+</tr>
+<tr>
+<td>2.7.0</td>
+<td>0.5.10</td>
 </tr>
 </tbody>
 </table>
