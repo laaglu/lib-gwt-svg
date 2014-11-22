@@ -15,21 +15,6 @@
  */
 package com.google.gwt.uibinder.rebind;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import org.vectomatic.dom.svg.OMSVGElement;
-import org.vectomatic.dom.svg.utils.SVGConstants;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 import com.google.gwt.core.ext.UnableToCompleteException;
 import com.google.gwt.core.ext.typeinfo.JClassType;
 import com.google.gwt.core.ext.typeinfo.JMethod;
@@ -69,10 +54,10 @@ import com.google.gwt.uibinder.rebind.model.OwnerField;
 import com.google.gwt.user.client.ui.IsRenderable;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.RenderableStamper;
-
+import org.vectomatic.dom.svg.OMSVGElement;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
 import java.beans.Introspector;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -1316,8 +1301,8 @@ public class UiBinderWriter implements Statements {
         // laaglu
         parserClassName = getAnnotatedParserForClass(uiClass);
         if (parserClassName == null) {
-          return null;
-        }
+      return null;
+    }
         // laaglu
     }
 
