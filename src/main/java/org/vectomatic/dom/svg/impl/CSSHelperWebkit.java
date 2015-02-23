@@ -25,13 +25,7 @@ import org.vectomatic.dom.svg.OMSVGStyle;
  */
 public class CSSHelperWebkit extends CSSHelper {
 	public native String getProperty(OMSVGStyle style, String name) /*-{
-		// Webkit returns uri paint values in the form '#uri', instead of 'url(#url)'
-		// which makes it hard to parse these values (because they cannot be
-		// distinguished from '#aabbcc' rgb paint values)
-		var value = style.getPropertyCSSValue(name);
-		if (value != null && typeof value.paintType != "undefined" && value.uri != null && value.uri.length > 0) {
-			return "url(" + value.uri + ")";
-		}
+		// removed: not working call: getPropertyCSSValue
 		return style.getPropertyValue(name);
 	}-*/;
 }
