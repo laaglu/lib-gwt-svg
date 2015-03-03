@@ -115,7 +115,7 @@ public class SVGImage extends SVGWidget implements HasGraphicalHandlers, HasAllM
 	 */
 	public SVGImage() {
 	}
-	public SVGImage(SVGResource resource) {
+	@UiConstructor public SVGImage(SVGResource resource) {
 		setResource(resource);
 	}
 	public SVGImage(OMSVGSVGElement svgElement) {
