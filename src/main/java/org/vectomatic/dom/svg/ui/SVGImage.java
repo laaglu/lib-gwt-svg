@@ -262,4 +262,44 @@ public class SVGImage extends SVGWidget implements HasGraphicalHandlers, HasAllM
 	public final void setClassNameBaseVal(String className) {
 		svgElement.setClassNameBaseVal(className);
 	}
+	
+	/**
+	 * Add a new base class name.
+	 * 
+	 * @param style The CSS class name to add.
+	 * @see #addClassNameBaseVal(String)
+	 */
+	@Override
+	public void addStyleName(String style) {
+		this.addClassNameBaseVal(style);
+	}
+
+	/**
+	 * Overwrite any existing class name.
+	 * 
+	 * @param style The CSS class name to set.
+	 * @see #setClassNameBaseVal(String)
+	 */
+	@Override
+	public void setStyleName(String style) {
+		this.setClassNameBaseVal(style);
+	}
+
+	/**
+	 * @see #removeClassNameBaseVal(String)
+	 */
+	@Override
+	public void removeStyleName(String style) {
+		this.removeClassNameBaseVal(style);
+	}
+
+	@Override
+	public void setStyleName(String style, boolean add) {
+		if (add) {
+			this.addStyleName(style);
+		} else {
+			this.removeStyleName(style);
+		}
+	}
+	
 }
