@@ -39,6 +39,8 @@ import com.google.gwt.resources.client.TextResource;
  * (mostly event dispatching)
  * Xpath support for IE, based on Cameron McCormack's library
  * (http://mcc.id.au/xpathjs)
+ * SVGPathSeg support for Chromium 48+, based on Philip Rogers's polyfill
+ * (https://github.com/progers/pathseg/blob/master/pathseg.js)
  * @author laaglu
  */
 public class DOMHelperImpl {
@@ -296,12 +298,15 @@ public class DOMHelperImpl {
 	
 	///////////////////////////////////////////////////////////////
 	// XPath shim for IE support
+	// Pathseg polyfill for Chomium 48+
 	///////////////////////////////////////////////////////////////
 
 	public interface Resource extends ClientBundle {
 		static Resource INSTANCE = GWT.create(Resource.class);
 		@Source("xpath.js")
 		TextResource xpath();
+		@Source("pathseg.js")
+		TextResource pathseg();
 	}
 	
 	public DOMHelperImpl() {
@@ -314,10 +319,25 @@ public class DOMHelperImpl {
 			doc.getBody().appendChild(scriptElem);
 			initXPath();
 		}
+		if (!hasNativePathSeg()) {
+			// Inject the pathseg.js script in the main document 
+			// and the iframe document
+			Document doc1 = Document.get();
+			ScriptElement scriptElem1 = doc1.createScriptElement(Resource.INSTANCE.pathseg().getText());
+			doc1.getBody().appendChild(scriptElem1);
+
+			Document doc2 = getIFrameDocument();
+			ScriptElement scriptElem2 = doc2.createScriptElement(Resource.INSTANCE.pathseg().getText());
+			doc2.getBody().appendChild(scriptElem2);
+		}
 	}
 
 	public static native boolean hasNativeXPath() /*-{
 		return typeof Document.prototype.evaluate === 'function';
+	}-*/;
+
+	public static native boolean hasNativePathSeg() /*-{
+		return typeof SVGPathSeg === 'function';
 	}-*/;
 
 	protected native void initXPath() /*-{

@@ -597,6 +597,10 @@ public class DOMHelper {
 	    if (t != "object")  {
 	        return t;
 	    }
+	    // Hack from Chrome48+
+	    if ('__IsSVGPathSegList__' in x) {
+	        return 'SVGPathSegList';
+	    }
 	    // Otherwise, x is an object. Use the default toString( ) method to
 	    // get the class value of the object.
 	    var c = Object.prototype.toString.apply(x);  // Returns "[object class]"
