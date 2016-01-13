@@ -299,6 +299,7 @@ public class DOMHelperImpl {
 	///////////////////////////////////////////////////////////////
 	// XPath shim for IE support
 	// Pathseg polyfill for Chomium 48+
+	// getTransformToElement polyfill for Chomium 48+
 	///////////////////////////////////////////////////////////////
 
 	public interface Resource extends ClientBundle {
@@ -307,6 +308,8 @@ public class DOMHelperImpl {
 		TextResource xpath();
 		@Source("pathseg.js")
 		TextResource pathseg();
+		@Source("getTransformToElement.js")
+		TextResource getTransformToElement();
 	}
 	
 	public DOMHelperImpl() {
@@ -330,6 +333,17 @@ public class DOMHelperImpl {
 			ScriptElement scriptElem2 = doc2.createScriptElement(Resource.INSTANCE.pathseg().getText());
 			doc2.getBody().appendChild(scriptElem2);
 		}
+		if (!hasGetTransformToElement()) {
+			// Inject the getTransformToElement.js script in the main document 
+			// and the iframe document
+			Document doc1 = Document.get();
+			ScriptElement scriptElem1 = doc1.createScriptElement(Resource.INSTANCE.getTransformToElement().getText());
+			doc1.getBody().appendChild(scriptElem1);
+
+			Document doc2 = getIFrameDocument();
+			ScriptElement scriptElem2 = doc2.createScriptElement(Resource.INSTANCE.getTransformToElement().getText());
+			doc2.getBody().appendChild(scriptElem2);
+		}
 	}
 
 	public static native boolean hasNativeXPath() /*-{
@@ -338,6 +352,10 @@ public class DOMHelperImpl {
 
 	public static native boolean hasNativePathSeg() /*-{
 		return typeof SVGPathSeg === 'function';
+	}-*/;
+	
+	public static native boolean hasGetTransformToElement() /*-{
+		return 'getTransformToElement' in SVGSVGElement.prototype;
 	}-*/;
 
 	protected native void initXPath() /*-{
