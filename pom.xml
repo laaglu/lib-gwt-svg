@@ -18,9 +18,9 @@
 		</license>
 	</licenses>
 	<scm>
-		<url>scm:git:git@github.com:laaglu/lib-gwt-svg.git</url>
-		<connection>scm:git:git@github.com:laaglu/lib-gwt-svg.git</connection>
-		<developerConnection>scm:git:git@github.com:laaglu/lib-gwt-svg.git</developerConnection>
+		<url>scm:git:git://git/lib-gwt-svg.git</url>
+		<connection>scm:git:git://git/lib-gwt-svg.git</connection>
+		<developerConnection>scm:git:git://git/lib-gwt-svg.git</developerConnection>
 	  <tag>HEAD</tag>
   </scm>
 	<dependencies>
