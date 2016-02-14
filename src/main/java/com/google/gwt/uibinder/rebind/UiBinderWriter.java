@@ -39,13 +39,13 @@ import com.google.gwt.core.ext.typeinfo.JPrimitiveType;
 import com.google.gwt.core.ext.typeinfo.JType;
 import com.google.gwt.core.ext.typeinfo.JTypeParameter;
 import com.google.gwt.core.ext.typeinfo.TypeOracle;
-import com.google.gwt.core.shared.impl.StringCase;
 import com.google.gwt.dev.resource.ResourceOracle;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.TagName;
 import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.dom.client.DomEvent.Type;
 import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.rg.GssResourceGenerator.GssOptions;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.attributeparsers.AttributeParsers;
 import com.google.gwt.uibinder.client.ElementParserToUse;
@@ -196,7 +196,7 @@ public class UiBinderWriter implements Statements {
   }
 
   private static String capitalizePropName(String propName) {
-    return StringCase.toUpper(propName.substring(0, 1)) + propName.substring(1);
+    return propName.substring(0, 1).toUpperCase(Locale.ROOT) + propName.substring(1);
   }
 
   /**
@@ -377,11 +377,13 @@ public class UiBinderWriter implements Statements {
 
   private final ResourceOracle resourceOracle;
 
+  private final GssOptions gssOptions;
+
   public UiBinderWriter(JClassType baseClass, String implClassName, String templatePath,
       TypeOracle oracle, MortalLogger logger, FieldManager fieldManager,
       MessagesWriter messagesWriter, DesignTimeUtils designTime, UiBinderContext uiBinderCtx,
       boolean useSafeHtmlTemplates, boolean useLazyWidgetBuilders, String binderUri,
-      ResourceOracle resourceOracle) throws UnableToCompleteException {
+      ResourceOracle resourceOracle, GssOptions gssOptions) throws UnableToCompleteException {
     this.baseClass = baseClass;
     this.implClassName = implClassName;
     this.oracle = oracle;
@@ -395,6 +397,7 @@ public class UiBinderWriter implements Statements {
     this.useLazyWidgetBuilders = useLazyWidgetBuilders;
     this.binderUri = binderUri;
     this.resourceOracle = resourceOracle;
+    this.gssOptions = gssOptions;
 
     this.htmlTemplates = new HtmlTemplatesWriter(fieldManager, logger);
 
@@ -1427,7 +1430,7 @@ public class UiBinderWriter implements Statements {
     // Allow GWT.create() to init the field, the default behavior
 
     FieldWriter rootField = new UiBinderParser(this, messages, fieldManager, oracle, bundleClass,
-            binderUri, uiBinderCtx, resourceOracle).parse(elem);
+            binderUri, uiBinderCtx, resourceOracle, gssOptions).parse(elem);
 
     fieldManager.validate();
 
