@@ -92,6 +92,10 @@ Lib-gwt-svg requires GWT 2.x. Depending on the version you GWT you are using, yo
 <td>2.7.0</td>
 <td>0.5.10, 0.5.11 (for Chrome 48+)</td>
 </tr>
+<tr>
+<td>2.8.0</td>
+<td>0.5.12</td>
+</tr>
 </tbody>
 </table>
 
