@@ -23,6 +23,7 @@ import org.vectomatic.dom.svg.utils.XPathPrefixResolver;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.impl.SchedulerImpl;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
@@ -182,6 +183,7 @@ public class DOMHelperImpl {
 	 */
 	public void dispatch(NativeEvent event, OMNode node, Element elem) {
 		//Window.alert("type=" + event.getType());
+		SchedulerImpl.INSTANCE.flushEntryCommands();
 		String eventName = event.getType();
 		if ("mouseover".equals(eventName) || "mouseout".equals(eventName)) {
 			// Mouseover and mouseout deserve special treatment
@@ -194,6 +196,7 @@ public class DOMHelperImpl {
 			}
 		}
 		node.dispatch(event);
+		SchedulerImpl.INSTANCE.flushFinallyCommands();
 	}
 
 	/**
