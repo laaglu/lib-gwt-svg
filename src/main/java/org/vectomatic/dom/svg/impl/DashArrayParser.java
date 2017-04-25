@@ -10,7 +10,6 @@ import org.vectomatic.dom.svg.OMCSSValue;
 import org.vectomatic.dom.svg.OMCSSValueList;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
-import com.gargoylesoftware.htmlunit.javascript.host.css.CSSPrimitiveValue;
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
@@ -36,15 +35,15 @@ public class DashArrayParser {
 
 	private DashArrayParser() {
 		unitToPrimitiveType = new HashMap<String, Short>();
-		unitToPrimitiveType.put("em", CSSPrimitiveValue.CSS_EMS);
-		unitToPrimitiveType.put("ex", CSSPrimitiveValue.CSS_EXS);
-		unitToPrimitiveType.put("px", CSSPrimitiveValue.CSS_PX);
-		unitToPrimitiveType.put("in", CSSPrimitiveValue.CSS_IN);
-		unitToPrimitiveType.put("cm", CSSPrimitiveValue.CSS_CM);
-		unitToPrimitiveType.put("mm", CSSPrimitiveValue.CSS_MM);
-		unitToPrimitiveType.put("pt", CSSPrimitiveValue.CSS_PT);
-		unitToPrimitiveType.put("pc", CSSPrimitiveValue.CSS_PC);
-		unitToPrimitiveType.put("%", CSSPrimitiveValue.CSS_PERCENTAGE);
+		unitToPrimitiveType.put("em", OMCSSPrimitiveValue.CSS_EMS);
+		unitToPrimitiveType.put("ex", OMCSSPrimitiveValue.CSS_EXS);
+		unitToPrimitiveType.put("px", OMCSSPrimitiveValue.CSS_PX);
+		unitToPrimitiveType.put("in", OMCSSPrimitiveValue.CSS_IN);
+		unitToPrimitiveType.put("cm", OMCSSPrimitiveValue.CSS_CM);
+		unitToPrimitiveType.put("mm", OMCSSPrimitiveValue.CSS_MM);
+		unitToPrimitiveType.put("pt", OMCSSPrimitiveValue.CSS_PT);
+		unitToPrimitiveType.put("pc", OMCSSPrimitiveValue.CSS_PC);
+		unitToPrimitiveType.put("%", OMCSSPrimitiveValue.CSS_PERCENTAGE);
 	}
 	
 	public OMCSSValue parse(String cssText) {
@@ -63,7 +62,7 @@ public class DashArrayParser {
 				String length = lengthArray[i].trim();
 				MatchResult result = LENGTH.exec(length);
 				if (result != null && result.getGroupCount() == 3) {
-					short primitiveType = CSSPrimitiveValue.CSS_NUMBER;
+					short primitiveType = OMCSSPrimitiveValue.CSS_NUMBER;
 					String unit = result.getGroup(2);
 					if (unit != null) {
 						primitiveType = unitToPrimitiveType.get(unit.toLowerCase());
@@ -78,5 +77,4 @@ public class DashArrayParser {
 		values = lengths.toArray(new OMCSSValue[lengths.size()]);
 		return new OMCSSValueList(values, cssText);
 	}
-
 }
