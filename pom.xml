@@ -7,7 +7,7 @@
 	</parent>
 	<artifactId>lib-gwt-svg</artifactId>
 	<packaging>jar</packaging>
-	<version>0.5.13-SNAPSHOT</version>
+	<version>0.5.13</version>
 	<name>lib-gwt-svg</name>
 	<description>A GWT library to access the SVG functionalities of web browsers</description>
 	<url>http://www.vectomatic.org/libs/lib-gwt-svg</url>
@@ -21,7 +21,7 @@
 		<url>scm:git:git://git/lib-gwt-svg.git</url>
 		<connection>scm:git:git://git/lib-gwt-svg.git</connection>
 		<developerConnection>scm:git:git://git/lib-gwt-svg.git</developerConnection>
-	  <tag>HEAD</tag>
+	  <tag>0.5.13</tag>
   </scm>
 	<dependencies>
 		<dependency>
