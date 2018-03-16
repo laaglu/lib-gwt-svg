@@ -102,7 +102,7 @@ Lib-gwt-svg requires GWT 2.x. Depending on the version you GWT you are using, yo
 </tr>
 <tr>
 <td>2.8.2</td>
-<td>0.5.14</td>
+<td>0.5.14, 0.5.15 (for Firefox 59+)</td>
 </tr>
 </tbody>
 </table>
