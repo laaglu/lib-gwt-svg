@@ -104,6 +104,9 @@ public class DOMHelperImpl {
 	public void bindEventListener(Element elem, String eventName) {
 		init();
 		sinkEvents(elem, eventName);
+		if ("mousewheel".equals(eventName)) {
+			sinkEvents(elem, "DOMMouseScroll");
+		}
 	}
 
 	/**
@@ -114,6 +117,9 @@ public class DOMHelperImpl {
 	public void unbindEventListener(Element elem, String eventName) {
 		init();
 		unsinkEvents(elem, eventName);
+		if ("mousewheel".equals(eventName)) {
+			unsinkEvents(elem, "DOMMouseScroll");
+		}
 	}
 
 	/**
