@@ -23,7 +23,6 @@ import org.vectomatic.dom.svg.utils.XPathPrefixResolver;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.impl.SchedulerImpl;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
@@ -55,13 +54,15 @@ public class DOMHelperImpl {
 	   */
 	  protected native void initEventSystem() /*-{
 	    $wnd.__helperImpl = this;
-	    $wnd.__svgDispatch = function(evt) {
-	        $wnd.__helperImpl.@org.vectomatic.dom.svg.impl.DOMHelperImpl::dispatch(Lcom/google/gwt/dom/client/NativeEvent;Lorg/vectomatic/dom/svg/OMNode;Lcom/google/gwt/dom/client/Element;)(evt, evt.currentTarget.__wrapper, evt.currentTarget);
-	    };
-  
-	    $wnd.__svgCapture = function(evt) {
-	        $wnd.__helperImpl.@org.vectomatic.dom.svg.impl.DOMHelperImpl::dispatchCapturedEvent(Lcom/google/gwt/dom/client/NativeEvent;Lcom/google/gwt/dom/client/Element;)(evt, evt.currentTarget);
-	    };
+        $wnd.__svgDispatch = function (evt) {
+            var dispatch = $wnd.__helperImpl.@org.vectomatic.dom.svg.impl.DOMHelperImpl::dispatch(Lcom/google/gwt/dom/client/NativeEvent;Lorg/vectomatic/dom/svg/OMNode;Lcom/google/gwt/dom/client/Element;);
+            $entry(dispatch).call($wnd.__helperImpl, evt, evt.currentTarget.__wrapper, evt.currentTarget);
+        };
+
+        $wnd.__svgCapture = function (evt) {
+            var dispatchCapturedEvent = $wnd.__helperImpl.@org.vectomatic.dom.svg.impl.DOMHelperImpl::dispatchCapturedEvent(Lcom/google/gwt/dom/client/NativeEvent;Lcom/google/gwt/dom/client/Element;);
+            $entry(dispatchCapturedEvent).call($wnd.__helperImpl, evt, evt.currentTarget);
+        };
 
 	    $wnd.addEventListener('mousedown', $wnd.__svgCapture, true);
 	    $wnd.addEventListener('mouseup', $wnd.__svgCapture, true);
@@ -183,7 +184,6 @@ public class DOMHelperImpl {
 	 */
 	public void dispatch(NativeEvent event, OMNode node, Element elem) {
 		//Window.alert("type=" + event.getType());
-		SchedulerImpl.INSTANCE.flushEntryCommands();
 		String eventName = event.getType();
 		if ("mouseover".equals(eventName) || "mouseout".equals(eventName)) {
 			// Mouseover and mouseout deserve special treatment
@@ -196,7 +196,6 @@ public class DOMHelperImpl {
 			}
 		}
 		node.dispatch(event);
-		SchedulerImpl.INSTANCE.flushFinallyCommands();
 	}
 
 	/**
