@@ -1,4 +1,7 @@
 # Introduction
+
+**NOTICE: This project is published internally as a maven dependency. See [here](https://github.com/itdesign-gmbh/mp-lib-gwt-svg/packages).**
+
 lib-gwt-svg is a library to add SVG graphics to GWT applications.
 
 It offers the following features:
@@ -32,11 +35,11 @@ The library can obtained from:
 * The [Maven Central Repository](http://search.maven.org/#search|ga|1|a%3A%22lib-gwt-svg%22)
 * The [vectomatic](http://www.vectomatic.org/mvn/org/vectomatic/lib-gwt-svg) local maven repository
 
-Discussion group: 
+Discussion group:
 
 * The [lib-gwt-svg Google group](https://groups.google.com/group/lib-gwt-svg) answers questions about lib-gwt-svg usage. I (or somebody else) will do my best to answer it as quickly as possible.
 
-Development: 
+Development:
 
 * The main code repository is now hosted on [github](https://github.com/laaglu/lib-gwt-svg). The easiest way to contribute is to send pull requests there, or to provide patches to me by [email](mailto:laaglu@gmail.com)
 

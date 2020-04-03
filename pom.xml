@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.vectomatic</groupId>
@@ -21,8 +22,8 @@
 		<url>scm:git:git://git/lib-gwt-svg.git</url>
 		<connection>scm:git:git://git/lib-gwt-svg.git</connection>
 		<developerConnection>scm:git:git://git/lib-gwt-svg.git</developerConnection>
-	  <tag>HEAD</tag>
-  </scm>
+		<tag>HEAD</tag>
+	</scm>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -56,5 +57,10 @@
 	</build>
 	<distributionManagement>
 		<downloadUrl>http://www.vectomatic.org/libs/lib-gwt-svg</downloadUrl>
+		<repository>
+			<id>github</id>
+			<name>GitHub itdesign-gmbh Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/itdesign-gmbh/mp-lib-gwt-svg</url>
+		</repository>
 	</distributionManagement>
 </project>
